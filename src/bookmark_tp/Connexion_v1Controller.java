@@ -105,12 +105,8 @@ public class Connexion_v1Controller extends Application implements Initializable
 
     }
 
-    
-
-
     boolean validUser() throws IOException, SQLException, ClassNotFoundException {
-        Connection conn = SimpleDataSource.getConnection();
-        try {
+        try (Connection conn = SimpleDataSource.getConnection()) {
 
             PreparedStatement stat = conn.prepareStatement(
                     "(SELECT Id FROM user WHERE user_name = '" + user_name.getText() + "')");
@@ -118,44 +114,36 @@ public class Connexion_v1Controller extends Application implements Initializable
             int valid = stat.executeUpdate();
 
             if (valid == 0) {
-                showAlert("nom de user invalide ");
+                showAlert("nom de user ");
                 return false;
             }
 
-        } finally {
-            conn.close();
         }
 
         return true;
     }
 
     boolean validPassword() throws IOException, SQLException, ClassNotFoundException {
-        Connection conn = SimpleDataSource.getConnection();
-        try {
+        try (Connection conn = SimpleDataSource.getConnection()) {
 
             PreparedStatement stat = conn.prepareStatement(
-                    "(SELECT user_password FROM user WHERE user_name = '" + user_name.getText() + "')");
+                    "(SELECT user_password FROM user WHERE user.user_name = '" + user_name.getText() + "')");
 
             ResultSet rs = stat.executeQuery();
             String pass = null;
             String pass2 = user_password.getText();
+            
             if (rs.next()) {
                 pass = rs.getString(1);
-               if (!pass.equals(pass2))
-            {
-                showAlert("mot de passe invalide");
-                return false;
-            }
+                if (!pass.equals(pass2)) {
+                    showAlert("mot de passe ");
+                    return false;
+                }
             }
 
-            
-
-        } finally {
-            conn.close();
-            
         }
 
-       return true;
+        return true;
     }
 
     void showAlert(String var) {
@@ -168,14 +156,28 @@ public class Connexion_v1Controller extends Application implements Initializable
     }
 
     @FXML
-    private void connectUser(MouseEvent event)throws IOException, SQLException, ClassNotFoundException  {
-          if (validUser() == true && validPassword() == true) {
-              Parent root = FXMLLoader.load(getClass().getResource("ajoutPartage_v1.fxml"));
+    private void connectUser(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
+      
+        if (validContent() ==true && validUser() == true && validPassword() == true) {
+            Parent root = FXMLLoader.load(getClass().getResource("ajoutPartage_v1.fxml"));
 
-        Scene scene = new Scene(root);
-        Stage secondStage = new Stage();
-        secondStage.setScene(scene);
-        secondStage.show();
-         }
+            Scene scene = new Scene(root);
+            Stage secondStage = new Stage();
+            secondStage.setScene(scene);
+            secondStage.show();
+        }
+    }
+    
+    boolean validContent()
+    {
+        if (user_name.getText().isEmpty()) {
+             showAlert("Champs name Vide et ");
+             return false;
+        }
+        else  if (user_password.getText().isEmpty()) {
+             showAlert("Champs password Vide et ");
+             return false;
+        }
+    return true;
     }
 }
