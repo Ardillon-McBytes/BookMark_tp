@@ -1,3 +1,8 @@
+<<<<<<< OURS
+/build/
+/dist/
+=======
 
 *.properties
 nbproject/private/private.properties
+>>>>>>> THEIRS
