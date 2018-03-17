@@ -3,7 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/bookmark_tp/BookMark_tp.java</file>
+=======
+            <file>file:/D:/Prog/Java/BookMark_tp/src/bookmark_tp/Connexion_v1Controller.java</file>
+            <file>file:/D:/Prog/Java/BookMark_tp/database.properties</file>
+            <file>file:/D:/Prog/Java/BookMark_tp/src/bookmark_tp/SimpleDataSource.java</file>
+            <file>file:/D:/Prog/Java/BookMark_tp/src/bookmark_tp/AjoutPartage_v1Controller.java</file>
+            <file>file:/D:/Prog/Java/BookMark_tp/src/bookmark_tp/ExecSQL.java</file>
+            <file>file:/D:/Prog/Java/BookMark_tp/src/bookmark_tp/BookMark_tp.java</file>
+            <file>file:/D:/Prog/Java/BookMark_tp/src/bookmark_tp/NouveauCompte_v1Controller.java</file>
+>>>>>>> J-a
         </group>
     </open-files>
 </project-private>
