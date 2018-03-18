@@ -6,38 +6,20 @@
 package bookmark_tp;
 
 import java.io.IOException;
-import javafx.stage.Stage;
-import javafx.scene.layout.BorderPane;
+
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.application.Application;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import javafx.scene.control.*;
-import javafx.event.*;
 import javafx.fxml.FXML;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javafx.scene.layout.Pane;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -59,7 +41,9 @@ public class Connexion_v1Controller extends Application implements Initializable
     private Button btnConnect;
     @FXML
     private Button btnNewAccount;
-    private Stage primaryStage;
+
+    Stage primaryStage;
+    int _id_user;
 
     /**
      * Initializes the controller class.
@@ -91,15 +75,15 @@ public class Connexion_v1Controller extends Application implements Initializable
     private void newAccount() throws Exception {
 
         NouveauCompte_v1Controller controller = new NouveauCompte_v1Controller();
-
         Stage stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
-        controller.setPrevStage(stageTheLabelBelongs);
-        stageTheLabelBelongs.hide();
+
+        controller.setPrevStage(stageTheLabelBelongs, user_name.getText());
 
         Parent root = FXMLLoader.load(getClass().getResource("NouveauCompte_v1.fxml"));
 
         Scene scene = new Scene(root);
         Stage secondStage = new Stage();
+
         secondStage.setScene(scene);
         secondStage.show();
 
@@ -119,12 +103,12 @@ public class Connexion_v1Controller extends Application implements Initializable
             }
 
         }
-
         return true;
     }
 
     boolean validPassword() throws IOException, SQLException, ClassNotFoundException {
-        try (Connection conn = SimpleDataSource.getConnection()) {
+        Connection conn = SimpleDataSource.getConnection();
+        try {
 
             PreparedStatement stat = conn.prepareStatement(
                     "(SELECT user_password FROM user WHERE user.user_name = '" + user_name.getText() + "')");
@@ -132,7 +116,7 @@ public class Connexion_v1Controller extends Application implements Initializable
             ResultSet rs = stat.executeQuery();
             String pass = null;
             String pass2 = user_password.getText();
-            
+
             if (rs.next()) {
                 pass = rs.getString(1);
                 if (!pass.equals(pass2)) {
@@ -140,6 +124,9 @@ public class Connexion_v1Controller extends Application implements Initializable
                     return false;
                 }
             }
+
+        } finally {
+            conn.close();
 
         }
 
@@ -155,29 +142,62 @@ public class Connexion_v1Controller extends Application implements Initializable
         alert.showAndWait();
     }
 
+    public int getUserId(String name)
+            throws SQLException {
+
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            String query3 = "SELECT id "
+                    + "FROM user "
+                    + "WHERE user_name = ?";
+            PreparedStatement ps3 = conn.prepareStatement(query3);
+            ps3.setString(1, name);
+
+            ResultSet rs = ps3.executeQuery();
+
+            if (rs.next()) {
+                _id_user = rs.getInt(1);
+            }
+
+        } finally {
+            conn.close();
+
+        }
+        return _id_user;
+
+    }
+
+    boolean validContent() {
+        if (user_name.getText().isEmpty()) {
+            showAlert("Champs name Vide et ");
+            return false;
+        } else if (user_password.getText().isEmpty()) {
+            showAlert("Champs password Vide et ");
+            return false;
+        }
+        return true;
+    }
+
     @FXML
     private void connectUser(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
-      
-        if (validContent() ==true && validUser() == true && validPassword() == true) {
-            Parent root = FXMLLoader.load(getClass().getResource("ajoutPartage_v1.fxml"));
+        if (validContent() == true && validUser() == true && validPassword() == true) {
+
+            ajoutTag_v1Controller controller = new ajoutTag_v1Controller();
+            Stage stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
+
+          
+            Parent root = FXMLLoader.load(getClass().getResource("ajout_tag_v1.fxml"));
 
             Scene scene = new Scene(root);
             Stage secondStage = new Stage();
+            
+            controller.setPrevStage(stageTheLabelBelongs, 1, getUserId(user_name.getText()));
             secondStage.setScene(scene);
+            
+            stageTheLabelBelongs.hide();
             secondStage.show();
         }
     }
-    
-    boolean validContent()
-    {
-        if (user_name.getText().isEmpty()) {
-             showAlert("Champs name Vide et ");
-             return false;
-        }
-        else  if (user_password.getText().isEmpty()) {
-             showAlert("Champs password Vide et ");
-             return false;
-        }
-    return true;
-    }
+
 }

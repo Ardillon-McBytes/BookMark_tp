@@ -43,131 +43,122 @@ public class NouveauCompte_v1Controller implements Initializable {
     private Button btnAnnuler;
     @FXML
     private Button btnCreateAccount;
-     Stage prevStage;
-     
-     public void setPrevStage(Stage stage){
-         this.prevStage = stage;
+
+    static Stage prevStage;
+    static String _userName;
+
+    public void setPrevStage(Stage stage, String userName) {
+        prevStage = stage;
+        _userName = userName;
     }
+
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)   {
-      
-      
-       
-     
+    public void initialize(URL url, ResourceBundle rb) {
+
+        userName.setText(_userName);
+
     }
-   
-  
+
     @FXML
     private void CreateAccount(MouseEvent event)
-            throws IOException, SQLException, ClassNotFoundException  {
-      if (Valid()&& validUser())
-      {
+            throws IOException, SQLException, ClassNotFoundException {
+        if (Valid() && validUser()) {
+            Connection conn = SimpleDataSource.getConnection();
+            try {
+
+                PreparedStatement stat = conn.prepareStatement(
+                        " INSERT INTO `User` (`user_name`, `user_adress`,`user_password`) "
+                        + "VALUES ('" + userName.getText() + "','"
+                        + userAdress.getText() + "','"
+                        + userPassword.getText() + "')");
+
+                stat.executeUpdate();
+
+                PreparedStatement stat2 = conn.prepareStatement(
+                        " INSERT INTO `group_book` (`nom`, `Description`) "
+                        + "VALUES ('" + userName.getText() + "','"
+                        + "Default Group" + "')");
+
+                stat2.executeUpdate();
+                System.exit(0);
+
+            } finally {
+                conn.close();
+            }
+        }
+    }
+
+    private boolean Valid() {
+
+        if (userName.getText().isEmpty()) {
+            showAlert("userName");
+            return false;
+        } else if (userAdress.getText().isEmpty()) {
+            showAlert("userAdress");
+            return false;
+        } else if (userPassword.getText().isEmpty()) {
+            showAlert("userPassword");
+            return false;
+        } else if (userConfirmPassword.getText().isEmpty()) {
+            showAlert("userConfirmPassword");
+            return false;
+        } else if (!userConfirmPassword.getText().equals(userPassword.getText())) {
+            showAlert("les 2 mdp ne corresponde pas. l'un des deux est ");
+            return false;
+        }
+
+        return true;
+    }
+
+    void showAlert(String var) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(var + " invalide");
+
+        alert.showAndWait();
+    }
+
+    boolean validUser() throws IOException, SQLException, ClassNotFoundException {
         Connection conn = SimpleDataSource.getConnection();
         try {
 
             PreparedStatement stat = conn.prepareStatement(
-                    " INSERT INTO `User` (`user_name`, `user_adress`,`user_password`) "
-                    + "VALUES ('" + userName.getText() + "','"
-                    + userAdress.getText() + "','"
-                    + userPassword.getText() + "')");
-           userConfirmPassword.setText("allo");
-            stat.executeUpdate();
-            System.exit(0);
-            
+                    "(SELECT Id FROM user WHERE user_name = '" + userName.getText() + "')");
+
+            int valid = stat.executeUpdate();
+
+            if (valid != 0) {
+                showAlert("nom de user déja pris, user ");
+                return false;
+            }
+
         } finally {
             conn.close();
         }
-        }
-    }
-    
-    private boolean Valid()
-    {
-        
-        if (userName.getText().isEmpty()) {
-            showAlert("userName");
-            return false;
-        }
-        else  if (userAdress.getText().isEmpty()) {
-            showAlert("userAdress");
-             return false;
-        }
-        else if (userPassword.getText().isEmpty()) {
-            showAlert("userPassword");
-             return false;
-        }
-        else  if (userConfirmPassword.getText().isEmpty()) {
-            showAlert("userConfirmPassword");
-             return false;
-        }
-        else  if (!userConfirmPassword.getText().equals(userPassword.getText())) {
-            showAlert("les 2 mdp ne corresponde pas. l'un des deux est ");
-             return false;
-        }
-        
+
         return true;
     }
-    
-    void showAlert(String var)
-    {
-   Alert alert = new Alert(AlertType.ERROR);
-alert.setTitle("Error");
-alert.setHeaderText(null);
-alert.setContentText(var + " invalide");
 
-alert.showAndWait();
-    }
-    
-    
-    boolean validUser ()throws IOException, SQLException, ClassNotFoundException 
-    {
-         Connection conn = SimpleDataSource.getConnection();
-        try {
-
-            PreparedStatement stat = conn.prepareStatement(
-                    "(SELECT Id FROM user WHERE user_name = '"+userName.getText()  + "')");
-                        
-           int valid =  stat.executeUpdate();
-           
-           if (valid != 0)
-           {
-           showAlert("nom de user déja pris, user ");
-           return false;
-           }
-         
-            
-        } finally {
-            conn.close();
-        }
-            
-        
-    return true;
-    }
-
-    @FXML
-    private void exitPage(MouseEvent event)throws Exception {
-   
-   Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
-   stageTheLabelBelongs.hide();
-   startPage();
-  
-   
-    }
     public void startPage() throws Exception {
-      
 
-   Parent root = FXMLLoader.load(getClass().getResource("Connexion_v1.fxml"));
-     
+        Parent root = FXMLLoader.load(getClass().getResource("Connexion_v1.fxml"));
+
         Scene scene = new Scene(root);
         Stage secondStage = new Stage();
         secondStage.setScene(scene);
         secondStage.show();
-    
-   
+
     }
- 
+
+    @FXML
+    private void exitPage(MouseEvent event) {
+        Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
+        stageTheLabelBelongs.hide();
+        prevStage.show();
+    }
+
 }
-
-

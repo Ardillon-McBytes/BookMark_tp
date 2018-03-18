@@ -10,8 +10,6 @@ import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
-
 import javafx.stage.Stage;
 
 /**
@@ -31,14 +29,16 @@ public class BookMark_tp extends Application {
     }
 
     @Override
-
     public void start(Stage stage) throws Exception {
 
         Parent root = FXMLLoader.load(getClass().getResource("Connexion_v1.fxml"));
+        
         Connexion_v1Controller controll = new Connexion_v1Controller();
         controll.setPrevStage(stage);
+        
         Scene scene = new Scene(root);
         Stage secondStage = new Stage();
+        
         secondStage.setScene(scene);
         secondStage.show();
 
