@@ -1,210 +1,358 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="303.0" minWidth="500.0" prefHeight="303.0" prefWidth="716.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="2.0" VBox.vgrow="NEVER">
-        <columnConstraints>
-            <ColumnConstraints halignment="CENTER" minWidth="25.0" />
-          <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
-          <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" />
-            <ColumnConstraints halignment="CENTER" minWidth="95.0" />
-            <ColumnConstraints halignment="CENTER" minWidth="60.0" />
-            <ColumnConstraints halignment="RIGHT" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
-            <RowConstraints valignment="BASELINE" />
-          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-            <RowConstraints valignment="CENTER" vgrow="NEVER" />
-          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-            <RowConstraints valignment="BASELINE" />
-            <RowConstraints prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
-            <RowConstraints valignment="CENTER" vgrow="NEVER" />
-            <RowConstraints prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
-            <RowConstraints valignment="CENTER" vgrow="NEVER" />
-            <RowConstraints valignment="BASELINE" vgrow="ALWAYS" />
-        </rowConstraints>
-         <children>
-            <TextField promptText="Courriel du compte" GridPane.columnIndex="3" GridPane.rowIndex="7">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </TextField>
-            <Label text="04" textAlignment="RIGHT" GridPane.rowIndex="5">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
-               </GridPane.margin>
-            </Label>
-            <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" minWidth="100.0" mnemonicParsing="false" text="Ajouter" GridPane.columnSpan="5" GridPane.halignment="LEFT" GridPane.rowIndex="10">
-               <GridPane.margin>
-                  <Insets left="10.0" top="10.0" />
-               </GridPane.margin>
-            </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" minWidth="100.0" mnemonicParsing="false" text="Tout effacer" GridPane.columnSpan="5" GridPane.halignment="LEFT" GridPane.rowIndex="10">
-               <GridPane.margin>
-                  <Insets left="120.0" top="10.0" />
-               </GridPane.margin>
-            </Button>
-            <Label text="Message" visible="false" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
-            <ScrollBar max="20.0" orientation="VERTICAL" visibleAmount="20.0" GridPane.columnIndex="5" GridPane.rowSpan="9" GridPane.valignment="TOP" />
-            <Button alignment="CENTER" cancelButton="true" contentDisplay="CENTER" minWidth="100.0" mnemonicParsing="false" text="Quitter" GridPane.columnSpan="6" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
-               <GridPane.margin>
-                  <Insets right="10.0" top="10.0" />
-               </GridPane.margin>
-            </Button>
-            <Label alignment="CENTER" minWidth="25.0" style="-fx-background-color: FFFFFF;" text="ID" textAlignment="RIGHT" textFill="#3d80cc" GridPane.halignment="CENTER">
-               <font>
-                  <Font name="Arial Bold" size="15.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <GridPane.margin>
-                  <Insets left="2.0" right="2.0" />
-               </GridPane.margin>
-            </Label>
-            <Label style="-fx-background-color: FFFFFF;" text="Utilisateur" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS">
-               <font>
-                  <Font name="Arial Bold" size="15.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets left="3.0" />
-               </padding>
-               <GridPane.margin>
-                  <Insets left="2.0" right="2.0" />
-               </GridPane.margin>
-            </Label>
-            <Separator GridPane.columnSpan="6" GridPane.rowIndex="9" />
-            <Label text="01" textAlignment="RIGHT" textFill="#3d80cc" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
-               </GridPane.margin>
-            </Label>
-            <Label text="Bob01" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
-               </GridPane.margin>
-            </Label>
-            <Label text="2018-02-27" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
-               </GridPane.margin>
-            </Label>
-            <Label style="-fx-background-color: FFFFFF;" text="Date d'ajout" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="2">
-               <font>
-                  <Font name="Arial Bold" size="15.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets left="3.0" />
-               </padding>
-               <GridPane.margin>
-                  <Insets left="2.0" right="2.0" />
-               </GridPane.margin>
-            </Label>
-            <Label style="-fx-background-color: FFFFFF;" text="Partage total" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="3" GridPane.halignment="LEFT">
-               <font>
-                  <Font name="Arial Bold" size="15.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets left="3.0" />
-               </padding>
-               <GridPane.margin>
-                  <Insets left="2.0" right="2.0" />
-               </GridPane.margin>
-            </Label>
-            <Label style="-fx-background-color: FFFFFF;" text="Effacer" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="4" GridPane.halignment="LEFT">
-               <font>
-                  <Font name="Arial Bold" size="15.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets left="3.0" />
-               </padding>
-               <GridPane.margin>
-                  <Insets left="2.0" right="2.0" />
-               </GridPane.margin>
-            </Label>
-            <Label text="Le mot de passe saisit n'est pas valide: " textFill="#993300" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-            <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Button alignment="BASELINE_CENTER" minWidth="60.0" mnemonicParsing="false" text="—" GridPane.columnIndex="4" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Arial Bold" size="20.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-               <padding>
-                  <Insets bottom="1.0" top="-3.0" />
-               </padding>
-            </Button>
-            <Button alignment="BASELINE_CENTER" minWidth="60.0" mnemonicParsing="false" text="—" GridPane.columnIndex="4" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Arial Bold" size="20.0" />
-               </font>
-               <padding>
-                  <Insets bottom="1.0" top="-3.0" />
-               </padding>
-            </Button>
-            <Button alignment="BASELINE_CENTER" minWidth="60.0" mnemonicParsing="false" text="—" GridPane.columnIndex="4" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Arial Bold" size="20.0" />
-               </font>
-               <padding>
-                  <Insets bottom="1.0" top="-3.0" />
-               </padding>
-            </Button>
-            <Button alignment="BASELINE_CENTER" minWidth="60.0" mnemonicParsing="false" text="—" GridPane.columnIndex="4" GridPane.rowIndex="4">
-               <font>
-                  <Font name="Arial Bold" size="20.0" />
-               </font>
-               <padding>
-                  <Insets bottom="1.0" top="-3.0" />
-               </padding>
-            </Button>
-            <Button alignment="BASELINE_CENTER" minWidth="60.0" mnemonicParsing="false" text="—" GridPane.columnIndex="4" GridPane.rowIndex="5">
-               <font>
-                  <Font name="Arial Bold" size="20.0" />
-               </font>
-               <padding>
-                  <Insets bottom="1.0" top="-3.0" />
-               </padding>
-            </Button>
-         </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </GridPane>
+      <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <AnchorPane VBox.vgrow="ALWAYS">
+                     <children>
+                        <SplitPane dividerPositions="0.35353535353535354" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane focusTraversable="true" maxHeight="30.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0">
+                                 <children>
+                                    <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label alignment="CENTER" minWidth="25.0" style="-fx-background-color: FFFFFF;" text="ID" textAlignment="RIGHT" textFill="#3d80cc" GridPane.halignment="CENTER">
+                                             <font>
+                                                <Font name="Arial Bold" size="15.0" />
+                                             </font>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <GridPane.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label style="-fx-background-color: FFFFFF;" text="Utilisateur" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS">
+                                             <font>
+                                                <Font name="Arial Bold" size="15.0" />
+                                             </font>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <padding>
+                                                <Insets left="3.0" />
+                                             </padding>
+                                             <GridPane.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label style="-fx-background-color: FFFFFF;" text="Date d'ajout" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="2">
+                                             <font>
+                                                <Font name="Arial Bold" size="15.0" />
+                                             </font>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <padding>
+                                                <Insets left="3.0" />
+                                             </padding>
+                                             <GridPane.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label style="-fx-background-color: FFFFFF;" text="Partage total" textAlignment="RIGHT" textFill="#3d80cc" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.vgrow="NEVER">
+                                             <font>
+                                                <Font name="Arial Bold" size="15.0" />
+                                             </font>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <padding>
+                                                <Insets left="3.0" />
+                                             </padding>
+                                             <GridPane.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label style="-fx-background-color: FFFFFF;" text="Effacer" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="4" GridPane.halignment="LEFT">
+                                             <font>
+                                                <Font name="Arial Bold" size="15.0" />
+                                             </font>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <padding>
+                                                <Insets left="3.0" />
+                                             </padding>
+                                             <GridPane.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                       </children>
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="CENTER" minWidth="-Infinity" prefWidth="25.0" />
+                                          <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="81.0" prefWidth="0.0" />
+                                          <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="93.0" prefWidth="0.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="25.0" prefWidth="100.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="60.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
+                                       </rowConstraints>
+                                       <padding>
+                                          <Insets right="20.0" />
+                                       </padding>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane>
+                                 <children>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="-Infinity" minWidth="-Infinity" pannable="true" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <content>
+                                        <AnchorPane>
+                                             <children>
+                                                <GridPane vgap="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                  <columnConstraints>
+                                                      <ColumnConstraints halignment="CENTER" minWidth="-Infinity" prefWidth="25.0" />
+                                                    <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="81.0" prefWidth="0.0" />
+                                                    <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="93.0" prefWidth="0.0" />
+                                                      <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="25.0" prefWidth="100.0" />
+                                                      <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="60.0" />
+                                                  </columnConstraints>
+                                                  <rowConstraints>
+                                                      <RowConstraints valignment="BASELINE" />
+                                                    <RowConstraints valignment="CENTER" />
+                                                      <RowConstraints valignment="CENTER" />
+                                                    <RowConstraints valignment="CENTER" />
+                                                      <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                  </rowConstraints>
+                                                   <children>
+                                                      <Label text=" 5" textAlignment="RIGHT" GridPane.rowIndex="4">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                      <Label text=" 1" textAlignment="RIGHT" textFill="#3d80cc">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                      <Label text="Bob01" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="1">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                      <Label text="2018-02-27" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="2">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                      <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="3">
+                                                         <GridPane.margin>
+                                                            <Insets right="-6.0" />
+                                                         </GridPane.margin>
+                                                      </CheckBox>
+                                                      <Button alignment="BASELINE_CENTER" minWidth="60.0" mnemonicParsing="false" text="—" GridPane.columnIndex="4">
+                                                         <font>
+                                                            <Font name="Arial Bold" size="20.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets />
+                                                         </GridPane.margin>
+                                                         <padding>
+                                                            <Insets bottom="1.0" top="-3.0" />
+                                                         </padding>
+                                                      </Button>
+                                                      <Button alignment="BASELINE_CENTER" minWidth="60.0" mnemonicParsing="false" text="—" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="Arial Bold" size="20.0" />
+                                                         </font>
+                                                         <padding>
+                                                            <Insets bottom="1.0" top="-3.0" />
+                                                         </padding>
+                                                      </Button>
+                                                      <Button alignment="BASELINE_CENTER" minWidth="60.0" mnemonicParsing="false" text="—" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                                                         <font>
+                                                            <Font name="Arial Bold" size="20.0" />
+                                                         </font>
+                                                         <padding>
+                                                            <Insets bottom="1.0" top="-3.0" />
+                                                         </padding>
+                                                      </Button>
+                                                      <Button alignment="BASELINE_CENTER" minWidth="60.0" mnemonicParsing="false" text="—" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                                                         <font>
+                                                            <Font name="Arial Bold" size="20.0" />
+                                                         </font>
+                                                         <padding>
+                                                            <Insets bottom="1.0" top="-3.0" />
+                                                         </padding>
+                                                      </Button>
+                                                      <Button alignment="BASELINE_CENTER" disable="true" minWidth="60.0" mnemonicParsing="false" text="—" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                                                         <font>
+                                                            <Font name="Arial Bold" size="20.0" />
+                                                         </font>
+                                                         <padding>
+                                                            <Insets bottom="1.0" top="-3.0" />
+                                                         </padding>
+                                                      </Button>
+                                                      <Label text=" 2" textAlignment="RIGHT" textFill="#3d80cc" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label text=" 3" textAlignment="RIGHT" textFill="#3d80cc" GridPane.rowIndex="2">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label text=" 4" textAlignment="RIGHT" textFill="#3d80cc" GridPane.rowIndex="3">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label text="Lucien" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                      <Label text="2018-02-27" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                      <Label text="2018-02-27" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                      <Label text="2018-02-27" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                      <CheckBox alignment="CENTER" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                                         <GridPane.margin>
+                                                            <Insets right="-6.0" />
+                                                         </GridPane.margin>
+                                                      </CheckBox>
+                                                      <CheckBox mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                                         <GridPane.margin>
+                                                            <Insets right="-6.0" />
+                                                         </GridPane.margin>
+                                                      </CheckBox>
+                                                      <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                                         <GridPane.margin>
+                                                            <Insets right="-6.0" />
+                                                         </GridPane.margin>
+                                                      </CheckBox>
+                                                      <CheckBox mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                                                         <GridPane.margin>
+                                                            <Insets right="-6.0" />
+                                                         </GridPane.margin>
+                                                      </CheckBox>
+                                                      <Label text="Marchal" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                      <Label text="Èveline" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                      <Label textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                      <TextField promptText="Nom" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                         <GridPane.margin>
+                                                            <Insets />
+                                                         </GridPane.margin>
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                         <padding>
+                                                            <Insets left="2.0" top="4.0" />
+                                                         </padding>
+                                                      </TextField>
+                                                   </children>
+                                                </GridPane>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </ScrollPane>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane translateZ="80.0" VBox.vgrow="NEVER">
+                     <children>
+                        <HBox fillHeight="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" translateZ="-88.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <FlowPane columnHalignment="CENTER" depthTest="DISABLE" minHeight="-Infinity" minWidth="-Infinity" prefWrapLength="250.0" rowValignment="BOTTOM" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" minWidth="100.0" mnemonicParsing="false" text="Ajouter" />
+                                    <Button alignment="CENTER" contentDisplay="CENTER" minWidth="100.0" mnemonicParsing="false" text="Tout effacer">
+                                       <FlowPane.margin>
+                                          <Insets left="10.0" />
+                                       </FlowPane.margin>
+                                    </Button>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </FlowPane>
+                              <AnchorPane HBox.hgrow="NEVER">
+                                 <children>
+                                    <Button alignment="CENTER" cancelButton="true" contentDisplay="CENTER" minWidth="100.0" mnemonicParsing="false" text="Quitter" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </VBox>
