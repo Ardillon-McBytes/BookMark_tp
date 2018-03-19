@@ -9,13 +9,13 @@ package applicationclass;
 import java.util.ArrayList;
 
 /**
- *
+ * 
  * @author olivi
  */
 public class TA_GB_GB extends ArrayList<DBTA<Groupbook, Groupbook>> {
   
   /**
-   *
+   * 
    * @param id
    * @param gb
    * @return
@@ -32,7 +32,7 @@ public class TA_GB_GB extends ArrayList<DBTA<Groupbook, Groupbook>> {
   }
 
   /**
-   *
+   * 
    * @param id
    * @param gb
    * @return
@@ -47,14 +47,13 @@ public class TA_GB_GB extends ArrayList<DBTA<Groupbook, Groupbook>> {
     return false;
   }
 
-  // Ne prendre que le premier ou toute la liste?
-
   /**
-   *
+   * 
    * @param child
    * @param gbs
    * @return
    */
+  // Ne prendre que le premier ou toute la liste?
   public ArrayList<Groupbook> getParentGroupbooks(
           Groupbook child, ArrayList<Groupbook> gbs) {
     return Recherche.getParentGroupbooks(child, this, gbs)/*.get(0)*/;

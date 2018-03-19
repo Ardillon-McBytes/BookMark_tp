@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/User.java</file>
-            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/controllerclass/AjoutPartage_v1Controller.java</file>
-            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/GroupBook.java</file>
-            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/Bookmark.java</file>
-            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/Tag.java</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/Groupbook.java</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/DBTA.java</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/TA_BM_Tag.java</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/TA_User_GB.java</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/TA_GB_GB.java</file>
         </group>
     </open-files>
 </project-private>
