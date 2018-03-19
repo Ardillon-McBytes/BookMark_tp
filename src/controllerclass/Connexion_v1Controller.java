@@ -190,7 +190,7 @@ public class Connexion_v1Controller extends Application implements Initializable
     private void connectUser(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
         if (validContent() == true && validUser() == true && validPassword() == true) {
 
-            AjoutTag_v1Controller controller = new AjoutTag_v1Controller();
+            PagePrincipaleController controller = new PagePrincipaleController();
             Stage stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
 
           
