@@ -5,8 +5,14 @@
         <group>
             <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/Groupbook.java</file>
             <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/controllerclass/Connexion_v1Controller.java</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/interfaceclass/pagePrincipale_v2.fxml</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/interfaceclass/ajoutPartage_v1.fxml</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/interfaceclass/ajout_tag_v1.fxml</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/interfaceclass/nouveauCompte_v1.fxml</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/interfaceclass/connexion_v1.fxml</file>
             <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/controllerclass/NouveauCompte_v1Controller.java</file>
-            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/controllerclass/AjoutTag_v1Controller.java</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/controllerclass/AjoutTag_v2Controller.java</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/interfaceclass/infoPartage_v1.fxml</file>
         </group>
     </open-files>
 </project-private>
