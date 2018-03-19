@@ -6,11 +6,9 @@
 package applicationclass;
 
 /**
- * Classe d'association entre les utilisateur et les dossiers de marquepage
- * @author Olivier Lemay Dostie
- * @author Jean-Alain Sainton
- * @version 1.0
+ *
+ * @author olivi
  */
-public class TA_User_GroupBook {
+public class ApplicationMain {
   
 }

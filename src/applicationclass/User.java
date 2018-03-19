@@ -13,49 +13,65 @@ import java.util.ArrayList;
  * @author Jean-Alain Sainton
  * @version 1.0
  */
-public class User {
+public class User implements DBField {
   private int id;
   private String nom;
   private String mdp;
-  private ArrayList<GroupBook> bookList;
 
-  public User(int id, String nom, String mdp, ArrayList<GroupBook> bookList) {
+  public User(int id, String nom, String mdp, 
+          ArrayList<Groupbook> groupBooks, TA_User_GB ta) {
     this.id = id;
     this.nom = nom;
     this.mdp = mdp;
-    this.bookList = bookList;
+    setGroupBooks(groupBooks, ta);
   }
 
+  @Override
   public void setId(int id) {
     this.id = id;
   }
 
+  @Override
   public void setNom(String nom) {
     this.nom = nom;
   }
 
+  @Override
+  public void setValue(String value) {
+    setMdp(value);
+  }
   public void setMdp(String mdp) {
     this.mdp = mdp;
   }
 
-  public void setBookList(ArrayList<GroupBook> bookList) {
-    this.bookList = bookList;
+  public void setGroupBooks(ArrayList<Groupbook> groupbooks, TA_User_GB ta) {
+    for (Groupbook gb : groupbooks) {
+      
+    }
+    //groupbooks;
   }
 
+  @Override
   public int getId() {
     return id;
   }
 
+  @Override
   public String getNom() {
     return nom;
   }
 
+   @Override
+  public String getValue() {
+    return getMdp();
+  }
   public String getMdp() {
     return mdp;
   }
 
-  public ArrayList<GroupBook> getBookList() {
-    return bookList;
+  public ArrayList<Groupbook> getGroupbooks(TA_User_GB ta) {
+    ArrayList<Groupbook> gbs = new ArrayList<>();
+    return gbs;
   }
   
   public void connect() {
@@ -65,6 +81,10 @@ public class User {
   public void disconnect() {
     
   }
+
+  
+
+ 
   
   
 }
