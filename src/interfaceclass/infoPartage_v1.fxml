@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Cour de la 4e session en Informatique de gestion  (420.AA)
  * Programmation d'environnement graphique           (420-255-SH)
@@ -5,7 +6,7 @@
  * TP1 - Remise 2 - Gestionnaire de marquepage
 -->
 
-<?xml version="1.0" encoding="UTF-8"?>
+
 
 <?import javafx.scene.*?>
 <?import javafx.geometry.*?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfaceclass.InfoPartage_v1Controller">
    <children>
       <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
          <content>

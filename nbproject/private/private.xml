@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
@@ -11,3 +12,18 @@
         </group>
     </open-files>
 </project-private>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/Groupbook.java</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/DBTA.java</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/TA_BM_Tag.java</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/TA_User_GB.java</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/TA_GB_GB.java</file>
+        </group>
+    </open-files>
+</project-private>
+>>>>>>> eed700a2718404893546cdcf6890a4b2a82181a2

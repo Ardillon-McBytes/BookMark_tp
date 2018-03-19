@@ -41,8 +41,6 @@ public class Connexion_v1Controller extends Application implements Initializable
     private TextField user_password;
     @FXML
     private Button btnConnect;
-    @FXML
-    private Button btnNewAccount;
 
     Stage primaryStage;
     int _id_user;
@@ -82,7 +80,7 @@ public class Connexion_v1Controller extends Application implements Initializable
 
         controller.setPrevStage(stageTheLabelBelongs, user_name.getText());
 
-        Parent root = FXMLLoader.load(getClass().getResource("NouveauCompte_v1.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/nouveauCompte_v1.fxml"));
 
         Scene scene = new Scene(root);
         Stage secondStage = new Stage();
@@ -196,7 +194,7 @@ public class Connexion_v1Controller extends Application implements Initializable
             Stage stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
 
           
-            Parent root = FXMLLoader.load(getClass().getResource("ajout_tag_v1.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/pagePrincipale_v2.fxml"));
 
             Scene scene = new Scene(root);
             Stage secondStage = new Stage();

@@ -55,7 +55,7 @@ public class ApplicationMain extends Application {
   @Override
   public void start(Stage stage) throws Exception {
 
-      Parent root = FXMLLoader.load(getClass().getResource("Connexion_v1.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/connexion_v1.fxml"));
 
       Connexion_v1Controller controll = new Connexion_v1Controller();
       controll.setPrevStage(stage);

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Cour de la 4e session en Informatique de gestion  (420.AA)
  * Programmation d'environnement graphique           (420-255-SH)
@@ -5,7 +6,7 @@
  * TP1 - Remise 2 - Gestionnaire de marquepage
 -->
 
-<?xml version="1.0" encoding="UTF-8"?>
+
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -18,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="247.0" minWidth="500.0" prefHeight="247.0" prefWidth="558.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bookmark_tp.ajoutTag_v1Controller">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="247.0" minWidth="500.0" prefHeight="247.0" prefWidth="558.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerclass.AjoutTag_v1Controller">
    <children>
       <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
          <columnConstraints>
