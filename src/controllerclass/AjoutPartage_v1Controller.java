@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
 package controllerclass;
 
@@ -46,6 +47,8 @@ public class AjoutPartage_v1Controller implements Initializable {
 
     /**
      * Initializes the controller class.
+   * @param stage
+   * @param id_bookMark
      */
     public void setPrevStage(Stage stage, int id_bookMark) {
         prevStage = stage;
@@ -141,7 +144,13 @@ public class AjoutPartage_v1Controller implements Initializable {
 
     }
 
-    public int getUserId(String name)
+  /**
+   *
+   * @param name
+   * @return
+   * @throws SQLException
+   */
+  public int getUserId(String name)
             throws SQLException {
 
         Connection conn = SimpleDataSource.getConnection();

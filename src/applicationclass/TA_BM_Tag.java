@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
 package applicationclass;
 
@@ -16,6 +17,13 @@ import java.util.ArrayList;
  */
 public class TA_BM_Tag extends ArrayList<DBTA<Bookmark, Tag>> {
   // Ajouter une interfaces pour les groupes de TA?
+
+  /**
+   *
+   * @param id
+   * @param bm
+   * @return
+   */
   
   public boolean setBookmark(int id, Bookmark bm) {
     for (DBTA<Bookmark, Tag> ta : this) {
@@ -28,6 +36,12 @@ public class TA_BM_Tag extends ArrayList<DBTA<Bookmark, Tag>> {
     return false;
   }
 
+  /**
+   *
+   * @param id
+   * @param tag
+   * @return
+   */
   public boolean setTag(int id, Tag tag) {
     for (DBTA<Bookmark, Tag> ta : this) {
       if (id == ta.getRight()) {
@@ -39,10 +53,23 @@ public class TA_BM_Tag extends ArrayList<DBTA<Bookmark, Tag>> {
   }
 
   // Ne prendre que le premier ou toute la liste?
+
+  /**
+   *
+   * @param tag
+   * @param bookmarks
+   * @return
+   */
   public ArrayList<Bookmark> getBookmark(Tag tag, ArrayList<Bookmark> bookmarks) {
     return Recherche.getBookmarks(tag, this, bookmarks)/*.get(0)*/;
   }
 
+  /**
+   *
+   * @param bookmark
+   * @param tags
+   * @return
+   */
   public /*ArrayList<*/Tag/*>*/ getTag(Bookmark bookmark, ArrayList<Tag> tags) {
     return Recherche.getTags(bookmark, this, tags).get(0);
   }

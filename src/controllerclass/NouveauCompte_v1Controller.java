@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
 package controllerclass;
 
@@ -48,13 +49,20 @@ public class NouveauCompte_v1Controller implements Initializable {
     static Stage prevStage;
     static String _userName;
 
-    public void setPrevStage(Stage stage, String userName) {
+  /**
+   *
+   * @param stage
+   * @param userName
+   */
+  public void setPrevStage(Stage stage, String userName) {
         prevStage = stage;
         _userName = userName;
     }
 
     /**
      * Initializes the controller class.
+   * @param url
+   * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -144,7 +152,11 @@ public class NouveauCompte_v1Controller implements Initializable {
         return true;
     }
 
-    public void startPage() throws Exception {
+  /**
+   *
+   * @throws Exception
+   */
+  public void startPage() throws Exception {
 
         Parent root = FXMLLoader.load(getClass().getResource("Connexion_v1.fxml"));
 

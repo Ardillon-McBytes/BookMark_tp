@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
 package sqlclass;
 
@@ -24,7 +25,14 @@ import java.util.Scanner;
  */
 public class ExecSQL {
 
-    public static void main(String[] args)
+  /**
+   *
+   * @param args
+   * @throws SQLException
+   * @throws IOException
+   * @throws ClassNotFoundException
+   */
+  public static void main(String[] args)
             throws SQLException, IOException, ClassNotFoundException {
         if (args.length == 0) {
             System.out.println(
@@ -74,6 +82,7 @@ public class ExecSQL {
      * Prints a result set.
      *
      * @param result the result set
+   * @throws java.sql.SQLException
      */
     public static void showResultSet(ResultSet result)
             throws SQLException {
