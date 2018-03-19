@@ -199,7 +199,6 @@ public class Connexion_v1Controller extends Application implements Initializable
             Scene scene = new Scene(root);
             Stage secondStage = new Stage();
             
-            controller.setPrevStage(stageTheLabelBelongs, 1, getUserId(user_name.getText()));
             secondStage.setScene(scene);
             
             stageTheLabelBelongs.hide();
