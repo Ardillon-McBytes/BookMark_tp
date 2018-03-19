@@ -1,10 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
-package bookmark_tp;
+package controllerclass;
 
+import sqlclass.SimpleDataSource;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -25,7 +27,7 @@ import javafx.stage.Stage;
  *
  * @author moi
  */
-public class ajoutTag_v1Controller implements Initializable {
+public class AjoutTag_v1Controller implements Initializable {
 
     @FXML
     private TextField tag_name;
@@ -44,6 +46,8 @@ public class ajoutTag_v1Controller implements Initializable {
 
     /**
      * Initializes the controller class.
+   * @param url
+   * @param rb
      */
     @Override
    
@@ -61,7 +65,13 @@ public class ajoutTag_v1Controller implements Initializable {
         prevStage.show();
     }
 
-    @FXML
+  /**
+   *
+   * @param stage
+   * @param id_bookMark
+   * @param id_user
+   */
+  @FXML
      /**
      * get info from previous stage
      */
@@ -87,6 +97,9 @@ public class ajoutTag_v1Controller implements Initializable {
     
      /**
      * retourne l'id du tag selon son nom
+   * @param name
+   * @return 
+   * @throws java.sql.SQLException 
      */
     public int getTagId(String name)
             throws SQLException {

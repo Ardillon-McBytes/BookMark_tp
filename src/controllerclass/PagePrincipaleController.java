@@ -1,9 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
-package bookmark_tp;
+package controllerclass;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +19,8 @@ public class PagePrincipaleController implements Initializable {
 
   /**
    * Initializes the controller class.
+   * @param url
+   * @param rb
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {

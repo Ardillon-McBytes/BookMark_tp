@@ -1,10 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
-package bookmark_tp;
+package controllerclass;
 
+import sqlclass.SimpleDataSource;
 import java.io.IOException;
 
 import java.net.URL;
@@ -47,6 +49,7 @@ public class Connexion_v1Controller extends Application implements Initializable
 
     /**
      * Initializes the controller class.
+   * @param stage
      */
     public void setPrevStage(Stage stage) {
         this.primaryStage = stage;
@@ -142,7 +145,13 @@ public class Connexion_v1Controller extends Application implements Initializable
         alert.showAndWait();
     }
 
-    public int getUserId(String name)
+  /**
+   *
+   * @param name
+   * @return
+   * @throws SQLException
+   */
+  public int getUserId(String name)
             throws SQLException {
 
         Connection conn = SimpleDataSource.getConnection();
@@ -183,7 +192,7 @@ public class Connexion_v1Controller extends Application implements Initializable
     private void connectUser(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
         if (validContent() == true && validUser() == true && validPassword() == true) {
 
-            ajoutTag_v1Controller controller = new ajoutTag_v1Controller();
+            AjoutTag_v1Controller controller = new AjoutTag_v1Controller();
             Stage stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
 
           

@@ -1,9 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
-package bookmark_tp;
+package sqlclass;
 
 /**
  *
@@ -30,6 +31,8 @@ public class SimpleDataSource
       Initializes the data source.
       @param fileName the name of the property file that 
       contains the database driver, URL, username, and password
+   * @throws java.io.IOException
+   * @throws java.lang.ClassNotFoundException
    */
    public static void init(String fileName)
          throws IOException, ClassNotFoundException
@@ -52,6 +55,7 @@ public class SimpleDataSource
    /**
       Gets a connection to the database.
       @return the database connection
+   * @throws java.sql.SQLException
    */
    public static Connection getConnection() throws SQLException
    {
