@@ -18,7 +18,7 @@ import javafx.scene.input.MouseEvent;
  *
  * @author olivi
  */
-public class AjoutTag_v1Controller implements Initializable {
+public class AjoutTag_v2Controller implements Initializable {
 
   @FXML
   private TextField tag_name;
