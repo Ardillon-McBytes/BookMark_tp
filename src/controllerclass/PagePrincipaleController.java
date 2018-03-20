@@ -193,11 +193,7 @@ return _id_user;
 
   
 
-    @FXML
-    private void refeshPage(MouseEvent event)throws IOException, SQLException, ClassNotFoundException {
-   
-         getBookMark();
-    }
+    
 
     @FXML
     private void refreshPage(MouseEvent event) throws IOException, SQLException, ClassNotFoundException{
