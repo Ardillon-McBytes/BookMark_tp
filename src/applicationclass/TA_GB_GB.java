@@ -9,64 +9,97 @@ package applicationclass;
 import java.util.ArrayList;
 
 /**
- * 
- * @author olivi
+ * Classe qui représente la table d'association (TA) entre 
+ * les Groupbooks conteneurs (parent) et ceux contenus (enfant).
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class TA_GB_GB extends ArrayList<DBTA<Groupbook, Groupbook>> {
   
   /**
-   * 
-   * @param id
-   * @param gb
-   * @return
+   * Modifie l'identifiant des enregistrements ayant comme 
+   * identifiant celui de l'objet Groupbook.
+   * (remplace un dossier par un autre... est-ce utile?)
+   * @param id Identifiant du Groupbook parent à changer dans la TA
+   * @param gb Objet Groupbook d'ont on veut utiliser comme nouveau identifant
+   * @return Le nombre d'enregistrements modifiés
+   * @throws java.lang.Exception 
    */
-  public boolean setParentGroupbook(int id, Groupbook gb) {
+  public int setParent(int id, Groupbook gb) throws Exception {
+    if (id == gb.getId()) throw new Exception();
+    int modifie = 0;
+    
     for (DBTA<Groupbook, Groupbook> ta : this) {
-      // Ou l'inverse? ... if (bm.getId() == ta.getLeft()) {ta.setLeft(id); ...}
       if (id == ta.getLeft()) {
         ta.setLeft(gb);
-        return true;
+        modifie++;
       }
     }
-    return false;
+    return modifie;
   }
-
+  
   /**
-   * 
-   * @param id
-   * @param gb
-   * @return
+   * Modifie l'identifiant des enregistrements ayant comme
+   * identifiant celui de l'objet Groupbook.
+   * @param id Identifiant du Groupbook enfant à changer dans la TA
+   * @param gb Objet Groupbook d'ont on veut utiliser comme nouveau identifiant
+   * @return Le nombre d'enregistrements modifiés
+   * @throws java.lang.Exception 
    */
-  public boolean setChildGroupbook(int id, Groupbook gb) {
+  public int setChild(int id, Groupbook gb) throws Exception {
+    if (id == gb.getId()) throw new Exception();
+    int modifie = 0;
+    
     for (DBTA<Groupbook, Groupbook> ta : this) {
       if (id == ta.getRight()) {
         ta.setRight(gb);
-        return true;
+        modifie++;
       }
     }
-    return false;
+    return modifie;
   }
-
+  
   /**
-   * 
-   * @param child
-   * @param gbs
-   * @return
+   * Obtien la liste des Groupbooks (dossiers) qui contiennent un autre spécifié
+   * @param child Dossier enfant qu'on veut obtenir ses emplacements
+   * @param gbs Liste des dossiers dans lesquels on fait la recherche
+   * @return Liste des dossiers parents à celui spécifié
    */
-  // Ne prendre que le premier ou toute la liste?
-  public ArrayList<Groupbook> getParentGroupbooks(
+  public ArrayList<Groupbook> getParents(
           Groupbook child, ArrayList<Groupbook> gbs) {
-    return Recherche.getParentGroupbooks(child, this, gbs)/*.get(0)*/;
+    return Recherche.getParentGroupbooks(child, this, gbs);
   }
-
+  
   /**
-   *
-   * @param parent
-   * @param gbs
-   * @return
+   * Obtien la liste des Groupbooks (dossiers) qui sont contenus dans celui spécifié
+   * @param parent Dossier parent (racide)
+   * @param gbs Liste des dossiers dans lesquels on fait la recherche
+   * @return Liste des dossiers enfants à celui spécifié
    */
-  public /*ArrayList<*/Groupbook/*>*/ getChildGroupbooks(
+  public ArrayList<Groupbook> getChilds(
           Groupbook parent, ArrayList<Groupbook> gbs) {
-    return Recherche.getChildGroupbooks(parent, this, gbs).get(0);
+    return Recherche.getChildGroupbooks(parent, this, gbs);
+  }
+  
+  /**
+   * Obtien la liste des Groupbooks (dossiers) qui 
+   * sont contenus dans celui spécifié récursivement
+   * @param parent Dossier parent (racine))
+   * @param gbs Liste des dossiers dans lesquels on fait la recherche
+   * @return Liste complète des dossiers parents à celui spécifié
+   */
+  public ArrayList<Groupbook> getAllChilds(
+          Groupbook parent, ArrayList<Groupbook> gbs) {
+    ArrayList<Groupbook> result = getChilds(parent, gbs);
+    /*for 
+    return Recherche.getChildGroupbooks(parent, this, gbs);*/
+    return null;
+  }
+  
+  private ArrayList<Groupbook> recursiveChild(ArrayList<Groupbook> result,
+          Groupbook parent, ArrayList<Groupbook> childs) {
+    //result.addAll(recursiveChild(getChilds(parent, childs)));
+    return result;
   }
 }
