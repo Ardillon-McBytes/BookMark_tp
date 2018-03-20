@@ -6,9 +6,30 @@
  */
 package controllerclass;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TreeView;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import sqlclass.SimpleDataSource;
+import javafx.collections.ObservableList;
+import javafx.collections.ListChangeListener;
+import javafx.collections.FXCollections;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.input.KeyEvent;
 
 /**
  * FXML Controller class
@@ -17,14 +38,205 @@ import javafx.fxml.Initializable;
  */
 public class PagePrincipaleController implements Initializable {
 
+    @FXML
+    private ImageView btnGroup;
+    @FXML
+    private ImageView btnRemove_file;
+    @FXML
+    private ImageView btn_addFile;
+    @FXML
+    private ImageView btn_remove_bm;
+    @FXML
+    private ImageView btnAdd_Bm;
+    @FXML
+    private ImageView btnRemove_user;
+    @FXML
+    private ImageView btnAdd_user;
+    @FXML
+    private ImageView btnInfo_selected;
+    @FXML
+    private ImageView btnHelp;
+    @FXML
+    private ImageView btnRefresh;
+    @FXML
+    private GridPane gp_principal;
+    @FXML
+    private TextField txt_file_name;
+    @FXML
+    private TextField txt_adress;
+    @FXML
+    private ImageView btnAccepted;
+    @FXML
+    private ImageView btnInfo_tag;
+    @FXML
+    private ImageView btnAdd_txt_tag;
+
+    @FXML
+    private ListView<?> list_mp;
+    @FXML
+    private Button btn_12;
+    @FXML
+    private ImageView btnRefresh3;
+
+      static Stage prevStage;
+    static String _userName;
+ static int _user_id;
+    @FXML
+    private TextField txt_tag_name;
+    @FXML
+    private Hyperlink hyper_removeFile;
   /**
-   * Initializes the controller class.
-   * @param url
-   * @param rb
+   *
+   * @param stage
+   * @param userName
    */
-  @Override
-  public void initialize(URL url, ResourceBundle rb) {
-    // TODO
-  }  
+  public void setPrevStage(Stage stage, int user_id) {
+        prevStage = stage;
+        _user_id = user_id;
+    }
+
+    private void exitPage(MouseEvent event) throws Exception {
+
+        Stage stageTheLabelBelongs = (Stage) btnAdd_txt_tag.getScene().getWindow();
+        stageTheLabelBelongs.hide();
+        prevStage.show();
+
+    }
+
+    /**
+     * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+    }
+    
+    
+
+    void getBookMark() throws IOException, SQLException, ClassNotFoundException {
+        Connection conn = SimpleDataSource.getConnection();
+        ObservableList items = FXCollections.observableArrayList();
+        try {
+
+            PreparedStatement stat = conn.prepareStatement(
+                    "(SELECT id_groupBook FROM user_group WHERE id_user = '" + _user_id + "')");
+
+            ResultSet rs = stat.executeQuery();
+            int id_gp = 0;
+           
+
+            while (rs.next()) {
+                id_gp = rs.getInt(1);
+            txt_file_name.setText(Integer.toString(id_gp));
+                PreparedStatement stat2 = conn.prepareStatement(
+                        "(SELECT id_bookmark FROM bookmark_group WHERE id_group = '" + id_gp + "')");
+
+                ResultSet rs2 = stat2.executeQuery();
+            int id_bm = 0;
+                id_bm = rs.getInt(1);
+        txt_adress.setText(Integer.toString(id_bm));
+        
+         String query3 = "SELECT nom_site, Description, Url "
+                    + "FROM bookmark "
+                    + "WHERE id = ? ";
+
+            PreparedStatement ps3 = conn.prepareStatement(query3);
+            ps3.setInt(1, id_bm);
+
+            ResultSet rs3 = ps3.executeQuery();
+        String name = null;
+            if (rs3.next()) {
+                 txt_file_name.setText(rs3.getString(1));
+                  txt_adress.setText(rs3.getString(3));
+                   
+            }
+            
+                items.add(rs3.getString(1));
+               list_mp.setItems(items);
+
+            }
+
+        } finally {
+            conn.close();
+
+        }
+
+    }
+
+    public int getUserId(String name)
+            throws SQLException {
+        int _id_user= -1;
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            String query3 = "SELECT id "
+                    + "FROM user "
+                    + "WHERE user_name = ?";
+            PreparedStatement ps3 = conn.prepareStatement(query3);
+            ps3.setString(1, name);
+
+            ResultSet rs = ps3.executeQuery();
+
+            if (rs.next()) {
+                _id_user = rs.getInt(1);
+            }
+
+        } finally {
+            conn.close();
+
+        }
+return _id_user;
+    }
+
   
+
+    @FXML
+    private void refeshPage(MouseEvent event)throws IOException, SQLException, ClassNotFoundException {
+   
+         getBookMark();
+    }
+
+    @FXML
+    private void refreshPage(MouseEvent event) throws IOException, SQLException, ClassNotFoundException{
+      getBookMark();
+    }
+
+    @FXML
+    private void info_selected(MouseEvent event) {
+    }
+
+    @FXML
+    private void showHelp(MouseEvent event) {
+    }
+
+    @FXML
+    private void removeUserFromBm(MouseEvent event) {
+    }
+
+    @FXML
+    private void addUserBm(MouseEvent event) {
+    }
+
+    @FXML
+    private void remove_bm(MouseEvent event) {
+    }
+
+    @FXML
+    private void add_file(MouseEvent event) {
+    }
+
+    @FXML
+    private void Add_Bm(MouseEvent event) {
+    }
+
+    @FXML
+    private void show_group(MouseEvent event) {
+    }
+
+    @FXML
+    private void remove_File(MouseEvent event) {
+    }
 }
