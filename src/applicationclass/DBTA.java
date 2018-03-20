@@ -13,8 +13,8 @@ import java.util.ArrayList;
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
- * @param <L> Classe du premier élément dans la TA de la BD
- * @param <R> Classe du second élément dans la TA de la BD
+ * @param <L> Classe du premier champ de la TA de la BD
+ * @param <R> Classe du second champ de la TA de la BD
  * @throws 
  */
 public class DBTA<L extends DBField, R extends DBField> {
@@ -34,7 +34,7 @@ public class DBTA<L extends DBField, R extends DBField> {
    * @param left
    * @param right 
    */
-  public DBTA(int left, int right) {
+  protected DBTA(int left, int right) {
     this.left = left;
     this.right = right;
   }
@@ -43,7 +43,7 @@ public class DBTA<L extends DBField, R extends DBField> {
    * @param left
    * @param right 
    */
-  public DBTA(L left, R right) {
+  protected DBTA(L left, R right) {
     this.left = left.getId();
     this.right = right.getId();
   }
@@ -51,33 +51,33 @@ public class DBTA<L extends DBField, R extends DBField> {
    * 
    * @param left 
    */
-  public void setLeft(int left) {
+  protected void setLeft(int left) {
     this.left = left;
   }
   /**
    * 
    * @param left 
    */
-  public void setLeft(L left){
+  protected void setLeft(L left){
     this.left = left.getId();
   }
   /**
    * 
    * @param right 
    */
-  public void setRight(int right) {
+  protected void setRight(int right) {
     this.right = right;
   }
   /**
    * 
    * @param right 
    */
-  public void setRight(R right) {
+  protected void setRight(R right) {
     this.right = right.getId();
   }
   
   // Façon qui utilise une méthode générique, mais fonctionne-t-elle?
-  private <FK extends DBField> FK DBTA(int side, ArrayList<FK> list) {
+  protected <FK extends DBField> FK DBTA(int side, ArrayList<FK> list) {
     for (FK fk : list) {
       if (fk.getId() == side) {
         return fk;
@@ -91,7 +91,7 @@ public class DBTA<L extends DBField, R extends DBField> {
    * @param llist
    * @return
    */
-  public L getLeft(ArrayList<L> llist) {
+  protected L getLeft(ArrayList<L> llist) {
     // Essai de la méthode générique
     return DBTA(this.left, llist);
     /*
@@ -109,7 +109,7 @@ public class DBTA<L extends DBField, R extends DBField> {
    *
    * @return
    */
-  public int getLeft() {
+  protected int getLeft() {
     return this.left;
   }
   
@@ -118,7 +118,7 @@ public class DBTA<L extends DBField, R extends DBField> {
    * @param rlist
    * @return
    */
-  public R getRight(ArrayList<R> rlist) {
+  protected R getRight(ArrayList<R> rlist) {
     // Utilise la méthode générique ici au lieu si elle fonctionne
     for (R r : rlist) {
       if (r.getId() == this.right) {
@@ -132,7 +132,7 @@ public class DBTA<L extends DBField, R extends DBField> {
    *
    * @return
    */
-  public int getRight() {
+  protected int getRight() {
     return this.right;
   }
 }

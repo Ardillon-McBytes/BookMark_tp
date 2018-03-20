@@ -19,12 +19,11 @@ public class TA_BM_Tag extends ArrayList<DBTA<Bookmark, Tag>> {
   // Ajouter une interfaces pour les groupes de TA?
 
   /**
-   *
-   * @param id
-   * @param bm
-   * @return
+   * 
+   * @param id 
+   * @param bm 
+   * @return 
    */
-  
   public boolean setBookmark(int id, Bookmark bm) {
     for (DBTA<Bookmark, Tag> ta : this) {
       // Ou l'inverse? ... if (bm.getId() == ta.getLeft()) {ta.setLeft(id); ...}
@@ -37,10 +36,10 @@ public class TA_BM_Tag extends ArrayList<DBTA<Bookmark, Tag>> {
   }
 
   /**
-   *
-   * @param id
-   * @param tag
-   * @return
+   * 
+   * @param id 
+   * @param tag 
+   * @return 
    */
   public boolean setTag(int id, Tag tag) {
     for (DBTA<Bookmark, Tag> ta : this) {
@@ -52,23 +51,23 @@ public class TA_BM_Tag extends ArrayList<DBTA<Bookmark, Tag>> {
     return false;
   }
 
-  // Ne prendre que le premier ou toute la liste?
-
   /**
-   *
-   * @param tag
-   * @param bookmarks
-   * @return
+   * 
+   * @param tag 
+   * @param bookmarks 
+   * @return 
    */
+  // Ne prendre que le premier ou toute la liste?
+  //  (voir code en commentaires des deux méthodes suivantes)
   public ArrayList<Bookmark> getBookmark(Tag tag, ArrayList<Bookmark> bookmarks) {
     return Recherche.getBookmarks(tag, this, bookmarks)/*.get(0)*/;
   }
 
   /**
-   *
-   * @param bookmark
-   * @param tags
-   * @return
+   * 
+   * @param bookmark 
+   * @param tags 
+   * @return 
    */
   public /*ArrayList<*/Tag/*>*/ getTag(Bookmark bookmark, ArrayList<Tag> tags) {
     return Recherche.getTags(bookmark, this, tags).get(0);

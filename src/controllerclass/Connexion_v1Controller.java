@@ -96,7 +96,7 @@ public class Connexion_v1Controller extends Application implements Initializable
             PreparedStatement stat = conn.prepareStatement(
                     "(SELECT id FROM user WHERE user_name = '" + user_name.getText() + "')");
 
-            int valid = getUserId( user_name.getText());
+             int valid = getUserId( user_name.getText());
 
             if (valid < 1) {
                 showAlert("nom de user ");
