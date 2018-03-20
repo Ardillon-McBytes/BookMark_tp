@@ -94,11 +94,11 @@ public class Connexion_v1Controller extends Application implements Initializable
         try (Connection conn = SimpleDataSource.getConnection()) {
 
             PreparedStatement stat = conn.prepareStatement(
-                    "(SELECT Id FROM user WHERE user_name = '" + user_name.getText() + "')");
+                    "(SELECT id FROM user WHERE user_name = '" + user_name.getText() + "')");
 
-            int valid = stat.executeUpdate();
+            int valid = getUserId( user_name.getText());
 
-            if (valid == 0) {
+            if (valid < 1) {
                 showAlert("nom de user ");
                 return false;
             }
@@ -192,6 +192,7 @@ public class Connexion_v1Controller extends Application implements Initializable
 
             PagePrincipaleController controller = new PagePrincipaleController();
             Stage stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
+            controller.setPrevStage(stageTheLabelBelongs, _id_user);
 
           
             Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/pagePrincipale_v2.fxml"));
