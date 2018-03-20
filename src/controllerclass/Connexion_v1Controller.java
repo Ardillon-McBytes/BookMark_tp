@@ -94,13 +94,10 @@ public class Connexion_v1Controller extends Application implements Initializable
         try (Connection conn = SimpleDataSource.getConnection()) {
 
             PreparedStatement stat = conn.prepareStatement(
-                    "(SELECT Id FROM user WHERE user_name = '" + user_name.getText() + "')");
                     "(SELECT id FROM user WHERE user_name = '" + user_name.getText() + "')");
 
-            int valid = stat.executeUpdate();
-            int valid = getUserId( user_name.getText());
+             int valid = getUserId( user_name.getText());
 
-            if (valid == 0) {
             if (valid < 1) {
                 showAlert("nom de user ");
                 return false;
@@ -193,7 +190,6 @@ public class Connexion_v1Controller extends Application implements Initializable
     private void connectUser(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
         if (validContent() == true && validUser() == true && validPassword() == true) {
 
-            AjoutTag_v1Controller controller = new AjoutTag_v1Controller();
             PagePrincipaleController controller = new PagePrincipaleController();
             Stage stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
             controller.setPrevStage(stageTheLabelBelongs, _id_user);
