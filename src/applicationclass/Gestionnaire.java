@@ -34,6 +34,7 @@ public class Gestionnaire {
    * Constructeur de la classe
    */
   public Gestionnaire() {
+      current = new User();
     acces = new TA_User_GB();
     conteneurs = new TA_GB_GB();
     contenus = new TA_GB_BM();
@@ -55,6 +56,13 @@ public class Gestionnaire {
    */
   public void addUser(User u) {
     users.add(u);
+  }
+  
+   public void setCurrentUser(User u) {
+    current = u;
+  }
+   public User getCurrentUser() {
+    return current;
   }
   
   /**

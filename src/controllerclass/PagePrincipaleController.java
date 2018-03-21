@@ -6,6 +6,8 @@
  */
 package controllerclass;
 
+
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -17,26 +19,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sqlclass.SimpleDataSource;
 import javafx.collections.ObservableList;
-import javafx.collections.ListChangeListener;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.input.KeyEvent;
 
 /**
  * FXML Controller class
  *
  * @author olivi
  */
-public class PagePrincipaleController implements Initializable {
+public class PagePrincipaleController extends main_controller implements Initializable {
 
     @FXML
     private ImageView btnGroup;
@@ -85,23 +83,13 @@ public class PagePrincipaleController implements Initializable {
     private TextField txt_tag_name;
     @FXML
     private Hyperlink hyper_removeFile;
+    
   /**
    *
    * @param stage
    * @param userName
    */
-  public void setPrevStage(Stage stage, int user_id) {
-        prevStage = stage;
-        _user_id = user_id;
-    }
-
-    private void exitPage(MouseEvent event) throws Exception {
-
-        Stage stageTheLabelBelongs = (Stage) btnAdd_txt_tag.getScene().getWindow();
-        stageTheLabelBelongs.hide();
-        prevStage.show();
-
-    }
+  
 
     /**
      * Initializes the controller class.
@@ -122,10 +110,10 @@ public class PagePrincipaleController implements Initializable {
         try {
 
             PreparedStatement stat = conn.prepareStatement(
-                    "(SELECT id_groupBook FROM user_group WHERE id_user = '" + _user_id + "')");
+                    "(SELECT id_groupBook FROM user_group WHERE id_user = '" + gestionnaire.getCurrentUser().getId() + "')");
 
             ResultSet rs = stat.executeQuery();
-            int id_gp = 0;
+            int id_gp = gestionnaire.getCurrentUser().getId();
            
 
             while (rs.next()) {
@@ -165,36 +153,7 @@ public class PagePrincipaleController implements Initializable {
         }
 
     }
-
-    public int getUserId(String name)
-            throws SQLException {
-        int _id_user= -1;
-        Connection conn = SimpleDataSource.getConnection();
-        try {
-
-            String query3 = "SELECT id "
-                    + "FROM user "
-                    + "WHERE user_name = ?";
-            PreparedStatement ps3 = conn.prepareStatement(query3);
-            ps3.setString(1, name);
-
-            ResultSet rs = ps3.executeQuery();
-
-            if (rs.next()) {
-                _id_user = rs.getInt(1);
-            }
-
-        } finally {
-            conn.close();
-
-        }
-return _id_user;
-    }
-
-  
-
     
-
     @FXML
     private void refreshPage(MouseEvent event) throws IOException, SQLException, ClassNotFoundException{
       getBookMark();

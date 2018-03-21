@@ -6,7 +6,12 @@
  */
 package applicationclass;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import sqlclass.SimpleDataSource;
 
 /**
  * Classe pour les utilisateurs
@@ -27,6 +32,9 @@ public class User implements DBField {
    * @param groupBooks Liste des dossiers que l'utilisateur possède
    * @param ta Table d'association (TA) où l'on retrouve les dossiers des utilisateurs
    */
+  public User()
+  {};
+  
   public User(int id, String nom, String mdp, 
           ArrayList<Groupbook> groupBooks, TA_User_GB ta) {
     this.id = id;
@@ -168,5 +176,31 @@ public class User implements DBField {
   public void disconnect() {
     
   }
-  
+     public int getUserId(String name)
+            
+            throws SQLException {
+
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            String query3 = "SELECT id "
+                    + "FROM user "
+                    + "WHERE user_name = ?";
+            PreparedStatement ps3 = conn.prepareStatement(query3);
+            ps3.setString(1, name);
+
+            ResultSet rs = ps3.executeQuery();
+
+            if (rs.next()) {
+               id = rs.getInt(1);
+             
+            }
+
+        } finally {
+            conn.close();
+
+        }
+        return id;
+
+    }
 }

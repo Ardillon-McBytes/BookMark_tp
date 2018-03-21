@@ -11,12 +11,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -29,7 +27,7 @@ import javafx.stage.Stage;
  * @author Olivier Lemay Dostie
  * @version 1.0
  */
-public class AjoutPartage_v1Controller implements Initializable {
+public class AjoutPartage_v1Controller extends main_controller  implements Initializable {
 
     /**
      * Composantes de l'interface
@@ -76,43 +74,8 @@ public class AjoutPartage_v1Controller implements Initializable {
         // TODO
     }
     
-    void showAlert(String var) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(var + " invalide");
-        
-        alert.showAndWait();
-    }
-    
-    boolean validUser() throws IOException, SQLException, ClassNotFoundException {
-        Connection conn = SimpleDataSource.getConnection();
-        try {
-          
-            _id_user = getUserId(user_name.getText());
-            
-            if (_id_user == 0) {
-                showAlert("nom de user ");
-                return false;
-            }
-            
-            PreparedStatement stat2 = conn.prepareStatement(
-                    "(SELECT Id FROM user_group WHERE id_user = '" + _id_user + "')");
-            
-            int valid = stat2.executeUpdate();
-            
-            if (valid != 0) {
-                showAlert("User déja lier, ajout  ");
-                return false;
-            }
-            
-        } finally {
-            conn.close();
-            
-        }
-        return true;
-    }
-    
+   
+  
     @FXML
     private void closeStage(MouseEvent event) {
         
@@ -158,28 +121,5 @@ public class AjoutPartage_v1Controller implements Initializable {
    * @return
    * @throws SQLException
    */
-  public int getUserId(String name)
-            throws SQLException {
-      
-      Connection conn = SimpleDataSource.getConnection();
-      try {
-          
-          String query3 = "SELECT id "
-                  + "FROM user "
-                  + "WHERE user_name = ?";
-          PreparedStatement ps3 = conn.prepareStatement(query3);
-          ps3.setString(1, name);
-          
-          ResultSet rs = ps3.executeQuery();
-          
-          if (rs.next()) {
-              _id_user = rs.getInt(1);
-          }
-          
-      } finally {
-          conn.close();
-          
-      }
-      return _id_user;     
-  }
+  
 }

@@ -31,7 +31,7 @@ import javafx.stage.Stage;
  *
  * @author moi
  */
-public class NouveauCompte_v1Controller implements Initializable {
+public class NouveauCompte_v1Controller extends main_controller  implements Initializable {
 
     @FXML
     private TextField userName;
@@ -54,11 +54,7 @@ public class NouveauCompte_v1Controller implements Initializable {
    * @param stage
    * @param userName
    */
-  public void setPrevStage(Stage stage, String userName) {
-        prevStage = stage;
-        _userName = userName;
-    }
-
+    
     /**
      * Initializes the controller class.
    * @param url
@@ -168,10 +164,8 @@ public class NouveauCompte_v1Controller implements Initializable {
     }
 
     @FXML
-    private void exitPage(MouseEvent event) {
-        Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
-        stageTheLabelBelongs.hide();
-        prevStage.show();
+    private void exitPage(MouseEvent event) throws Exception {
+     super.exitPage(btnAnnuler);
     }
 
 }
