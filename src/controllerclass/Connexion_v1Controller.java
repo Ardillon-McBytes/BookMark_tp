@@ -30,7 +30,9 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author moi
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class Connexion_v1Controller extends Application implements Initializable {
 

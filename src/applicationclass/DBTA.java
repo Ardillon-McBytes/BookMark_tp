@@ -6,6 +6,7 @@
  */
 package applicationclass;
 
+
 import java.util.ArrayList;
 
 /**
@@ -22,12 +23,12 @@ public class DBTA<L extends DBField, R extends DBField> {
   /**
    * 
    */
-  protected int left;
+  protected Integer left;
 
   /**
    *
    */
-  protected int right;
+  protected Integer right;
   
   /**
    * 
@@ -78,6 +79,8 @@ public class DBTA<L extends DBField, R extends DBField> {
   
   // Façon qui utilise une méthode générique, mais fonctionne-t-elle?
   protected <FK extends DBField> FK DBTA(int side, ArrayList<FK> list) {
+    // Utiliser une recherche dicotomique selon 
+    // le sens du tri effectif sinon une recherche linéaire?
     for (FK fk : list) {
       if (fk.getId() == side) {
         return fk;
@@ -135,4 +138,6 @@ public class DBTA<L extends DBField, R extends DBField> {
   protected int getRight() {
     return this.right;
   }
+  
+   
 }

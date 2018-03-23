@@ -12,7 +12,9 @@ import javafx.fxml.Initializable;
 /**
  * FXML Controller class
  *
- * @author moi
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class InfoPartage_v1Controller implements Initializable {
 
@@ -22,6 +24,6 @@ public class InfoPartage_v1Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
     
 }

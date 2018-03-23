@@ -7,10 +7,14 @@
 package applicationclass;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
- *
- * @author olivi
+ * Classe utilitaire pour 
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class Recherche {
   
@@ -74,6 +78,7 @@ public class Recherche {
     // Utilisant la méthode générique
     return matchingRight(tag, tagList, bookmarks);
     /*
+    // En ne l'utilisant pas
     ArrayList<Bookmark> result = new ArrayList<>();
     
     for (DBTA<Bookmark, Tag> ta : tagged) {
@@ -190,30 +195,30 @@ public class Recherche {
   }
   
   /**
-   *
-   * @param gb
-   * @param tas
-   * @return
+   * 
+   * @param gb 
+   * @param tas 
+   * @return 
    */
   public static boolean contains(Groupbook gb, ArrayList<TA_GB_BM> tas) {
     return true;
   }
   
   /**
-   *
-   * @param bm
-   * @param tas
-   * @return
+   * 
+   * @param bm 
+   * @param tas 
+   * @return 
    */
   public static boolean contains(Bookmark bm, ArrayList<TA_GB_BM> tas) {
     return true;
   }
   
   /**
-   *
-   * @param tas
-   * @param tag
-   * @return
+   * 
+   * @param tas 
+   * @param tag 
+   * @return 
    */
   public static boolean contains(TA_BM_Tag tas, Tag tag) {
     int id = tag.getId();
@@ -221,13 +226,73 @@ public class Recherche {
   }
   
   /**
-   *
-   * @param tas
-   * @param bm
-   * @return
+   * 
+   * @param tas 
+   * @param bm 
+   * @return 
    */
   public static boolean contains(TA_BM_Tag tas, Bookmark bm) {
     int id = bm.getId();
     return tas.stream().anyMatch((ta) -> (ta.getLeft() == id));
+  }
+  
+  /**
+   * 
+   * @param fk1 
+   * @param fk2 
+   * @return 
+   */
+  private static int cmp(int fk1, int fk2) {
+    if (fk1 < fk2) {
+      return -1;
+    }
+    else if (fk1 == fk2) {
+      return 0;
+    }
+    return 1;
+  }
+  
+  /**
+   * 
+   */
+  private static class left implements Comparator<DBTA> {
+    @Override
+    public int compare(DBTA ta1, DBTA ta2) {
+      return cmp(ta1.getLeft(), ta2.getLeft());
+    }
+  }
+  
+  /**
+   * 
+   */
+  private static class right implements Comparator<DBTA> {
+    @Override
+    public int compare(DBTA ta1, DBTA ta2) {
+      return cmp(ta1.getRight(), ta2.getRight());
+    }
+  }
+  
+  /**
+   * 
+   * @param <FK1>
+   * @param <FK2>
+   * @param ta 
+   */
+  public <FK1 extends DBField, FK2 extends DBField> void 
+        sortLeft(ArrayList<DBTA<FK1, FK2>> ta)
+  {
+    Collections.sort(ta, new left()); 
+  }
+  
+  /**
+   * 
+   * @param <FK1>
+   * @param <FK2>
+   * @param ta 
+   */
+  public <FK1 extends DBField, FK2 extends DBField> void 
+        sortRight(ArrayList<DBTA<FK1, FK2>> ta)
+  {
+    Collections.sort(ta, new right());
   }
 }

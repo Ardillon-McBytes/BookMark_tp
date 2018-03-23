@@ -29,7 +29,9 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author moi
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class NouveauCompte_v1Controller implements Initializable {
 

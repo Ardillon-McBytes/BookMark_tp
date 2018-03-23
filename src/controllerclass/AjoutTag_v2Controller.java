@@ -16,7 +16,9 @@ import javafx.scene.input.MouseEvent;
 /**
  * FXML Controller class
  *
- * @author olivi
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class AjoutTag_v2Controller implements Initializable {
 

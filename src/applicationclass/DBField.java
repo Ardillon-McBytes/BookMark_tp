@@ -7,8 +7,10 @@
 package applicationclass;
 
 /**
- *
- * @author olivi
+ * Interface pour les classes métiers
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public interface DBField {
 

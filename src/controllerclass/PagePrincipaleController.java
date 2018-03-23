@@ -17,24 +17,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sqlclass.SimpleDataSource;
 import javafx.collections.ObservableList;
-import javafx.collections.ListChangeListener;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.input.KeyEvent;
 
 /**
  * FXML Controller class
- *
- * @author olivi
+ * 
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class PagePrincipaleController implements Initializable {
 
@@ -77,14 +75,15 @@ public class PagePrincipaleController implements Initializable {
     private Button btn_12;
     @FXML
     private ImageView btnRefresh3;
-
-      static Stage prevStage;
-    static String _userName;
- static int _user_id;
     @FXML
     private TextField txt_tag_name;
     @FXML
     private Hyperlink hyper_removeFile;
+    
+    static Stage prevStage;
+    static String _userName;
+    static int _user_id;
+    
   /**
    *
    * @param stage
@@ -105,9 +104,9 @@ public class PagePrincipaleController implements Initializable {
 
     /**
      * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
+     * 
+     * @param url 
+     * @param rb 
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -188,54 +187,51 @@ public class PagePrincipaleController implements Initializable {
             conn.close();
 
         }
-return _id_user;
+        return _id_user;
     }
-
-  
-
+    
     @FXML
     private void refeshPage(MouseEvent event)throws IOException, SQLException, ClassNotFoundException {
-   
-         getBookMark();
+      getBookMark();
     }
-
+    
     @FXML
     private void refreshPage(MouseEvent event) throws IOException, SQLException, ClassNotFoundException{
       getBookMark();
     }
-
+    
     @FXML
     private void info_selected(MouseEvent event) {
     }
-
+    
     @FXML
     private void showHelp(MouseEvent event) {
     }
-
+    
     @FXML
     private void removeUserFromBm(MouseEvent event) {
     }
-
+    
     @FXML
     private void addUserBm(MouseEvent event) {
     }
-
+    
     @FXML
     private void remove_bm(MouseEvent event) {
     }
-
+    
     @FXML
     private void add_file(MouseEvent event) {
     }
-
+    
     @FXML
     private void Add_Bm(MouseEvent event) {
     }
-
+    
     @FXML
     private void show_group(MouseEvent event) {
     }
-
+    
     @FXML
     private void remove_File(MouseEvent event) {
     }
