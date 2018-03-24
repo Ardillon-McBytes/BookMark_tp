@@ -34,11 +34,12 @@ public class Gestionnaire {
    * Constructeur de la classe
    */
   public Gestionnaire() {
-      current = new User();
+    current = new User();
     acces = new TA_User_GB();
     conteneurs = new TA_GB_GB();
     contenus = new TA_GB_BM();
     etiquettes = new TA_BM_Tag();
+    
     users = new ArrayList<>();
     groupbooks = new ArrayList<>();
     bookmarks = new ArrayList<>();

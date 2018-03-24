@@ -227,7 +227,7 @@ public class Groupbook implements DBField {
    * @return
    */
   public ArrayList<User> getPartages(TA_User_GB partages, ArrayList<User> users) {
-    return Recherche.getUsers(this, partages, users);
+    return Recherche.getLefts(this, partages, users);
   }
 
   /**

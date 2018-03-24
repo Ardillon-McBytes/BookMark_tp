@@ -108,20 +108,20 @@ public class PagePrincipaleController extends main_controller implements Initial
         Connection conn = SimpleDataSource.getConnection();
         ObservableList items = FXCollections.observableArrayList();
         try {
-
+            
             PreparedStatement stat = conn.prepareStatement(
                     "(SELECT id_groupBook FROM user_group WHERE id_user = '" + gestionnaire.getCurrentUser().getId() + "')");
-
+            
             ResultSet rs = stat.executeQuery();
             int id_gp = gestionnaire.getCurrentUser().getId();
-           
-
+            
+            
             while (rs.next()) {
                 id_gp = rs.getInt(1);
             txt_file_name.setText(Integer.toString(id_gp));
                 PreparedStatement stat2 = conn.prepareStatement(
                         "(SELECT id_bookmark FROM bookmark_group WHERE id_group = '" + id_gp + "')");
-
+                
                 ResultSet rs2 = stat2.executeQuery();
             int id_bm = 0;
                 id_bm = rs.getInt(1);
@@ -130,10 +130,10 @@ public class PagePrincipaleController extends main_controller implements Initial
          String query3 = "SELECT nom_site, Description, Url "
                     + "FROM bookmark "
                     + "WHERE id = ? ";
-
+         
             PreparedStatement ps3 = conn.prepareStatement(query3);
             ps3.setInt(1, id_bm);
-
+            
             ResultSet rs3 = ps3.executeQuery();
         String name = null;
             if (rs3.next()) {
@@ -144,33 +144,33 @@ public class PagePrincipaleController extends main_controller implements Initial
             
                 items.add(rs3.getString(1));
                list_mp.setItems(items);
-
+               
             }
-
+            
         } finally {
             conn.close();
-
+            
         }
-
+        
     }
     
     @FXML
     private void refreshPage(MouseEvent event) throws IOException, SQLException, ClassNotFoundException{
       getBookMark();
     }
-
+    
     @FXML
     private void info_selected(MouseEvent event) {
     }
-
+    
     @FXML
     private void showHelp(MouseEvent event) {
     }
-
+    
     @FXML
     private void removeUserFromBm(MouseEvent event) {
     }
-
+    
     @FXML
     private void addUserBm(MouseEvent event) {
     }

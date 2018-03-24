@@ -83,7 +83,7 @@ public class User implements DBField {
    * @param groupbooks Liste des dossiers de l'utilisateur
    */
   public void setGroupBooks(TA_User_GB ta, ArrayList<Groupbook> groupbooks) {
-    ArrayList<Groupbook> gbs = Recherche.getGroupbooks(this, ta, groupbooks);
+    ArrayList<Groupbook> gbs = Recherche.getRights(this, ta, groupbooks);
     for (Groupbook gb : gbs) {
       // Si des IDs de gb sont déjà présent dans la TA, est-ce qu'il est 
       // préférable de mettre à jour la valeur des gbs dans TA ou de les 
@@ -141,7 +141,7 @@ public class User implements DBField {
    * @return Liste des dossiers de l'utilisateur
    */
   public ArrayList<Groupbook> getGroupbooks(TA_User_GB ta, ArrayList<Groupbook> groupbooks) {
-    return Recherche.getGroupbooks(this, ta, groupbooks);
+    return Recherche.getRights(this, ta, groupbooks);
   }
   
   /**

@@ -17,7 +17,7 @@ public class Recherche {
   /**
    *
    */
-  public void test() {
+  public static void main(String[] args) {
     
   }
   
@@ -140,30 +140,36 @@ public class Recherche {
   
   /**
    *
-   * @param user
-   * @param shareList
-   * @param groupbooks
+   * @param <L>
+   * @param <R>
+   * @param <TA>
+   * @param left
+   * @param ta
+   * @param rights
    * @return
    */
-  public static ArrayList<Groupbook> getGroupbooks(
-          User user, TA_User_GB shareList, ArrayList<Groupbook> groupbooks) {
-    return matchingLeft(user, shareList, groupbooks);
+  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>> 
+        ArrayList<R> getRights(L left, TA ta, ArrayList<R> rights) {
+    return matchingLeft(left, ta, rights);
   }
   
   /**
    *
-   * @param groupbook
-   * @param shareList
-   * @param users
+   * @param <L>
+   * @param <R>
+   * @param <TA>
+   * @param right
+   * @param ta
+   * @param lefts
    * @return
    */
-  public static ArrayList<User> getUsers(
-          Groupbook groupbook, TA_User_GB shareList, ArrayList<User> users) {
-    return matchingRight(groupbook, shareList, users);
+  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>> 
+        ArrayList<L> getLefts(R right, TA ta, ArrayList<L> lefts) {
+    return matchingRight(right, ta, lefts);
   }
   
   
-  // Peut-on formuler une méthode générique pour résuire les répéritions?
+  // Peut-on formuler une méthode générique pour réduire les répéritions?
   // Voir l'exemple avec la liste de TA_BM_Tag et Tag
   // P-e que l'on devrait implémenter cette méthode dans les TA, 
   //    mais il existe aussi p-e une méthode déjà existante à cause du ArrayList
@@ -171,63 +177,78 @@ public class Recherche {
 
   /**
    *
-   * @param tas
-   * @param gb
+   * @param <L>
+   * @param <R>
+   * @param <TA>
+   * @param ta
+   * @param left
+   * @param right
    * @return
    */
-  public static boolean contains(ArrayList<TA_User_GB> tas, Groupbook gb) {
-    return true;
+  public static <L extends DBField, R extends DBField, TA extends TABase<L,R>> 
+        boolean contains(TA ta, L left, R right) {
+    return ta.contains(new DBTA(left, right));
   }
   
   /**
-   *
-   * @param u
-   * @param tas
-   * @return
+   * 
+   * @param <L>
+   * @param <R>
+   * @param <TA>
+   * @param ta
+   * @param left
+   * @return 
    */
-  public static boolean contains(User u, ArrayList<TA_User_GB> tas) {
-    return true;
+  public static <L extends DBField, R extends DBField, TA extends TABase<L,R>>
+        boolean containsLeft(TA ta, L left) {
+    return ta.stream().anyMatch((d) -> (d.left == left.getId()));
+  }
+  /*for (DBTA<L, R> d : ta) {
+      if (d.left == left.getId()) {
+        return true;
+      }
+    }
+    return false;*/
+  public static <L extends DBField, R extends DBField, TA extends TABase<L,R>> 
+        boolean containsRight(TA ta, R right) {
+    return ta.stream().anyMatch((d) -> (d.right == right.getId()));
   }
   
-  /**
-   *
-   * @param gb
-   * @param tas
-   * @return
-   */
-  public static boolean contains(Groupbook gb, ArrayList<TA_GB_BM> tas) {
-    return true;
+  public static <L extends DBField, R extends DBField, TA extends TABase<L,R>>
+        int getPosition(TA ta, L left, R right) {
+     int pos = 0;
+     for (DBTA<L,R> t : ta) {
+       if (t.equals(new DBTA(left, right))) {
+         return pos;
+       }
+       pos++;
+     }
+     return pos; // ou -1
   }
   
-  /**
-   *
-   * @param bm
-   * @param tas
-   * @return
-   */
-  public static boolean contains(Bookmark bm, ArrayList<TA_GB_BM> tas) {
-    return true;
+  public static <L extends DBField, R extends DBField, TA extends TABase<L,R>>
+        ArrayList<Integer> getLeftPositions(TA ta, L left) {
+     ArrayList<Integer> places = new ArrayList<>();
+     int pos = 0;
+     for (DBTA<L,R> t : ta) {
+       if (t.getLeft() == left.getId()) {
+         places.add(pos);
+       }
+       pos++;
+     }
+     return places;
   }
-  
-  /**
-   *
-   * @param tas
-   * @param tag
-   * @return
-   */
-  public static boolean contains(TA_BM_Tag tas, Tag tag) {
-    int id = tag.getId();
-    return tas.stream().anyMatch((ta) -> (ta.getRight() == id));
-  }
-  
-  /**
-   *
-   * @param tas
-   * @param bm
-   * @return
-   */
-  public static boolean contains(TA_BM_Tag tas, Bookmark bm) {
-    int id = bm.getId();
-    return tas.stream().anyMatch((ta) -> (ta.getLeft() == id));
+        
+  public static <L extends DBField, R extends DBField, TA extends TABase<L,R>>
+        ArrayList<Integer> getRightPositions(TA ta, R right) {
+     ArrayList<Integer> places = new ArrayList<>();
+     int pos = 0;
+     for (DBTA<L,R> t : ta) {
+       if (t.getRight() == right.getId()) {
+         places.add(pos);
+       }
+       pos++;
+     }
+     return places;
   }
 }

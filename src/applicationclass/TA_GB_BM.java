@@ -15,18 +15,12 @@ import java.util.ArrayList;
  * @author Jean-Alain Sainton
  * @version 1.0
  */
-public class TA_GB_BM extends ArrayList<DBTA<Groupbook, Bookmark>> {
-  // Voir TA_BM_Tag pour voir le fonctionnement
-  
-  /*
-  // Méthode sans ArrayList (qui n'utilise pas ListTA_BG)
-  public TA_GB_BM(int bookmark, int groupBook) {
-    super(bookmark, groupBook);  
+public class TA_GB_BM extends TABase<Groupbook, Bookmark> {
+  public TA_GB_BM() {
+    TABase.constructor("bookmark_group", 
+          1, "id", 
+          3, "id_bookmark", 
+          2, "id_group");
   }
-  
-  public TA_GB_BM(Bookmark bookmark, Groupbook groupBook) {
-    super(bookmark, groupBook);  
-  }
-  */
   
 }
