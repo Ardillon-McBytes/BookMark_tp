@@ -143,11 +143,11 @@ public class PagePrincipaleController extends main_controller implements Initial
 //                    txt_adress.setText(rs3.getString(3));
 //
 //                }
-            for (int i = 0; i < gestionnaire.getGroupbooks().size(); i++) {   
+            for (int i = 0; i < gestionnaire.getBookmarks().size(); i++) {   
                 
-                 for (int j = 0; j < gestionnaire.getGroupbooks().get(i).getBookmarks().size(); j++) {
-                     items.add(gestionnaire.getBookmarks().get(j));
-                }
+                
+                     items.add(gestionnaire.getBookmarks().get(i).getNom());
+                
             }
                
                 list_mp.setItems(items);

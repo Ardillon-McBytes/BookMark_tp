@@ -81,7 +81,7 @@ void deleteUser()
     }
 
     static int getUserId(String name)
-            throws SQLException {
+            throws SQLException, IOException {
 
         Connection conn = SimpleDataSource.getConnection();
         try {
@@ -95,6 +95,9 @@ void deleteUser()
             ResultSet rs = ps3.executeQuery();
 
             if (rs.next()) {
+                
+                int u_id = rs.getInt(1);
+                Gestionnaire.setUsagerActif(new User(u_id));
                 return rs.getInt(1);
 
             }

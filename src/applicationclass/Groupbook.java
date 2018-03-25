@@ -277,7 +277,7 @@ public class Groupbook implements DBField {
    * @return
    */
   public boolean addBookmark(Integer bm) {
-    if (bm < 1 || true/*G_BM.existe(bm)*/) {
+    if (bm < 1 /*G_BM.existe(bm)*/) {
       return false;
     }
     //G_BM.add(bm);

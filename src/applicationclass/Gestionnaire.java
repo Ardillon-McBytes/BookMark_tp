@@ -163,7 +163,7 @@ public class Gestionnaire {
                     bm.setNom(rs3.getString(1));
                     bm.setDescription(rs3.getString(3));
                     bookmarks.add(bm);
-                    groupbooks.get(groupbooks.size()-1).addBookmark(bm.getId());
+//                    groupbooks.get(groupbooks.size()-1).addBookmark(bm.getId());
                 }
             }
             
@@ -217,7 +217,7 @@ public class Gestionnaire {
     
     public static void setUsagerActif(User u)
             throws IOException, SQLException {
-        usagerActif = userValidation(u);
+        usagerActif = u;
     }
     
     public static User getUsagerActif() {

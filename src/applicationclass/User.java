@@ -39,6 +39,10 @@ public class User implements DBField {
   public User (String name)
   {nom = name;
   }
+  
+  public User (int id)
+  {this.id = id;
+  }
   public User() {
     this.id = -1;
     this.nom = "";

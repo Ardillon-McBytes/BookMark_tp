@@ -5,6 +5,7 @@
  */
 package applicationclass;
 
+import static applicationclass.G_Validation.nom;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -221,13 +222,13 @@ public class G_Validation {
     {
         if (validName(name) == true &&
                 validPassword(name,mdp) == true) {
-           Gestionnaire.setUsagerActif(new User(nom));
+      
             return true;
             
         }
         return false;
     }
-  public static boolean validName(String name) throws SQLException {
+  public static boolean validName(String name) throws SQLException, IOException {
      
         if ( G_User.getUserId(name) > 0) {
             return true;
