@@ -5,10 +5,72 @@
  */
 package applicationclass;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import sqlclass.SimpleDataSource;
+
 /**
  *
  * @author olivi
  */
 public class GestionnairePartage {
   
+    
+    void addUserGroup(int type, User user, Groupbook gb)
+       throws SQLException
+  {             
+       Connection conn = SimpleDataSource.getConnection();
+            
+            try {
+               
+                
+                PreparedStatement stat = conn.prepareStatement(
+                        " INSERT INTO `user_group` (`id_type`, `id_user`, `id_groupBook`) "
+                        + "VALUES ('" 
+                        + type + "','"
+                        + user.getId() +  "','"
+                        + gb.getId() + "')");
+                
+                stat.executeUpdate();
+                System.exit(0);
+                
+            } finally {
+                conn.close();
+
+    }
+  }
+    
+    void deleteUserFromGroup(User user, Groupbook gb)
+            throws IOException, SQLException, ClassNotFoundException {
+
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            PreparedStatement stat = conn.prepareStatement(
+                    " DELETE FROM  `user_group` "
+                    + "WHERE `id_user` = " + user.getId() 
+                    + " AND `id_groupBook` = " + gb.getId());
+
+            stat.executeUpdate();
+        } finally {
+            conn.close();
+        }
+    }
+ void deleteGroup(Groupbook gb)
+            throws IOException, SQLException, ClassNotFoundException {
+
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            PreparedStatement stat = conn.prepareStatement(
+                    " DELETE FROM  `user_group` "
+                    + "WHERE `id_groupBook` = " + gb.getId());
+
+            stat.executeUpdate();
+        } finally {
+            conn.close();
+        }
+    }
 }

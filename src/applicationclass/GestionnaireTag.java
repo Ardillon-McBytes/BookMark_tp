@@ -13,33 +13,32 @@ import sqlclass.SimpleDataSource;
 
 /**
  *
- * @author olivi
+ * @author moi
  */
-public class GestionnaireBM {
-  Bookmark bm;
-  
-  
-  Bookmark getBookMark()
+public class GestionnaireTag {
+    Tag tag; 
+    
+    Tag getTag()
   {
   
-  return bm;
+  return tag;
   }
   
-  void setBookMark(Bookmark bm)
+  void setTag(Bookmark bm)
   {
   
-  this.bm = bm;
+  this.tag = tag;
   }
   
   
   
-   void getBm(int id) throws SQLException
+   void getTagInfo(int id) throws SQLException
   {             
         Connection conn = SimpleDataSource.getConnection();
         try {
 
             String query3 = "SELECT * "
-                    + "FROM bookmark "
+                    + "FROM tag "
                     + "WHERE id = ?";
             PreparedStatement ps3 = conn.prepareStatement(query3);
             ps3.setInt(1, id);
@@ -48,10 +47,9 @@ public class GestionnaireBM {
 
             if (rs.next()) {
       
-              bm.setId(rs.getInt(1));       
-              bm.setNom(rs.getString(2));
-              bm.setDescription(rs.getString(3));
-              bm.setUrl(rs.getString(4));
+              tag.setId(rs.getInt(1));       
+              tag.setNom(rs.getString(2));
+              tag.setDescription(rs.getString(3));
             }
 
         } finally {
@@ -61,7 +59,7 @@ public class GestionnaireBM {
 
     }
   }
-   void addBm() throws SQLException
+   void addTag() throws SQLException
   {             
        Connection conn = SimpleDataSource.getConnection();
             
@@ -69,13 +67,12 @@ public class GestionnaireBM {
                
                 
                 PreparedStatement stat = conn.prepareStatement(
-                        " INSERT INTO `bookmark` (`nom_site`, `Description`,`Url`) "
-                        + "VALUES ('" + bm.getNom() + "','"
-                        + bm.getDescription() + "','"
-                        + bm.getUrl() +   "')");
+                        " INSERT INTO `tag` (`nom`, `description`) "
+                        + "VALUES ('" + tag.getNom() + "','"
+                        + tag.getDescription() +   "')");
                 
                 stat.executeUpdate();
-           
+                System.exit(0);
                 
             } finally {
                 conn.close();
@@ -85,7 +82,7 @@ public class GestionnaireBM {
 
     }
   }
-    void editBm() throws SQLException
+    void editTag() throws SQLException
   {             
        Connection conn = SimpleDataSource.getConnection();
             
@@ -93,14 +90,13 @@ public class GestionnaireBM {
                
                 
                 PreparedStatement stat = conn.prepareStatement(
-                        " UPDATE `bookmark` "
-                        + "SET 'nom_site' = '" + bm.getNom() + "','"
-                        +" 'Description = '" + bm.getDescription() + "','"
-                        +  " 'Url = '" + bm.getUrl() +   "'"
-                 + "WHERE 'bookmark'.'id' = " + bm.getId() );
+                        " UPDATE `tag` "
+                        + "SET 'nom' = '" + tag.getNom() + "','"
+                        +" 'description = '" + tag.getDescription()  +   "'"
+                 + "WHERE 'tag'.'id' = " + tag.getId() );
                 
                 stat.executeUpdate();
-             
+                System.exit(0);
                 
             } finally {
                 conn.close();

@@ -5,10 +5,105 @@
  */
 package applicationclass;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javafx.scene.input.MouseEvent;
+import sqlclass.SimpleDataSource;
+
 /**
  * AKA Connexion
+ *
  * @author olivi
  */
 public class GestionnaireUser {
-  
+
+    User user = new User();
+
+    private void CreateAccount(MouseEvent event)
+            throws IOException, SQLException, ClassNotFoundException {
+
+        Connection conn = SimpleDataSource.getConnection();
+        conn.setAutoCommit(false);
+        try {
+
+            createUser();         
+           GestionnaireGB.createGb(user);
+            conn.commit();
+
+        } catch (SQLException e) {
+            conn.rollback();
+            /* Transaction annulée */
+        } finally {
+            conn.close();
+        }
+
+    }
+void deleteUser()
+ throws IOException, SQLException, ClassNotFoundException {
+
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            PreparedStatement stat = conn.prepareStatement(
+                    " DELETE FROM  `user` "
+                    + "WHERE `user`.`id` = " + user.getId());
+
+            stat.executeUpdate();
+        } finally {
+            conn.close();
+    }
+}
+
+
+
+
+    
+
+    void createUser()
+            throws IOException, SQLException, ClassNotFoundException {
+
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            PreparedStatement stat = conn.prepareStatement(
+                    " INSERT INTO `User` (`user_name`, `user_adress`,`user_password`) "
+                    + "VALUES ('" + user.getNom() + "','"
+                    + user.getCourriel() + "','"
+                    + user.getMdp() + "')");
+
+            stat.executeUpdate();
+        } finally {
+            conn.close();
+        }
+    }
+
+    public int getUserId(User user)
+            throws SQLException {
+
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            String query3 = "SELECT id "
+                    + "FROM user "
+                    + "WHERE user_name = ?";
+            PreparedStatement ps3 = conn.prepareStatement(query3);
+            ps3.setString(1, user.getNom());
+
+            ResultSet rs = ps3.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+
+            }
+
+        } finally {
+            conn.close();
+
+        }
+        return 0;
+
+    }
 }

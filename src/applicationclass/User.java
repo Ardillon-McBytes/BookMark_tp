@@ -22,6 +22,7 @@ import sqlclass.SimpleDataSource;
 public class User implements DBField {
   private int id;
   private String nom;
+  private String courriel;
   private String mdp;
 
   /**
@@ -76,7 +77,9 @@ public class User implements DBField {
   public void setMdp(String mdp) {
     this.mdp = mdp;
   }
-
+ public void setCourriel(String courriel) {
+    this.courriel = courriel;
+  }
   /**
    * Mets à jour la table d'association (TA) des dossiers possédés par l'utilisateur
    * @param ta TA des dossiers possédés par des utilisateurs
@@ -99,7 +102,10 @@ public class User implements DBField {
   public int getId() {
     return id;
   }
-
+ 
+  public String getCourriel() {
+    return courriel;
+  }
   /**
    * Obtien de nom du compte de l'utilisateur
    * @return Le nom du compte
