@@ -19,56 +19,53 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import sqlclass.SimpleDataSource;
 
-
 /**
  *
  * @author moi
  */
 public class main_controller {
-    static Gestionnaire gestionnaire = new Gestionnaire();
-    static User user = new User();
-    
-     boolean validUser() throws IOException, SQLException, ClassNotFoundException {
-        {
 
-            if (gestionnaire.getCurrentUser().getUserId(gestionnaire.getCurrentUser().getNom()) < 1) {
-                showAlert("nom de user invalide");
-                return false;
-            }
+  static Gestionnaire gestionnaire = new Gestionnaire();
+  static User user = new User();
 
-        }
-        return true;
-    }
-    
-    public int getUserId(User user) throws SQLException
-            
+  boolean validUser() throws IOException, SQLException, ClassNotFoundException {
     {
-               user.getUserId(user.getNom());
-              gestionnaire.setCurrentUser(user);
-         return user.getId();
-    }
-    
-    
-     void setPrevStage(Stage stage) {
-     
-        prevStage = stage;
- 
-    }
-    
-    void exitPage(Object object) throws Exception {
 
-        Stage stageTheLabelBelongs = (Stage) ((Node)object).getScene().getWindow();
-        stageTheLabelBelongs.hide();
-        prevStage.show();
+      if (gestionnaire.getUsagerActif().getUserId(gestionnaire.getUsagerActif().getNom()) < 1) {
+        showAlert("nom de user invalide");
+        return false;
+      }
 
     }
-    
-     void showAlert(String var) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(var);
+    return true;
+  }
 
-        alert.showAndWait();
-    }
+  public int getUserId(User user) throws SQLException, IOException {
+    user.getUserId(user.getNom());
+    gestionnaire.setUsagerActif(user);
+    return user.getId();
+  }
+
+  void setPrevStage(Stage stage) {
+
+    prevStage = stage;
+
+  }
+
+  void exitPage(Object object) throws Exception {
+
+    Stage stageTheLabelBelongs = (Stage) ((Node) object).getScene().getWindow();
+    stageTheLabelBelongs.hide();
+    prevStage.show();
+
+  }
+
+  void showAlert(String var) {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle("Error");
+    alert.setHeaderText(null);
+    alert.setContentText(var);
+
+    alert.showAndWait();
+  }
 }

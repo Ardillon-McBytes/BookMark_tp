@@ -17,23 +17,23 @@ import javafx.collections.ObservableList;
 
 /**
  * Classe à retirer si elle n'est pas utile au final
+ *
  * @author olivi
  * @param <F>
  */
-
-
 public class TableList<F extends DBField> implements ObservableList<F> {
-  private ArrayList<Integer> list = new ArrayList<>(); 
+
+  private ArrayList<Integer> list = new ArrayList<>();
 //  private ListChangeListener<F> lcl = new ListChangeListener<>() {
 //    @Override
 //    public void onChanged(ListChangeListener.Change<? extends E> c) {
 //      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
 //  };
-  
+
   @Override
   public void addListener(ListChangeListener listener) {
-    
+
   }
 
   @Override

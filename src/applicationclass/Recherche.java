@@ -13,43 +13,43 @@ import java.util.ArrayList;
  * @author olivi
  */
 public class Recherche {
-  
+
   /**
    *
    */
   public static void main(String[] args) {
-    
+
   }
-  
+
   // Façons qui utilisent une méthode générique, mais fonctionne-t-elles?
-  private static <FK2 extends DBField, FK1 extends DBField> 
-        ArrayList<FK2> matchingLeft(
-                FK1 fk1, ArrayList<DBTA<FK1, FK2>> dbta, ArrayList<FK2> list) {
-    
+  private static <FK2 extends DBField, FK1 extends DBField>
+          ArrayList<FK2> matchingLeft(
+                  FK1 fk1, ArrayList<DBTA<FK1, FK2>> dbta, ArrayList<FK2> list) {
+
     ArrayList<FK2> result = new ArrayList<>();
     //if (dbta.get(0).getLeft() instanceof FK1) {
-    dbta.stream().filter((fk) -> (fk.getRight() == 
-            fk1.getId())).forEachOrdered((fk) -> {
+    dbta.stream().filter((fk) -> (fk.getRight()
+            == fk1.getId())).forEachOrdered((fk) -> {
       result.add((FK2) fk);
     });
     //}
-    
+
     return result;
   }
-  
-  private static <FK1 extends DBField, FK2 extends DBField> 
-        ArrayList<FK1> matchingRight(
-                FK2 fk2, ArrayList<DBTA<FK1, FK2>> dbta, ArrayList<FK1> list) {
-    
+
+  private static <FK1 extends DBField, FK2 extends DBField>
+          ArrayList<FK1> matchingRight(
+                  FK2 fk2, ArrayList<DBTA<FK1, FK2>> dbta, ArrayList<FK1> list) {
+
     ArrayList<FK1> result = new ArrayList<>();
-    dbta.stream().filter((fk) -> (fk.getLeft() == 
-            fk2.getId())).forEachOrdered((fk) -> {
+    dbta.stream().filter((fk) -> (fk.getLeft()
+            == fk2.getId())).forEachOrdered((fk) -> {
       result.add((FK1) fk);
     });
-    
+
     return result;
   }
-  
+
   /**
    *
    * @param bookmark
@@ -61,7 +61,7 @@ public class Recherche {
           Bookmark bookmark, TA_BM_Tag tagList, ArrayList<Tag> tags) {
     return matchingLeft(bookmark, tagList, tags);
   }
-  
+
   /**
    *
    * @param tag
@@ -87,9 +87,9 @@ public class Recherche {
       }
     }
     return result;
-    */
+     */
   }
-  
+
   /**
    *
    * @param groupbook
@@ -101,7 +101,7 @@ public class Recherche {
           Groupbook groupbook, TA_GB_BM folderList, ArrayList<Bookmark> bookmarks) {
     return matchingLeft(groupbook, folderList, bookmarks);
   }
-  
+
   /**
    *
    * @param bookmark
@@ -113,7 +113,7 @@ public class Recherche {
           Bookmark bookmark, TA_GB_BM folderList, ArrayList<Groupbook> groupbooks) {
     return matchingRight(bookmark, folderList, groupbooks);
   }
-  
+
   /**
    *
    * @param child
@@ -125,7 +125,7 @@ public class Recherche {
           Groupbook child, TA_GB_GB folderList, ArrayList<Groupbook> groupbooks) {
     return matchingLeft(child, folderList, groupbooks);
   }
-  
+
   /**
    *
    * @param parent
@@ -137,7 +137,7 @@ public class Recherche {
           Groupbook parent, TA_GB_GB folderList, ArrayList<Groupbook> groupbooks) {
     return matchingRight(parent, folderList, groupbooks);
   }
-  
+
   /**
    *
    * @param <L>
@@ -148,11 +148,11 @@ public class Recherche {
    * @param rights
    * @return
    */
-  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>> 
-        ArrayList<R> getRights(L left, TA ta, ArrayList<R> rights) {
+  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
+          ArrayList<R> getRights(L left, TA ta, ArrayList<R> rights) {
     return matchingLeft(left, ta, rights);
   }
-  
+
   /**
    *
    * @param <L>
@@ -163,18 +163,16 @@ public class Recherche {
    * @param lefts
    * @return
    */
-  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>> 
-        ArrayList<L> getLefts(R right, TA ta, ArrayList<L> lefts) {
+  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
+          ArrayList<L> getLefts(R right, TA ta, ArrayList<L> lefts) {
     return matchingRight(right, ta, lefts);
   }
-  
-  
+
   // Peut-on formuler une méthode générique pour réduire les répéritions?
   // Voir l'exemple avec la liste de TA_BM_Tag et Tag
   // P-e que l'on devrait implémenter cette méthode dans les TA, 
   //    mais il existe aussi p-e une méthode déjà existante à cause du ArrayList
   // L'ordre des parametre change parfois sinon des signatures se trouvent à être en confli.
-
   /**
    *
    * @param <L>
@@ -185,70 +183,95 @@ public class Recherche {
    * @param right
    * @return
    */
-  public static <L extends DBField, R extends DBField, TA extends TABase<L,R>> 
-        boolean contains(TA ta, L left, R right) {
+  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
+          boolean contains(TA ta, L left, R right) {
     return ta.contains(new DBTA(left, right));
   }
-  
+
   /**
-   * 
+   *
    * @param <L>
    * @param <R>
    * @param <TA>
    * @param ta
    * @param left
-   * @return 
+   * @return
    */
-  public static <L extends DBField, R extends DBField, TA extends TABase<L,R>>
-        boolean containsLeft(TA ta, L left) {
+  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
+          boolean containsLeft(TA ta, L left) {
     return ta.stream().anyMatch((d) -> (d.left == left.getId()));
   }
+
+  /**
+   * Pas utile ?
+   *
+   * @param <L>
+   * @param <R>
+   * @param <TA>
+   * @param ta
+   * @param left
+   * @param rights
+   * @return
+   */
+  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
+          R getMatchingLeft(TA ta, L left, ArrayList<R> rights) {
+    ArrayList<Integer> pos = getLeftPositions(ta, left);
+    for (Integer p : pos) {
+      for (R right : rights) {
+
+      }
+    }
+
+    //R right = 
+    return null;
+  }
+
   /*for (DBTA<L, R> d : ta) {
       if (d.left == left.getId()) {
         return true;
       }
     }
     return false;*/
-  public static <L extends DBField, R extends DBField, TA extends TABase<L,R>> 
-        boolean containsRight(TA ta, R right) {
+  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
+          boolean containsRight(TA ta, R right) {
     return ta.stream().anyMatch((d) -> (d.right == right.getId()));
   }
-  
-  public static <L extends DBField, R extends DBField, TA extends TABase<L,R>>
-        int getPosition(TA ta, L left, R right) {
-     int pos = 0;
-     for (DBTA<L,R> t : ta) {
-       if (t.equals(new DBTA(left, right))) {
-         return pos;
-       }
-       pos++;
-     }
-     return pos; // ou -1
+
+  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
+          int getPosition(TA ta, L left, R right) {
+    int pos = 0;
+    for (DBTA<L, R> t : ta) {
+      if (t.equals(new DBTA(left, right))) {
+        return pos;
+      }
+      pos++;
+    }
+    return pos; // ou -1
   }
-  
-  public static <L extends DBField, R extends DBField, TA extends TABase<L,R>>
-        ArrayList<Integer> getLeftPositions(TA ta, L left) {
-     ArrayList<Integer> places = new ArrayList<>();
-     int pos = 0;
-     for (DBTA<L,R> t : ta) {
-       if (t.getLeft() == left.getId()) {
-         places.add(pos);
-       }
-       pos++;
-     }
-     return places;
+
+  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
+          ArrayList<Integer> getLeftPositions(TA ta, L left) {
+    ArrayList<Integer> places = new ArrayList<>();
+    int pos = 0;
+    for (DBTA<L, R> t : ta) {
+      if (t.getLeft() == left.getId()) {
+        places.add(pos);
+      }
+      pos++;
+    }
+    return places;
   }
-        
-  public static <L extends DBField, R extends DBField, TA extends TABase<L,R>>
-        ArrayList<Integer> getRightPositions(TA ta, R right) {
-     ArrayList<Integer> places = new ArrayList<>();
-     int pos = 0;
-     for (DBTA<L,R> t : ta) {
-       if (t.getRight() == right.getId()) {
-         places.add(pos);
-       }
-       pos++;
-     }
-     return places;
+
+  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
+          ArrayList<Integer> getRightPositions(TA ta, R right) {
+    ArrayList<Integer> places = new ArrayList<>();
+    int pos = 0;
+    for (DBTA<L, R> t : ta) {
+      if (t.getRight() == right.getId()) {
+        places.add(pos);
+      }
+      pos++;
+    }
+    return places;
   }
 }

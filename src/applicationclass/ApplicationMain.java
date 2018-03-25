@@ -15,9 +15,9 @@ import javafx.stage.Stage;
 import sqlclass.SimpleDataSource;
 
 /**
- * Classe du programme principal?
- * (Il faudrait qu'on développe un gestionnaire qui 
- * facilite les modifications via les TAs)
+ * Classe du programme principal? (Il faudrait qu'on développe un gestionnaire
+ * qui facilite les modifications via les TAs)
+ *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.1
@@ -25,15 +25,15 @@ import sqlclass.SimpleDataSource;
 public class ApplicationMain extends Application {
 
   private Stage primaryStage;
-  
+
   /**
    * @param args the command line arguments
    * @throws java.lang.Exception
    */
   public static void main(String[] args) throws Exception {
 
-      SimpleDataSource.init("database.properties");
-      launch(args);
+    SimpleDataSource.init("database.properties");
+    launch(args);
   }
 
   /**
@@ -41,29 +41,29 @@ public class ApplicationMain extends Application {
    * @param primaryStage
    */
   public void setPrimaryStage(Stage primaryStage) {
-      this.primaryStage = primaryStage;
+    this.primaryStage = primaryStage;
   }
 
   /**
-   * 
+   *
    * @return
    */
   public Stage getPrimaryStage() {
-      return this.primaryStage;
+    return this.primaryStage;
   }
 
   @Override
   public void start(Stage stage) throws Exception {
 
-      Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/connexion_v1.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/connexion_v1.fxml"));
 
-      Connexion_v1Controller controll = new Connexion_v1Controller();
-      controll.setPrevStage(stage);
+    Connexion_v1Controller controll = new Connexion_v1Controller();
+    controll.setPrevStage(stage);
 
-      Scene scene = new Scene(root);
-      Stage secondStage = new Stage();
+    Scene scene = new Scene(root);
+    Stage secondStage = new Stage();
 
-      secondStage.setScene(scene);
-      secondStage.show();
+    secondStage.setScene(scene);
+    secondStage.show();
   }
 }

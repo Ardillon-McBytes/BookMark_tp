@@ -10,9 +10,10 @@ import javafx.collections.ListChangeListener;
 
 /**
  * Classe à retirer si elle n'est pas utile au final
+ *
  * @author Olivier Lemay Dostie
  * @serial 1.0
- * @param <F> 
+ * @param <F>
  */
 public class TableListListener<F extends DBField> implements ListChangeListener<F> {
 

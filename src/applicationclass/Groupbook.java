@@ -6,15 +6,18 @@
  */
 package applicationclass;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * Classe pour les dossiers de marquepage
+ *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
  */
 public class Groupbook implements DBField {
+
   // P-e que ce serait mieux de faire la liste des bookmarks et des groupbooks 
   //    uniquement à partir du main (parce que sinon un bookmark unique peut être 
   //    dans plusieurs groupbook et il faudrait de toute façon scanner tous 
@@ -22,12 +25,12 @@ public class Groupbook implements DBField {
   private int id;
   private String nom;
   private String description;
+  private int groupbookRacine;
   private int groupbookParent;
-  private ArrayList<Groupbook> groupbookContenus;
-  private ArrayList<Bookmark> bookmarks;
   private ArrayList<Integer> partages;
-  private int typePartage;
-  
+  private ArrayList<Integer> groupbookContenus;
+  private ArrayList<Integer> bookmarks;
+
   /**
    *
    * @param id
@@ -37,11 +40,10 @@ public class Groupbook implements DBField {
    * @param groupbookContenus
    * @param bookmarks
    * @param partages
-   * @param typePartage
    */
   public Groupbook(int id, String nom, String description, int groupbookParent,
-          ArrayList<Groupbook> groupbookContenus, ArrayList<Bookmark> bookmarks, 
-          ArrayList<Integer> partages, int typePartage) {
+          ArrayList<Integer> groupbookContenus, ArrayList<Integer> bookmarks,
+          ArrayList<Integer> partages) {
     this.id = id;
     this.nom = nom;
     this.description = description;
@@ -49,9 +51,8 @@ public class Groupbook implements DBField {
     this.groupbookContenus = groupbookContenus;
     this.bookmarks = bookmarks;
     this.partages = partages;
-    this.typePartage = typePartage;
   }
-  
+
   /**
    *
    * @param id
@@ -60,7 +61,7 @@ public class Groupbook implements DBField {
   public void setId(int id) {
     this.id = id;
   }
-  
+
   /**
    *
    * @param nom
@@ -69,7 +70,7 @@ public class Groupbook implements DBField {
   public void setNom(String nom) {
     this.nom = nom;
   }
-  
+
   /**
    *
    * @param value
@@ -86,17 +87,19 @@ public class Groupbook implements DBField {
   public void setDescription(String description) {
     this.description = description;
   }
-  
+
   /**
    *
    * @param groupbookParent
    * @throws Exception
    */
   public void setParent(Groupbook groupbookParent) throws Exception {
-    if (groupbookParent == null) throw new Exception("Groupbook non initialisé");
+    if (groupbookParent == null) {
+      throw new Exception("Groupbook non initialisé");
+    }
     this.groupbookParent = groupbookParent.getId();
   }
-  
+
   /**
    *
    * @param groupbookParent
@@ -104,23 +107,23 @@ public class Groupbook implements DBField {
   public void setParent(int groupbookParent) {
     this.groupbookParent = groupbookParent;
   }
-  
+
   /**
    *
    * @param groupBooks
    */
-  public void setGroupBooks(ArrayList<Groupbook> groupBooks) {
+  public void setGroupBooks(ArrayList<Integer> groupBooks) {
     this.groupbookContenus = groupBooks;
   }
-  
+
   /**
    *
    * @param bookmark
    */
-  public void setBookmarks(ArrayList<Bookmark> bookmark) {
+  public void setBookmarks(ArrayList<Integer> bookmark) {
     this.bookmarks = bookmark;
   }
-  
+
   /**
    *
    * @param partages
@@ -128,15 +131,7 @@ public class Groupbook implements DBField {
   public void setPartages(ArrayList<Integer> partages) {
     this.partages = partages;
   }
-  
-  /**
-   *
-   * @param typePartage
-   */
-  public void setTypePartage(int typePartage) {
-    this.typePartage = typePartage;
-  }
-  
+
   /**
    *
    * @return
@@ -145,7 +140,7 @@ public class Groupbook implements DBField {
   public int getId() {
     return id;
   }
-  
+
   /**
    *
    * @return
@@ -154,7 +149,7 @@ public class Groupbook implements DBField {
   public String getNom() {
     return nom;
   }
-  
+
   /**
    *
    * @return
@@ -171,7 +166,7 @@ public class Groupbook implements DBField {
   public String getDescription() {
     return description;
   }
-  
+
   /**
    *
    * @return
@@ -179,7 +174,7 @@ public class Groupbook implements DBField {
   public int getParent() {
     return groupbookParent;
   }
-  
+
   /**
    *
    * @param folderList
@@ -200,7 +195,7 @@ public class Groupbook implements DBField {
    *
    * @return
    */
-  public ArrayList<Groupbook> getGroupBooks() {
+  public ArrayList<Integer> getGroupbooks() {
     return groupbookContenus;
   }
 
@@ -208,10 +203,10 @@ public class Groupbook implements DBField {
    *
    * @return
    */
-  public ArrayList<Bookmark> getBookmarks() {
+  public ArrayList<Integer> getBookmarks() {
     return bookmarks;
   }
-  
+
   /**
    *
    * @return
@@ -234,8 +229,9 @@ public class Groupbook implements DBField {
    *
    * @return
    */
-  public int getTypePartage() {
-    return typePartage;
+  public int getTypePartage() throws Exception {
+    G_GB.getAllGroupbooks();
+    return 0;
   }
 
   /**
@@ -245,34 +241,45 @@ public class Groupbook implements DBField {
   public boolean isPartager() {
     return !partages.isEmpty();
   }
-  
-  /**
-   *
-   * @param bm
-   * @param tas
-   * @return
-   */
-  public boolean add(Bookmark bm, TA_GB_BM tas) {
-    // Utiliser la méthode de la classe Recherche au lieu?
-    if (!bookmarks.stream().noneMatch((b) -> (b.getId() == bm.getId()))) {
-      return false;
-    }
-    bookmarks.add(bm);
-    return true;
-  }
-  
+
   /**
    *
    * @param gb
    * @return
    */
-  public boolean add(Groupbook gb) {
+  /*public boolean addChild(Integer gb) throws IOException {
+    if (gb == null || gb < 1) {
+      throw new IOException("Vale");
+    }
+    for (Integer i : groupbookContenus) {
+      if (gb.equals(i)) {
+        
+      }
+    }
+    if (gb < 1 || true) { //G_GB.existe(gb)
+      return false;
+    }
+    
+    
+    
     if (!groupbookContenus.stream().noneMatch((b) -> (b.getId() == gb.getId()))) {
       return false;
     }
     groupbookContenus.add(gb);
     return true;
+  }*/
+  /**
+   *
+   * @param bm
+   * @return
+   */
+  public boolean addBookmark(Integer bm) {
+    if (bm < 1 || true/*G_BM.existe(bm)*/) {
+      return false;
+    }
+    //G_BM.add(bm);
+    bookmarks.add(bm);
+    return true;
   }
 
-  
 }

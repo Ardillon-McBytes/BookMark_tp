@@ -20,7 +20,7 @@ import javafx.scene.input.MouseEvent;
  * @author Jean-Alain Sainton
  * @version 1.0
  */
-public class AjoutTag_v2Controller extends main_controller  implements Initializable {
+public class AjoutTag_v2Controller extends main_controller implements Initializable {
 
   @FXML
   private TextField tag_name;
@@ -37,7 +37,7 @@ public class AjoutTag_v2Controller extends main_controller  implements Initializ
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     // TODO
-  }  
+  }
 
   @FXML
   private void exitPage(MouseEvent event) {
@@ -46,5 +46,5 @@ public class AjoutTag_v2Controller extends main_controller  implements Initializ
   @FXML
   private void addTag(MouseEvent event) {
   }
-  
+
 }

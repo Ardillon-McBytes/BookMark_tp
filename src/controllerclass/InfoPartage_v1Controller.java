@@ -18,12 +18,12 @@ import javafx.fxml.Initializable;
  */
 public class InfoPartage_v1Controller implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
-    
+  /**
+   * Initializes the controller class.
+   */
+  @Override
+  public void initialize(URL url, ResourceBundle rb) {
+    // TODO
+  }
+
 }

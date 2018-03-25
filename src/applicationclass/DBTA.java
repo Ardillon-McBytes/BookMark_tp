@@ -10,80 +10,87 @@ import java.util.ArrayList;
 
 /**
  * Classe parente à toutes les tables d'associations (TAs)
+ *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
  * @param <L> Classe du premier champ de la TA de la BD
  * @param <R> Classe du second champ de la TA de la BD
- * @throws 
+ * @throws
  */
 public class DBTA<L extends DBField, R extends DBField> {
-  
+
   /**
-   * 
+   *
    */
   protected int left;
 
   /**
-   * 
+   *
    */
   protected int right;
-  
+
   /**
-   * 
+   *
    * @param left
-   * @param right 
+   * @param right
    */
   public DBTA(int left, int right) {
     this.left = left;
     this.right = right;
   }
+
   /**
-   * 
+   *
    * @param left
-   * @param right 
+   * @param right
    */
   public DBTA(L left, R right) {
     setLeft(left);
     setRight(right);
   }
+
   /**
-   * 
-   * @param left 
+   *
+   * @param left
    */
   public void setLeft(int left) {
     this.left = left;
   }
+
   /**
-   * 
-   * @param left 
+   *
+   * @param left
    */
-  public void setLeft(L left){
+  public void setLeft(L left) {
     this.left = left.getId();
   }
+
   /**
-   * 
-   * @param right 
+   *
+   * @param right
    */
   public void setRight(int right) {
     this.right = right;
   }
+
   /**
-   * 
-   * @param right 
+   *
+   * @param right
    */
   public void setRight(R right) {
     this.right = right.getId();
   }
+
   /**
-   * 
+   *
    * @param pair
    */
   public void setPair(Pair<Integer> pair) {
     setLeft(pair.id);
     setRight(pair.value);
   }
-  
+
   // Façon qui utilise une méthode générique, mais fonctionne-t-elle?
   public <FK extends DBField> FK DBTA(int side, ArrayList<FK> list) {
     for (FK fk : list) {
@@ -93,7 +100,7 @@ public class DBTA<L extends DBField, R extends DBField> {
     }
     return null;
   }
-  
+
   /**
    *
    * @param llist
@@ -110,7 +117,7 @@ public class DBTA<L extends DBField, R extends DBField> {
       }
     }
     return null;
-    */
+     */
   }
 
   /**
@@ -120,7 +127,7 @@ public class DBTA<L extends DBField, R extends DBField> {
   public int getLeft() {
     return this.left;
   }
-  
+
   /**
    *
    * @param rlist
@@ -143,11 +150,11 @@ public class DBTA<L extends DBField, R extends DBField> {
   public int getRight() {
     return this.right;
   }
-  
+
   public Pair<Integer> getPair() {
     return new Pair(left, right);
   }
-  
+
   /**
    *
    * @param obj
@@ -155,10 +162,12 @@ public class DBTA<L extends DBField, R extends DBField> {
    */
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-        return true;
-    if (obj == null || getClass() != obj.getClass())
-        return false;
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
     DBTA other = (DBTA) obj;
     return !(left != other.left || right != other.right);
   }

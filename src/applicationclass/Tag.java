@@ -11,11 +11,13 @@ import java.util.Date;
 
 /**
  * Classe pour les tags
+ *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
  */
 public class Tag implements DBField {
+
   private int id;
   private String nom;
   private String description;
@@ -60,7 +62,7 @@ public class Tag implements DBField {
   public void setNom(String nom) {
     this.nom = nom;
   }
-  
+
   /**
    *
    * @param value
@@ -77,7 +79,7 @@ public class Tag implements DBField {
   public void setDescription(String description) {
     this.description = description;
   }
-  
+
   /**
    *
    * @return
@@ -86,7 +88,7 @@ public class Tag implements DBField {
   public int getId() {
     return id;
   }
-  
+
   /**
    *
    * @return
@@ -95,7 +97,7 @@ public class Tag implements DBField {
   public String getNom() {
     return nom;
   }
-  
+
   /**
    *
    * @return
@@ -112,12 +114,12 @@ public class Tag implements DBField {
   public String getDescription() {
     return description;
   }
-  
+
   private String getCurrentTimeStamp() {
     SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     return sdfDate.format(new Date());
   }
-  
+
   /**
    *
    * @param tag
@@ -126,7 +128,7 @@ public class Tag implements DBField {
   public boolean equals(Tag tag) {
     return id == tag.getId();
   }
-  
+
   /**
    *
    * @param ta
@@ -135,7 +137,7 @@ public class Tag implements DBField {
   public boolean equals(DBTA<Bookmark, Tag> ta) {
     return id == ta.getRight();
   }
-  
+
   /**
    *
    * @param id
@@ -143,5 +145,5 @@ public class Tag implements DBField {
    */
   public boolean equals(int id) {
     return this.id == id;
-  }  
+  }
 }

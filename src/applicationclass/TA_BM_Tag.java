@@ -7,17 +7,18 @@
 package applicationclass;
 
 /**
- * Classe d'association entre les marquepage et les tags
- * (Étiquetage des liens)
+ * Classe d'association entre les marquepage et les tags (Étiquetage des liens)
+ *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
  */
 public class TA_BM_Tag extends TABase<Bookmark, Tag> {
+
   public TA_BM_Tag() {
-    TABase.constructor("bookmark_tag", 
-          1, "id", 
-          2, "id_bookmark", 
-          3, "id_tag");
+    TABase.constructor("bookmark_tag",
+            1, "id",
+            2, "id_bookmark",
+            3, "id_tag");
   }
 }

@@ -8,15 +8,7 @@ package applicationclass;
 /**
  *
  * @author olivi
- * @param <R>
  */
-public class Pair<R> {
+public class G_Tag {
 
-  public int id;
-  public R value;
-
-  public Pair(int id, R nom) {
-    this.id = id;
-    this.value = nom;
-  }
 }

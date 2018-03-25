@@ -32,36 +32,36 @@ import javafx.stage.Stage;
  */
 public class Connexion_v1Controller extends main_controller implements Initializable {
 
-    Stage stageTheLabelBelongs;
-    @FXML
-    private TextField user_name;
-    @FXML
-    private TextField user_password;
-    @FXML
-    private Button btnConnect;
+  Stage stageTheLabelBelongs;
+  @FXML
+  private TextField user_name;
+  @FXML
+  private TextField user_password;
+  @FXML
+  private Button btnConnect;
 
-    Stage primaryStage;
-    int _id_user;
+  Stage primaryStage;
+  int _id_user;
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param stage
-     */
-    public void setPrevStage(Stage stage) {
-        this.primaryStage = stage;
-    }
+  /**
+   * Initializes the controller class.
+   *
+   * @param stage
+   */
+  public void setPrevStage(Stage stage) {
+    this.primaryStage = stage;
+  }
 
-    public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("AddressApp");
+  public void start(Stage primaryStage) {
+    this.primaryStage = primaryStage;
+    this.primaryStage.setTitle("AddressApp");
 
-    }
+  }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+  @Override
+  public void initialize(URL url, ResourceBundle rb) {
 
-    }
+  }
 
 // void hide() throws IOException
 //    {
@@ -70,91 +70,89 @@ public class Connexion_v1Controller extends main_controller implements Initializ
 //        Scene scene = new Scene(root);
 //        
 //        primaryStage.setScene(scene);}
-    @FXML
-    private void newAccount() throws Exception {
+  @FXML
+  private void newAccount() throws Exception {
 
-        NouveauCompte_v1Controller controller = new NouveauCompte_v1Controller();
-        Stage stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
+    NouveauCompte_v1Controller controller = new NouveauCompte_v1Controller();
+    Stage stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
 
-        controller.setPrevStage(stageTheLabelBelongs);
-        stageTheLabelBelongs.hide();
-        Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/nouveauCompte_v1.fxml"));
+    controller.setPrevStage(stageTheLabelBelongs);
+    stageTheLabelBelongs.hide();
+    Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/nouveauCompte_v1.fxml"));
 
-        Scene scene = new Scene(root);
-        Stage secondStage = new Stage();
+    Scene scene = new Scene(root);
+    Stage secondStage = new Stage();
 
-        secondStage.setScene(scene);
-        secondStage.show();
+    secondStage.setScene(scene);
+    secondStage.show();
 
-    }
+  }
 
-    boolean validPassword() throws IOException, SQLException, ClassNotFoundException {
-        Connection conn = SimpleDataSource.getConnection();
-        try {
+  boolean validPassword() throws IOException, SQLException, ClassNotFoundException {
+    Connection conn = SimpleDataSource.getConnection();
+    try {
 
-            PreparedStatement stat = conn.prepareStatement(
-                    "(SELECT user_password FROM user WHERE user.user_name = '" + user_name.getText() + "')");
+      PreparedStatement stat = conn.prepareStatement(
+              "(SELECT user_password FROM user WHERE user.user_name = '" + user_name.getText() + "')");
 
-            ResultSet rs = stat.executeQuery();
-            String pass = null;
-            String pass2 = user_password.getText();
+      ResultSet rs = stat.executeQuery();
+      String pass = null;
+      String pass2 = user_password.getText();
 
-            if (rs.next()) {
-                pass = rs.getString(1);
-                if (!pass.equals(pass2)) {
-                    showAlert("mot de passe ");
-                    return false;
-                }
-            }
-
-        } finally {
-            conn.close();
-
+      if (rs.next()) {
+        pass = rs.getString(1);
+        if (!pass.equals(pass2)) {
+          showAlert("mot de passe ");
+          return false;
         }
+      }
 
-        return true;
+    } finally {
+      conn.close();
+
     }
 
-    
+    return true;
+  }
 
-    /**
-     *
-     * @param name
-     * @return
-     * @throws SQLException
-     */
-    boolean validContent() {
-        if (user_name.getText().isEmpty()) {
-            showAlert("Champs name Vide et ");
-            return false;
-        } else if (user_password.getText().isEmpty()) {
-            showAlert("Champs password Vide et ");
-            return false;
-        }
-        return true;
+  /**
+   *
+   * @param name
+   * @return
+   * @throws SQLException
+   */
+  boolean validContent() {
+    if (user_name.getText().isEmpty()) {
+      showAlert("Champs name Vide et ");
+      return false;
+    } else if (user_password.getText().isEmpty()) {
+      showAlert("Champs password Vide et ");
+      return false;
     }
+    return true;
+  }
 
-    @FXML
-    private void connectUser(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
-        
-       gestionnaire.getCurrentUser().setNom(user_name.getText());
-       
-        if (validContent() == true && super.validUser() == true && validPassword() == true) {
+  @FXML
+  private void connectUser(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
 
-            PagePrincipaleController controller = new PagePrincipaleController();
-            Stage stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
-            controller.setPrevStage(stageTheLabelBelongs);
+    gestionnaire.getUsagerActif().setNom(user_name.getText());
 
-            Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/pagePrincipale_v2.fxml"));
+    if (validContent() == true && super.validUser() == true && validPassword() == true) {
 
-            Scene scene = new Scene(root);
-            Stage secondStage = new Stage();
+      PagePrincipaleController controller = new PagePrincipaleController();
+      Stage stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
+      controller.setPrevStage(stageTheLabelBelongs);
 
-            secondStage.setScene(scene);
+      Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/pagePrincipale_v2.fxml"));
 
-            stageTheLabelBelongs.hide();
-            secondStage.show();
-        }
+      Scene scene = new Scene(root);
+      Stage secondStage = new Stage();
+
+      secondStage.setScene(scene);
+
+      stageTheLabelBelongs.hide();
+      secondStage.show();
     }
+  }
 
 }

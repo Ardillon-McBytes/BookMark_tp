@@ -31,122 +31,122 @@ import javafx.stage.Stage;
  *
  * @author moi
  */
-public class NouveauCompte_v1Controller extends main_controller  implements Initializable {
+public class NouveauCompte_v1Controller extends main_controller implements Initializable {
 
-    @FXML
-    private TextField userName;
-    @FXML
-    private TextField userAdress;
-    @FXML
-    private PasswordField userPassword;
-    @FXML
-    private PasswordField userConfirmPassword;
-    @FXML
-    private Button btnAnnuler;
-    @FXML
-    private Button btnCreateAccount;
+  @FXML
+  private TextField userName;
+  @FXML
+  private TextField userAdress;
+  @FXML
+  private PasswordField userPassword;
+  @FXML
+  private PasswordField userConfirmPassword;
+  @FXML
+  private Button btnAnnuler;
+  @FXML
+  private Button btnCreateAccount;
 
-    static Stage prevStage;
-    static String _userName;
+  static Stage prevStage;
+  static String _userName;
 
   /**
    *
    * @param stage
    * @param userName
    */
-    
-    /**
-     * Initializes the controller class.
+  /**
+   * Initializes the controller class.
+   *
    * @param url
    * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+   */
+  @Override
+  public void initialize(URL url, ResourceBundle rb) {
 
-        userName.setText(_userName);
+    userName.setText(_userName);
 
+  }
+
+  @FXML
+  private void CreateAccount(MouseEvent event)
+          throws IOException, SQLException, ClassNotFoundException {
+    if (Valid() && validUser()) {
+      Connection conn = SimpleDataSource.getConnection();
+      try {
+
+        PreparedStatement stat = conn.prepareStatement(
+                " INSERT INTO `User` (`user_name`, `user_adress`,`user_password`) "
+                + "VALUES ('" + userName.getText() + "','"
+                + userAdress.getText() + "','"
+                + userPassword.getText() + "')");
+
+        stat.executeUpdate();
+
+        PreparedStatement stat2 = conn.prepareStatement(
+                " INSERT INTO `group_book` (`nom`, `Description`) "
+                + "VALUES ('" + userName.getText() + "','"
+                + "Default Group" + "')");
+
+        stat2.executeUpdate();
+        System.exit(0);
+
+      } finally {
+        conn.close();
+      }
+    }
+  }
+
+  private boolean Valid() {
+
+    if (userName.getText().isEmpty()) {
+      showAlert("userName");
+      return false;
+    } else if (userAdress.getText().isEmpty()) {
+      showAlert("userAdress");
+      return false;
+    } else if (userPassword.getText().isEmpty()) {
+      showAlert("userPassword");
+      return false;
+    } else if (userConfirmPassword.getText().isEmpty()) {
+      showAlert("userConfirmPassword");
+      return false;
+    } else if (!userConfirmPassword.getText().equals(userPassword.getText())) {
+      showAlert("les 2 mdp ne corresponde pas. l'un des deux est ");
+      return false;
     }
 
-    @FXML
-    private void CreateAccount(MouseEvent event)
-            throws IOException, SQLException, ClassNotFoundException {
-        if (Valid() && validUser()) {
-            Connection conn = SimpleDataSource.getConnection();
-            try {
+    return true;
+  }
 
-                PreparedStatement stat = conn.prepareStatement(
-                        " INSERT INTO `User` (`user_name`, `user_adress`,`user_password`) "
-                        + "VALUES ('" + userName.getText() + "','"
-                        + userAdress.getText() + "','"
-                        + userPassword.getText() + "')");
+  void showAlert(String var) {
+    Alert alert = new Alert(AlertType.ERROR);
+    alert.setTitle("Error");
+    alert.setHeaderText(null);
+    alert.setContentText(var + " invalide");
 
-                stat.executeUpdate();
+    alert.showAndWait();
+  }
 
-                PreparedStatement stat2 = conn.prepareStatement(
-                        " INSERT INTO `group_book` (`nom`, `Description`) "
-                        + "VALUES ('" + userName.getText() + "','"
-                        + "Default Group" + "')");
+  boolean validUser() throws IOException, SQLException, ClassNotFoundException {
+    Connection conn = SimpleDataSource.getConnection();
+    try {
 
-                stat2.executeUpdate();
-                System.exit(0);
+      PreparedStatement stat = conn.prepareStatement(
+              "(SELECT Id FROM user WHERE user_name = '" + userName.getText() + "')");
 
-            } finally {
-                conn.close();
-            }
-        }
+      int valid = stat.executeUpdate();
+
+      if (valid != 0) {
+        showAlert("nom de user déja pris, user ");
+        return false;
+      }
+
+    } finally {
+      conn.close();
     }
 
-    private boolean Valid() {
-
-        if (userName.getText().isEmpty()) {
-            showAlert("userName");
-            return false;
-        } else if (userAdress.getText().isEmpty()) {
-            showAlert("userAdress");
-            return false;
-        } else if (userPassword.getText().isEmpty()) {
-            showAlert("userPassword");
-            return false;
-        } else if (userConfirmPassword.getText().isEmpty()) {
-            showAlert("userConfirmPassword");
-            return false;
-        } else if (!userConfirmPassword.getText().equals(userPassword.getText())) {
-            showAlert("les 2 mdp ne corresponde pas. l'un des deux est ");
-            return false;
-        }
-
-        return true;
-    }
-
-    void showAlert(String var) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(var + " invalide");
-
-        alert.showAndWait();
-    }
-
-    boolean validUser() throws IOException, SQLException, ClassNotFoundException {
-        Connection conn = SimpleDataSource.getConnection();
-        try {
-
-            PreparedStatement stat = conn.prepareStatement(
-                    "(SELECT Id FROM user WHERE user_name = '" + userName.getText() + "')");
-
-            int valid = stat.executeUpdate();
-
-            if (valid != 0) {
-                showAlert("nom de user déja pris, user ");
-                return false;
-            }
-
-        } finally {
-            conn.close();
-        }
-
-        return true;
-    }
+    return true;
+  }
 
   /**
    *
@@ -154,18 +154,18 @@ public class NouveauCompte_v1Controller extends main_controller  implements Init
    */
   public void startPage() throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("Connexion_v1.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource("Connexion_v1.fxml"));
 
-        Scene scene = new Scene(root);
-        Stage secondStage = new Stage();
-        secondStage.setScene(scene);
-        secondStage.show();
+    Scene scene = new Scene(root);
+    Stage secondStage = new Stage();
+    secondStage.setScene(scene);
+    secondStage.show();
 
-    }
+  }
 
-    @FXML
-    private void exitPage(MouseEvent event) throws Exception {
-     super.exitPage(btnAnnuler);
-    }
+  @FXML
+  private void exitPage(MouseEvent event) throws Exception {
+    super.exitPage(btnAnnuler);
+  }
 
 }
