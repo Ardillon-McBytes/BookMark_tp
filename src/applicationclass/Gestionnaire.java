@@ -124,7 +124,7 @@ public class Gestionnaire {
 
   public static void setUsagerActif(User u)
           throws IOException, SQLException {
-    usagerActif = userValidation(u);
+    usagerActif = u;
   }
 
   public static User getUsagerActif() {
