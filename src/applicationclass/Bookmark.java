@@ -34,6 +34,13 @@ public class Bookmark implements DBField {
     this.description = description;
   }
   
+  public Bookmark(String nom, String url, String description) {
+    this.id = id;
+    this.nom = nom;
+    this.url = url;
+    this.description = description;
+  }
+  
   /**
    *
    * @param id

@@ -19,21 +19,24 @@ public class GestionnaireBM {
   Bookmark bm;
   
   
+ public GestionnaireBM()
+  {}
+  
   Bookmark getBookMark()
   {
   
   return bm;
   }
   
-  void setBookMark(Bookmark bm)
+  public void setBookMark(Bookmark bm)
   {
   
   this.bm = bm;
   }
   
+
   
-  
-   void getBm(int id) throws SQLException
+public   void getBm(int id) throws SQLException
   {             
         Connection conn = SimpleDataSource.getConnection();
         try {
@@ -61,7 +64,7 @@ public class GestionnaireBM {
 
     }
   }
-   void addBm() throws SQLException
+  public void addBm() throws SQLException
   {             
        Connection conn = SimpleDataSource.getConnection();
             
@@ -85,7 +88,7 @@ public class GestionnaireBM {
 
     }
   }
-    void editBm() throws SQLException
+    public void editBm() throws SQLException
   {             
        Connection conn = SimpleDataSource.getConnection();
             
