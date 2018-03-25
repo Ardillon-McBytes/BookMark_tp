@@ -132,4 +132,8 @@ public class AjoutTag_v2Controller extends main_controller  implements Initializ
         }
     }
 
+    @FXML
+    private void exitPage(MouseEvent event) {
+    }
+
 }

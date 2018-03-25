@@ -6,6 +6,8 @@
  */
 package controllerclass;
 
+import applicationclass.G_User;
+import applicationclass.G_Validation;
 import sqlclass.SimpleDataSource;
 import java.io.IOException;
 
@@ -137,7 +139,10 @@ public class Connexion_v1Controller extends main_controller implements Initializ
 
     gestionnaire.getUsagerActif().setNom(user_name.getText());
 
-    if (validContent() == true && super.validUser() == true && validPassword() == true) {
+     
+  
+
+    if (G_Validation.validUser(user_name.getText(), user_password.getText()) == true) {
 
       PagePrincipaleController controller = new PagePrincipaleController();
       Stage stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();

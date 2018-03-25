@@ -80,7 +80,7 @@ void deleteUser()
         }
     }
 
-    public int getUserId(User user)
+    static int getUserId(String name)
             throws SQLException {
 
         Connection conn = SimpleDataSource.getConnection();
@@ -90,7 +90,7 @@ void deleteUser()
                     + "FROM user "
                     + "WHERE user_name = ?";
             PreparedStatement ps3 = conn.prepareStatement(query3);
-            ps3.setString(1, user.getNom());
+            ps3.setString(1, name);
 
             ResultSet rs = ps3.executeQuery();
 
@@ -111,48 +111,5 @@ void deleteUser()
     /* @J-A_edits sfdjkhskfjhsdjkh */
 
     
-    boolean validUser(String mdp) throws IOException, SQLException, ClassNotFoundException
-    {
-        if (validName() == true &&
-                validPassword(mdp) == true) {
-            return true;
-            
-        }
-        return false;
-    }
-    boolean validName() {
-        if (user.getId() > 0) {
-            return true;
-        }
-        return false;
-
-    }
-
-    boolean validPassword(String mdp) throws IOException, SQLException, ClassNotFoundException {
-        Connection conn = SimpleDataSource.getConnection();
-        try {
-
-            PreparedStatement stat = conn.prepareStatement(
-                    "(SELECT user_password "
-                    + "FROM user "
-                    + "WHERE user.user_name = '" + user.getNom() + "')");
-
-            ResultSet rs = stat.executeQuery();
-            String pass = null;
-
-            if (rs.next()) {
-                pass = rs.getString(1);
-                if (!pass.equals(mdp)) {
-                    return false;
-               
-                }
-            }
-
-        } finally {
-            conn.close();
-
-        }
-
-        return true;
-    }
+   
 }

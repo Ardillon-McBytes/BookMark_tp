@@ -35,6 +35,10 @@ public class User implements DBField {
   /**
    * Constructeur sans paramètres de la classe des utilisateurs
    */
+  
+  public User (String name)
+  {nom = name;
+  }
   public User() {
     this.id = -1;
     this.nom = "";
@@ -104,6 +108,7 @@ public class User implements DBField {
     return recherche;
   }
 
+  
   /**
    * Setteur de l'identifiant de l'utilisateur
    *
@@ -263,6 +268,7 @@ public class User implements DBField {
    */
   public void connect() {
 
+      
   }
 
   /**

@@ -17,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 import sqlclass.SimpleDataSource;
 
 /**
@@ -25,47 +26,41 @@ import sqlclass.SimpleDataSource;
  */
 public class main_controller {
 
-  static Gestionnaire gestionnaire = new Gestionnaire();
-  static User user = new User();
+    static Gestionnaire gestionnaire = new Gestionnaire();
+    static User user = new User();
 
-  boolean validUser() throws IOException, SQLException, ClassNotFoundException {
-    {
+    void setPrevStage(Stage stage) {
 
-      if (gestionnaire.getUsagerActif().getUserId(gestionnaire.getUsagerActif().getNom()) < 1) {
-        showAlert("nom de user invalide");
-        return false;
-      }
+        prevStage = stage;
 
     }
-    return true;
-  }
 
-  public int getUserId(User user) throws SQLException, IOException {
-    user.getUserId(user.getNom());
-    gestionnaire.setUsagerActif(user);
-    return user.getId();
-  }
+    void exitPage(Object object) throws Exception {
 
-  void setPrevStage(Stage stage) {
+        Stage stageTheLabelBelongs = (Stage) ((Node) object).getScene().getWindow();
+        stageTheLabelBelongs.hide();
+        prevStage.show();
 
-    prevStage = stage;
+    }
 
-  }
+    void showAlert(String var) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(var);
 
-  void exitPage(Object object) throws Exception {
+        alert.showAndWait();
+    }
 
-    Stage stageTheLabelBelongs = (Stage) ((Node) object).getScene().getWindow();
-    stageTheLabelBelongs.hide();
-    prevStage.show();
+    boolean showConfirmation() {
 
-  }
-
-  void showAlert(String var) {
-    Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle("Error");
-    alert.setHeaderText(null);
-    alert.setContentText(var);
-
-    alert.showAndWait();
-  }
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Your Message", "Title on Box", dialogButton);
+        
+        if (dialogResult == 0) {
+          return true;
+        } else {
+            return false;
+        }
+    }
 }

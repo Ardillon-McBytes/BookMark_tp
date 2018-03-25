@@ -5,7 +5,6 @@
  */
 package applicationclass;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,10 +13,9 @@ import sqlclass.SimpleDataSource;
 
 /**
  *
- * @author olivi
+ * @author moi
  */
 public class G_Tag {
-    
     Tag tag; 
     
     Tag getTag()
@@ -102,6 +100,10 @@ public class G_Tag {
                 
             } finally {
                 conn.close();
+            
+
+
+
     }
   }
 }
