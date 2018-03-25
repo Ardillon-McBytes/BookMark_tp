@@ -6,6 +6,8 @@
  */
 package controllerclass;
 
+import applicationclass.G_Validation;
+import applicationclass.User;
 import sqlclass.SimpleDataSource;
 import java.io.IOException;
 import java.net.URL;
@@ -58,6 +60,7 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
    * @param stage
    * @param id_bookMark
    */
+
   public void setPrevStage(Stage stage, int id_bookMark) {
     prevStage = stage;
     _id_bookMark = id_bookMark;
@@ -86,7 +89,9 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
 
   @FXML
   private void addUserGroup(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
-    if (validUser()) {
+   
+     int userId =  User.getUserId(user_name.getText());
+      if (userId > 0 ) {
 
       int type = 0;
       Connection conn = SimpleDataSource.getConnection();
@@ -102,7 +107,7 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
         PreparedStatement stat = conn.prepareStatement(
                 " INSERT INTO `user_group` (`id_type`, `id_user`,`id_groupBook`) "
                 + "VALUES ('" + type + "','"
-                + _id_user + "','"
+                + userId + "','"
                 + _id_bookMark + "')");
 
         stat.executeUpdate();

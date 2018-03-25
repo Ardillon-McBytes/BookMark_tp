@@ -27,6 +27,9 @@ public class Bookmark implements DBField {
    * @param url
    * @param description
    */
+  
+  public Bookmark()
+  {}
   public Bookmark(int id, String nom, String url, String description) {
     this.id = id;
     this.nom = nom;

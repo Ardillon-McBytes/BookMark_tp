@@ -5,6 +5,8 @@
  */
 package applicationclass;
 
+
+import static applicationclass.Gestionnaire.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -92,7 +94,7 @@ public class G_GB {
   }
 
   public static Groupbook getRacine(User user) throws Exception {
-    Groupbook gb = Gestionnaire.getUserRacineGroupbook(user);
+    Groupbook gb = getUserRacineGroupbook(user);
     if (gb == null) {
       throw new Exception(
               "Aucun groupbook ne possède l'identifiant recherché par l'utilisateur");
