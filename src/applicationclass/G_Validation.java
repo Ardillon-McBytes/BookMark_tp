@@ -21,9 +21,17 @@ import sqlclass.SimpleDataSource;
 public class G_Validation {
 
   private static final int MAX_VAL_TYPE_PARTAGE = 2;
+  private static String[] messagesErreur = null;
   private static Connection conn = null;
 
   public static void main(String[] args) {
+    if (!G_Validation.url("https://www.google.com/")) {
+      System.out.println("Erreur");
+    }
+    else {
+      System.out.println("Correct");
+    }
+    
     String[] courriels = {"mon@email.com", "mon@e.mai.l.com", "m.o.n@email.com",
       "", "mon.@email.com", "@email.com", "mon@.com", "mon@email.",
       "mon@email.com.", ".mon@email.com", "mon@com"};
@@ -173,12 +181,12 @@ public class G_Validation {
   }
 
   /**
-   *
+   * 
    * @param nomTable
    * @param nomCol
    * @param valCol
    * @param text
-   * @return
+   * @return 
    * @throws SQLException
    * @throws IOException
    */
@@ -195,11 +203,22 @@ public class G_Validation {
       if (text.equals(rs.getString(1))) {
         return true;
       }
-    } catch (IOException | SQLException e) {
+    } 
+    catch (IOException | SQLException e) {
       return false;
-    } finally {
+    } 
+    finally {
       conn.close();
     }
     return false;
+  }
+  
+  public static String getMessageErreur() {
+    StringBuilder message = new StringBuilder();
+    for (String erreur : messagesErreur) {
+      message.append(erreur);
+      message.append(System.getProperty("line.separator"));
+    }
+    return message.toString();
   }
 }

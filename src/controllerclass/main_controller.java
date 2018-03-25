@@ -24,14 +24,13 @@ import sqlclass.SimpleDataSource;
  * @author moi
  */
 public class main_controller {
-
-  static Gestionnaire gestionnaire = new Gestionnaire();
+  static Gestionnaire g = new Gestionnaire();
   static User user = new User();
 
   boolean validUser() throws IOException, SQLException, ClassNotFoundException {
     {
 
-      if (gestionnaire.getUsagerActif().getUserId(gestionnaire.getUsagerActif().getNom()) < 1) {
+      if (g.getUsagerActif().getUserId(g.getUsagerActif().getNom()) < 1) {
         showAlert("nom de user invalide");
         return false;
       }
@@ -42,7 +41,7 @@ public class main_controller {
 
   public int getUserId(User user) throws SQLException, IOException {
     user.getUserId(user.getNom());
-    gestionnaire.setUsagerActif(user);
+    g.setUsagerActif(user);
     return user.getId();
   }
 
@@ -61,7 +60,9 @@ public class main_controller {
   }
 
   void showAlert(String var) {
+    
     Alert alert = new Alert(Alert.AlertType.ERROR);
+    Alert.AlertType.valueOf(Gestionnaire.getMessageErreur());
     alert.setTitle("Error");
     alert.setHeaderText(null);
     alert.setContentText(var);

@@ -113,18 +113,11 @@ void deleteUser()
     
     boolean validUser(String mdp) throws IOException, SQLException, ClassNotFoundException
     {
-        if (validName() == true &&
-                validPassword(mdp) == true) {
-            return true;
-            
-        }
-        return false;
+        return validName() == true &&
+                validPassword(mdp) == true;
     }
     boolean validName() {
-        if (user.getId() > 0) {
-            return true;
-        }
-        return false;
+        return user.getId() > 0;
 
     }
 

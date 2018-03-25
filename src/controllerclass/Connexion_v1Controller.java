@@ -135,7 +135,7 @@ public class Connexion_v1Controller extends main_controller implements Initializ
   @FXML
   private void connectUser(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
 
-    gestionnaire.getUsagerActif().setNom(user_name.getText());
+    g.getUsagerActif().setNom(user_name.getText());
 
     if (validContent() == true && super.validUser() == true && validPassword() == true) {
 

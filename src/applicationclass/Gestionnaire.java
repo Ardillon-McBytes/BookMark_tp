@@ -32,23 +32,14 @@ public class Gestionnaire {
    * ATTRIBUTS DE LA CLASSE *********************
    */
   private static boolean initialise;
-
-  private static G_Validation gValid;
-  private static G_User gUser;
+  
   private static User usagerActif;   // Compte actif?
-
-  private static G_TA gTA;
-  private static G_Partage gPartage;
+  
   private static TA_User_GB acces;
-  private static G_GB gGB;
   private static TA_GB_GB conteneurs;
-  private static G_BM gBM;
   private static TA_GB_BM contenus;
-  private static G_Tag gTag;
   private static TA_BM_Tag etiquettes;
 
-  private static Recherche r;
-  private static G_Requete gRequete;
   private static ArrayList<User> users;
   private static ArrayList<Groupbook> groupbooks;
   private static ArrayList<Bookmark> bookmarks;
@@ -125,6 +116,7 @@ public class Gestionnaire {
     if (!chargerUserData()) {
       return false;
     }
+    
     initialise = true;
     return true;
   }
@@ -145,7 +137,7 @@ public class Gestionnaire {
    */
   public static boolean addUser(User user) throws SQLException, IOException {
     Groupbook gb;
-    if (Recherche.containsLeft(acces, user)) {
+    if (containsLeft(acces, user)) {
       return false;
     } else {
       G_GB.add(user);
@@ -229,6 +221,10 @@ public class Gestionnaire {
     throw new IOException("Utilisateur mal initialisé");
     }*/
     return Recherche.getRights(parent, conteneurs, groupbooks);
+  }
+  
+  public static String getMessageErreur() {
+    return G_Validation.getMessageErreur();
   }
 
   /**

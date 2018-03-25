@@ -7,7 +7,8 @@
 package controllerclass;
 
 import applicationclass.Bookmark;
-import applicationclass.G_BM;
+import applicationclass.Gestionnaire;
+import static applicationclass.Gestionnaire.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -88,11 +89,6 @@ public class PagePrincipaleController extends main_controller implements Initial
     private Hyperlink hyper_removeFile;
 
     /**
-     *
-     * @param stage
-     * @param userName
-     */
-    /**
      * Initializes the controller class.
      *
      * @param url
@@ -109,10 +105,10 @@ public class PagePrincipaleController extends main_controller implements Initial
         try {
 
             PreparedStatement stat = conn.prepareStatement(
-                    "(SELECT id_groupBook FROM user_group WHERE id_user = '" + gestionnaire.getUsagerActif().getId() + "')");
+                    "(SELECT id_groupBook FROM user_group WHERE id_user = '" + getUsagerActif().getId() + "')");
 
             ResultSet rs = stat.executeQuery();
-            int id_gp = gestionnaire.getUsagerActif().getId();
+            int id_gp = getUsagerActif().getId();
             
             while (rs.next()) {
                 id_gp = rs.getInt(1);
@@ -177,10 +173,10 @@ public class PagePrincipaleController extends main_controller implements Initial
         Connexion_v1Controller controll = new Connexion_v1Controller();
         Stage stageTheLabelBelongs = (Stage) btnAdd_txt_tag.getScene().getWindow();
         controll.setPrevStage(stageTheLabelBelongs);
-
+        
         Scene scene = new Scene(root);
         Stage secondStage = new Stage();
-
+        
         secondStage.setScene(scene);
         secondStage.show();
     }
@@ -195,14 +191,8 @@ public class PagePrincipaleController extends main_controller implements Initial
 
     @FXML
     private void Add_Bm(MouseEvent event) throws SQLException {
-        
-        
         Bookmark bm = new Bookmark(txt_file_name.getText(),txt_adress.getText(),txt_tag_name.getText());
-        
-        G_BM gestionBm = new G_BM();
-        gestionBm.setBookMark(bm);
-        gestionBm.addBm();
-      
+        Gestionnaire.addBookmark(bm);
     }
 
     @FXML
