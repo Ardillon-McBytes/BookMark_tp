@@ -7,6 +7,7 @@ package applicationclass;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -127,4 +128,58 @@ public class G_GB {
 //    return G_TA.removeEtiquette(bookmark, tag);
 //  }
   //public static boolean changerTypeAcces()
+          
+          
+    /* @J-A_edits djhfadkfhjladk */
+    static void createGb(User user)
+            throws IOException, SQLException, ClassNotFoundException {
+
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            PreparedStatement stat = conn.prepareStatement(
+                    " INSERT INTO `group_book` (`nom`, `Description`) "
+                    + "VALUES ('" + user.getNom() + "','"
+                    + "Default Group" + "')");
+
+            stat.executeUpdate();
+        } finally {
+            conn.close();
+        }
+    }
+
+    static void deleteGb(User user)
+            throws IOException, SQLException, ClassNotFoundException {
+
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            PreparedStatement stat = conn.prepareStatement(
+                    " DELETE FROM  `group_book` "
+                    + "WHERE `user`.`id` = " + user.getId());
+
+            stat.executeUpdate();
+        } finally {
+            conn.close();
+        }
+    }
+
+    void editGb(Groupbook bm) throws SQLException {
+        Connection conn = SimpleDataSource.getConnection();
+
+        try {
+
+            PreparedStatement stat = conn.prepareStatement(
+                    " UPDATE `group_book` "
+                    + "SET 'Nom' = '" + bm.getNom() + "','"
+                    + " 'Description = '" + bm.getDescription()
+                    + "WHERE 'bookmark'.'id' = " + bm.getId());
+
+            stat.executeUpdate();
+
+        } finally {
+            conn.close();
+
+        }
+    }
 }

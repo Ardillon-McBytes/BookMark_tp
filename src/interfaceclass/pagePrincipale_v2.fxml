@@ -28,389 +28,389 @@
 <?import javafx.scene.text.Font?>
 
 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="537.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerclass.PagePrincipaleController">
-    <children>
-        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="500.0" prefWidth="700.0" VBox.vgrow="SOMETIMES">
-            <content>
-                <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="685.0">
-                    <children>
-                        <FlowPane depthTest="DISABLE" hgap="2.0" minHeight="-Infinity" minWidth="-Infinity" prefWrapLength="600.0" rowValignment="TOP" vgap="1.0">
-                            <children>
-                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B1" />
-                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B2" />
-                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B3" />
-                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B4" />
-                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B5" />
-                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B6" />
-                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B7" />
-                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B8" />
-                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B9" />
-                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B10">
-                                    <FlowPane.margin>
-                                        <Insets />
-                                    </FlowPane.margin>
-                                </Button>
-                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B11" />
-                                <Button fx:id="btn_12" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#refreshPage" text="B12" />
-                                <ImageView fitHeight="20.0" pickOnBounds="true" preserveRatio="true" />
-                            </children>
-                            <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                            </padding>
-                        </FlowPane>
-                        <BorderPane VBox.vgrow="ALWAYS">
-                            <top>
-                                <HBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" spacing="20.0" BorderPane.alignment="CENTER_LEFT">
-                                    <children>
-                                        <Hyperlink>
-                                            <graphic>
-                                                <ImageView fx:id="btnInfo_selected" fitHeight="20.0" onMouseClicked="#info_selected" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../../image/info.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </Hyperlink>
-                                        <Hyperlink>
-                                            <graphic>
-                                                <ImageView fx:id="btnRefresh" accessibleText="sdfs" fitHeight="20.0" onMouseClicked="#refreshPage" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../../image/refresh.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </Hyperlink>
-                                        <Hyperlink>
-                                            <graphic>
-                                                <ImageView fx:id="btnHelp" fitHeight="20.0" onMouseClicked="#showHelp" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../image/help.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </Hyperlink>
-                                        <Hyperlink>
-                                            <graphic>
-                                                <ImageView fx:id="btnRemove_user" fitHeight="20.0" onMouseClicked="#removeUserFromBm" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../../image/remove-share.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </Hyperlink>
-                                        <Hyperlink>
-                                            <graphic>
-                                                <ImageView fx:id="btnAdd_user" fitHeight="20.0" onMouseClicked="#addUserBm" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../../image/add-share.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </Hyperlink>
-                                        <Hyperlink>
-                                            <graphic>
-                                                <ImageView fx:id="btn_remove_bm" fitHeight="20.0" onMouseClicked="#remove_bm" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../../image/remove-bookmark.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </Hyperlink>
-                                        <Hyperlink>
-                                            <graphic>
-                                                <ImageView fx:id="btn_addFile" fitHeight="20.0" onMouseClicked="#add_file" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../../image/add-groupBook.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </Hyperlink>
-                                        <Hyperlink>
-                                            <graphic>
-                                                <ImageView fx:id="btnAdd_Bm" fitHeight="20.0" onMouseClicked="#Add_Bm" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../../image/add-bookmark.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </Hyperlink>
-                                        <Hyperlink>
-                                            <graphic>
-                                                <ImageView fx:id="btnGroup" fitHeight="20.0" onMouseClicked="#show_group" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../../image/groupBook-shared.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </Hyperlink>
-                                        <Hyperlink fx:id="hyper_removeFile">
-                                            <graphic>
-                                                <ImageView fx:id="btnRemove_file" fitHeight="20.0" onMouseClicked="#remove_File" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../../image/remove-groupBook.png" />
-                                                    </image>
-                                                </ImageView>
-                                            </graphic>
-                                        </Hyperlink>
-                                        <Hyperlink onMouseClicked="#refreshPage">
-                                            <graphic>
-                                                <ImageView fx:id="btnRefresh3" accessibleText="sdfs" fitHeight="20.0" onMouseClicked="#refreshPage" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../../image/refresh.png" />
-                                                    </image>
-                                                    <viewport>
-                                                        <Rectangle2D width="20.0" />
-                                                    </viewport>
-                                                </ImageView>
-                                            </graphic>
-                                        </Hyperlink>
-                                    </children>
-                                    <BorderPane.margin>
-                                        <Insets />
-                                    </BorderPane.margin>
-                                </HBox>
-                            </top>
-                            <left>
-                                <ScrollPane fitToHeight="true" minHeight="-Infinity" minWidth="-Infinity" pannable="true" prefWidth="152.0" BorderPane.alignment="TOP_LEFT">
-                                    <content>
-                                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0">
-                                            <children>
-                                                <Hyperlink prefHeight="26.0" prefWidth="150.0" text="Tag" VBox.vgrow="NEVER">
-                                                    <graphic>
-                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                                                    </graphic>
-                                                </Hyperlink>
-                                                <ListView prefHeight="50.0" prefWidth="150.0" />
-                                                <Hyperlink prefHeight="26.0" prefWidth="150.0" text="Marque-pages">
-                                                    <graphic>
-                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                                                    </graphic>
-                                                </Hyperlink>
-                                                <ListView fx:id="list_mp" prefHeight="129.0" prefWidth="150.0" />
-                                                <Hyperlink prefHeight="26.0" prefWidth="150.0" text="Partage">
-                                                    <graphic>
-                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                                                    </graphic>
-                                                </Hyperlink>
-                                                <ListView prefHeight="50.0" prefWidth="150.0" />
-                                            </children>
-                                        </VBox>
-                                    </content>
-                                </ScrollPane>
-                            </left>
-                            <center>
-                                <VBox>
-                                    <children>
-                                        <GridPane>
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                            <children>
-                                                <Label text="Url" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="2">
-                                                    <font>
-                                                        <Font name="Arial" size="15.0" />
-                                                    </font>
-                                                </Label>
-                                                <Label text="Tag/ Partage" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="1">
-                                                    <font>
-                                                        <Font name="Arial" size="15.0" />
-                                                    </font>
-                                                </Label>
-                                                <Label text=" Nom" textAlignment="RIGHT">
-                                                    <font>
-                                                        <Font name="Arial" size="15.0" />
-                                                    </font>
-                                                </Label>
-                                            </children>
-                                        </GridPane>
-                                        <AnchorPane focusTraversable="true" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="SOMETIMES" />
-                                        <VBox VBox.vgrow="ALWAYS">
-                                            <children>
-                                                <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="-Infinity" minWidth="-Infinity" pannable="true" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
-                                                    <content>
-                                                        <AnchorPane>
-                                                            <children>
-                                                                <GridPane fx:id="gp_principal" minHeight="-Infinity" minWidth="-Infinity" vgap="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                    <columnConstraints>
-                                                                        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="30.0" />
-                                                                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="-Infinity" />
-                                                                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="-Infinity" />
-                                                                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="-Infinity" />
-                                                                    </columnConstraints>
-                                                                    <rowConstraints>
-                                                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" valignment="CENTER" />
-                                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
-                                                                        <RowConstraints valignment="CENTER" />
-                                                                        <RowConstraints valignment="CENTER" />
-                                                                        <RowConstraints valignment="CENTER" />
-                                                                    </rowConstraints>
-                                                                    <children>
-                                                                        <Label text="Nom1" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="1">
-                                                                            <font>
-                                                                                <Font name="Arial" size="15.0" />
-                                                                            </font>
-                                                                            <GridPane.margin>
-                                                                                <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
-                                                                            </GridPane.margin>
-                                                                        </Label>
-                                                                        <Label text="Bob01, Lucien, Marchal, Èveline" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="2">
-                                                                            <font>
-                                                                                <Font name="Arial" size="15.0" />
-                                                                            </font>
-                                                                            <GridPane.margin>
-                                                                                <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
-                                                                            </GridPane.margin>
-                                                                        </Label>
-                                                                        <Label text="www.firefox.com" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                                                            <font>
-                                                                                <Font name="Arial" size="15.0" />
-                                                                            </font>
-                                                                        </Label>
-                                                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
-                                                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
-                                                                        <Label text="BM1" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                                                            <font>
-                                                                                <Font name="Arial" size="15.0" />
-                                                                            </font>
-                                                                        </Label>
-                                                                        <Label text="Tab1, Tag2" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                                                            <font>
-                                                                                <Font name="Arial" size="15.0" />
-                                                                            </font>
-                                                                        </Label>
-                                                                    </children>
-                                                                </GridPane>
-                                                            </children>
-                                                        </AnchorPane>
-                                                    </content>
-                                                </ScrollPane>
-                                            </children>
-                                        </VBox>
-                                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
-                                            <children>
-                                                <GridPane alignment="CENTER_LEFT" hgap="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" vgap="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                    <children>
-                                                        <Label alignment="CENTER_RIGHT" text="Nom:" textAlignment="RIGHT">
-                                                            <font>
-                                                                <Font name="Arial" size="15.0" />
-                                                            </font>
-                                                            <GridPane.margin>
-                                                                <Insets />
-                                                            </GridPane.margin>
-                                                        </Label>
-                                                        <TextField fx:id="txt_file_name" minWidth="150.0" promptText="Nom" GridPane.columnIndex="1" GridPane.valignment="BASELINE">
-                                                            <opaqueInsets>
-                                                                <Insets />
-                                                            </opaqueInsets>
-                                                            <padding>
-                                                                <Insets bottom="4.0" top="4.0" />
-                                                            </padding>
-                                                            <GridPane.margin>
-                                                                <Insets />
-                                                            </GridPane.margin>
-                                                        </TextField>
-                                                        <Label alignment="CENTER_RIGHT" text="Tag:" textAlignment="RIGHT" GridPane.rowIndex="2">
-                                                            <font>
-                                                                <Font name="Arial" size="15.0" />
-                                                            </font>
-                                                            <GridPane.margin>
-                                                                <Insets />
-                                                            </GridPane.margin>
-                                                        </Label>
-                                                        <Hyperlink GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
-                                                            <padding>
-                                                                <Insets left="-2.0" right="-2.0" top="-2.0" />
-                                                            </padding>
-                                                            <GridPane.margin>
-                                                                <Insets right="2.0" top="1.0" />
-                                                            </GridPane.margin>
-                                                        </Hyperlink>
-                                                        <Label alignment="CENTER_RIGHT" text="Adresse:" textAlignment="RIGHT" GridPane.rowIndex="1">
-                                                            <font>
-                                                                <Font name="Arial" size="15.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <TextField fx:id="txt_adress" minWidth="150.0" promptText="Adresse" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                                            <opaqueInsets>
-                                                                <Insets />
-                                                            </opaqueInsets>
-                                                            <padding>
-                                                                <Insets bottom="4.0" top="4.0" />
-                                                            </padding>
-                                                        </TextField>
-                                                        <Hyperlink GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                                            <graphic>
-                                                                <ImageView fx:id="btnAccepted" fitHeight="25.0" pickOnBounds="true" preserveRatio="true">
-                                                                    <image>
-                                                                        <Image url="@../../../image/info.png" />
-                                                                    </image>
-                                                                </ImageView>
-                                                            </graphic>
-                                                            <padding>
-                                                                <Insets left="-2.0" right="-2.0" top="-2.0" />
-                                                            </padding>
-                                                            <GridPane.margin>
-                                                                <Insets right="2.0" top="1.0" />
-                                                            </GridPane.margin>
-                                                        </Hyperlink>
-                                                        <TextField fx:id="txt_tag_name" minWidth="150.0" promptText="Tag" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                                            <opaqueInsets>
-                                                                <Insets />
-                                                            </opaqueInsets>
-                                                            <padding>
-                                                                <Insets bottom="4.0" top="4.0" />
-                                                            </padding>
-                                                        </TextField>
-                                                        <Hyperlink GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                                                            <graphic>
-                                                                <ImageView fx:id="btnInfo_tag" fitHeight="25.0" pickOnBounds="true" preserveRatio="true">
-                                                                    <image>
-                                                                        <Image url="@../../../image/validate.png" />
-                                                                    </image>
-                                                                </ImageView>
-                                                            </graphic>
-                                                            <padding>
-                                                                <Insets left="-2.0" right="-2.0" top="-2.0" />
-                                                            </padding>
-                                                            <GridPane.margin>
-                                                                <Insets right="2.0" top="1.0" />
-                                                            </GridPane.margin>
-                                                        </Hyperlink>
-                                                        <ImageView fx:id="btnAdd_txt_tag" fitHeight="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                                                            <GridPane.margin>
-                                                                <Insets right="30.0" />
-                                                            </GridPane.margin>
-                                                            <image>
-                                                                <Image url="@../../../image/info.png" />
-                                                            </image>
-                                                        </ImageView>
-                                                    </children>
-                                                    <columnConstraints>
-                                                        <ColumnConstraints halignment="LEFT" hgrow="NEVER" />
-                                                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
-                                                    </columnConstraints>
-                                                    <rowConstraints>
-                                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" valignment="CENTER" />
-                                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" valignment="CENTER" />
-                                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" valignment="CENTER" />
-                                                    </rowConstraints>
-                                                    <padding>
-                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                                                    </padding>
+   <children>
+      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="500.0" prefWidth="700.0" VBox.vgrow="SOMETIMES">
+         <content>
+            <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="685.0">
+               <children>
+                  <FlowPane depthTest="DISABLE" hgap="2.0" minHeight="-Infinity" minWidth="-Infinity" prefWrapLength="600.0" rowValignment="TOP" vgap="1.0">
+                     <children>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B1" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B2" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B3" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B4" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B5" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B6" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B7" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B8" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B9" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B10">
+                           <FlowPane.margin>
+                              <Insets />
+                           </FlowPane.margin>
+                        </Button>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="B11" />
+                        <Button fx:id="btn_12" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#refreshPage" text="B12" />
+                        <ImageView fitHeight="20.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </FlowPane>
+                  <BorderPane VBox.vgrow="ALWAYS">
+                     <top>
+                        <HBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" spacing="20.0" BorderPane.alignment="CENTER_LEFT">
+                           <children>
+                              <Hyperlink>
+                                 <graphic>
+                                    <ImageView fx:id="btnInfo_selected" fitHeight="20.0" onMouseClicked="#info_selected" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../image/info.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Hyperlink>
+                              <Hyperlink>
+                                 <graphic>
+                                    <ImageView fx:id="btnRefresh" accessibleText="sdfs" fitHeight="20.0" onMouseClicked="#refreshPage" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../image/refresh.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Hyperlink>
+                              <Hyperlink>
+                                 <graphic>
+                                    <ImageView fx:id="btnHelp" fitHeight="20.0" onMouseClicked="#showHelp" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../image/help.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Hyperlink>
+                              <Hyperlink>
+                                 <graphic>
+                                    <ImageView fx:id="btnRemove_user" fitHeight="20.0" onMouseClicked="#removeUserFromBm" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../image/remove-share.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Hyperlink>
+                              <Hyperlink>
+                                 <graphic>
+                                    <ImageView fx:id="btnAdd_user" fitHeight="20.0" onMouseClicked="#addUserBm" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../image/add-share.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Hyperlink>
+                              <Hyperlink>
+                                 <graphic>
+                                    <ImageView fx:id="btn_remove_bm" fitHeight="20.0" onMouseClicked="#remove_bm" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../image/remove-bookmark.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Hyperlink>
+                              <Hyperlink>
+                                 <graphic>
+                                    <ImageView fx:id="btn_addFile" fitHeight="20.0" onMouseClicked="#add_file" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../image/add-groupBook.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Hyperlink>
+                              <Hyperlink>
+                                 <graphic>
+                                    <ImageView fx:id="btnAdd_Bm" fitHeight="20.0" onMouseClicked="#Add_Bm" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../image/add-bookmark.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Hyperlink>
+                              <Hyperlink>
+                                 <graphic>
+                                    <ImageView fx:id="btnGroup" fitHeight="20.0" onMouseClicked="#show_group" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../image/groupBook-shared.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Hyperlink>
+                              <Hyperlink fx:id="hyper_removeFile">
+                                 <graphic>
+                                    <ImageView fx:id="btnRemove_file" fitHeight="20.0" onMouseClicked="#remove_File" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../image/remove-groupBook.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Hyperlink>
+                              <Hyperlink onMouseClicked="#refreshPage">
+                                 <graphic>
+                                    <ImageView fx:id="btnRefresh3" accessibleText="sdfs" fitHeight="20.0" onMouseClicked="#refreshPage" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../image/refresh.png" />
+                                       </image>
+                                       <viewport>
+                                          <Rectangle2D width="20.0" />
+                                       </viewport>
+                                    </ImageView>
+                                 </graphic>
+                              </Hyperlink>
+                           </children>
+                           <BorderPane.margin>
+                              <Insets />
+                           </BorderPane.margin>
+                        </HBox>
+                     </top>
+                     <left>
+                        <ScrollPane fitToHeight="true" minHeight="-Infinity" minWidth="-Infinity" pannable="true" prefWidth="152.0" BorderPane.alignment="TOP_LEFT">
+                           <content>
+                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0">
+                                 <children>
+                                    <Hyperlink prefHeight="26.0" prefWidth="150.0" text="Tag" VBox.vgrow="NEVER">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                    </Hyperlink>
+                                    <ListView prefHeight="50.0" prefWidth="150.0" />
+                                    <Hyperlink prefHeight="26.0" prefWidth="150.0" text="Marque-pages">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                    </Hyperlink>
+                                    <ListView fx:id="list_mp" prefHeight="129.0" prefWidth="150.0" />
+                                    <Hyperlink prefHeight="26.0" prefWidth="150.0" text="Partage">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                    </Hyperlink>
+                                    <ListView prefHeight="50.0" prefWidth="150.0" />
+                                 </children>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                     </left>
+                     <center>
+                        <VBox>
+                           <children>
+                              <GridPane>
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Url" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="2">
+                                       <font>
+                                          <Font name="Arial" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Tag/ Partage" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="1">
+                                       <font>
+                                          <Font name="Arial" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text=" Nom" textAlignment="RIGHT">
+                                       <font>
+                                          <Font name="Arial" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </GridPane>
+                            <AnchorPane focusTraversable="true" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="SOMETIMES" />
+                              <VBox VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="-Infinity" minWidth="-Infinity" pannable="true" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+                                      <content>
+                                        <AnchorPane>
+                                             <children>
+                                                <GridPane fx:id="gp_principal" minHeight="-Infinity" minWidth="-Infinity" vgap="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                  <columnConstraints>
+                                                      <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="30.0" />
+                                                    <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="-Infinity" />
+                                                    <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="-Infinity" />
+                                                      <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="-Infinity" />
+                                                  </columnConstraints>
+                                                  <rowConstraints>
+                                                      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" valignment="CENTER" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+                                                    <RowConstraints valignment="CENTER" />
+                                                      <RowConstraints valignment="CENTER" />
+                                                    <RowConstraints valignment="CENTER" />
+                                                  </rowConstraints>
+                                                   <children>
+                                                      <Label text="Nom1" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="1">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                      <Label text="Bob01, Lucien, Marchal, Èveline" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="2">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                         <GridPane.margin>
+                                                            <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                      <Label text="www.firefox.com" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
+                                                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                                                      <Label text="BM1" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label text="Tab1, Tag2" textAlignment="RIGHT" textFill="#3d80cc" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="Arial" size="15.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
                                                 </GridPane>
-                                            </children>
-                                        </AnchorPane>
-                                    </children>
-                                </VBox>
-                            </center>
-                        </BorderPane>
-                    </children>
-                </VBox>
-            </content>
-        </ScrollPane>
-    </children>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </ScrollPane>
+                                 </children>
+                              </VBox>
+                              <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
+                                 <children>
+                                    <GridPane alignment="CENTER_LEFT" hgap="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" vgap="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" text="Nom:" textAlignment="RIGHT">
+                                             <font>
+                                                <Font name="Arial" size="15.0" />
+                                             </font>
+                                             <GridPane.margin>
+                                                <Insets />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <TextField fx:id="txt_file_name" minWidth="150.0" promptText="Nom" GridPane.columnIndex="1" GridPane.valignment="BASELINE">
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <padding>
+                                                <Insets bottom="4.0" top="4.0" />
+                                             </padding>
+                                             <GridPane.margin>
+                                                <Insets />
+                                             </GridPane.margin>
+                                          </TextField>
+                                          <Label alignment="CENTER_RIGHT" text="Tag:" textAlignment="RIGHT" GridPane.rowIndex="2">
+                                             <font>
+                                                <Font name="Arial" size="15.0" />
+                                             </font>
+                                             <GridPane.margin>
+                                                <Insets />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Hyperlink GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                                             <padding>
+                                                <Insets left="-2.0" right="-2.0" top="-2.0" />
+                                             </padding>
+                                             <GridPane.margin>
+                                                <Insets right="2.0" top="1.0" />
+                                             </GridPane.margin>
+                                          </Hyperlink>
+                                          <Label alignment="CENTER_RIGHT" text="Adresse:" textAlignment="RIGHT" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font name="Arial" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="txt_adress" minWidth="150.0" promptText="Adresse" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <padding>
+                                                <Insets bottom="4.0" top="4.0" />
+                                             </padding>
+                                          </TextField>
+                                          <Hyperlink GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                             <graphic>
+                                                <ImageView fx:id="btnAccepted" fitHeight="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../image/info.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <padding>
+                                                <Insets left="-2.0" right="-2.0" top="-2.0" />
+                                             </padding>
+                                             <GridPane.margin>
+                                                <Insets right="2.0" top="1.0" />
+                                             </GridPane.margin>
+                                          </Hyperlink>
+                                          <TextField fx:id="txt_tag_name" minWidth="150.0" promptText="Tag" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <padding>
+                                                <Insets bottom="4.0" top="4.0" />
+                                             </padding>
+                                          </TextField>
+                                          <Hyperlink GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                             <graphic>
+                                                <ImageView fx:id="btnInfo_tag" fitHeight="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../image/validate.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <padding>
+                                                <Insets left="-2.0" right="-2.0" top="-2.0" />
+                                             </padding>
+                                             <GridPane.margin>
+                                                <Insets right="2.0" top="1.0" />
+                                             </GridPane.margin>
+                                          </Hyperlink>
+                                          <ImageView fx:id="btnAdd_txt_tag" fitHeight="25.0" onMouseClicked="#addTag" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                             <GridPane.margin>
+                                                <Insets right="30.0" />
+                                             </GridPane.margin>
+                                             <image>
+                                                <Image url="@../../../image/info.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="LEFT" hgrow="NEVER" />
+                                          <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" valignment="CENTER" />
+                                          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" valignment="CENTER" />
+                                          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" valignment="CENTER" />
+                                       </rowConstraints>
+                                       <padding>
+                                          <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                       </padding>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                     </center>
+                  </BorderPane>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
 </VBox>
