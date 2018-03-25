@@ -80,8 +80,8 @@ void deleteUser()
         }
     }
 
-    public int getUserId(User user)
-            throws SQLException {
+    static int getUserId(String name)
+            throws SQLException, IOException {
 
         Connection conn = SimpleDataSource.getConnection();
         try {
@@ -90,11 +90,14 @@ void deleteUser()
                     + "FROM user "
                     + "WHERE user_name = ?";
             PreparedStatement ps3 = conn.prepareStatement(query3);
-            ps3.setString(1, user.getNom());
+            ps3.setString(1, name);
 
             ResultSet rs = ps3.executeQuery();
 
             if (rs.next()) {
+                
+                int u_id = rs.getInt(1);
+                Gestionnaire.setUsagerActif(new User(u_id));
                 return rs.getInt(1);
 
             }
@@ -111,41 +114,5 @@ void deleteUser()
     /* @J-A_edits sfdjkhskfjhsdjkh */
 
     
-    boolean validUser(String mdp) throws IOException, SQLException, ClassNotFoundException
-    {
-        return validName() == true &&
-                validPassword(mdp) == true;
-    }
-    boolean validName() {
-        return user.getId() > 0;
-
-    }
-
-    boolean validPassword(String mdp) throws IOException, SQLException, ClassNotFoundException {
-        Connection conn = SimpleDataSource.getConnection();
-        try {
-
-            PreparedStatement stat = conn.prepareStatement(
-                    "(SELECT user_password "
-                    + "FROM user "
-                    + "WHERE user.user_name = '" + user.getNom() + "')");
-
-            ResultSet rs = stat.executeQuery();
-            String pass = null;
-
-            if (rs.next()) {
-                pass = rs.getString(1);
-                if (!pass.equals(mdp)) {
-                    return false;
-               
-                }
-            }
-
-        } finally {
-            conn.close();
-
-        }
-
-        return true;
-    }
+   
 }

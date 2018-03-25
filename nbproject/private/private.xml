@@ -3,8 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/G_Validation.java</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/TA_BM_Tag.java</file>
-            <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/GestionnaireConnexion.java</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/TA_GB_BM.java</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/Tag.java</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/controllerclass/AjoutPartage_v1Controller.java</file>
@@ -12,25 +12,24 @@
             <file>file:/D:/Prog/Java/BookMark_tp/src/controllerclass/main_controller.java</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/DBField.java</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/Gestionnaire.java</file>
-            <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/GestionnaireBM.java</file>
-            <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/GestionnaireUser.java</file>
-            <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/GestionnaireRequete.java</file>
+            <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/G_User.java</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/controllerclass/Connexion_v1Controller.java</file>
-            <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/GestionnaireGB.java</file>
-            <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/GestionnaireTag.java</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/sqlclass/SimpleDataSource.java</file>
+            <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/TABase.java</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/DBTA.java</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/Bookmark.java</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/Groupbook.java</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/controllerclass/NouveauCompte_v1Controller.java</file>
-            <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/GestionnaireValidation.java</file>
+            <file>file:/D:/Prog/Java/BookMark_tp/src/interfaceclass/infoPartage_v1.fxml</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/controllerclass/TableList.java</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/ApplicationMain.java</file>
+            <file>file:/D:/Prog/Java/BookMark_tp/src/interfaceclass/pagePrincipale_v2.fxml</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/controllerclass/InfoPartage_v1Controller.java</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/controllerclass/PagePrincipaleController.java</file>
-            <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/GestionnairePartage.java</file>
+            <file>file:/D:/Prog/Java/BookMark_tp/src/interfaceclass/ajoutPartage_v1.fxml</file>
+            <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/G_Tag.java</file>
+            <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/G_GB.java</file>
             <file>file:/D:/Prog/Java/BookMark_tp/src/controllerclass/AjoutTag_v2Controller.java</file>
-            <file>file:/D:/Prog/Java/BookMark_tp/src/applicationclass/GestionnaireTA.java</file>
         </group>
     </open-files>
 </project-private>

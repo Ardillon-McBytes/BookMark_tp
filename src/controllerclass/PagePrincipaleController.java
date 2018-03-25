@@ -9,6 +9,8 @@ package controllerclass;
 import applicationclass.Bookmark;
 import applicationclass.Gestionnaire;
 import static applicationclass.Gestionnaire.*;
+import applicationclass.G_BM;
+import applicationclass.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -99,47 +101,55 @@ public class PagePrincipaleController extends main_controller implements Initial
 
     }
 
-    void getBookMark() throws IOException, SQLException, ClassNotFoundException {
+    void getBookMark() throws IOException, SQLException, ClassNotFoundException, Exception {
         Connection conn = SimpleDataSource.getConnection();
         ObservableList items = FXCollections.observableArrayList();
         try {
-
-            PreparedStatement stat = conn.prepareStatement(
-                    "(SELECT id_groupBook FROM user_group WHERE id_user = '" + getUsagerActif().getId() + "')");
-
-            ResultSet rs = stat.executeQuery();
-            int id_gp = getUsagerActif().getId();
-            
-            while (rs.next()) {
-                id_gp = rs.getInt(1);
-                txt_file_name.setText(Integer.toString(id_gp));
-                PreparedStatement stat2 = conn.prepareStatement(
-                        "(SELECT id_bookmark FROM bookmark_group WHERE id_group = '" + id_gp + "')");
-
-                ResultSet rs2 = stat2.executeQuery();
-                int id_bm = 0;
-                id_bm = rs.getInt(1);
-                txt_adress.setText(Integer.toString(id_bm));
-
-                String query3 = "SELECT nom_site, Description, Url "
-                        + "FROM bookmark "
-                        + "WHERE id = ? ";
-
-                PreparedStatement ps3 = conn.prepareStatement(query3);
-                ps3.setInt(1, id_bm);
-
-                ResultSet rs3 = ps3.executeQuery();
-                String name = null;
-                if (rs3.next()) {
-                    txt_file_name.setText(rs3.getString(1));
-                    txt_adress.setText(rs3.getString(3));
-
-                }
-
-                items.add(rs3.getString(1));
+                User user = new User ();
+                user = gestionnaire.getUsagerActif();
+                 gestionnaire.loadUserGb();
+        
+//            PreparedStatement stat = conn.prepareStatement(
+//                    "(SELECT id_groupBook FROM user_group WHERE id_user = '" + gestionnaire.getUsagerActif().getId() + "')");
+//
+//            ResultSet rs = stat.executeQuery();
+//            int id_gp = gestionnaire.getUsagerActif().getId();
+//            
+//            while (rs.next()) {
+//                id_gp = rs.getInt(1);
+//                txt_file_name.setText(Integer.toString(id_gp));
+//                PreparedStatement stat2 = conn.prepareStatement(
+//                        "(SELECT id_bookmark FROM bookmark_group WHERE id_group = '" + id_gp + "')");
+//
+//                ResultSet rs2 = stat2.executeQuery();
+//                int id_bm = 0;
+//                id_bm = rs.getInt(1);
+//                txt_adress.setText(Integer.toString(id_bm));
+//
+//                String query3 = "SELECT nom_site, Description, Url "
+//                        + "FROM bookmark "
+//                        + "WHERE id = ? ";
+//
+//                PreparedStatement ps3 = conn.prepareStatement(query3);
+//                ps3.setInt(1, id_bm);
+//
+//                ResultSet rs3 = ps3.executeQuery();
+//                String name = null;
+//                if (rs3.next()) {
+//                    txt_file_name.setText(rs3.getString(1));
+//                    txt_adress.setText(rs3.getString(3));
+//
+//                }
+            for (int i = 0; i < gestionnaire.getBookmarks().size(); i++) {   
+                
+                
+                     items.add(gestionnaire.getBookmarks().get(i).getNom());
+                
+            }
+               
                 list_mp.setItems(items);
 
-            }
+            
 
         } finally {
             conn.close();
@@ -149,7 +159,7 @@ public class PagePrincipaleController extends main_controller implements Initial
     }
 
     @FXML
-    private void refreshPage(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
+    private void refreshPage(MouseEvent event) throws IOException, SQLException, ClassNotFoundException, Exception {
         getBookMark();
     }
 

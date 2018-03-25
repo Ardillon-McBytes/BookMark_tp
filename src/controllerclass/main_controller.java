@@ -17,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 import sqlclass.SimpleDataSource;
 
 /**
@@ -24,40 +25,23 @@ import sqlclass.SimpleDataSource;
  * @author moi
  */
 public class main_controller {
-  static Gestionnaire g = new Gestionnaire();
-  static User user = new User();
 
-  boolean validUser() throws IOException, SQLException, ClassNotFoundException {
-    {
+    static Gestionnaire gestionnaire = new Gestionnaire();
+    static User user = new User();
 
-      if (g.getUsagerActif().getUserId(g.getUsagerActif().getNom()) < 1) {
-        showAlert("nom de user invalide");
-        return false;
-      }
+    void setPrevStage(Stage stage) {
+
+        prevStage = stage;
 
     }
-    return true;
-  }
 
-  public int getUserId(User user) throws SQLException, IOException {
-    user.getUserId(user.getNom());
-    g.setUsagerActif(user);
-    return user.getId();
-  }
+    void exitPage(Object object) throws Exception {
 
-  void setPrevStage(Stage stage) {
+        Stage stageTheLabelBelongs = (Stage) ((Node) object).getScene().getWindow();
+        stageTheLabelBelongs.hide();
+        prevStage.show();
 
-    prevStage = stage;
-
-  }
-
-  void exitPage(Object object) throws Exception {
-
-    Stage stageTheLabelBelongs = (Stage) ((Node) object).getScene().getWindow();
-    stageTheLabelBelongs.hide();
-    prevStage.show();
-
-  }
+    }
 
   void showAlert(String var) {
     
@@ -66,7 +50,17 @@ public class main_controller {
     alert.setTitle("Error");
     alert.setHeaderText(null);
     alert.setContentText(var);
-
     alert.showAndWait();
   }
+  
+  boolean showConfirmation() {
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Your Message", "Title on Box", dialogButton);
+        
+        if (dialogResult == 0) {
+          return true;
+        } else {
+            return false;
+        }
+    }
 }
