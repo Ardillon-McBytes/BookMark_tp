@@ -198,7 +198,7 @@ public class PagePrincipaleController extends main_controller implements Initial
     @FXML
     private void show_group(MouseEvent event) throws IOException {
         
-              Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/InfoPartage_v1.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/InfoPartage_v1.fxml"));
 
         Connexion_v1Controller controll = new Connexion_v1Controller();
         Stage stageTheLabelBelongs = (Stage) btnAdd_txt_tag.getScene().getWindow();

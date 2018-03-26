@@ -4,6 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/G_GB.java</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/controllerclass/Connexion_v1Controller.java</file>
             <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/DBTA.java</file>
             <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/Recherche.java</file>
             <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/Bookmark.java</file>
@@ -15,8 +16,9 @@
             <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/User.java</file>
             <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/controllerclass/main_controller.java</file>
             <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/ApplicationMain.java</file>
-            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/controllerclass/PagePrincipaleController.java</file>
             <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/applicationclass/TA_User_GB.java</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/controllerclass/PagePrincipaleController.java</file>
+            <file>file:/C:/Users/olivi/Desktop/1_Etudes/4s_/255-PEG/Exams/TP1/BookMark_tp/src/sqlclass/SimpleDataSource.java</file>
         </group>
     </open-files>
 </project-private>

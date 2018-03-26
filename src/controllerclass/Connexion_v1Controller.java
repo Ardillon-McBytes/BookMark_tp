@@ -6,7 +6,6 @@
  */
 package controllerclass;
 
-import sqlclass.SimpleDataSource;
 import java.io.IOException;
 
 import java.net.URL;
@@ -16,9 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -60,7 +56,7 @@ public class Connexion_v1Controller extends main_controller implements Initializ
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-
+    
   }
 
 // void hide() throws IOException
@@ -74,7 +70,7 @@ public class Connexion_v1Controller extends main_controller implements Initializ
   private void newAccount() throws Exception {
 
     NouveauCompte_v1Controller controller = new NouveauCompte_v1Controller();
-    Stage stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
+    stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
 
     controller.setPrevStage(stageTheLabelBelongs);
     stageTheLabelBelongs.hide();
@@ -88,7 +84,17 @@ public class Connexion_v1Controller extends main_controller implements Initializ
 
   }
 
-  boolean validPassword() throws IOException, SQLException, ClassNotFoundException {
+  private boolean validPassword() throws IOException, SQLException, ClassNotFoundException {
+    /*@old-node_start*/
+    /**
+     * La méthode ne doit pas charger le mot de passe de l'utilisateur, elle
+     * doit faire la validation en recherchant dans la BD directement.
+     * (Vérifier de l'existance de l'utilisateur ayant le mot de passe et le )
+     */
+    return g.validUserConnexion(user_name.getText(), user_password.getText());
+    /*@old-node_end*/
+    
+    /*
     Connection conn = SimpleDataSource.getConnection();
     try {
 
@@ -96,7 +102,7 @@ public class Connexion_v1Controller extends main_controller implements Initializ
               "(SELECT user_password FROM user WHERE user.user_name = '" + user_name.getText() + "')");
 
       ResultSet rs = stat.executeQuery();
-      String pass = null;
+      String pass;
       String pass2 = user_password.getText();
 
       if (rs.next()) {
@@ -113,45 +119,66 @@ public class Connexion_v1Controller extends main_controller implements Initializ
     }
 
     return true;
+    */
   }
 
   /**
-   *
+   * 
    * @param name
    * @return
    * @throws SQLException
    */
   boolean validContent() {
+    boolean etat = true;
     if (user_name.getText().isEmpty()) {
-      showAlert("Champs name Vide et ");
-      return false;
-    } else if (user_password.getText().isEmpty()) {
-      showAlert("Champs password Vide et ");
-      return false;
+      g.addMessageErreur("Le champ du nom est vide");
+      etat = false;
     }
-    return true;
+    if (user_password.getText().isEmpty()) {
+      g.addMessageErreur("Le champ du mot de passe est vide");
+      etat = false;
+    }
+    return etat;
   }
-
+  
   @FXML
-  private void connectUser(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
-
+  private void connectUser(MouseEvent event) {
+    
     g.getUsagerActif().setNom(user_name.getText());
-
-    if (validContent() == true && super.validUser() == true && validPassword() == true) {
-
-      PagePrincipaleController controller = new PagePrincipaleController();
-      Stage stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
-      controller.setPrevStage(stageTheLabelBelongs);
-
-      Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/pagePrincipale_v2.fxml"));
-
-      Scene scene = new Scene(root);
-      Stage secondStage = new Stage();
-
-      secondStage.setScene(scene);
-
-      stageTheLabelBelongs.hide();
-      secondStage.show();
+    try {
+     if (validContent() && super.validUser() && validPassword()) {
+        
+        PagePrincipaleController controller = new PagePrincipaleController();
+        stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
+        controller.setPrevStage(stageTheLabelBelongs);
+        
+        Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/pagePrincipale_v2.fxml"));
+        
+        Scene scene = new Scene(root);
+        Stage secondStage = new Stage();
+        
+        secondStage.setScene(scene);
+        
+        stageTheLabelBelongs.hide();
+        secondStage.show();
+      }
+    }
+    catch (SQLException e) {
+      g.addMessageErreur("La connexion dans la BD ne s'est pas produite complètement.");
+    }
+    catch (IOException e) {
+      g.addMessageErreur("Un ou plusieurs champs reçues ne sont pas valide pour le fonctionnement du programme.");
+    }
+    catch (ClassNotFoundException e) {
+      g.addMessageErreur("Des dépendances du programme n'ont pas été correctement inclues.");
+    }
+    catch (Exception e) {
+      g.addMessageErreur("Une erreur non répertoriée s'est produite.");
+    }
+    finally {
+      if (g.estEnErreur()) {
+        super.showAlert();
+      }
     }
   }
 

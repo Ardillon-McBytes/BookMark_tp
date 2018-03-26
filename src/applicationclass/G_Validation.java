@@ -24,8 +24,16 @@ public class G_Validation {
   private static final int MAX_VAL_TYPE_PARTAGE = 2;
   private static boolean erreur = false;
   private static ArrayList<String> messagesErreur = null;
+  private static ArrayList<String> messagesConfirmation = null;
+  private static ArrayList<String> nomColsConnexionTemp;
   private static Connection conn = null;
 
+  public G_Validation() {
+    nomColsConnexionTemp = new ArrayList<>();
+    nomColsConnexionTemp.add("user_name");
+    nomColsConnexionTemp.add("user_password");
+  }
+  
   /**
    * Compte le nombre d'occurence d'une chaine de caractère dans une autre
    *
@@ -121,7 +129,26 @@ public class G_Validation {
           throws IOException, SQLException {
     return userValidation(user.getNom(), user.getCourriel(), "mot de passe");
   }
-
+  
+  public static boolean validUserConnexion(String nom, String mdp) {
+    ArrayList<Object> valRechCols = new ArrayList<>();
+    valRechCols.add(nom);
+    valRechCols.add(mdp);
+    ArrayList<String> nomColsConnexion = new ArrayList<>();
+    nomColsConnexion.add("user_name");
+    nomColsConnexion.add("user_password");
+    try {
+      return compareBD("user", nomColsConnexion, valRechCols);
+    }
+    catch (IOException e) {
+      G_Validation.addMessageErreur("Les données saisies ne sont pas dans un bon format.");
+    }
+    catch (SQLException e) {
+      G_Validation.addMessageErreur("Une erreur s'est produite qui empêche de lire dans la BD.");
+    }
+    return false;
+    
+  }
   /**
    * 
    * @param nomTable
@@ -136,7 +163,7 @@ public class G_Validation {
           throws SQLException, IOException {
     conn = SimpleDataSource.getConnection();
     try {
-      if (text == null) {
+      if (nomTable == null || nomCol == null || text == null) {
         throw new IOException();
       }
       Statement stat = conn.createStatement();
@@ -154,24 +181,111 @@ public class G_Validation {
     }
     return false;
   }
+  private static String makeFetch(ArrayList<String> nomCols) {
+    StringBuilder fetch = new StringBuilder();
+    fetch.append(nomCols.get(0));
+    for (int i = 1; i < nomCols.size(); i++) {
+      fetch.append(", ").append(nomCols.get(i));
+    }
+    return fetch.toString();
+  }
+  private static String makeConditions(ArrayList<String> valCols, ArrayList<Object> valRechCols) {
+    StringBuilder condition = new StringBuilder();
+    condition.append(valCols.get(0)).append(" = ").append(valRechCols.get(0));
+    for (int i = 1; i < valCols.size(); i++) {
+      condition.append(" AND ").append(valCols.get(i)).append(" = ").append(valRechCols.get(i).toString());
+    }
+    return condition.toString();
+  }
+  
+  private static boolean compareBD(String nomTable, 
+          ArrayList<String> nomCols, ArrayList<Object> valRechCols)
+          throws SQLException, IOException {
+    conn = SimpleDataSource.getConnection();
+    try {
+      if (nomTable == null || nomCols == null || valRechCols == null || 
+              nomCols.size() != valRechCols.size()) {
+        throw new IOException();
+      }
+      Statement stat = conn.createStatement();
+      ResultSet rs = stat.executeQuery("SELECT " + 
+              makeFetch(nomCols) + " FROM " + nomTable + 
+              " WHERE " + makeConditions(nomCols, valRechCols));
+      
+      rs.next();
+      for (int i = 0; i < valRechCols.size(); i++) {
+        if (!compareRS(rs, valRechCols.get(i), nomCols.get(i))) {
+          return false;
+        }
+      }
+      
+    } 
+    catch (IOException | SQLException e) {
+      return false;
+    } 
+    finally {
+      conn.close();
+    }
+    return true;
+  }
+  
+  private static boolean compareRS(ResultSet rs, Object val, String nomCol) throws SQLException {
+    if (val instanceof String) {
+      if (val.equals(rs.getString(nomCol))) {
+        return true;
+      }
+    }
+    else if (val instanceof Integer) {
+      if (val.equals(rs.getInt(nomCol))) {
+        return true;
+      }
+    }
+    else if (val instanceof Float) {
+      if (val.equals(rs.getFloat(nomCol))) {
+        return true;
+      }
+    }
+    return false;
+  } 
   
   public static void addMessageErreur(String message) {
     G_Validation.erreur = true;
-    messagesErreur.add(message);
+    G_Validation.messagesErreur.add(message);
+  }
+  
+  public static void addMessageConfirmation(String message) {
+    G_Validation.messagesConfirmation.add(message);
   }
   
   public static String getMessageErreur() {
     if (!estEnErreur()) return "";
+    return getMessage(G_Validation.messagesErreur);
+  }
+  
+  public static String getMessageConfirmation() {
+    return getMessage(G_Validation.messagesConfirmation);
+  }
+  
+  private static String getMessage(ArrayList<String> messages) {
+    final String br = System.getProperty("line.separator");
     StringBuilder message = new StringBuilder();
-    for (String e : messagesErreur) {
-      message.append(e);
-      message.append(System.getProperty("line.separator"));
+    if (messages.size() == 1) {
+      message.append(messages.get(0));
+    }
+    else {
+      for (int i = 0; i < messages.size(); i++) {
+        message.append("No ").append(i + 1).append(" : ").append(messages.get(i)).append(br);
+      }
     }
     G_Validation.erreur = false;
     return message.toString();
-  }
+  } 
   
   public static boolean estEnErreur() {
-    return erreur;
+    return G_Validation.erreur;
+  }
+  
+  public static void estEnErreur(boolean etat) {
+    G_Validation.erreur = etat;
   }
 }

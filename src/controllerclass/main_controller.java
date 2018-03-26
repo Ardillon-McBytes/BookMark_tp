@@ -22,14 +22,23 @@ public class main_controller {
   static Gestionnaire g = new Gestionnaire();
   static User user = new User();
 
-  boolean validUser() throws IOException, SQLException, ClassNotFoundException {
+  boolean validUser() {
     {
-
-      if (g.getUsagerActif().getUserId(g.getUsagerActif().getNom()) < 1) {
-        showAlert("nom de user invalide");
+      try {
+        if (g.getUsagerActif().getUserId(g.getUsagerActif().getNom()) < 1) {
+          g.addMessageErreur("Le nom de l'utilisateur n'est pas dans la BD.");
+          return false;
+        }
+      }
+      catch (IOException e) {
+        g.addMessageErreur("Les champs saisies ");
         return false;
       }
-
+      catch (SQLException e) {
+        g.addMessageErreur("Le nom de l'utilisateur n'est pas ");
+        return false;
+      }
+      
     }
     return true;
   }

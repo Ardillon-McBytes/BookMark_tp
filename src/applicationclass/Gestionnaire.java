@@ -148,6 +148,10 @@ public class Gestionnaire {
     }
     //users.add(u);
   }
+  
+  public static boolean validUserConnexion(String nom, String mdp) {
+    return G_Validation.validUserConnexion(nom, mdp);
+  }
 
   public static void setUsagerActif(User u)
           throws IOException, SQLException {
@@ -184,19 +188,14 @@ public class Gestionnaire {
 
   /**
    *
+   * @param i 
+   * @throws java.io.IOException 
    */
   public static void addId(int i) throws IOException {
     if (i < 1) {
       throw new IOException("Identifiant invalide");
     }
     identifiants.add(i);
-  }
-
-  /**
-   *
-   */
-  public static void add() {
-    //.add();
   }
 
   public static Groupbook getUserRacineGroupbook(User user)
@@ -223,13 +222,38 @@ public class Gestionnaire {
     return Recherche.getRights(parent, conteneurs, groupbooks);
   }
   
+  public static void addMessageErreur(String message) {
+    G_Validation.addMessageErreur(message);
+  }
+  
   public static String getMessageErreur() {
     return G_Validation.getMessageErreur();
+  }
+  
+  public static void addMessageConfirmation(String message) {
+    G_Validation.addMessageConfirmation(message);
+  }
+  
+  public static String getMessageConfirmation() {
+    return G_Validation.getMessageConfirmation();
+  }
+  
+  public static boolean estEnErreur() {
+    return G_Validation.estEnErreur();
+  }
+  
+  public static void estEnErreur(boolean etat) {
+    G_Validation.estEnErreur(etat);
+  }
+  
+  public static boolean valideUtilisateur(String nomUtilisateur, String courriel, String mdp) throws IOException, SQLException {
+    return null != G_Validation.userValidation(nomUtilisateur, courriel, mdp);
   }
 
   /**
    * GETTEURS ET SETTEURS DE BASE ***************************
    */
+  
   /**
    * Obtien la table d'association (TA) qui lie les utilisateurs à leurs
    *
