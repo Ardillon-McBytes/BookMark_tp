@@ -9,15 +9,10 @@ import applicationclass.Gestionnaire;
 import applicationclass.User;
 import static controllerclass.PagePrincipaleController.prevStage;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import sqlclass.SimpleDataSource;
 
 /**
  *
@@ -39,16 +34,8 @@ public class main_controller {
     return true;
   }
 
-  public int getUserId(User user) throws SQLException, IOException {
-    user.getUserId(user.getNom());
-    g.setUsagerActif(user);
-    return user.getId();
-  }
-
   void setPrevStage(Stage stage) {
-
     prevStage = stage;
-
   }
 
   void exitPage(Object object) throws Exception {
@@ -59,10 +46,13 @@ public class main_controller {
 
   }
 
+  void showAlert() {
+    showAlert(Gestionnaire.getMessageErreur());
+  }
+  
   void showAlert(String var) {
     
     Alert alert = new Alert(Alert.AlertType.ERROR);
-    Alert.AlertType.valueOf(Gestionnaire.getMessageErreur());
     alert.setTitle("Error");
     alert.setHeaderText(null);
     alert.setContentText(var);

@@ -23,7 +23,7 @@ import sqlclass.SimpleDataSource;
  * @version 1.1
  */
 public class ApplicationMain extends Application {
-
+  
   private Stage primaryStage;
 
   /**
@@ -31,7 +31,7 @@ public class ApplicationMain extends Application {
    * @throws java.lang.Exception
    */
   public static void main(String[] args) throws Exception {
-
+    
     SimpleDataSource.init("database.properties");
     launch(args);
   }
@@ -54,15 +54,15 @@ public class ApplicationMain extends Application {
 
   @Override
   public void start(Stage stage) throws Exception {
-
+    
     Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/connexion_v1.fxml"));
-
+    
     Connexion_v1Controller controll = new Connexion_v1Controller();
     controll.setPrevStage(stage);
-
+    
     Scene scene = new Scene(root);
     Stage secondStage = new Stage();
-
+    
     secondStage.setScene(scene);
     secondStage.show();
   }

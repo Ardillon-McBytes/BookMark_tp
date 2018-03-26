@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import org.apache.commons.validator.EmailValidator;
 import org.apache.commons.validator.UrlValidator;
 import sqlclass.SimpleDataSource;
@@ -21,33 +22,9 @@ import sqlclass.SimpleDataSource;
 public class G_Validation {
 
   private static final int MAX_VAL_TYPE_PARTAGE = 2;
-  private static String[] messagesErreur = null;
+  private static boolean erreur = false;
+  private static ArrayList<String> messagesErreur = null;
   private static Connection conn = null;
-
-  public static void main(String[] args) {
-    if (!G_Validation.url("https://www.google.com/")) {
-      System.out.println("Erreur");
-    }
-    else {
-      System.out.println("Correct");
-    }
-    
-    String[] courriels = {"mon@email.com", "mon@e.mai.l.com", "m.o.n@email.com",
-      "", "mon.@email.com", "@email.com", "mon@.com", "mon@email.",
-      "mon@email.com.", ".mon@email.com", "mon@com"};
-
-    for (String c : courriels) {
-      System.out.println(c + " est " + G_Validation.courriel(c));
-    }
-
-    String[] noms = {"", "...", "o.o",
-      "Patate", "Bal-Tazard-", "&?%$&*?", "mµnicipalité", "(a)()(",
-      "o-.", "asdjaw.", ".oipoi"};
-
-    for (String n : noms) {
-      System.out.println(n + " est " + G_Validation.nom(n));
-    }
-  }
 
   /**
    * Compte le nombre d'occurence d'une chaine de caractère dans une autre
@@ -91,32 +68,6 @@ public class G_Validation {
 
   public static boolean courriel(String adresse) {
     return EmailValidator.getInstance().isValid(adresse);
-
-    /*// Méthode avec JavaMail (Library javax.mail.jar)
-    boolean result = true;
-    try {
-      InternetAddress emailAddr = new InternetAddress(adresse);
-      emailAddr.validate();
-    } catch (AddressException ex) {
-      result = false;
-    }
-    return result;*/
- /*if (adresse == null || adresse.isEmpty() || 
-            !adresse.contains(".") || 1 != nbOccurence("@", adresse)) {
-      return false;
-    }
-    
-    String[] aCommercial = adresse.split("@");
-    String[] point = aCommercial[aCommercial.length - 1].split("\\.");
-    String debut = alphaSeulement(aCommercial[0]);
-    String fin = alphaSeulement(point[point.length - 1]);
-    if (dernierChar(debut) != dernierChar(aCommercial[0]) || 
-            premierChar()) {
-      return false;
-    }
-    return (aCommercial.length < 2 || point.length < 2 || 
-            !(debut.isEmpty() || premierChar(adresse) != premierChar(debut)) && 
-            !(fin.isEmpty() || dernierChar(adresse) != dernierChar(fin)));*/
   }
 
   public static boolean nom(String nom) {
@@ -131,13 +82,6 @@ public class G_Validation {
     String[] schemes = {"http", "https"};
     UrlValidator urlValidator = new UrlValidator(schemes);
     return urlValidator.isValid(url);
-
-    //return !(url == null || url.isEmpty());
-    /*if (!url.toLowerCase().startsWith("http") || 
-            "".equals(alphaSeulement(url))) {
-      return false;
-    }
-    return true;*/
   }
 
   public static boolean gbRacine(Groupbook racine) throws Exception {
@@ -161,16 +105,14 @@ public class G_Validation {
 
   public static User userValidation(String nomUtilisateur, String courriel, String mdp)
           throws IOException, SQLException {
-    // Faire ces validations dans le gestionnaire des utilisateurs 
-    // lors de l'initialisation des nouveaux (G_User) ?
     if (!G_Validation.nom(nomUtilisateur)) {
-      throw new IOException("Le nom de l'utilisateur doit comporter entre 6 et 20 caractères.");
+      addMessageErreur("Le nom de l'utilisateur doit comporter entre 6 et 20 caractères.");
     }
     if (!G_Validation.courriel(courriel)) {
-      throw new IOException("Le format du courriel saisie n'est pas valide.");
+      addMessageErreur("Le format du courriel saisie n'est pas valide.");
     }
     if (!G_Validation.mdp(mdp)) {
-      throw new IOException("Le mot de passe saisie ne respecte pas les critères. Il doit comporter entre 6 et 20 caractères.");
+      addMessageErreur("Le mot de passe saisie ne respecte pas les critères. Il doit comporter entre 6 et 20 caractères.");
     }
     return User.recherche(nomUtilisateur, courriel);
   }
@@ -213,12 +155,23 @@ public class G_Validation {
     return false;
   }
   
+  public static void addMessageErreur(String message) {
+    G_Validation.erreur = true;
+    messagesErreur.add(message);
+  }
+  
   public static String getMessageErreur() {
+    if (!estEnErreur()) return "";
     StringBuilder message = new StringBuilder();
-    for (String erreur : messagesErreur) {
-      message.append(erreur);
+    for (String e : messagesErreur) {
+      message.append(e);
       message.append(System.getProperty("line.separator"));
     }
+    G_Validation.erreur = false;
     return message.toString();
+  }
+  
+  public static boolean estEnErreur() {
+    return erreur;
   }
 }
