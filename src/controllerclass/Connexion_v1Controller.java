@@ -24,7 +24,9 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author moi
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class Connexion_v1Controller extends main_controller implements Initializable {
 
@@ -44,6 +46,7 @@ public class Connexion_v1Controller extends main_controller implements Initializ
    *
    * @param stage
    */
+  @Override
   public void setPrevStage(Stage stage) {
     this.primaryStage = stage;
   }
@@ -65,7 +68,9 @@ public class Connexion_v1Controller extends main_controller implements Initializ
 //        
 //        Scene scene = new Scene(root);
 //        
-//        primaryStage.setScene(scene);}
+//        primaryStage.setScene(scene);
+//    }
+  
   @FXML
   private void newAccount() throws Exception {
 

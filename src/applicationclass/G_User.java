@@ -16,7 +16,9 @@ import sqlclass.SimpleDataSource;
 /**
  * AKA Connexion
  *
- * @author olivi
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class G_User {
 

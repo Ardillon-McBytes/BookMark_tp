@@ -20,6 +20,10 @@ import java.io.File;
 
 /**
  * A simple data source for getting database connections.
+ * 
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class SimpleDataSource {
 

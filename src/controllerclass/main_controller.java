@@ -16,7 +16,9 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author moi
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class main_controller {
   static Gestionnaire g = new Gestionnaire();

@@ -36,7 +36,9 @@ import javafx.scene.control.Hyperlink;
 /**
  * FXML Controller class
  *
- * @author olivi
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class PagePrincipaleController extends main_controller implements Initializable {
 
