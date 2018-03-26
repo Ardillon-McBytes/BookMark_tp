@@ -172,6 +172,11 @@ public class Connexion_v1Controller extends main_controller implements Initializ
       g.addMessageErreur("La connexion dans la BD ne s'est pas produite complètement.");
     }
     catch (IOException e) {
+      /**
+       * @old-node_question Est-ce qu'on devrait plutôt ajouter le message suivant 
+       * dans avec la méthode addMessageConfirmation ? 
+       */
+      
       g.addMessageErreur("Un ou plusieurs champs reçues ne sont pas valide pour le fonctionnement du programme.");
     }
     catch (ClassNotFoundException e) {

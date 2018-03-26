@@ -94,7 +94,9 @@ public class G_GB {
     //... en construction
     return false;
   }
-
+  
+  /*
+  
   public static Groupbook getRacine(User user) throws Exception {
     Groupbook gb = getUserRacineGroupbook(user);
     if (gb == null) {
@@ -102,7 +104,7 @@ public class G_GB {
               "Aucun groupbook ne possède l'identifiant recherché par l'utilisateur");
     }
     return gb;
-  }
+  }*/
 
   public static boolean
           add(User user) throws SQLException, IOException {

@@ -16,7 +16,6 @@ import java.util.ArrayList;
  * @version 1.0
  * @param <L> Classe du premier champ de la TA de la BD
  * @param <R> Classe du second champ de la TA de la BD
- * @throws
  */
 public class DBTA<L extends DBField, R extends DBField> {
 

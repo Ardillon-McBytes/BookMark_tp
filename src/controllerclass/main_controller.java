@@ -58,7 +58,7 @@ public class main_controller {
   }
   
   void showMessages() {
-    if (Gestionnaire.estEnErreur()) {
+    if (g.estEnErreur()) {
       showAlert();
     }
     else {
@@ -67,7 +67,7 @@ public class main_controller {
   }
   
   void showMessages(String var) {
-    if (Gestionnaire.estEnErreur()) {
+    if (g.estEnErreur()) {
       showAlert(var);
     }
     else {
@@ -76,7 +76,7 @@ public class main_controller {
   }
   
   void showConfirmation() {
-    showConfirmation(Gestionnaire.getMessageConfirmation());
+    showConfirmation(g.getMessageConfirmation());
   }
   
   void showConfirmation(String var) {
@@ -84,13 +84,13 @@ public class main_controller {
   }
 
   void showAlert() {
-    showAlert(Gestionnaire.getMessageErreur());
+    showAlert(g.getMessageErreur());
   }
   
   void showAlert(String var) {
     showMessage(Alert.AlertType.ERROR, "Error", null, 
-            "Une erreur s'est produite. Les messages retenus sont : \n\n" + var);
-    Gestionnaire.estEnErreur(false);
+            "Une ou plusieurs erreurs se sont produites. Les messages retenus sont : \n\n" + var);
+    g.estEnErreur(false);
   }
   
   private void showMessage(Alert.AlertType type, String titre, String header, String content) {

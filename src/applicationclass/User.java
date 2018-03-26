@@ -236,46 +236,23 @@ public class User implements DBField {
     return Recherche.getRights(this, ta, groupbooks);
   }
 
-  /**
-   * Recherche tout les dossiers possédés par l'utilisateur en fonction de la
-   * table d'association (TA)
-   *
-   * @return Liste des dossiers de l'utilisateur
-   */
-  public ArrayList<Groupbook> getOwnedGroupbooks()
-          throws IOException, SQLException, Exception {
-    return Gestionnaire.getUserGroupbooks(this);
-
-    /*ArrayList<Groupbook> gbs = getGroupbooks(ta, groupbooks);
-    ArrayList<Groupbook> childs = new ArrayList<>();
-    gbs.forEach((gb) -> {
-      // utiliser addAll() au lieu d'une autre boucle for?
-      gb.getGroupbooks().forEach((child) -> {
-        childs.add(child);
-      });
-    });
-    gbs.addAll(childs);
-    return gbs;*/
-  }
-
   public ArrayList<Groupbook> getTheirGroupbooks() {
     return null;
   }
-
+  
   /**
    * Effectue une connexion de l'utilisateur avec la base de donnée (BD) de
    * l'application
    */
   public void connect() {
-
-      
+    
   }
 
   /**
    * Ferme une connexion de l'utilisateur avec la BD de l'application
    */
   public void disconnect() {
-
+    
   }
 
   public static int getUserId(String nomUtilisateur)

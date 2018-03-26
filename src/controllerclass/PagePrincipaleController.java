@@ -107,10 +107,10 @@ public class PagePrincipaleController extends main_controller implements Initial
         try {
 
             PreparedStatement stat = conn.prepareStatement(
-                    "(SELECT id_groupBook FROM user_group WHERE id_user = '" + getUsagerActif().getId() + "')");
+                    "(SELECT id_groupBook FROM user_group WHERE id_user = '" + g.getUsagerActif().getId() + "')");
 
             ResultSet rs = stat.executeQuery();
-            int id_gp = getUsagerActif().getId();
+            int id_gp = g.getUsagerActif().getId();
             
             while (rs.next()) {
                 id_gp = rs.getInt(1);
@@ -194,7 +194,7 @@ public class PagePrincipaleController extends main_controller implements Initial
     @FXML
     private void Add_Bm(MouseEvent event) throws SQLException {
         Bookmark bm = new Bookmark(txt_file_name.getText(),txt_adress.getText(),txt_tag_name.getText());
-        Gestionnaire.addBookmark(bm);
+        g.addBookmark(bm);
     }
 
     @FXML

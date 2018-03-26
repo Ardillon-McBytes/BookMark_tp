@@ -23,8 +23,10 @@ import sqlclass.SimpleDataSource;
 
 /**
  * FXML Controller class
- *
- * @author moi
+ * 
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class AjoutTag_v2Controller extends main_controller  implements Initializable{
 

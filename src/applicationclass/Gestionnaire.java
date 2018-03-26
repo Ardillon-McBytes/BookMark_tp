@@ -16,8 +16,14 @@ import static applicationclass.G_Tag.*;
 import static applicationclass.Recherche.*;
 import static applicationclass.G_Requete.*;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import sqlclass.SimpleDataSource;
 
 /**
  * Classe qui opère les changements des données de l'applications
@@ -89,7 +95,19 @@ public class Gestionnaire {
   /**
    * MÉTHODES DE LA CLASSE *********************
    */
-  public static boolean initNouveau(String nomUtilisateur, String courriel, String mdp)
+  
+  /**
+   * 
+   * 
+   * @param nomUtilisateur 
+   * @param courriel 
+   * @param mdp 
+   * @return 
+   * @throws IOException 
+   * @throws SQLException 
+   * @throws Exception 
+   */
+  public boolean initNouveau(String nomUtilisateur, String courriel, String mdp)
           throws IOException, SQLException, Exception {
     User u = userValidation(nomUtilisateur, courriel, mdp);
     if (u != null || !chargerUserData()) {
@@ -105,7 +123,18 @@ public class Gestionnaire {
     return true;
   }
 
-  public static boolean initExistant(String nomUtilisateur, String courriel, String mdp)
+  /**
+   *  
+   * 
+   * @param nomUtilisateur 
+   * @param courriel 
+   * @param mdp 
+   * @return 
+   * @throws IOException 
+   * @throws SQLException 
+   * @throws Exception  
+   */
+  public boolean initExistant(String nomUtilisateur, String courriel, String mdp)
           throws IOException, SQLException, Exception {
     User u = userValidation(nomUtilisateur, courriel, mdp);
     if (u == null || !u.isMdp(mdp) || !chargerUserData()) {
@@ -121,12 +150,62 @@ public class Gestionnaire {
     return true;
   }
 
+  /**
+   * Pas encore fini
+   * 
+   * @return
+   * @throws Exception 
+   */
   public static boolean chargerUserData() throws Exception {
     if (usagerActif == null || userValidation(usagerActif) == null) {
-      //"L'utilisateur n'a pas encore été initialisé."
+      G_Validation.addMessageErreur("L'utilisateur n'a pas encore été initialisé.");
       return false;
     }
-    //setGroupbooks(G_GB.getAllGroupbooks());
+    
+    Connection conn = SimpleDataSource.getConnection();
+    ObservableList items = FXCollections.observableArrayList();
+    try {
+      
+      int userId = usagerActif.getId();
+      int gbId;
+      int bmId;
+      /*
+      PreparedStatement stat = conn.prepareStatement(
+              "(SELECT id_groupBook FROM user_group WHERE id_user = '" + userId + "')");
+      ResultSet rs = stat.executeQuery();
+      
+      while (rs.next()) {
+          gbId = rs.getInt(1);
+          PreparedStatement stat2 = conn.prepareStatement(
+                  "(SELECT id_bookmark FROM bookmark_group WHERE id_group = '" + gbId + "')");
+          
+          ResultSet rs2 = stat2.executeQuery();
+          while (rs2.next()) {
+            bmId = rs2.getInt(1);
+            contenus
+          }
+          String query3 = "SELECT nom_site, Description, Url "
+                  + "FROM bookmark "
+                  + "WHERE id = ? ";
+          
+          PreparedStatement ps3 = conn.prepareStatement(query3);
+          ps3.setInt(1, bmId);
+          
+          ResultSet rs3 = ps3.executeQuery();
+          String name = null;
+          if (rs3.next()) {
+              txt_file_name.setText(rs3.getString(1));
+              txt_adress.setText(rs3.getString(3));
+          }
+          
+          items.add(rs3.getString(1));
+          list_mp.setItems(items);
+      }
+      */
+    } finally {
+        conn.close();
+    }
+    
     return true;
   }
 
@@ -153,12 +232,12 @@ public class Gestionnaire {
     return G_Validation.validUserConnexion(nom, mdp);
   }
 
-  public static void setUsagerActif(User u)
+  public void setUsagerActif(User u)
           throws IOException, SQLException {
     usagerActif = userValidation(u);
   }
 
-  public static User getUsagerActif() {
+  public User getUsagerActif() {
     return usagerActif;
   }
 
@@ -166,7 +245,7 @@ public class Gestionnaire {
    *
    * @param gb
    */
-  public static void addGroupbook(Groupbook gb) {
+  public void addGroupbook(Groupbook gb) {
     groupbooks.add(gb);
   }
 
@@ -174,7 +253,7 @@ public class Gestionnaire {
    *
    * @param bm
    */
-  public static void addBookmark(Bookmark bm) {
+  public void addBookmark(Bookmark bm) {
     bookmarks.add(bm);
   }
 
@@ -182,7 +261,7 @@ public class Gestionnaire {
    *
    * @param t
    */
-  public static void addTag(Tag t) {
+  public void addTag(Tag t) {
     tags.add(t);
   }
 
@@ -191,14 +270,14 @@ public class Gestionnaire {
    * @param i 
    * @throws java.io.IOException 
    */
-  public static void addId(int i) throws IOException {
+  public void addId(int i) throws IOException {
     if (i < 1) {
       throw new IOException("Identifiant invalide");
     }
     identifiants.add(i);
   }
 
-  public static Groupbook getUserRacineGroupbook(User user)
+  public Groupbook getUserRacineGroupbook(User user)
           throws Exception {
     int id = user.getRacine();
     for (Groupbook gb : Recherche.getRights(user, acces, groupbooks)) {
@@ -209,12 +288,12 @@ public class Gestionnaire {
     return null;
   }
 
-  public static ArrayList<Groupbook> getUserGroupbooks(User user)
+  public ArrayList<Groupbook> getUserGroupbooks(User user)
           throws Exception {
     return getChildGroupbooks(getUserRacineGroupbook(user));
   }
 
-  public static ArrayList<Groupbook> getChildGroupbooks(Groupbook parent)
+  public ArrayList<Groupbook> getChildGroupbooks(Groupbook parent)
           throws IOException, SQLException {
     /*if (null == G_Validation.userValidation(user)) {
     throw new IOException("Utilisateur mal initialisé");
@@ -222,31 +301,31 @@ public class Gestionnaire {
     return Recherche.getRights(parent, conteneurs, groupbooks);
   }
   
-  public static void addMessageErreur(String message) {
+  public void addMessageErreur(String message) {
     G_Validation.addMessageErreur(message);
   }
   
-  public static String getMessageErreur() {
+  public String getMessageErreur() {
     return G_Validation.getMessageErreur();
   }
   
-  public static void addMessageConfirmation(String message) {
+  public void addMessageConfirmation(String message) {
     G_Validation.addMessageConfirmation(message);
   }
   
-  public static String getMessageConfirmation() {
+  public String getMessageConfirmation() {
     return G_Validation.getMessageConfirmation();
   }
   
-  public static boolean estEnErreur() {
+  public boolean estEnErreur() {
     return G_Validation.estEnErreur();
   }
   
-  public static void estEnErreur(boolean etat) {
+  public void estEnErreur(boolean etat) {
     G_Validation.estEnErreur(etat);
   }
   
-  public static boolean valideUtilisateur(String nomUtilisateur, String courriel, String mdp) throws IOException, SQLException {
+  public boolean valideUtilisateur(String nomUtilisateur, String courriel, String mdp) throws IOException, SQLException {
     return null != G_Validation.userValidation(nomUtilisateur, courriel, mdp);
   }
 
@@ -259,75 +338,75 @@ public class Gestionnaire {
    *
    * @return
    */
-  public static TA_User_GB getAcces() {
+  public TA_User_GB getAcces() {
     return acces;
   }
 
-  public static TA_GB_GB getConteneurs() {
+  public TA_GB_GB getConteneurs() {
     return conteneurs;
   }
 
-  public static TA_GB_BM getContenus() {
+  public TA_GB_BM getContenus() {
     return contenus;
   }
 
-  public static TA_BM_Tag getEtiquettes() {
+  public TA_BM_Tag getEtiquettes() {
     return etiquettes;
   }
 
-  public static ArrayList<User> getUsers() {
+  public ArrayList<User> getUsers() {
     return users;
   }
 
-  public static ArrayList<Groupbook> getGroupbooks() {
+  public ArrayList<Groupbook> getGroupbooks() {
     return groupbooks;
   }
 
-  public static ArrayList<Bookmark> getBookmarks() {
+  public ArrayList<Bookmark> getBookmarks() {
     return bookmarks;
   }
 
-  public static ArrayList<Tag> getTags() {
+  public ArrayList<Tag> getTags() {
     return tags;
   }
 
-  public static ArrayList<Integer> getIdentifiants() {
+  public ArrayList<Integer> getIdentifiants() {
     return identifiants;
   }
 
-  public static void setAcces(TA_User_GB acces) {
+  public void setAcces(TA_User_GB acces) {
     Gestionnaire.acces = acces;
   }
 
-  public static void setConteneurs(TA_GB_GB conteneurs) {
+  public void setConteneurs(TA_GB_GB conteneurs) {
     Gestionnaire.conteneurs = conteneurs;
   }
 
-  public static void setContenus(TA_GB_BM contenus) {
+  public void setContenus(TA_GB_BM contenus) {
     Gestionnaire.contenus = contenus;
   }
 
-  public static void setEtiquettes(TA_BM_Tag etiquettes) {
+  public void setEtiquettes(TA_BM_Tag etiquettes) {
     Gestionnaire.etiquettes = etiquettes;
   }
 
-  public static void setUsers(ArrayList<User> users) {
+  public void setUsers(ArrayList<User> users) {
     Gestionnaire.users = users;
   }
 
-  public static void setGroupbooks(ArrayList<Groupbook> groupbooks) {
+  public void setGroupbooks(ArrayList<Groupbook> groupbooks) {
     Gestionnaire.groupbooks = groupbooks;
   }
 
-  public static void setBookmarks(ArrayList<Bookmark> bookmarks) {
+  public void setBookmarks(ArrayList<Bookmark> bookmarks) {
     Gestionnaire.bookmarks = bookmarks;
   }
 
-  public static void setTags(ArrayList<Tag> tags) {
+  public void setTags(ArrayList<Tag> tags) {
     Gestionnaire.tags = tags;
   }
 
-  public static void setIdentifiants(ArrayList<Integer> identifiants) {
+  public void setIdentifiants(ArrayList<Integer> identifiants) {
     Gestionnaire.identifiants = identifiants;
   }
 }

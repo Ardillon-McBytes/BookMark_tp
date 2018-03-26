@@ -11,8 +11,11 @@ import java.sql.SQLException;
 import sqlclass.SimpleDataSource;
 
 /**
- *
- * @author olivi
+ * 
+ * 
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class G_TA {
 

@@ -6,6 +6,7 @@
  */
 package controllerclass;
 
+import applicationclass.G_Validation;
 import sqlclass.SimpleDataSource;
 import java.io.IOException;
 import java.net.URL;
@@ -28,8 +29,10 @@ import javafx.stage.Stage;
 
 /**
  * FXML Controller class
- *
- * @author moi
+ * 
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class NouveauCompte_v1Controller extends main_controller implements Initializable {
 
@@ -68,66 +71,74 @@ public class NouveauCompte_v1Controller extends main_controller implements Initi
   }
 
   @FXML
-  private void CreateAccount(MouseEvent event)
-          throws IOException, SQLException, ClassNotFoundException {
-    if (Valid() && validUser()) {
-      Connection conn = SimpleDataSource.getConnection();
-      try {
+  private void CreateAccount(MouseEvent event) {
+    try {
+      if (Valid() && validUser()) {
+        Connection conn = SimpleDataSource.getConnection();
+        try {
 
-        PreparedStatement stat = conn.prepareStatement(
-                " INSERT INTO `User` (`user_name`, `user_adress`,`user_password`) "
-                + "VALUES ('" + userName.getText() + "','"
-                + userAdress.getText() + "','"
-                + userPassword.getText() + "')");
+          PreparedStatement stat = conn.prepareStatement(
+                  " INSERT INTO `User` (`user_name`, `user_adress`,`user_password`) "
+                  + "VALUES ('" + userName.getText() + "','"
+                  + userAdress.getText() + "','"
+                  + userPassword.getText() + "')");
 
-        stat.executeUpdate();
+          stat.executeUpdate();
 
-        PreparedStatement stat2 = conn.prepareStatement(
-                " INSERT INTO `group_book` (`nom`, `Description`) "
-                + "VALUES ('" + userName.getText() + "','"
-                + "Default Group" + "')");
+          PreparedStatement stat2 = conn.prepareStatement(
+                  " INSERT INTO `group_book` (`nom`, `Description`) "
+                  + "VALUES ('" + userName.getText() + "','"
+                  + "Default Group" + "')");
 
-        stat2.executeUpdate();
-        System.exit(0);
+          stat2.executeUpdate();
+          System.exit(0);
 
-      } finally {
-        conn.close();
+        } finally {
+          conn.close();
+        }
+      }
+    } catch (SQLException e) {
+      g.addMessageErreur("La connexion dans la BD ne s'est pas produite complètement.");
+    } finally {
+      if (g.estEnErreur()) {
+        super.showAlert();
       }
     }
+    
+  }
+  
+  private boolean addErreur(String message) {
+    g.addMessageErreur(message);
+    return false;
   }
 
   private boolean Valid() {
-
+    boolean invalide = true;
+    
     if (userName.getText().isEmpty()) {
-      showAlert("userName");
-      return false;
-    } else if (userAdress.getText().isEmpty()) {
-      showAlert("userAdress");
-      return false;
-    } else if (userPassword.getText().isEmpty()) {
-      showAlert("userPassword");
-      return false;
-    } else if (userConfirmPassword.getText().isEmpty()) {
-      showAlert("userConfirmPassword");
-      return false;
-    } else if (!userConfirmPassword.getText().equals(userPassword.getText())) {
-      showAlert("les 2 mdp ne corresponde pas. l'un des deux est ");
-      return false;
+      invalide = addErreur("Le champ du nom du compte est vide.");
+    } else if (!G_Validation.nom(userName.getText())) {
+      invalide = addErreur("Le nom du compte saisie n'est pas valide.");
     }
-
-    return true;
+    
+    if (userAdress.getText().isEmpty()) {
+      invalide = addErreur("Le champ du mot de passe est vide.");
+    } else if (!G_Validation.courriel(userAdress.getText())) {
+      invalide = addErreur("L'adresse courriel saisie n'est pas valide.");
+    }
+    
+    if (userPassword.getText().isEmpty()) {
+      invalide = addErreur("Le champ du mot de passe est vide.");
+    } else if (!G_Validation.mdp(userPassword.getText())) {
+      invalide = addErreur("Le mot de passe saisie n'est pas valide.");
+    } else if (!userConfirmPassword.getText().equals(userPassword.getText())) {
+      invalide = addErreur("La resaisie du mot de passe n'est pas identique au premier.");
+    }
+    
+    return invalide;
   }
 
-  void showAlert(String var) {
-    Alert alert = new Alert(AlertType.ERROR);
-    alert.setTitle("Error");
-    alert.setHeaderText(null);
-    alert.setContentText(var + " invalide");
-
-    alert.showAndWait();
-  }
-
-  boolean validUser() throws IOException, SQLException, ClassNotFoundException {
+  /*boolean validUser() throws IOException, SQLException, ClassNotFoundException {
     Connection conn = SimpleDataSource.getConnection();
     try {
 
@@ -146,11 +157,11 @@ public class NouveauCompte_v1Controller extends main_controller implements Initi
     }
 
     return true;
-  }
+  }*/
 
   /**
-   *
-   * @throws Exception
+   * 
+   * @throws Exception 
    */
   public void startPage() throws Exception {
 
