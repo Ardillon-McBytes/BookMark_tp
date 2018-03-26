@@ -45,17 +45,48 @@ public class main_controller {
     prevStage.show();
 
   }
+  
+  void showMessages() {
+    if (Gestionnaire.estEnErreur()) {
+      showAlert();
+    }
+    else {
+      showConfirmation();
+    }
+  }
+  
+  void showMessages(String var) {
+    if (Gestionnaire.estEnErreur()) {
+      showAlert(var);
+    }
+    else {
+      showConfirmation(var);
+    }
+  }
+  
+  void showConfirmation() {
+    showConfirmation(Gestionnaire.getMessageConfirmation());
+  }
+  
+  void showConfirmation(String var) {
+    showMessage(Alert.AlertType.CONFIRMATION, "Confirmation", null, var);
+  }
 
   void showAlert() {
     showAlert(Gestionnaire.getMessageErreur());
   }
   
   void showAlert(String var) {
-    
-    Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle("Error");
-    alert.setHeaderText(null);
-    alert.setContentText(var);
+    showMessage(Alert.AlertType.ERROR, "Error", null, 
+            "Une erreur s'est produite. Les messages retenus sont : \n\n" + var);
+    Gestionnaire.estEnErreur(false);
+  }
+  
+  private void showMessage(Alert.AlertType type, String titre, String header, String content) {
+    Alert alert = new Alert(type);
+    alert.setTitle(titre);
+    alert.setHeaderText(header);
+    alert.setContentText(content);
 
     alert.showAndWait();
   }
