@@ -63,14 +63,14 @@ import javafx.scene.layout.Priority;
  */
 public class PagePrincipaleController extends main_controller implements Initializable {
 
+    Stage stageTheLabelBelongs;
+  
     @FXML
     private GridPane gp_principal;
     @FXML
     private TextField txt_file_name;
     @FXML
     private TextField txt_adress;
-    @FXML
-    private ImageView btnAccepted;
     @FXML
     private ImageView btnInfo_tag;
     @FXML
@@ -91,7 +91,6 @@ public class PagePrincipaleController extends main_controller implements Initial
     private ListView<String> list_tag = new ListView<String>();
     @FXML
     private ListView<String> list_user = new ListView<String>();
-    @FXML
     private ImageView btn_share;
     @FXML
     private ImageView btn_add_gb;
@@ -107,13 +106,17 @@ public class PagePrincipaleController extends main_controller implements Initial
     private ImageView btn_show_tag;
     @FXML
     private ImageView btn_help;
-    @FXML
-    private ImageView btn_infpo;
 
     int currentBm_id = 0;
     int id_selected_user = 0;
     @FXML
     private ImageView btn_remove_share;
+  @FXML
+  private ImageView btn_disconnect;
+  @FXML
+  private ImageView btn_info;
+  @FXML
+  private ImageView btnVerifier_url;
 
     /**
      * Initializes the controller class.
@@ -334,7 +337,6 @@ public class PagePrincipaleController extends main_controller implements Initial
 
     }
 
-    @FXML
     void getBookMark() throws IOException, SQLException, ClassNotFoundException, Exception {
 
         Connection conn = SimpleDataSource.getConnection();
@@ -447,7 +449,6 @@ public class PagePrincipaleController extends main_controller implements Initial
     private void showBmGroup(MouseEvent event) {
     }
 
-    @FXML
     private void add_share(MouseEvent event) throws IOException {
 
         if (currentBm_id > 0) {
@@ -474,9 +475,6 @@ public class PagePrincipaleController extends main_controller implements Initial
     private void add_gb(MouseEvent event) {
     }
 
-    @FXML
-    private void btn_add_gb(DragEvent event) {
-    }
 
     @FXML
     private void remove_gb(MouseEvent event) {
@@ -556,4 +554,38 @@ public class PagePrincipaleController extends main_controller implements Initial
         secondStage.setScene(scene);
         secondStage.show();
     }
+
+  @FXML
+  private void disconnect(MouseEvent event) {
+    try {
+      g.setUsagerActif(new User("déconnecté"));
+      
+      Connexion_v1Controller controller = new Connexion_v1Controller();
+      stageTheLabelBelongs = (Stage) btn_disconnect.getScene().getWindow();
+      controller.setPrevStage(stageTheLabelBelongs);
+
+      Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/connexion_v1.fxml"));
+
+      Scene scene = new Scene(root);
+      Stage secondStage = new Stage();
+
+      secondStage.setScene(scene);
+
+      stageTheLabelBelongs.hide();
+      secondStage.show();
+
+    } catch (IOException e) {
+      g.addMessageErreur("Mauvais format pour le nom de l'utilisateur");
+    } catch (SQLException ex) {
+      g.addMessageErreur("Erreur avec la BD");
+    }
+  }
+
+  @FXML
+  private void refresh(MouseEvent event) {
+  }
+
+  @FXML
+  private void verifier_url(MouseEvent event) {
+  }
 }

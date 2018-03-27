@@ -21,7 +21,7 @@ import sqlclass.SimpleDataSource;
  * @author Jean-Alain Sainton
  * @version 1.0
  */
-public class TA_User_GB extends TABase<User, Groupbook> {
+public class TA_User_GB extends TABase<User, Groupbook, DBA<User, Groupbook>> {
 
   public TA_User_GB() {
     TABase.constructor("user_group",

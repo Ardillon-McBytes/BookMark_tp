@@ -200,8 +200,9 @@ public class Gestionnaire {
       tags.clear();
       
       /*@old-node_question Méthode pour marquer la racine. Valide? */
-      rs_user_gb.next();
-      conteneurs.add(new DBTA(rs_user_gb.getInt(1), rs_user_gb.getInt(1)));
+      if (rs_user_gb.next()) {
+      conteneurs.add(new DBA(1, rs_user_gb.getInt(1), rs_user_gb.getInt(1)));
+              }
       rs_user_gb.previous();
       
       /*Pour tous les gb accessibles par l'utilisateur*/
@@ -209,7 +210,7 @@ public class Gestionnaire {
         gbNb++;
         gbId = rs_user_gb.getInt(1);
         /*@old-node_question Ne pas inclure la racine dans acces pour prévenir les recherches en boucles? */
-        acces.add(new DBTA(userId, gbId));
+        acces.add(new DBA(1 ,userId, gbId));
         
         
         stat_gb.setInt(1, gbId);
@@ -225,7 +226,7 @@ public class Gestionnaire {
         /*Pour tout les bm contenus dans le gb*/
         while (rs_gb_bm.next()) {
           bmId = rs_gb_bm.getInt(1);
-          contenus.add(new DBTA(gbId, bmId));
+          contenus.add(new DBA(1, gbId, bmId));
           
           stat_bm.setInt(1, bmId);
           rs_bm = stat_bm.executeQuery();
@@ -238,7 +239,7 @@ public class Gestionnaire {
           /*Pour tout les tags placés sur le bm*/
           while (rs_bm_tag.next()) {
             tagId = rs_bm_tag.getInt(1);
-            etiquettes.add(new DBTA(bmId, tagId));
+            etiquettes.add(new DBA(1, bmId, tagId));
             
             stat_tag.setInt(1, tagId);
             rs_tag = stat_tag.executeQuery();
@@ -271,6 +272,7 @@ public class Gestionnaire {
    * @return
    */
   public static boolean addUser(User user) throws SQLException, IOException {
+    int id = 1;
     Groupbook gb;
     if (containsLeft(acces, user)) {
       return false;
@@ -278,10 +280,10 @@ public class Gestionnaire {
       G_GB.add(user);
       gb = new Groupbook(0, user.getNom(), user.getCourriel(), 0, new ArrayList<>(),
               new ArrayList<>(), identifiants);
-      //acces.add(u, gb);
-      return true;
+      acces.add(new DBA(id, user, gb));
     }
-    //users.add(u);
+    users.add(user);
+    return true;
   }
   
   public static boolean validUserConnexion(String nom, String mdp) {
@@ -323,7 +325,7 @@ public class Gestionnaire {
           while (rs2.next()) {
               int id_bm = rs.getInt(1);
               bm.setId(id_bm);
-              contenus.add(new DBTA<Groupbook, Bookmark>(groupbooks.get(groupbooks.size()-1), bm));
+              contenus.add(new DBA<Groupbook, Bookmark>(id_gp, groupbooks.get(groupbooks.size()-1), bm));
 
               String query3 = "SELECT nom_site, Description, Url "
                       + "FROM bookmark "

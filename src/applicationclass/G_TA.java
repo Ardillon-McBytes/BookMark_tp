@@ -56,13 +56,13 @@ public class G_TA {
   /**
    * MÉTHODES DE LA CLASSE ********************
    */
-  private static <L extends DBField, R extends DBField>
-          boolean addElement(L left, R right, TABase<L, R> ta)
+  private static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
+          boolean addElement(int id, L left, R right, TA ta)
           throws SQLException {
     conn = SimpleDataSource.getConnection();
     boolean result = false;
     try {
-      result = ta.add(new DBTA(left.getId(), right.getId()));
+      result = ta.add((A)new DBA(id, left.getId(), right.getId()));
     } finally {
       conn.close();
     }
@@ -71,32 +71,32 @@ public class G_TA {
 
   public static boolean addAccess(User accedeur, Groupbook groupbook)
           throws SQLException {
-    return addElement(accedeur, groupbook, acces);
+    return addElement(1, accedeur, groupbook, acces);
   }
 
   public static boolean addConteneur(Groupbook parent, Groupbook enfant)
           throws SQLException {
-    return addElement(parent, enfant, conteneurs);
+    return addElement(1, parent, enfant, conteneurs);
   }
 
   public static boolean addContenu(Groupbook dossier, Bookmark bookmark)
           throws SQLException {
-    return addElement(dossier, bookmark, contenus);
+    return addElement(1, dossier, bookmark, contenus);
   }
 
   public static boolean addEtiquette(Bookmark bookmark, Tag tag)
           throws SQLException {
-    return addElement(bookmark, tag, etiquettes);
+    return addElement(1, bookmark, tag, etiquettes);
   }
 
   private static <L extends DBField, R extends DBField>
-          DBTA<L, R> removeElement(L left, R right, TABase<L, R> ta)
+          DBA<L, R> removeElement(L left, R right, TABase<L, R, ?> ta)
           throws SQLException {
     conn = SimpleDataSource.getConnection();
-    DBTA<L, R> result = null;
+    DBA<L, R> result = null;
     try {
-      if (Recherche.contains(ta, left, right)) {
-        result = ta.remove(Recherche.getPosition(ta, left, right));
+      if (Recherche.contains(ta, 1, left, right)) {
+        result = ta.remove(Recherche.getPosition(ta, 1, left, right));
       }
     } finally {
       conn.close();
@@ -104,22 +104,22 @@ public class G_TA {
     return result;
   }
 
-  public static DBTA<User, Groupbook>
+  public static DBA<User, Groupbook>
           removeAccess(User accedeur, Groupbook groupbook) throws SQLException {
     return removeElement(accedeur, groupbook, acces);
   }
 
-  public static DBTA<Groupbook, Groupbook>
+  public static DBA<Groupbook, Groupbook>
           removeConteneur(Groupbook parent, Groupbook enfant) throws SQLException {
     return removeElement(parent, enfant, conteneurs);
   }
 
-  public static DBTA<Groupbook, Bookmark>
+  public static DBA<Groupbook, Bookmark>
           removeContenu(Groupbook dossier, Bookmark bookmark) throws SQLException {
     return removeElement(dossier, bookmark, contenus);
   }
 
-  public static DBTA<Bookmark, Tag>
+  public static DBA<Bookmark, Tag>
           removeEtiquette(Bookmark bookmark, Tag tag) throws SQLException {
     return removeElement(bookmark, tag, etiquettes);
   }

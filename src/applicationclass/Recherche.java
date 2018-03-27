@@ -24,9 +24,8 @@ public class Recherche {
   }
 
   // Façons qui utilisent une méthode générique, mais fonctionne-t-elles?
-  private static <FK2 extends DBField, FK1 extends DBField>
-          ArrayList<FK2> matchingLeft(
-                  FK1 fk1, ArrayList<DBTA<FK1, FK2>> dbta, ArrayList<FK2> list) {
+  private static <FK2 extends DBField, FK1 extends DBField, A extends DBA<FK1, FK2>, TA extends ArrayList<A>>
+          ArrayList<FK2> matchingLeft(FK1 fk1, TA dbta, ArrayList<FK2> list) {
 
     ArrayList<FK2> result = new ArrayList<>();
     //if (dbta.get(0).getLeft() instanceof FK1) {
@@ -39,9 +38,9 @@ public class Recherche {
     return result;
   }
 
-  private static <FK1 extends DBField, FK2 extends DBField>
+  private static <FK1 extends DBField, FK2 extends DBField, A extends DBA<FK1, FK2>, TA extends ArrayList<A>>
           ArrayList<FK1> matchingRight(
-                  FK2 fk2, ArrayList<DBTA<FK1, FK2>> dbta, ArrayList<FK1> list) {
+                  FK2 fk2, TA dbta, ArrayList<FK1> list) {
 
     ArrayList<FK1> result = new ArrayList<>();
     dbta.stream().filter((fk) -> (fk.getLeft()
@@ -78,7 +77,7 @@ public class Recherche {
     /*
     ArrayList<Bookmark> result = new ArrayList<>();
     
-    for (DBTA<Bookmark, Tag> ta : tagged) {
+    for (DBA<Bookmark, Tag> ta : tagged) {
       if (tag.equals(ta.getRight())) {
         
         bms.stream().filter((bm) -> (bm.getId() 
@@ -150,7 +149,7 @@ public class Recherche {
    * @param rights
    * @return
    */
-  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
+  public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
           ArrayList<R> getRights(L left, TA ta, ArrayList<R> rights) {
     return matchingLeft(left, ta, rights);
   }
@@ -165,7 +164,7 @@ public class Recherche {
    * @param lefts
    * @return
    */
-  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
+  public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
           ArrayList<L> getLefts(R right, TA ta, ArrayList<L> lefts) {
     return matchingRight(right, ta, lefts);
   }
@@ -185,9 +184,9 @@ public class Recherche {
    * @param right
    * @return
    */
-  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
-          boolean contains(TA ta, L left, R right) {
-    return ta.contains(new DBTA(left, right));
+  public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
+          boolean contains(TA ta, int id, L left, R right) {
+    return ta.contains(new DBA(id, left, right));
   }
 
   /**
@@ -199,7 +198,7 @@ public class Recherche {
    * @param left
    * @return
    */
-  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
+  public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
           boolean containsLeft(TA ta, L left) {
     return ta.stream().anyMatch((d) -> (d.left == left.getId()));
   }
@@ -215,7 +214,7 @@ public class Recherche {
    * @param rights
    * @return
    */
-  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
+  public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
           R getMatchingLeft(TA ta, L left, ArrayList<R> rights) {
     ArrayList<Integer> pos = getLeftPositions(ta, left);
     for (Integer p : pos) {
@@ -228,22 +227,22 @@ public class Recherche {
     return null;
   }
 
-  /*for (DBTA<L, R> d : ta) {
+  /*for (DBA<L, R> d : ta) {
       if (d.left == left.getId()) {
         return true;
       }
     }
     return false;*/
-  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
+  public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
           boolean containsRight(TA ta, R right) {
     return ta.stream().anyMatch((d) -> (d.right == right.getId()));
   }
 
-  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
-          int getPosition(TA ta, L left, R right) {
+  public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
+          int getPosition(TA ta, int id, L left, R right) {
     int pos = 0;
-    for (DBTA<L, R> t : ta) {
-      if (t.equals(new DBTA(left, right))) {
+    for (A t : ta) {
+      if (t.equals(new DBA(id, left, right))) {
         return pos;
       }
       pos++;
@@ -251,11 +250,11 @@ public class Recherche {
     return pos; // ou -1
   }
 
-  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
+  public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
           ArrayList<Integer> getLeftPositions(TA ta, L left) {
     ArrayList<Integer> places = new ArrayList<>();
     int pos = 0;
-    for (DBTA<L, R> t : ta) {
+    for (DBA<L, R> t : ta) {
       if (t.getLeft() == left.getId()) {
         places.add(pos);
       }
@@ -264,11 +263,11 @@ public class Recherche {
     return places;
   }
 
-  public static <L extends DBField, R extends DBField, TA extends TABase<L, R>>
+  public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
           ArrayList<Integer> getRightPositions(TA ta, R right) {
     ArrayList<Integer> places = new ArrayList<>();
     int pos = 0;
-    for (DBTA<L, R> t : ta) {
+    for (DBA<L, R> t : ta) {
       if (t.getRight() == right.getId()) {
         places.add(pos);
       }

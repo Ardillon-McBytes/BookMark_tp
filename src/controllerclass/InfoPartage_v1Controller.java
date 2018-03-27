@@ -16,7 +16,7 @@ import javafx.fxml.Initializable;
  * @author Jean-Alain Sainton
  * @version 1.0
  */
-public class InfoPartage_v1Controller implements Initializable {
+public class InfoPartage_v1Controller extends main_controller implements Initializable {
 
   /**
    * Initializes the controller class.

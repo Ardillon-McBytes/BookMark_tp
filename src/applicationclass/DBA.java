@@ -17,8 +17,13 @@ import java.util.ArrayList;
  * @param <L> Classe du premier champ de la TA de la BD
  * @param <R> Classe du second champ de la TA de la BD
  */
-public class DBTA<L extends DBField, R extends DBField> {
+public class DBA<L extends DBField, R extends DBField> {
 
+  /**
+   * 
+   */
+  protected int id;
+  
   /**
    *
    */
@@ -28,25 +33,66 @@ public class DBTA<L extends DBField, R extends DBField> {
    *
    */
   protected int right;
-
+  
   /**
-   *
+   * 
+   */
+  public static void main(String[] args) {
+    
+  }
+  
+  /**
+   * 
+   * @param id
    * @param left
    * @param right
    */
-  public DBTA(int left, int right) {
+  protected final void constructor(int id, int left, int right) {
+    this.id = id;
     this.left = left;
     this.right = right;
+  }
+  
+  /**
+   * 
+   * @param id
+   * @param left
+   * @param right
+   */
+  protected final void constructor(int id, L left, R right) {
+    this.id = id;
+    setLeft(left);
+    setRight(right);
+  }
+
+  public DBA() {}
+  
+  /**
+   *
+   * @param id
+   * @param left
+   * @param right
+   */
+  public DBA(int id, int left, int right) {
+    constructor(id, left, right);
   }
 
   /**
    *
+   * @param id
    * @param left
    * @param right
    */
-  public DBTA(L left, R right) {
-    setLeft(left);
-    setRight(right);
+  public DBA(int id, L left, R right) {
+    constructor(id, left, right);
+  }
+  
+  /**
+   * 
+   * @param id
+   */
+  public void setId(int id) {
+    this.id = id;
   }
 
   /**
@@ -167,7 +213,7 @@ public class DBTA<L extends DBField, R extends DBField> {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    DBTA other = (DBTA) obj;
+    DBA other = (DBA) obj;
     return !(left != other.left || right != other.right);
   }
 

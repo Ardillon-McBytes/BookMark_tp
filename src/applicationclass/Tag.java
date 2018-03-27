@@ -149,7 +149,7 @@ public class Tag implements DBField {
    * @param ta
    * @return
    */
-  public boolean equals(DBTA<Bookmark, Tag> ta) {
+  public boolean equals(DBA<Bookmark, Tag> ta) {
     return id == ta.getRight();
   }
 

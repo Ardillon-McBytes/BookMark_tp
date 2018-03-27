@@ -128,17 +128,17 @@ public class G_GB {
     return G_TA.addAccess(accedeur, cible);
   }
 
-  public static DBTA<Groupbook, Groupbook>
+  public static DBA<Groupbook, Groupbook>
           remove(Groupbook racine, Groupbook cible) throws SQLException {
     return G_TA.removeConteneur(racine, cible);
   }
 
-  public static DBTA<Groupbook, Bookmark>
+  public static DBA<Groupbook, Bookmark>
           remove(Groupbook dossier, Bookmark bookmark) throws SQLException {
     return G_TA.removeContenu(dossier, bookmark);
   }
 
-//  public static DBTA<Bookmark, Tag> 
+//  public static DBA<Bookmark, Tag> 
 //        remove(Bookmark bookmark, Tag tag) throws SQLException {
 //    return G_TA.removeEtiquette(bookmark, tag);
 //  }

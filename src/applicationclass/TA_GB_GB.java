@@ -14,7 +14,7 @@ package applicationclass;
  * @author Jean-Alain Sainton
  * @version 1.0
  */
-public class TA_GB_GB extends TABase<Groupbook, Groupbook> {
+public class TA_GB_GB extends TABase<Groupbook, Groupbook, DBA<Groupbook, Groupbook>> {
 
   /**
    * Constructeur de TA_GB_GB identifiant celui de l'objet Groupbook. (remplace

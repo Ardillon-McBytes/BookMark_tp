@@ -27,7 +27,7 @@ import sqlclass.SimpleDataSource;
  * @author Jean-Alain Sainton
  * @version 1.0
  */
-public class TA_GB_BM extends TABase<Groupbook, Bookmark> {
+public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmark>> {
 
     static public int id = 0;
     static public int id_group;
