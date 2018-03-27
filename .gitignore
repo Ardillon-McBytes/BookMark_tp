@@ -22,3 +22,5 @@ nbproject/private/private.xml
 src/interfaceclass/pagePrincipale_v2.fxml
 nbproject/private/private.xml
 *.properties
+*.xml
+nbproject/private/private.xml

@@ -6,8 +6,11 @@
 package applicationclass;
 
 /**
- *
- * @author olivi
+ * 
+ * 
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  * @param <R>
  */
 public class Pair<R> {

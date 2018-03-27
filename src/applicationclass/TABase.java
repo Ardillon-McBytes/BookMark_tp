@@ -15,12 +15,16 @@ import java.util.ArrayList;
 import sqlclass.SimpleDataSource;
 
 /**
- *
- * @author olivi
+ * 
+ * 
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
+ * @param <A>
  * @param <L>
  * @param <R>
  */
-public class TABase<L extends DBField, R extends DBField> extends ArrayList<DBTA<L, R>> {
+public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> extends ArrayList<A> {
 
   private static String nomTable;
   private static Pair<String>[] elements;
@@ -126,8 +130,8 @@ public class TABase<L extends DBField, R extends DBField> extends ArrayList<DBTA
     return idModifications;
   }
 
-  @Override
-  public boolean add(DBTA<L, R> e) {
+  
+  public boolean add(A e) {
     if (!contains(e)) {
       // Trouver une manière de vérifier dans a BD
       // seullement si elle a eu des modifications 
@@ -138,14 +142,20 @@ public class TABase<L extends DBField, R extends DBField> extends ArrayList<DBTA
     return false;
   }
 
+  /**
+   * 
+   * @param e
+   * @return 
+   */
   /*@Override
-  public boolean remove(DBTA<L, R> e) {
+  public boolean remove(A e) {
     if (contains(e)) {
       modifications.add(e.getPair());
       return super.remove(e);
     }
     return false;
   }*/
+  
   /**
    *
    * @param <L>
@@ -157,7 +167,7 @@ public class TABase<L extends DBField, R extends DBField> extends ArrayList<DBTA
   }
 
   public boolean modificationsContainsLeft(int leftId) {
-    // Doit être réimplémentée avec l'objet Pair<Integer> ou DBTA
+    // Doit être réimplémentée avec l'objet Pair<Integer> ou DBA
     return idModifications.contains(leftId);
   }
 
@@ -196,7 +206,7 @@ public class TABase<L extends DBField, R extends DBField> extends ArrayList<DBTA
   public int modifyLeftIds(int id, int leftId) {
     int count = 0;
     int i = 0;
-    for (DBTA<L, R> ta : this) {
+    for (DBA<L, R> ta : this) {
       if (id == ta.getLeft()) {
         ta.setLeft(leftId);
         idModifications.add(new Pair(i, leftId));
@@ -228,7 +238,7 @@ public class TABase<L extends DBField, R extends DBField> extends ArrayList<DBTA
   public int modifyRightIds(int id, int rightId) {
     int count = 0;
     int i = 0;
-    for (DBTA<L, R> ta : this) {
+    for (DBA<L, R> ta : this) {
       if (id == ta.getRight()) {
         ta.setRight(rightId);
         idModifications.add(new Pair(i, rightId));
@@ -304,7 +314,7 @@ public class TABase<L extends DBField, R extends DBField> extends ArrayList<DBTA
       statLeft.setString(1, getChampLeft());
       statRight.setString(1, getChampRight());
 
-      DBTA<L, R> mod;
+      DBA<L, R> mod;
       for (Pair i : modifications) {
         mod = this.get(i.id);
         statLeft.setInt(1, mod.getLeft());
@@ -332,15 +342,15 @@ public class TABase<L extends DBField, R extends DBField> extends ArrayList<DBTA
     }
 
     clear();
-    DBTA<L, R> ta;
+    DBA ta;
 
     conn = SimpleDataSource.getConnection();
     try {
       Statement stat = conn.createStatement();
       ResultSet rs = stat.executeQuery("SELECT * FROM " + getNomTable());
       while (rs.next()) {
-        ta = new DBTA(rs.getInt(getColLeft()), rs.getInt(getColRight()));
-        this.add(ta);
+        ta = new DBA(rs.getInt(getColId()), rs.getInt(getColLeft()), rs.getInt(getColRight()));
+        this.add((A)ta);
       }
     } catch (SQLException e) {
       clear();

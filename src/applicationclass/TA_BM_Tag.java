@@ -23,7 +23,7 @@ import sqlclass.SimpleDataSource;
  * @author Jean-Alain Sainton
  * @version 1.0
  */
-public class TA_BM_Tag extends TABase<Bookmark, Tag> {
+public class TA_BM_Tag extends TABase<Bookmark, Tag, DBA<Bookmark, Tag>> {
 
     public TA_BM_Tag() {
         TABase.constructor("bookmark_tag",

@@ -7,8 +7,11 @@
 package sqlclass;
 
 /**
- *
- * @author moi
+ * 
+ * 
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,6 +23,10 @@ import java.io.File;
 
 /**
  * A simple data source for getting database connections.
+ * 
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class SimpleDataSource {
 

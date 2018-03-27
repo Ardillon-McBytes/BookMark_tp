@@ -6,8 +6,8 @@
 package controllerclass;
 
 import applicationclass.G_GB;
-import static applicationclass.Gestionnaire.getUsagerActif;
 import applicationclass.TA_User_GB;
+import static controllerclass.main_controller.g;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -58,7 +58,7 @@ public class AjoutGb_v1Controller implements Initializable {
         if (gb_id < 1) {
             G_GB.createGb( txt_nom_gb.getText(), txt_description.getText());
             gb_id = G_GB.getGBId(txt_nom_gb.getText());
-            TA_User_GB.addUserGroup(getUsagerActif().getId(), gb_id);
+            TA_User_GB.addUserGroup(g.getUsagerActif().getId(), gb_id);
             Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
             stageTheLabelBelongs.hide();
         }
