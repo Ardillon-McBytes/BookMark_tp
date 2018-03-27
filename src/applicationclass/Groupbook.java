@@ -57,6 +57,7 @@ public class Groupbook implements DBField {
    * @param bookmarks
    * @param partages
    */
+  
   public Groupbook(int id, String nom, String description, int groupbookParent,
           ArrayList<Integer> groupbookContenus, ArrayList<Integer> bookmarks,
           ArrayList<Integer> partages) {
@@ -290,7 +291,7 @@ public class Groupbook implements DBField {
    * @return
    */
   public boolean addBookmark(Integer bm) {
-    if (bm < 1 || true/*G_BM.existe(bm)*/) {
+    if (bm < 1 /*G_BM.existe(bm)*/) {
       return false;
     }
     //G_BM.add(bm);

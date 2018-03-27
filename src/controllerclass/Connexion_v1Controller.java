@@ -6,6 +6,9 @@
  */
 package controllerclass;
 
+import applicationclass.G_User;
+import applicationclass.G_Validation;
+import sqlclass.SimpleDataSource;
 import java.io.IOException;
 
 import java.net.URL;
@@ -80,7 +83,7 @@ public class Connexion_v1Controller extends main_controller implements Initializ
     controller.setPrevStage(stageTheLabelBelongs);
     stageTheLabelBelongs.hide();
     Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/nouveauCompte_v1.fxml"));
-
+    
     Scene scene = new Scene(root);
     Stage secondStage = new Stage();
 
@@ -153,6 +156,12 @@ public class Connexion_v1Controller extends main_controller implements Initializ
     try {
      if (validContent() && super.validUser() && validPassword()) {
         
+        boolean test = false;
+        showConfirmation();
+        if (!g.chargerUserData()) {
+          test = true;
+        }
+       
         PagePrincipaleController controller = new PagePrincipaleController();
         stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
         controller.setPrevStage(stageTheLabelBelongs);
@@ -166,6 +175,10 @@ public class Connexion_v1Controller extends main_controller implements Initializ
         
         stageTheLabelBelongs.hide();
         secondStage.show();
+        
+        if (test) {
+          showAlert();
+        }
       }
     }
     catch (SQLException e) {

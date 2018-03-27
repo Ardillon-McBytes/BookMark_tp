@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
+import sqlclass.SimpleDataSource;
 
 /**
  *
@@ -21,9 +23,10 @@ import javafx.stage.Stage;
  * @version 1.0
  */
 public class main_controller {
-  static Gestionnaire g = new Gestionnaire();
-  static User user = new User();
 
+  protected static Gestionnaire g = new Gestionnaire();
+  protected static User user = new User();
+  
   boolean validUser() {
     {
       try {
@@ -33,11 +36,11 @@ public class main_controller {
         }
       }
       catch (IOException e) {
-        g.addMessageErreur("Les champs saisies ");
+        g.addMessageErreur("Les champs saisies ne sont pas valide");
         return false;
       }
       catch (SQLException e) {
-        g.addMessageErreur("Le nom de l'utilisateur n'est pas ");
+        g.addMessageErreur("Il est impossible de se connecter à la BD.");
         return false;
       }
       
@@ -49,11 +52,11 @@ public class main_controller {
     prevStage = stage;
   }
 
-  void exitPage(Object object) throws Exception {
+    void exitPage(Object object) throws Exception {
 
-    Stage stageTheLabelBelongs = (Stage) ((Node) object).getScene().getWindow();
-    stageTheLabelBelongs.hide();
-    prevStage.show();
+        Stage stageTheLabelBelongs = (Stage) ((Node) object).getScene().getWindow();
+        stageTheLabelBelongs.hide();
+        prevStage.show();
 
   }
   
@@ -101,4 +104,15 @@ public class main_controller {
 
     alert.showAndWait();
   }
+  
+  /*boolean showConfirmation() {
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Your Message", "Title on Box", dialogButton);
+        
+        if (dialogResult == 0) {
+          return true;
+        } else {
+            return false;
+        }
+    }*/
 }

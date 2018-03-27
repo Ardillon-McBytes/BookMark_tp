@@ -24,6 +24,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import java.util.HashSet;
+import java.util.Set;
 import sqlclass.SimpleDataSource;
 
 /**
@@ -142,12 +144,6 @@ public class Gestionnaire {
       initialise = false;
       return false;
     }
-
-    if (!chargerUserData()) {
-      return false;
-    }
-    
-    initialise = true;
     return true;
   }
 
@@ -294,19 +290,70 @@ public class Gestionnaire {
 
   public void setUsagerActif(User u)
           throws IOException, SQLException {
-    usagerActif = userValidation(u);
+    usagerActif = u;
   }
 
   public User getUsagerActif() {
     return usagerActif;
   }
+    
+  public void loadUserGb() throws SQLException {
+      Connection conn = SimpleDataSource.getConnection();
+      groupbooks.clear();
+      groupbooks.add(new Groupbook());
+
+      PreparedStatement stat = conn.prepareStatement(
+              "(SELECT id_groupBook FROM user_group WHERE id_user = '" + getUsagerActif().getId() + "')");
+
+      ResultSet rs = stat.executeQuery();
+      int id_gp =getUsagerActif().getId();
+
+
+      Bookmark bm = new Bookmark();
+
+      while (rs.next()) {
+          id_gp = rs.getInt(1);
+          groupbooks.get(groupbooks.size()-1).setId(id_gp);
+
+          PreparedStatement stat2 = conn.prepareStatement(
+                  "(SELECT id_bookmark FROM bookmark_group WHERE id_group = '" + id_gp + "')");
+
+          ResultSet rs2 = stat2.executeQuery();
+
+          while (rs2.next()) {
+              int id_bm = rs.getInt(1);
+              bm.setId(id_bm);
+              contenus.add(new DBTA<Groupbook, Bookmark>(groupbooks.get(groupbooks.size()-1), bm));
+
+              String query3 = "SELECT nom_site, Description, Url "
+                      + "FROM bookmark "
+                      + "WHERE id = ? ";
+
+              PreparedStatement ps3 = conn.prepareStatement(query3);
+              ps3.setInt(1, id_bm);
+
+              ResultSet rs3 = ps3.executeQuery();
+
+              String name = null;
+              if (rs3.next()) {
+                  bm.setNom(rs3.getString(1));
+                  bm.setDescription(rs3.getString(3));
+                  bookmarks.add(bm);
+//                    groupbooks.get(groupbooks.size()-1).addBookmark(bm.getId());
+              }
+          }
+
+      }
+
+  }
+
 
   /**
    *
    * @param gb
    */
   public void addGroupbook(Groupbook gb) {
-    groupbooks.add(gb);
+      groupbooks.add(gb);
   }
 
   /**
@@ -314,7 +361,7 @@ public class Gestionnaire {
    * @param bm
    */
   public void addBookmark(Bookmark bm) {
-    bookmarks.add(bm);
+      bookmarks.add(bm);
   }
 
   /**
@@ -322,45 +369,43 @@ public class Gestionnaire {
    * @param t
    */
   public void addTag(Tag t) {
-    tags.add(t);
+      tags.add(t);
   }
 
   /**
    *
-   * @param i 
-   * @throws java.io.IOException 
    */
   public void addId(int i) throws IOException {
-    if (i < 1) {
-      throw new IOException("Identifiant invalide");
-    }
-    identifiants.add(i);
+      if (i < 1) {
+          throw new IOException("Identifiant invalide");
+      }
+      identifiants.add(i);
   }
 
   public Groupbook getUserRacineGroupbook(User user)
           throws Exception {
-    int id = user.getRacine();
-    for (Groupbook gb : Recherche.getRights(user, acces, groupbooks)) {
-      if (id == gb.getId()) {
-        return gb;
+      int id = user.getRacine();
+      for (Groupbook gb : Recherche.getRights(user, acces, groupbooks)) {
+          if (id == gb.getId()) {
+              return gb;
+          }
       }
-    }
-    return null;
+      return null;
   }
 
   public ArrayList<Groupbook> getUserGroupbooks(User user)
           throws Exception {
-    return getChildGroupbooks(getUserRacineGroupbook(user));
+      return getChildGroupbooks(getUserRacineGroupbook(user));
   }
 
   public ArrayList<Groupbook> getChildGroupbooks(Groupbook parent)
           throws IOException, SQLException {
-    /*if (null == G_Validation.userValidation(user)) {
-    throw new IOException("Utilisateur mal initialisé");
-    }*/
-    return Recherche.getRights(parent, conteneurs, groupbooks);
+      /*if (null == G_Validation.userValidation(user)) {
+  throw new IOException("Utilisateur mal initialisé");
+  }*/
+      return Recherche.getRights(parent, conteneurs, groupbooks);
   }
-  
+
   public void addMessageErreur(String message) {
     G_Validation.addMessageErreur(message);
   }
@@ -392,81 +437,84 @@ public class Gestionnaire {
   /**
    * GETTEURS ET SETTEURS DE BASE ***************************
    */
-  
   /**
    * Obtien la table d'association (TA) qui lie les utilisateurs à leurs
    *
    * @return
    */
   public TA_User_GB getAcces() {
-    return acces;
+      return acces;
   }
 
   public TA_GB_GB getConteneurs() {
-    return conteneurs;
+      return conteneurs;
   }
 
   public TA_GB_BM getContenus() {
-    return contenus;
+      return contenus;
   }
 
   public TA_BM_Tag getEtiquettes() {
-    return etiquettes;
+      return etiquettes;
   }
 
   public ArrayList<User> getUsers() {
-    return users;
+      return users;
   }
 
   public ArrayList<Groupbook> getGroupbooks() {
-    return groupbooks;
+      return groupbooks;
   }
 
   public ArrayList<Bookmark> getBookmarks() {
-    return bookmarks;
+      return bookmarks;
+  }
+
+  public ArrayList<Groupbook> getCurrentGroupbooks() { // throws SQLException, Exception
+      return groupbooks; //usagerActif.getOwnedGroupbooks()
   }
 
   public ArrayList<Tag> getTags() {
-    return tags;
+      return tags;
   }
 
   public ArrayList<Integer> getIdentifiants() {
-    return identifiants;
+      return identifiants;
   }
 
   public void setAcces(TA_User_GB acces) {
-    Gestionnaire.acces = acces;
+      Gestionnaire.acces = acces;
   }
 
   public void setConteneurs(TA_GB_GB conteneurs) {
-    Gestionnaire.conteneurs = conteneurs;
+      Gestionnaire.conteneurs = conteneurs;
   }
 
   public void setContenus(TA_GB_BM contenus) {
-    Gestionnaire.contenus = contenus;
+      Gestionnaire.contenus = contenus;
   }
 
   public void setEtiquettes(TA_BM_Tag etiquettes) {
-    Gestionnaire.etiquettes = etiquettes;
+      Gestionnaire.etiquettes = etiquettes;
   }
 
   public void setUsers(ArrayList<User> users) {
-    Gestionnaire.users = users;
+      Gestionnaire.users = users;
   }
 
   public void setGroupbooks(ArrayList<Groupbook> groupbooks) {
-    Gestionnaire.groupbooks = groupbooks;
+      Gestionnaire.groupbooks = groupbooks;
   }
 
   public void setBookmarks(ArrayList<Bookmark> bookmarks) {
-    Gestionnaire.bookmarks = bookmarks;
+      Gestionnaire.bookmarks = bookmarks;
   }
 
   public void setTags(ArrayList<Tag> tags) {
-    Gestionnaire.tags = tags;
+      Gestionnaire.tags = tags;
   }
 
   public void setIdentifiants(ArrayList<Integer> identifiants) {
-    Gestionnaire.identifiants = identifiants;
+      Gestionnaire.identifiants = identifiants;
   }
 }

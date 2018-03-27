@@ -5,8 +5,10 @@
  */
 package applicationclass;
 
+import static applicationclass.G_Validation.nom;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -125,6 +127,19 @@ public class G_Validation {
       addMessageErreur("Le mot de passe saisie ne respecte pas les critères. Il doit comporter entre 6 et 20 caractères.");
     }
     return User.recherche(nomUtilisateur, courriel);
+  }
+  
+ public static User userValidation(String nomUtilisateur, String mdp)
+          throws IOException, SQLException {
+    // Faire ces validations dans le gestionnaire des utilisateurs 
+    // lors de l'initialisation des nouveaux (G_User) ?
+    if (!G_Validation.nom(nomUtilisateur)) {
+      throw new IOException("Le nom de l'utilisateur doit comporter entre 6 et 20 caractères.");
+    }
+    if (!G_Validation.mdp(mdp)) {
+      throw new IOException("Le mot de passe saisie ne respecte pas les critères. Il doit comporter entre 6 et 20 caractères.");
+    }
+    return User.recherche(nomUtilisateur, mdp);
   }
 
   public static User userValidation(User user)
@@ -258,6 +273,53 @@ public class G_Validation {
   public static void addMessageConfirmation(String message) {
     G_Validation.messagesConfirmation.add(message);
   }
+  
+   public static boolean validUser(String name,String mdp) throws IOException, SQLException, ClassNotFoundException
+    {
+        if (validName(name) == true &&
+                validPassword(name,mdp) == true) {
+      
+            return true;
+            
+        }
+        return false;
+    }
+  public static boolean validName(String name) throws SQLException, IOException {
+     
+        if ( G_User.getUser(name).getId() > 0) {
+            return true;
+        }
+        return false;
+
+    }
+
+  public static boolean validPassword(String name, String mdp) throws IOException, SQLException, ClassNotFoundException {
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            PreparedStatement stat = conn.prepareStatement(
+                    "(SELECT user_password "
+                    + "FROM user "
+                    + "WHERE user.user_name = '" + name + "')");
+
+            ResultSet rs = stat.executeQuery();
+            String pass = null;
+
+            if (rs.next()) {
+                pass = rs.getString(1);
+                if (!pass.equals(mdp)) {
+                    return false;
+               
+                }
+            }
+
+        } finally {
+            conn.close();
+
+        }
+
+        return true;
+    }
   
   public static String getMessageErreur() {
     if (!estEnErreur()) return "";
