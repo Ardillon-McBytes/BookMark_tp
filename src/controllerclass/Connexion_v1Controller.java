@@ -12,6 +12,9 @@ import sqlclass.SimpleDataSource;
 import java.io.IOException;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -99,10 +102,10 @@ public class Connexion_v1Controller extends main_controller implements Initializ
      * doit faire la validation en recherchant dans la BD directement.
      * (Vérifier de l'existance de l'utilisateur ayant le mot de passe et le )
      */
-    return g.validUserConnexion(user_name.getText(), user_password.getText());
+  ///  return g.validUserConnexion(user_name.getText(), user_password.getText());
     /*@old-node_end*/
     
-    /*
+    
     Connection conn = SimpleDataSource.getConnection();
     try {
 
@@ -127,7 +130,7 @@ public class Connexion_v1Controller extends main_controller implements Initializ
     }
 
     return true;
-    */
+    
   }
 
   /**
@@ -150,14 +153,15 @@ public class Connexion_v1Controller extends main_controller implements Initializ
   }
   
   @FXML
-  private void connectUser(MouseEvent event) {
+  private void connectUser(MouseEvent event) throws SQLException, IOException {
     
     g.getUsagerActif().setNom(user_name.getText());
+    g.getUsagerActif().setId(G_User.getUserId(user_name.getText()).getId());
     try {
      if (validContent() && super.validUser() && validPassword()) {
         
         boolean test = false;
-        showConfirmation();
+        
         if (!g.chargerUserData()) {
           test = true;
         }

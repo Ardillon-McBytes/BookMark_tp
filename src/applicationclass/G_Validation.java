@@ -27,9 +27,9 @@ public class G_Validation {
 
   private static final int MAX_VAL_TYPE_PARTAGE = 2;
   private static boolean erreur = false;
-  private static ArrayList<String> messagesErreur = null;
-  private static ArrayList<String> messagesConfirmation = null;
-  private static ArrayList<String> nomColsConnexionTemp;
+  private static ArrayList<String> messagesErreur = new ArrayList<String>();
+  private static ArrayList<String> messagesConfirmation = new ArrayList<String>();;
+  private static ArrayList<String> nomColsConnexionTemp =new ArrayList<String>();;
   private static Connection conn = null;
 
   public G_Validation() {

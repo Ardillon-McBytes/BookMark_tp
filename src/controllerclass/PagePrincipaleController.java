@@ -121,6 +121,8 @@ public class PagePrincipaleController extends main_controller implements Initial
   private ImageView btnVerifier_url;
     @FXML
     private ListView<String> list_Gb = new ListView<String>();
+    @FXML
+    private ImageView btn_show_tag2;
 
     /**
      * Initializes the controller class.
@@ -697,4 +699,8 @@ list_mp.refresh();
   @FXML
   private void verifier_url(MouseEvent event) {
   }
+
+    @FXML
+    private void showGroupBm(MouseEvent event) {
+    }
 }

@@ -52,7 +52,7 @@
                                  <image>
                                     <Image url="@../../../image/remove-share.png" />
                                  </image></ImageView>
-                              <ImageView fx:id="btn_add_gb" fitHeight="31.0" fitWidth="29.0" onDragExited="#btn_add_gb" onMouseClicked="#add_gb" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="btn_add_gb" fitHeight="31.0" fitWidth="29.0"  onMouseClicked="#add_gb" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../image/add-groupBook.png" />
                                  </image></ImageView>
@@ -277,7 +277,7 @@
                                                 <Insets right="2.0" top="1.0" />
                                              </GridPane.margin>
                                           </Hyperlink>
-                                          <ImageView fx:id="btn_show_tag" fitHeight="29.0" fitWidth="31.0" onMouseClicked="#showTag" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                                          <ImageView fx:id="btn_show_tag2" fitHeight="29.0" fitWidth="31.0" onMouseClicked="#showTag" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                                              <image>
                                                 <Image url="@../../../image/validate.png" />
                                              </image>
