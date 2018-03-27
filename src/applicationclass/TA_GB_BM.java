@@ -151,8 +151,8 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
         return id;
     }
 
-    static public ArrayList<Bookmark> getBmFromGb(int id_group) throws SQLException {
-        ArrayList<Bookmark> list_bm = new ArrayList<Bookmark>();
+    static public Groupbook getBmFromGb(int id_group) throws SQLException {
+        Groupbook list_bm = new Groupbook();
         Connection conn = SimpleDataSource.getConnection();
         try {
 
@@ -180,7 +180,7 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
                     String url = rs2.getString(4);
                     Bookmark bm = new Bookmark(id, nom, description, url);
 
-                    list_bm.add(bm);
+                    list_bm.addBookmark(bm);
                 }
             }
 

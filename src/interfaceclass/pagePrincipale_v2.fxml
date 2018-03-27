@@ -82,6 +82,11 @@
                                  <image>
                                     <Image url="@../../../image/refresh.png" />
                                  </image></ImageView>
+                              <ImageView fx:id="imgRefresh1" fitHeight="31.0" fitWidth="29.0" layoutX="500.0" layoutY="10.0" onMouseClicked="#edit_BM" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../image/bookmark.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </HBox>
                      </top>

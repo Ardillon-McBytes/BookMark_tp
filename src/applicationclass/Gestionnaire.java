@@ -15,6 +15,7 @@ import static applicationclass.G_BM.*;
 import static applicationclass.G_Tag.*;
 import static applicationclass.Recherche.*;
 import static applicationclass.G_Requete.*;
+import controllerclass.main_controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,7 +36,7 @@ import sqlclass.SimpleDataSource;
  * @author Jean-Alain Sainton
  * @version 1.0
  */
-public class Gestionnaire {
+public class Gestionnaire extends main_controller {
 
   /**
    * ATTRIBUTS DE LA CLASSE *********************
@@ -302,7 +303,7 @@ public class Gestionnaire {
   public void loadUserGb() throws SQLException {
       Connection conn = SimpleDataSource.getConnection();
       groupbooks.clear();
-      groupbooks.add(new Groupbook());
+      
 
       PreparedStatement stat = conn.prepareStatement(
               "(SELECT id_groupBook FROM user_group WHERE id_user = '" + getUsagerActif().getId() + "')");
@@ -315,6 +316,7 @@ public class Gestionnaire {
 
       while (rs.next()) {
           id_gp = rs.getInt(1);
+          groupbooks.add(new Groupbook());
           groupbooks.get(groupbooks.size()-1).setId(id_gp);
 
           PreparedStatement stat2 = conn.prepareStatement(
@@ -323,6 +325,7 @@ public class Gestionnaire {
           ResultSet rs2 = stat2.executeQuery();
 
           while (rs2.next()) {
+              bm = new Bookmark();
               int id_bm = rs2.getInt(3);
               bm.setId(id_bm);
               contenus.add(new DBA<Groupbook, Bookmark>(id_gp, groupbooks.get(groupbooks.size()-1), bm));
@@ -340,7 +343,7 @@ public class Gestionnaire {
               if (rs3.next()) {
                   bm.setNom(rs3.getString(1));
                   bm.setDescription(rs3.getString(3));
-                  bookmarks.add(bm);
+                  g.bookmarks.add(bm);
 //                    groupbooks.get(groupbooks.size()-1).addBookmark(bm.getId());
               }
           }

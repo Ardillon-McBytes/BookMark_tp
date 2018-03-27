@@ -349,7 +349,7 @@ public class G_GB {
                     gb.setId(rs2.getInt(1));
                     gb.setNom(rs2.getString(2));
                     gb.setDescription(rs2.getString(3));                       
-                    gb.setBookmarks( TA_GB_BM.getBmFromGb(gb.getId()));
+                    gb.setBookmarks( TA_GB_BM.getBmFromGb(gb.getId()).getBookmarks());
                     list_gb.add(gb);
                 }
 
@@ -408,5 +408,29 @@ public class G_GB {
 
         }
         return gb.getId();
+    }
+            
+                 static public String
+            getGBName(int id) throws SQLException {
+        Connection conn = SimpleDataSource.getConnection();
+        Groupbook gb = new Groupbook();
+        Bookmark bm;
+        try {
+
+            String query = "SELECT nom "
+                    + "FROM group_book "
+                    + "WHERE id = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                gb.setNom(rs.getString(1));
+            }
+        } finally {
+            conn.close();
+
+        }
+        return gb.getNom();
     }
 }

@@ -60,6 +60,8 @@ public class TA_BM_Tag extends TABase<Bookmark, Tag, DBA<Bookmark, Tag>> {
         return list_bm;
 
     }
+    
+    
 
     static public void addTagToBm(int tag, int bm) throws SQLException {
 

@@ -34,7 +34,7 @@ public class G_BM {
         G_BM.bm = bm;
     }
 
-    public void getBm(int id) throws SQLException {
+    static public void getBm(int id) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         try {
 
@@ -107,17 +107,17 @@ public class G_BM {
         }
     }
 
-    public void editBm() throws SQLException {
+   static  public void editBm(int id_old, Bookmark newBm) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
 
         try {
 
             PreparedStatement stat = conn.prepareStatement(
                     " UPDATE `bookmark` "
-                    + "SET 'nom_site' = '" + bm.getNom() + "','"
-                    + " 'Description = '" + bm.getDescription() + "','"
-                    + " 'Url = '" + bm.getUrl() + "'"
-                    + "WHERE 'bookmark'.'id' = " + bm.getId());
+                    + "SET `nom_site` = " + newBm.getNom() + "','"
+                    + " `Description = " + newBm.getDescription() + "','"
+                    + " `Url = `" + newBm.getUrl() + "'"
+                    + "WHERE 'id' = " + id_old);
 
             stat.executeUpdate();
 

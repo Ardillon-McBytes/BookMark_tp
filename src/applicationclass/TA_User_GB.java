@@ -11,7 +11,9 @@ import static applicationclass.TA_GB_BM.id_group;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.scene.input.MouseEvent;
 import sqlclass.SimpleDataSource;
 
@@ -70,6 +72,45 @@ static public void addUserGroup(int id_user, int id_groupBook) throws IOExceptio
 
         }
       
+           
+       
+  }
+static public ArrayList<Groupbook> getUserGroups(int id_user) throws IOException, SQLException, ClassNotFoundException {
+   
+    ArrayList<Groupbook> gb = new ArrayList<Groupbook>();
+    Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            String query = "SELECT * "
+                    + "FROM user_group "
+                    + "WHERE id_user = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id_user);
+
+            ResultSet rs = ps.executeQuery();
+
+            G_BM G_BM = new G_BM();
+            int n=0;
+            while (rs.next()) {
+                G_BM = new G_BM();
+               Groupbook gb2 = new Groupbook();
+               
+               
+                     gb2 = TA_GB_BM.getBmFromGb(rs.getInt(4));
+                
+              
+               gb.add(gb2);
+             
+
+                n++;
+            }
+
+        } finally {
+            conn.close();
+
+        }
+
+        return gb;
            
        
   }
