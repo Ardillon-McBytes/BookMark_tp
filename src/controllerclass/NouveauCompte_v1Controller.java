@@ -6,6 +6,8 @@
  */
 package controllerclass;
 
+import applicationclass.G_GB;
+import applicationclass.G_User;
 import applicationclass.G_Validation;
 import sqlclass.SimpleDataSource;
 import java.io.IOException;

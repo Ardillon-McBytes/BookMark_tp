@@ -286,7 +286,7 @@ public class G_Validation {
     }
   public static boolean validName(String name) throws SQLException, IOException {
      
-        if ( G_User.getUser(name).getId() > 0) {
+        if ( G_User.getUserId(name).getId() > 0) {
             return true;
         }
         return false;

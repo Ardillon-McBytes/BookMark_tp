@@ -104,7 +104,7 @@ public class G_User {
 
   }
     
-  public static User getUser(String name)
+  public static User getUserId(String name)
           throws SQLException, IOException {
 
       Connection conn = SimpleDataSource.getConnection();
@@ -127,6 +127,10 @@ public class G_User {
       return null;
   }
 
+  /*@old-node_conflict Cette méthode semble inexistante... perdu dans le merge?*/
+  public static String getUserName(int id) {
+    return "";
+  }
     
   public boolean validUser(String mdp) 
           throws IOException, SQLException, ClassNotFoundException {

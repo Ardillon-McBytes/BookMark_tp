@@ -29,13 +29,16 @@ public class Groupbook implements DBField {
   private int groupbookParent;
   private ArrayList<Integer> partages;
   private ArrayList<Integer> groupbookContenus;
-  private ArrayList<Integer> bookmarks;
+  private ArrayList<Bookmark> bookmarks;
 
-  
   /**
    * 
    */
-  public Groupbook() {}
+  public Groupbook() {
+    this.groupbookContenus = new ArrayList<Integer >();
+    this.bookmarks = new ArrayList<Bookmark>();
+    this.partages = new ArrayList<Integer>();
+  }
   
   /**
    * 
@@ -57,9 +60,8 @@ public class Groupbook implements DBField {
    * @param bookmarks
    * @param partages
    */
-  
   public Groupbook(int id, String nom, String description, int groupbookParent,
-          ArrayList<Integer> groupbookContenus, ArrayList<Integer> bookmarks,
+          ArrayList<Integer> groupbookContenus, ArrayList<Bookmark> bookmarks,
           ArrayList<Integer> partages) {
     this.id = id;
     this.nom = nom;
@@ -137,7 +139,7 @@ public class Groupbook implements DBField {
    *
    * @param bookmark
    */
-  public void setBookmarks(ArrayList<Integer> bookmark) {
+  public void setBookmarks(ArrayList<Bookmark> bookmark) {
     this.bookmarks = bookmark;
   }
   
@@ -220,7 +222,7 @@ public class Groupbook implements DBField {
    *
    * @return
    */
-  public ArrayList<Integer> getBookmarks() {
+  public ArrayList<Bookmark> getBookmarks() {
     return bookmarks;
   }
 
@@ -290,13 +292,11 @@ public class Groupbook implements DBField {
    * @param bm
    * @return
    */
-  public boolean addBookmark(Integer bm) {
-    if (bm < 1 /*G_BM.existe(bm)*/) {
-      return false;
-    }
+  public void addBookmark(Bookmark bm) {
+    
     //G_BM.add(bm);
     bookmarks.add(bm);
-    return true;
+
   }
 
 }

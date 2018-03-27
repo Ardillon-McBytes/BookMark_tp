@@ -142,9 +142,7 @@ public class G_GB {
 //        remove(Bookmark bookmark, Tag tag) throws SQLException {
 //    return G_TA.removeEtiquette(bookmark, tag);
 //  }
-  //public static boolean changerTypeAcces()
-          
-          
+    //public static boolean changerTypeAcces()
     /* @J-A_edits djhfadkfhjladk */
     static void createGb(User user)
             throws IOException, SQLException, ClassNotFoundException {
@@ -197,4 +195,194 @@ public class G_GB {
 
         }
     }
+
+    static public ArrayList<User>
+            getUserFromGB(ArrayList<Groupbook> gb) throws SQLException {
+        Connection conn = SimpleDataSource.getConnection();
+        ArrayList<User> Ar_User = new ArrayList<User>();
+        try {
+            for (int i = 0; i < gb.size(); i++) {
+
+                String query = "SELECT * "
+                        + "FROM bookmark_group "
+                        + "WHERE id_group = ?";
+                PreparedStatement ps = conn.prepareStatement(query);
+                ps.setInt(1, gb.get(i).getId());
+
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    String query2 = "SELECT * "
+                            + "FROM user_group "
+                            + "WHERE id_groupBook = ?";
+                    PreparedStatement ps2 = conn.prepareStatement(query2);
+                    ps2.setInt(1, rs.getInt(2));
+
+                    ResultSet rs2 = ps2.executeQuery();
+
+                    while (rs2.next()) {
+                       
+                        String query3 = "SELECT * "
+                                + "FROM user "
+                                + "WHERE id = ?";
+                        PreparedStatement ps3 = conn.prepareStatement(query3);
+                        ps3.setInt(1, rs2.getInt(3));
+
+                        ResultSet rs3 = ps3.executeQuery();
+
+                        if (rs3.next()) {
+                            User user = new User();
+                            user.setNom(rs3.getString(2));
+                            Ar_User.add(user);
+                        }
+                    }
+                }
+            }
+        } finally {
+            conn.close();
+
+        }
+        return Ar_User;
+    }
+      static public ArrayList<User>
+            getUserFromGBRead(ArrayList<Groupbook> gb) throws SQLException, IOException {
+        Connection conn = SimpleDataSource.getConnection();
+        ArrayList<User> Ar_User = new ArrayList<User>();
+        try {
+            for (int i = 0; i < gb.size(); i++) {
+
+                String query = "SELECT * "
+                        + "FROM bookmark_group "
+                        + "WHERE id_group = ?";
+                PreparedStatement ps = conn.prepareStatement(query);
+                ps.setInt(1, gb.get(i).getId());
+
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    int id_bm = rs.getInt(2);
+                    String query2 = "SELECT * "
+                            + "FROM user_group "
+                            + "WHERE id_groupBook = ?";
+                    PreparedStatement ps2 = conn.prepareStatement(query2);
+                    ps2.setInt(1, id_bm);
+
+                    ResultSet rs2 = ps2.executeQuery();
+                    int id_user = 0;
+                    while (rs2.next()) {
+                        int id_gb = rs2.getInt(4);
+                        id_user = rs2.getInt(3);
+                        int id_default_Gb;
+                      String name =  G_User.getUserName(id_user);
+                        id_default_Gb = getGBDefaultFromUser(name);
+                        if (gb.get(i).getId() == id_default_Gb) {
+                             String query3 = "SELECT * "
+                                + "FROM user "
+                                + "WHERE id = ?";
+                        PreparedStatement ps3 = conn.prepareStatement(query3);
+                        ps3.setInt(1, rs2.getInt(3));
+
+                        ResultSet rs3 = ps3.executeQuery();
+
+                        if (rs3.next()) {
+                            name = rs3.getString(2);
+                            User user = new User();
+                            user.setNom(name);
+                            Ar_User.add(user);
+                        }
+                        }
+ 
+                        
+                       
+                    }
+
+                }
+            }
+        } finally {
+            conn.close();
+
+        }
+        return Ar_User;
+    }
+    
+    
+    
+    
+    static public Groupbook
+            getGBFromUser(int userId) throws SQLException {
+        Connection conn = SimpleDataSource.getConnection();
+        Groupbook gb = new Groupbook();
+        Bookmark bm;
+        try {
+
+            String query = "SELECT * "
+                    + "FROM user_group "
+                    + "WHERE id_user = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, userId);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                gb.setId(rs.getInt(4));
+
+                String query2 = "SELECT * "
+                        + "FROM bookmark_group "
+                        + "WHERE id_group = ?";
+                PreparedStatement ps2 = conn.prepareStatement(query2);
+                ps2.setInt(1, gb.getId());
+
+                ResultSet rs2 = ps2.executeQuery();
+
+                while (rs2.next()) {
+                    gb.setId(rs2.getInt(3));
+
+                    String query3 = "SELECT * "
+                            + "FROM bookmark "
+                            + "WHERE id = ?";
+                    PreparedStatement ps3 = conn.prepareStatement(query3);
+                    ps3.setInt(1, gb.getId());
+
+                    ResultSet rs3 = ps3.executeQuery();
+
+                    if (rs3.next()) {
+                        bm = new Bookmark();
+                        bm.setId(rs3.getInt(1));
+                        bm.setNom(rs3.getString(2));
+                        bm.setDescription(rs3.getString(3));
+                        bm.setUrl(rs3.getString(4));
+                        gb.addBookmark(bm);
+                    }
+                }
+            }
+
+        } finally {
+            conn.close();
+
+        }
+        return gb;
+    }
+
+    static public int
+            getGBDefaultFromUser(String userName) throws SQLException {
+        Connection conn = SimpleDataSource.getConnection();
+        Groupbook gb = new Groupbook();
+        Bookmark bm;
+        try {
+
+            String query = "SELECT * "
+                    + "FROM group_book "
+                    + "WHERE nom = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, userName);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                gb.setId(rs.getInt(1));
+            }
+        } finally {
+            conn.close();
+
+        }
+        return gb.getId();
+    }
+    
+    
 }
