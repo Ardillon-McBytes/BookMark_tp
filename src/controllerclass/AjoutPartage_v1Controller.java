@@ -6,8 +6,10 @@
  */
 package controllerclass;
 
+import applicationclass.G_GB;
 import applicationclass.G_Validation;
 import applicationclass.User;
+import static controllerclass.main_controller.user;
 import sqlclass.SimpleDataSource;
 import java.io.IOException;
 import java.net.URL;
@@ -66,32 +68,18 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
     _id_bookMark = id_bookMark;
   }
 
-  private void exitPage(MouseEvent event) throws Exception {
-
-    Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
-    stageTheLabelBelongs.hide();
-    prevStage.show();
-
-  }
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     // TODO
   }
 
-  @FXML
-  private void closeStage(MouseEvent event) {
-
-    Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
-    stageTheLabelBelongs.hide();
-    prevStage.show();
-  }
 
   @FXML
-  private void addUserGroup(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
+  private void addUserGroup(MouseEvent event) throws IOException, SQLException, ClassNotFoundException, Exception {
    
      int userId =  User.getUserId(user_name.getText());
-      if (userId > 0 ) {
+      if (userId > 0 && userId != gestionnaire.getUsagerActif().getId()) {
 
       int type = 0;
       Connection conn = SimpleDataSource.getConnection();
@@ -108,17 +96,22 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
                 " INSERT INTO `user_group` (`id_type`, `id_user`,`id_groupBook`) "
                 + "VALUES ('" + type + "','"
                 + userId + "','"
-                + _id_bookMark + "')");
+                + G_GB.getGBDefaultFromUser(user.getNom()) + "')");
 
         stat.executeUpdate();
-        System.exit(0);
+      
 
       } finally {
         conn.close();
       }
     }
-
+ Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
+ stageTheLabelBelongs.hide();
   }
+
+    @FXML
+    private void closeStage(MouseEvent event) {
+    }
 
   /**
    *

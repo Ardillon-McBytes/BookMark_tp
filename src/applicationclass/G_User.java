@@ -41,8 +41,8 @@ public class G_User {
         }
 
     }
-void deleteUser()
- throws IOException, SQLException, ClassNotFoundException {
+    void deleteUser()
+            throws IOException, SQLException, ClassNotFoundException {
 
         Connection conn = SimpleDataSource.getConnection();
         try {
@@ -54,8 +54,8 @@ void deleteUser()
             stat.executeUpdate();
         } finally {
             conn.close();
+        }
     }
-}
 
 
 
@@ -80,7 +80,7 @@ void deleteUser()
         }
     }
 
-    static int getUserId(String name)
+   public static int getUserId(String name)
             throws SQLException, IOException {
 
         Connection conn = SimpleDataSource.getConnection();
@@ -109,8 +109,39 @@ void deleteUser()
         return 0;
 
     }
+   
+   
+     public static String getUserName(int id)
+            throws SQLException, IOException {
+ String name = "" ;
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            String query3 = "SELECT user_name "
+                    + "FROM user "
+                    + "WHERE id = ?";
+            PreparedStatement ps3 = conn.prepareStatement(query3);
+            ps3.setInt(1, id);
+
+            ResultSet rs = ps3.executeQuery();
+
+            if (rs.next()) {
+                
+                 name = rs.getString(1);
+                Gestionnaire.getUsagerActif().setNom(name);
+                return name;
+
+            }
+
+        } finally {
+            conn.close();
+
+        }
+        return name;
+
+    }
     
-    
+      
     /* @J-A_edits sfdjkhskfjhsdjkh */
 
     

@@ -6,6 +6,8 @@
  */
 package controllerclass;
 
+import applicationclass.G_GB;
+import applicationclass.G_User;
 import sqlclass.SimpleDataSource;
 import java.io.IOException;
 import java.net.URL;
@@ -69,7 +71,7 @@ public class NouveauCompte_v1Controller extends main_controller implements Initi
 
   @FXML
   private void CreateAccount(MouseEvent event)
-          throws IOException, SQLException, ClassNotFoundException {
+          throws IOException, SQLException, ClassNotFoundException, Exception {
     if (Valid() && validUser()) {
       Connection conn = SimpleDataSource.getConnection();
       try {
@@ -88,8 +90,18 @@ public class NouveauCompte_v1Controller extends main_controller implements Initi
                 + "Default Group" + "')");
 
         stat2.executeUpdate();
-        System.exit(0);
+        
+        int id = G_User.getUserId(userName.getText());
+        int idGb = G_GB.getGBDefaultFromUser(userName.getText());
+         PreparedStatement stat3 = conn.prepareStatement(
+                " INSERT INTO `user_group` (`id_type`, `id_user`, `id_groupBook`) "
+                 + "VALUES ('" + 1 + "','"
+                + id + "','"
+                + idGb + "')");
 
+        stat3.executeUpdate();
+        
+    super.exitPage(btnAnnuler);
       } finally {
         conn.close();
       }

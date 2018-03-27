@@ -138,10 +138,7 @@ public class Connexion_v1Controller extends main_controller implements Initializ
   private void connectUser(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
 
     gestionnaire.getUsagerActif().setNom(user_name.getText());
-
-     
-  
-
+     user.setNom(user_name.getText());
     if (G_Validation.validUser(user_name.getText(), user_password.getText()) == true) {
 
       PagePrincipaleController controller = new PagePrincipaleController();

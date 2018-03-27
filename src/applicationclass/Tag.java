@@ -45,6 +45,8 @@ public class Tag implements DBField {
     this.description = getCurrentTimeStamp();
   }
 
+  public Tag()
+  {};
   /**
    *
    * @param id

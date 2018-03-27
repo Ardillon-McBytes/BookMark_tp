@@ -5,6 +5,8 @@
  */
 package controllerclass;
 
+import applicationclass.G_Tag;
+import applicationclass.Tag;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -42,6 +44,8 @@ public class AjoutTag_v2Controller extends main_controller  implements Initializ
     static int _id_user;
     static int _id_tag = 0;
     static int _id_bookmark;
+    
+    public Tag tag;
 
     /**
      * Initializes the controller class.
@@ -89,27 +93,11 @@ public class AjoutTag_v2Controller extends main_controller  implements Initializ
      */
     private void addTag(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
 
-        Connection conn = SimpleDataSource.getConnection();
-
-      
-        try {
-
-            PreparedStatement stat = conn.prepareStatement(
-                    " INSERT INTO `tag` ( `nom`,`description`) "
-                    + "VALUES ('" + tag_name.getText() + "','"
-                    + tag_description.getText() + "')");
-
-            stat.executeUpdate();
-
-        } finally {
-
-            conn.close();
-        }
-
-        addBookTag();
-        showAlert("Done");
+        G_Tag.setTag(tag_name.getText(),tag_description.getText());
+       G_Tag.addTag();
+       Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
+        stageTheLabelBelongs.hide();
     }
-
      /**
      * ajoute un tag a un bookmark
      */
@@ -125,7 +113,7 @@ public class AjoutTag_v2Controller extends main_controller  implements Initializ
                     + getTagId(tag_name.getText()) + "')");
 
             stat.executeUpdate();
-            System.exit(0);
+       
 
         } finally {
             conn.close();
