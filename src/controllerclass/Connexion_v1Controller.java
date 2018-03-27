@@ -69,7 +69,7 @@ public class Connexion_v1Controller extends main_controller implements Initializ
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    
+
   }
 
 // void hide() throws IOException
@@ -80,7 +80,6 @@ public class Connexion_v1Controller extends main_controller implements Initializ
 //        
 //        primaryStage.setScene(scene);
 //    }
-  
   @FXML
   private void newAccount() throws Exception {
 
@@ -90,7 +89,7 @@ public class Connexion_v1Controller extends main_controller implements Initializ
     controller.setPrevStage(stageTheLabelBelongs);
     stageTheLabelBelongs.hide();
     Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/nouveauCompte_v1.fxml"));
-    
+
     Scene scene = new Scene(root);
     Stage secondStage = new Stage();
 
@@ -103,13 +102,12 @@ public class Connexion_v1Controller extends main_controller implements Initializ
     /*@old-node_start*/
     /**
      * La méthode ne doit pas charger le mot de passe de l'utilisateur, elle
-     * doit faire la validation en recherchant dans la BD directement.
-     * (Vérifier de l'existance de l'utilisateur ayant le mot de passe et le )
+     * doit faire la validation en recherchant dans la BD directement. (Vérifier
+     * de l'existance de l'utilisateur ayant le mot de passe et le )
      */
-  ///  return g.validUserConnexion(user_name.getText(), user_password.getText());
+    ///  return g.validUserConnexion(user_name.getText(), user_password.getText());
     /*@old-node_end*/
-    
-    
+
     Connection conn = SimpleDataSource.getConnection();
     try {
 
@@ -134,14 +132,14 @@ public class Connexion_v1Controller extends main_controller implements Initializ
     }
 
     return true;
-    
+
   }
 
   /**
-   * Valide si les champs de l'interface est conforme pour la création des 
-   * 
-   * @param name 
-   * @return 
+   * Valide si les champs de l'interface est conforme pour la création des
+   *
+   * @param name
+   * @return
    * @throws SQLException Connexion à la base de donnée incomplète
    */
   boolean validContent() {
@@ -156,15 +154,15 @@ public class Connexion_v1Controller extends main_controller implements Initializ
     }
     return etat;
   }
-  
+
   @FXML
   private void connectUser(MouseEvent event) {
-    
+
     try {
       g.getUsagerActif().setNom(user_name.getText());
       g.getUsagerActif().setId(G_User.getUserId(user_name.getText()).getId());
       try {
-       if (validContent() && super.validUser() && validPassword()) {
+        if (validContent() && super.validUser() && validPassword()) {
           g.estEnErreur(false);
 
           boolean test = false;
@@ -185,37 +183,30 @@ public class Connexion_v1Controller extends main_controller implements Initializ
           stageTheLabelBelongs.hide();
           secondStage.show();
         }
-      }
-      catch (SQLException e) {
+      } catch (SQLException e) {
         g.addMessageErreur("La connexion dans la BD ne s'est pas produite complètement.");
-      }
-      catch (IOException e) {
+      } catch (IOException e) {
         /**
-         * @old-node_question Est-ce qu'on devrait plutôt ajouter le message suivant 
-         * dans avec la méthode addMessageConfirmation ? 
+         * @old-node_question Est-ce qu'on devrait plutôt ajouter le message
+         * suivant dans avec la méthode addMessageConfirmation ?
          */
 
         g.addMessageErreur("Un ou plusieurs champs reçues ne sont pas valide pour le fonctionnement du programme.");
-      }
-      catch (ClassNotFoundException e) {
+      } catch (ClassNotFoundException e) {
         g.addMessageErreur("Des dépendances du programme n'ont pas été correctement inclues.");
-      }
-      catch (Exception e) {
+      } catch (Exception e) {
         g.addMessageErreur("Une erreur non répertoriée s'est produite.");
-      }
-      finally {
-        if (g.estEnErreur()) {
-          super.showAlert();
-        }
       }
     } catch (SQLException e) {
       g.addMessageErreur("La connexion dans la BD ne s'est pas produite complètement.");
     } catch (IOException e) {
       g.addMessageConfirmation("L'utilisateur semble mal initialisé.");
-    }
-    finally {
+    } finally {
       if (g.estEnErreur()) {
         super.showAlert();
+      }
+      else if (g.aUneConfirmation()) {
+        showConfirmation();
       }
     }
   }

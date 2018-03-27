@@ -32,8 +32,8 @@
                 <RowConstraints minHeight="25.0" valignment="BASELINE" />
                 <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="BASELINE" />
                 <RowConstraints minHeight="25.0" valignment="BASELINE" />
-            <RowConstraints maxHeight="50.0" minHeight="5.0" prefHeight="28.0" valignment="BOTTOM" />
-            <RowConstraints maxHeight="50.0" minHeight="7.0" prefHeight="16.0" valignment="BOTTOM" />
+                <RowConstraints maxHeight="50.0" minHeight="5.0" prefHeight="28.0" valignment="BOTTOM" />
+                <RowConstraints maxHeight="50.0" minHeight="7.0" prefHeight="16.0" valignment="BOTTOM" />
             </rowConstraints>
             <children>
                 <Label alignment="CENTER_RIGHT" text="Nom du Groupe" textAlignment="RIGHT" GridPane.columnIndex="1">

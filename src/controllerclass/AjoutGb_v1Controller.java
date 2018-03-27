@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
 package controllerclass;
 
@@ -26,45 +27,45 @@ import javafx.stage.Stage;
  */
 public class AjoutGb_v1Controller implements Initializable {
 
-    @FXML
-    private TextField txt_nom_gb;
-    @FXML
-    private Button btnAnnuler;
-    @FXML
-    private Button btnAjouter;
-    @FXML
-    private TextField txt_description;
+  @FXML
+  private TextField txt_nom_gb;
+  @FXML
+  private Button btnAnnuler;
+  @FXML
+  private Button btnAjouter;
+  @FXML
+  private TextField txt_description;
 
-    /**
-     * Initializes the controller class.
+  /**
+   * Initializes the controller class.
+   *
    * @param url
    * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+   */
+  @Override
+  public void initialize(URL url, ResourceBundle rb) {
+    // TODO
+  }
+
+  @FXML
+  private void exitPage(MouseEvent event) {
+
+    Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
+    stageTheLabelBelongs.hide();
+  }
+
+  @FXML
+  private void addGb(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
+
+    int gb_id = G_GB.getGBId(txt_nom_gb.getText());
+    if (gb_id < 1) {
+      G_GB.createGb(txt_nom_gb.getText(), txt_description.getText());
+      gb_id = G_GB.getGBId(txt_nom_gb.getText());
+      TA_User_GB.addUserGroup(g.getUsagerActif().getId(), gb_id);
+      Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
+      stageTheLabelBelongs.hide();
     }
 
-    @FXML
-    private void exitPage(MouseEvent event) {
-
-         Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
- stageTheLabelBelongs.hide();
-    }
-
-    @FXML
-    private void addGb(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
-
-        
-        int gb_id = G_GB.getGBId(txt_nom_gb.getText());
-        if (gb_id < 1) {
-            G_GB.createGb( txt_nom_gb.getText(), txt_description.getText());
-            gb_id = G_GB.getGBId(txt_nom_gb.getText());
-            TA_User_GB.addUserGroup(g.getUsagerActif().getId(), gb_id);
-            Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
-            stageTheLabelBelongs.hide();
-        }
-
-    }
+  }
 
 }

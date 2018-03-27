@@ -9,7 +9,9 @@ package applicationclass;
 import java.util.ArrayList;
 
 /**
- * 
+ * Classe qui fait la gestion des recherches è partir de tables d'associations
+ * (TAs) et du contenu de l BD.
+ *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 public class Recherche {
 
   /**
+   * Méthode de tests
    *
    * @param args
    */
@@ -24,7 +27,19 @@ public class Recherche {
 
   }
 
-  // Façons qui utilisent une méthode générique, mais fonctionne-t-elles?
+  /**
+   * Obtien une liste de tout les éléments de droite comprit dans la TA qui ont
+   * comme pair l'objet de gauche
+   *
+   * @param <FK1> Type des éléments de gauche comprit dans la TA
+   * @param <FK2> Type des éléments de droite comprit dans la TA
+   * @param <A> Le type d'assossiation
+   * @param <TA> La TA correspondant aux éléments
+   * @param fk1 Élément de gauche où l'on recherche tout ses paires dans la TA
+   * @param dbta TA qui lie les éléments de gauche à tout les éléments de droite
+   * @param list Liste des objets instanciés qui représente la liste de
+   * @return Liste des objets à la droite des paires
+   */
   private static <FK2 extends DBField, FK1 extends DBField, A extends DBA<FK1, FK2>, TA extends ArrayList<A>>
           ArrayList<FK2> matchingLeft(FK1 fk1, TA dbta, ArrayList<FK2> list) {
 
@@ -191,7 +206,7 @@ public class Recherche {
    */
   public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
           boolean contains(TA ta, int id, L left, R right) {
-    return ta.contains((A)new DBA(id, left, right));
+    return ta.contains((A) new DBA(id, left, right));
   }
 
   /**
@@ -210,7 +225,7 @@ public class Recherche {
   }
 
   /**
-   * 
+   *
    *
    * @param <L>
    * @param <R>
@@ -219,7 +234,7 @@ public class Recherche {
    * @param ta
    * @param left
    * @param rights
-   * @return 
+   * @return
    */
   public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
           ArrayList<R> getMatchingLeft(TA ta, L left, ArrayList<R> rights) {
@@ -232,8 +247,8 @@ public class Recherche {
   }
 
   /**
-   * 
-   * 
+   *
+   *
    * @param <L>
    * @param <R>
    * @param <A>
@@ -252,7 +267,7 @@ public class Recherche {
     });
     return result;
   }
-  
+
   /**
    *
    * @param <L>

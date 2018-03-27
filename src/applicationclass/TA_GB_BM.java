@@ -49,58 +49,58 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
    * @return
    */
   static public int getId() {
-        return id;
-    }
+    return id;
+  }
 
   /**
    *
    * @return
    */
   static public int getIdGb() {
-        return id_group;
-    }
+    return id_group;
+  }
 
   /**
    *
    * @return
    */
   static public int getIdBm() {
-        return id_Bm;
-    }
+    return id_Bm;
+  }
 
   /**
    *
    * @param id
    */
   static public void setId(int id) {
-        TA_GB_BM.id = id;
-    }
+    TA_GB_BM.id = id;
+  }
 
   /**
    *
    * @param id
    */
   static public void setIdGb(int id) {
-        TA_GB_BM.id_group = id;
-    }
+    TA_GB_BM.id_group = id;
+  }
 
   /**
    *
    * @param id
    */
   static public void setIdBm(int id) {
-        TA_GB_BM.id_Bm = id;
-    }
+    TA_GB_BM.id_Bm = id;
+  }
 
   /**
    *
    */
   public TA_GB_BM() {
-        TABase.constructor("bookmark_group",
-                1, "id",
-                3, "id_bookmark",
-                2, "id_group");
-    }
+    TABase.constructor("bookmark_group",
+            1, "id",
+            3, "id_bookmark",
+            2, "id_group");
+  }
 
   /**
    *
@@ -110,23 +110,23 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
    */
   static public void add_GB_BM() throws IOException, SQLException, ClassNotFoundException {
 
-        Connection conn = SimpleDataSource.getConnection();
+    Connection conn = SimpleDataSource.getConnection();
 
-        try {
+    try {
 
-            PreparedStatement stat = conn.prepareStatement(
-                    " INSERT INTO `bookmark_group` (`id_group`, `id_bookmark`) "
-                    + "VALUES ('" + id_group + "','"
-                    + id_Bm + "')");
+      PreparedStatement stat = conn.prepareStatement(
+              " INSERT INTO `bookmark_group` (`id_group`, `id_bookmark`) "
+              + "VALUES ('" + id_group + "','"
+              + id_Bm + "')");
 
-            stat.executeUpdate();
+      stat.executeUpdate();
 
-        } finally {
-            conn.close();
-
-        }
+    } finally {
+      conn.close();
 
     }
+
+  }
 
   /**
    *
@@ -136,22 +136,22 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
    */
   static public void delete_GB_BM() throws IOException, SQLException, ClassNotFoundException {
 
-        Connection conn = SimpleDataSource.getConnection();
+    Connection conn = SimpleDataSource.getConnection();
 
-        try {
+    try {
 
-            PreparedStatement stat = conn.prepareStatement(
-                    " DELETE FROM  `bookmark_group` "
-                    + "WHERE `id_bookmark` = " + bm.getId());
+      PreparedStatement stat = conn.prepareStatement(
+              " DELETE FROM  `bookmark_group` "
+              + "WHERE `id_bookmark` = " + bm.getId());
 
-            stat.executeUpdate();
+      stat.executeUpdate();
 
-        } finally {
-            conn.close();
-
-        }
+    } finally {
+      conn.close();
 
     }
+
+  }
 
   /**
    *
@@ -160,27 +160,27 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
    * @throws SQLException
    */
   static public int getIdGb(int id_bm) throws SQLException {
-        Connection conn = SimpleDataSource.getConnection();
-        try {
+    Connection conn = SimpleDataSource.getConnection();
+    try {
 
-            String query = "SELECT * "
-                    + "FROM bookmark_group "
-                    + "WHERE id_bookmark = ?";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, id_bm);
+      String query = "SELECT * "
+              + "FROM bookmark_group "
+              + "WHERE id_bookmark = ?";
+      PreparedStatement ps = conn.prepareStatement(query);
+      ps.setInt(1, id_bm);
 
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                id_group = rs.getInt(2);
+      ResultSet rs = ps.executeQuery();
+      while (rs.next()) {
+        id_group = rs.getInt(2);
 
-            }
+      }
 
-        } finally {
-            conn.close();
+    } finally {
+      conn.close();
 
-        }
-        return id_group;
     }
+    return id_group;
+  }
 
   /**
    *
@@ -190,29 +190,29 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
    * @throws SQLException
    */
   static public int getId(int id_group, int id_bm) throws SQLException {
-        Connection conn = SimpleDataSource.getConnection();
-        try {
+    Connection conn = SimpleDataSource.getConnection();
+    try {
 
-            String query = "SELECT * "
-                    + "FROM bookmark_group "
-                    + "WHERE id_bookmark = ? AND id_group = ?";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, id_bm);
-            ps.setInt(2, id_group);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                id = rs.getInt(1);
-                id_group = rs.getInt(2);
-                id_Bm = rs.getInt(3);
+      String query = "SELECT * "
+              + "FROM bookmark_group "
+              + "WHERE id_bookmark = ? AND id_group = ?";
+      PreparedStatement ps = conn.prepareStatement(query);
+      ps.setInt(1, id_bm);
+      ps.setInt(2, id_group);
+      ResultSet rs = ps.executeQuery();
+      if (rs.next()) {
+        id = rs.getInt(1);
+        id_group = rs.getInt(2);
+        id_Bm = rs.getInt(3);
 
-            }
+      }
 
-        } finally {
-            conn.close();
+    } finally {
+      conn.close();
 
-        }
-        return id;
     }
+    return id;
+  }
 
   /**
    *
@@ -221,42 +221,42 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
    * @throws SQLException
    */
   static public ArrayList<Bookmark> getBmFromGb(int id_group) throws SQLException {
-        ArrayList<Bookmark> list_bm = new ArrayList<Bookmark>();
-        Connection conn = SimpleDataSource.getConnection();
-        try {
+    ArrayList<Bookmark> list_bm = new ArrayList<Bookmark>();
+    Connection conn = SimpleDataSource.getConnection();
+    try {
 
-            String query = "SELECT * "
-                    + "FROM bookmark_group "
-                    + "WHERE id_group = ?";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, id_group);
+      String query = "SELECT * "
+              + "FROM bookmark_group "
+              + "WHERE id_group = ?";
+      PreparedStatement ps = conn.prepareStatement(query);
+      ps.setInt(1, id_group);
 
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                int id_bm = rs.getInt(3);
+      ResultSet rs = ps.executeQuery();
+      while (rs.next()) {
+        int id_bm = rs.getInt(3);
 
-                String query2 = "SELECT * "
-                        + "FROM bookmark "
-                        + "WHERE id = ?";
-                PreparedStatement ps2 = conn.prepareStatement(query2);
-                ps2.setInt(1, id_bm);
+        String query2 = "SELECT * "
+                + "FROM bookmark "
+                + "WHERE id = ?";
+        PreparedStatement ps2 = conn.prepareStatement(query2);
+        ps2.setInt(1, id_bm);
 
-                ResultSet rs2 = ps2.executeQuery();
-                if (rs2.next()) {
-                    int id = rs2.getInt(1);
-                    String nom = rs2.getString(2);
-                    String description = rs2.getString(3);
-                    String url = rs2.getString(4);
-                    Bookmark bm = new Bookmark(id, nom, description, url);
+        ResultSet rs2 = ps2.executeQuery();
+        if (rs2.next()) {
+          int id = rs2.getInt(1);
+          String nom = rs2.getString(2);
+          String description = rs2.getString(3);
+          String url = rs2.getString(4);
+          Bookmark bm = new Bookmark(id, nom, description, url);
 
-                    list_bm.add(bm);
-                }
-            }
-
-        } finally {
-            conn.close();
-
+          list_bm.add(bm);
         }
-        return list_bm;
+      }
+
+    } finally {
+      conn.close();
+
     }
+    return list_bm;
+  }
 }

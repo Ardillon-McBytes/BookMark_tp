@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
 package applicationclass;
 
@@ -18,7 +19,8 @@ import org.apache.commons.validator.UrlValidator;
 import sqlclass.SimpleDataSource;
 
 /**
- * Classe qui s'occupe de la gestion des 
+ * Classe qui s'occupe de la gestion des validations de saisies et de
+ * correspondance avec la BD
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
@@ -29,19 +31,21 @@ public class G_Validation {
   private static final int MAX_VAL_TYPE_PARTAGE = 2;
   private static boolean erreur = false;
   private static ArrayList<String> messagesErreur = new ArrayList<String>();
-  private static ArrayList<String> messagesConfirmation = new ArrayList<String>();;
-  private static ArrayList<String> nomColsConnexionTemp =new ArrayList<String>();;
+  private static ArrayList<String> messagesConfirmation = new ArrayList<String>();
+  ;
+  private static ArrayList<String> nomColsConnexionTemp = new ArrayList<String>();
+  ;
   private static Connection conn = null;
 
   /**
-   *
+   * Constructeur de la classe
    */
   public G_Validation() {
     nomColsConnexionTemp = new ArrayList<>();
     nomColsConnexionTemp.add("user_name");
     nomColsConnexionTemp.add("user_password");
   }
-  
+
   /**
    * Compte le nombre d'occurence d'une chaine de caractère dans une autre
    *
@@ -53,18 +57,43 @@ public class G_Validation {
     return text.length() - text.replace(element, "").length();
   }
 
+  /**
+   * Valide que la chaine ne soit pas nulle ou vide
+   *
+   * @param text Chaine de caractère
+   * @return Vrai si la chaine de caractère n'est pas vide.
+   */
   private static boolean nn(String text) {
-    return text != null;
+    return text != null && !text.isEmpty();
   }
 
+  /**
+   * Obtient le premier caractère de la chaine
+   *
+   * @param text Chaine de caractère
+   * @return Premier caractère de la chaine
+   */
   private static char premierChar(String text) {
     return text.charAt(0);
   }
 
+  /**
+   * Obtient le dernier caractère de la chaine
+   *
+   * @param text Chaine de caractère
+   * @return Dernier caractère de la chaine
+   */
   private static char dernierChar(String text) {
     return text.charAt(text.length() - 1);
   }
 
+  /**
+   * Valide que la chaine de caractère contient des caractères alphabétique
+   *
+   * @param text Chaine de caractère
+   * @return Vrai si la chaine de caractère contiens assez de caractère
+   * alphabétique
+   */
   private static boolean chaineMinime(String text) {
     if (nn(text)) {
       return false;
@@ -74,15 +103,30 @@ public class G_Validation {
     return !(min.isEmpty() || "".equals(min));
   }
 
+  /**
+   * Valide qu'une chaine de caractère contient assez de caractères alphabétique
+   *
+   * @param text Chaine de caractère à valider
+   * @param maximum Nombre maximal de caractère que la chaine de caractère peut
+   * contenir
+   * @return Vrai si la chaine contient assez de caractères alphabétique
+   */
   private static boolean chaineValide(String text, int maximum) {
     return chaineMinime(text) && text.length() > 5 && text.length() <= maximum;
   }
 
+  /**
+   * Enlève toutes les caractères non alphabétique d'une chaine
+   *
+   * @param text Chaine de caractère à modifier
+   * @return La chaine modifiée
+   */
   private static String alphaSeulement(String text) {
     return text.replaceAll("[^A-Za-z]", "");
   }
 
   /**
+   *
    *
    * @param adresse
    * @return
@@ -157,7 +201,8 @@ public class G_Validation {
    * @param courriel
    * @param mdp
    * @return
-   * @throws IOException Les champs saisies ne correspond pas au format requis pour la validation
+   * @throws IOException Les champs saisies ne correspond pas au format requis
+   * pour la validation
    * @throws SQLException Connexion à la base de donnée incomplète
    */
   public static User userValidation(String nomUtilisateur, String courriel, String mdp)
@@ -173,13 +218,14 @@ public class G_Validation {
     }
     return User.recherche(nomUtilisateur, courriel);
   }
-  
+
   /**
    *
    * @param nomUtilisateur
    * @param mdp
    * @return
-   * @throws IOException Les champs saisies ne correspond pas au format requis pour la validation
+   * @throws IOException Les champs saisies ne correspond pas au format requis
+   * pour la validation
    * @throws SQLException Connexion à la base de donnée incomplète
    */
   public static User userValidation(String nomUtilisateur, String mdp)
@@ -196,24 +242,27 @@ public class G_Validation {
   }
 
   /**
-   * Valide les informations 
-   * 
+   * Valide les informations
+   *
    * @param user Utilisateur à valider
-   * @return Vrai si l'instance de l'utilisateur correspond à un des enregistrements de la DB
-   * @throws IOException Les champs saisies ne correspond pas au format requis pour la validation
+   * @return Vrai si l'instance de l'utilisateur correspond à un des
+   * enregistrements de la DB
+   * @throws IOException Les champs saisies ne correspond pas au format requis
+   * pour la validation
    * @throws SQLException Connexion à la base de donnée incomplète
    */
   public static User userValidation(User user)
           throws IOException, SQLException {
     return userValidation(user.getNom(), user.getCourriel(), "mot de passe");
   }
-  
+
   /**
    * Valide la connexion d'un utilisateur à l'aide de la BD
-   * 
+   *
    * @param nom Nom de l'utilisateur
    * @param mdp Mot de passe
-   * @return Vrai si les iformation de l'utilisateur saisie correspond à un des enregistrements de la DB
+   * @return Vrai si les iformation de l'utilisateur saisie correspond à un des
+   * enregistrements de la DB
    */
   public static boolean validUserConnexion(String nom, String mdp) {
     ArrayList<Object> valRechCols = new ArrayList<>();
@@ -224,25 +273,26 @@ public class G_Validation {
     nomColsConnexion.add("user_password");
     try {
       return compareBD("user", nomColsConnexion, valRechCols);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       G_Validation.addMessageErreur("Les données saisies ne sont pas dans un bon format.");
-    }
-    catch (SQLException e) {
+    } catch (SQLException e) {
       G_Validation.addMessageErreur("Une erreur s'est produite qui empêche de lire dans la BD.");
     }
     return false;
-    
+
   }
+
   /**
-   * 
+   *
    * @param nomTable
    * @param nomCol
    * @param valCol
    * @param text
-   * @return Vrai si le contenu de la colone dans la BD est égale à la valeur saisie
+   * @return Vrai si le contenu de la colone dans la BD est égale à la valeur
+   * saisie
    * @throws SQLException Connexion à la base de donnée incomplète
-   * @throws IOException Les champs saisies ne correspond pas au format requis pour la validation
+   * @throws IOException Les champs saisies ne correspond pas au format requis
+   * pour la validation
    */
   public static boolean compareColString(String nomTable, String nomCol, int valCol, String text)
           throws SQLException, IOException {
@@ -257,15 +307,14 @@ public class G_Validation {
       if (text.equals(rs.getString(1))) {
         return true;
       }
-    } 
-    catch (IOException | SQLException e) {
+    } catch (IOException | SQLException e) {
       return false;
-    } 
-    finally {
+    } finally {
       conn.close();
     }
     return false;
   }
+
   private static String makeFetch(ArrayList<String> nomCols) {
     StringBuilder fetch = new StringBuilder();
     fetch.append(nomCols.get(0));
@@ -274,6 +323,7 @@ public class G_Validation {
     }
     return fetch.toString();
   }
+
   private static String makeConditions(ArrayList<String> valCols, ArrayList<Object> valRechCols) {
     StringBuilder condition = new StringBuilder();
     condition.append(valCols.get(0)).append(" = ").append(valRechCols.get(0));
@@ -282,53 +332,52 @@ public class G_Validation {
     }
     return condition.toString();
   }
-  
+
   /**
-   * 
+   *
    * @param nomTable
    * @param nomCols
    * @param valRechCols
    * @return
    * @throws SQLException Connexion à la base de donnée incomplète
-   * @throws IOException Les champs saisies ne correspond pas au format requis pour la validation
+   * @throws IOException Les champs saisies ne correspond pas au format requis
+   * pour la validation
    */
-  private static boolean compareBD(String nomTable, 
+  private static boolean compareBD(String nomTable,
           ArrayList<String> nomCols, ArrayList<Object> valRechCols)
           throws SQLException, IOException {
     conn = SimpleDataSource.getConnection();
     try {
-      if (nomTable == null || nomCols == null || valRechCols == null || 
-              nomCols.size() != valRechCols.size()) {
+      if (nomTable == null || nomCols == null || valRechCols == null
+              || nomCols.size() != valRechCols.size()) {
         throw new IOException();
       }
       Statement stat = conn.createStatement();
-      ResultSet rs = stat.executeQuery("SELECT " + 
-              makeFetch(nomCols) + " FROM " + nomTable + 
-              " WHERE " + makeConditions(nomCols, valRechCols));
-      
+      ResultSet rs = stat.executeQuery("SELECT "
+              + makeFetch(nomCols) + " FROM " + nomTable
+              + " WHERE " + makeConditions(nomCols, valRechCols));
+
       rs.next();
       for (int i = 0; i < valRechCols.size(); i++) {
         if (!compareRS(rs, valRechCols.get(i), nomCols.get(i))) {
           return false;
         }
       }
-      
-    } 
-    catch (IOException | SQLException e) {
+
+    } catch (IOException | SQLException e) {
       return false;
-    } 
-    finally {
+    } finally {
       conn.close();
     }
     return true;
   }
-  
+
   /**
-   * 
+   *
    * @param rs
    * @param val
    * @param nomCol
-   * @return 
+   * @return
    * @throws SQLException Connexion à la base de donnée incomplète
    */
   private static boolean compareRS(ResultSet rs, Object val, String nomCol) throws SQLException {
@@ -336,20 +385,18 @@ public class G_Validation {
       if (val.equals(rs.getString(nomCol))) {
         return true;
       }
-    }
-    else if (val instanceof Integer) {
+    } else if (val instanceof Integer) {
       if (val.equals(rs.getInt(nomCol))) {
         return true;
       }
-    }
-    else if (val instanceof Float) {
+    } else if (val instanceof Float) {
       if (val.equals(rs.getFloat(nomCol))) {
         return true;
       }
     }
     return false;
-  } 
-  
+  }
+
   /**
    *
    * @param message
@@ -358,7 +405,7 @@ public class G_Validation {
     G_Validation.erreur = true;
     G_Validation.messagesErreur.add(message);
   }
-  
+
   /**
    *
    * @param message
@@ -366,86 +413,91 @@ public class G_Validation {
   public static void addMessageConfirmation(String message) {
     G_Validation.messagesConfirmation.add(message);
   }
-  
+
   /**
-   * 
-   * 
+   *
+   *
    * @param name
    * @param mdp
    * @return
-   * @throws IOException Les champs saisies ne correspond pas au format requis pour la validation
+   * @throws IOException Les champs saisies ne correspond pas au format requis
+   * pour la validation
    * @throws SQLException Connexion à la base de donnée incomplète
    * @throws ClassNotFoundException
    */
-  public static boolean validUser(String name,String mdp) 
+  public static boolean validUser(String name, String mdp)
           throws IOException, SQLException, ClassNotFoundException {
-    
-        return validName(name) == true && validPassword(name,mdp) == true;
-    }
+
+    return validName(name) == true && validPassword(name, mdp) == true;
+  }
 
   /**
-   * 
-   * 
+   *
+   *
    * @param name
-   * @return 
+   * @return
    * @throws SQLException Connexion à la base de donnée incomplète
-   * @throws IOException Les champs saisies ne correspond pas au format requis pour la validation
+   * @throws IOException Les champs saisies ne correspond pas au format requis
+   * pour la validation
    */
-  public static boolean validName(String name) 
+  public static boolean validName(String name)
           throws SQLException, IOException {
-     
-        return G_User.getUserId(name).getId() > 0;
-    }
+
+    return G_User.getUserId(name).getId() > 0;
+  }
 
   /**
-   * 
-   * 
-   * @param name 
-   * @param mdp 
-   * @return 
-   * @throws IOException Les champs saisies ne correspond pas au format requis pour la validation
+   *
+   *
+   * @param name
+   * @param mdp
+   * @return
+   * @throws IOException Les champs saisies ne correspond pas au format requis
+   * pour la validation
    * @throws SQLException Connexion à la base de donnée incomplète
-   * @throws ClassNotFoundException 
+   * @throws ClassNotFoundException
    */
-  public static boolean validPassword(String name, String mdp) 
+  public static boolean validPassword(String name, String mdp)
           throws IOException, SQLException, ClassNotFoundException {
-    
-        Connection conn = SimpleDataSource.getConnection();
-        try {
 
-            PreparedStatement stat = conn.prepareStatement(
-                    "(SELECT user_password "
-                    + "FROM user "
-                    + "WHERE user.user_name = '" + name + "')");
+    Connection conn = SimpleDataSource.getConnection();
+    try {
 
-            ResultSet rs = stat.executeQuery();
-            String pass;
+      PreparedStatement stat = conn.prepareStatement(
+              "(SELECT user_password "
+              + "FROM user "
+              + "WHERE user.user_name = '" + name + "')");
 
-            if (rs.next()) {
-                pass = rs.getString(1);
-                if (!pass.equals(mdp)) {
-                    return false;
-               
-                }
-            }
+      ResultSet rs = stat.executeQuery();
+      String pass;
 
-        } finally {
-            conn.close();
+      if (rs.next()) {
+        pass = rs.getString(1);
+        if (!pass.equals(mdp)) {
+          return false;
 
         }
+      }
 
-        return true;
+    } finally {
+      conn.close();
+
     }
-  
+
+    return true;
+  }
+
   /**
    *
    * @return
    */
   public static String getMessageErreur() {
-    if (!estEnErreur()) return "";
+    if (!estEnErreur()) {
+      return "";
+    }
     return getMessage(G_Validation.messagesErreur);
   }
-  
+
   /**
    *
    * @return
@@ -453,22 +505,21 @@ public class G_Validation {
   public static String getMessageConfirmation() {
     return getMessage(G_Validation.messagesConfirmation);
   }
-  
+
   private static String getMessage(ArrayList<String> messages) {
     final String br = System.getProperty("line.separator");
     StringBuilder message = new StringBuilder();
     if (messages.size() == 1) {
       message.append(messages.get(0));
-    }
-    else {
+    } else {
       for (int i = 0; i < messages.size(); i++) {
         message.append("No ").append(i + 1).append(" : ").append(messages.get(i)).append(br);
       }
     }
     G_Validation.erreur = false;
     return message.toString();
-  } 
-  
+  }
+
   /**
    *
    * @return
@@ -476,7 +527,7 @@ public class G_Validation {
   public static boolean estEnErreur() {
     return G_Validation.erreur;
   }
-  
+
   /**
    *
    * @param etat

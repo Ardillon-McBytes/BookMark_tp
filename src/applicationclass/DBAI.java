@@ -6,70 +6,70 @@
  */
 package applicationclass;
 
-import java.util.ArrayList;
-
 /**
- * Classe parente aux tables d'associations (TAs) qui possèdent un atribut en chaine de caractère
+ * Classe des associations utilisés dans les TAs qui possèdent un atribut en entier
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
- * @param <L>
- * @param <R>
+ * @param <L> Classe du premier champ de la TA de la BD
+ * @param <R> Classe du second champ de la TA de la BD
  */
 public class DBAI<L extends DBField, R extends DBField> extends DBA {
-  
+
   /**
-   * 
+   * Valeur assignée à la paire
    */
   protected int valeur;
-  
+
   /**
+   * Modifie la valeur assignée à la paire
    * 
-   * 
-   * @param valeur
+   * @param valeur Nouvelle valeur de la paire
    */
   protected final void constructor(int valeur) {
     this.valeur = valeur;
   }
-  
+
   /**
+   * Constructeur
    * 
-   * 
-   * @param id
-   * @param left
-   * @param right
-   * @param valeur
+   * @param id Identifiant de l'association
+   * @param left Identifiant du premier élément
+   * @param right Identifiant du deuxième élément
+   * @param valeur Valeur assignée à la paire
    */
   public DBAI(int id, int left, int right, int valeur) {
     super.constructor(id, left, right);
     constructor(valeur);
   }
-  
+
   /**
+   * Constructeur
    * 
-   * 
-   * @param id
-   * @param left
-   * @param right
-   * @param valeur
+   * @param id Identifiant de l'association
+   * @param left Identifiant du premier élément
+   * @param right Identifiant du deuxième élément
+   * @param valeur Valeur assignée à la paire
    */
   public DBAI(int id, L left, R right, int valeur) {
     super.constructor(id, left, right);
     constructor(valeur);
   }
-  
+
   /**
-   *
-   * @param valeur
+   * Modifie la valeur assignée à la paire
+   * 
+   * @param valeur Nouvelle valeur assignée à la paire
    */
   public void setValeur(int valeur) {
     this.valeur = valeur;
   }
-  
+
   /**
-   *
-   * @return
+   * Obtient la valeur assignée à la paire
+   * 
+   * @return Valeur assignée à la paire
    */
   public int getValeur() {
     return valeur;

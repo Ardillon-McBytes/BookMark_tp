@@ -46,9 +46,9 @@ public class Tag implements DBField {
     this.nom = nom;
     this.description = getCurrentTimeStamp();
   }
-  
+
   /**
-   * 
+   *
    * @param rs
    * @throws java.sql.SQLException
    */
@@ -61,8 +61,10 @@ public class Tag implements DBField {
   /**
    *
    */
-  public Tag()
-  {};
+  public Tag() {
+  }
+
+  ;
   /**
    *
    * @param id

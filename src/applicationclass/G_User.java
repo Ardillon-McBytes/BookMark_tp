@@ -39,18 +39,18 @@ public class G_User {
     conn.setAutoCommit(false);
     try {
 
-        createUser(mdp);         
-       G_GB.createGb(user);
-        conn.commit();
+      createUser(mdp);
+      G_GB.createGb(user);
+      conn.commit();
 
     } catch (SQLException e) {
-        conn.rollback();
-        /* Transaction annulée */
+      conn.rollback();
+      /* Transaction annulée */
     } finally {
-        conn.close();
+      conn.close();
     }
   }
-    
+
   /**
    *
    * @throws IOException
@@ -58,19 +58,19 @@ public class G_User {
    * @throws ClassNotFoundException
    */
   public void deleteUser()
-   throws IOException, SQLException, ClassNotFoundException {
+          throws IOException, SQLException, ClassNotFoundException {
 
-          Connection conn = SimpleDataSource.getConnection();
-          try {
+    Connection conn = SimpleDataSource.getConnection();
+    try {
 
-              PreparedStatement stat = conn.prepareStatement(
-                      " DELETE FROM  `user` "
-                      + "WHERE `user`.`id` = " + user.getId());
+      PreparedStatement stat = conn.prepareStatement(
+              " DELETE FROM  `user` "
+              + "WHERE `user`.`id` = " + user.getId());
 
-              stat.executeUpdate();
-          } finally {
-              conn.close();
-      }
+      stat.executeUpdate();
+    } finally {
+      conn.close();
+    }
   }
 
   /**
@@ -83,19 +83,19 @@ public class G_User {
   public void createUser(String mdp)
           throws IOException, SQLException, ClassNotFoundException {
 
-      Connection conn = SimpleDataSource.getConnection();
-      try {
+    Connection conn = SimpleDataSource.getConnection();
+    try {
 
-          PreparedStatement stat = conn.prepareStatement(
-                  " INSERT INTO `User` (`user_name`, `user_adress`,`user_password`) "
-                  + "VALUES ('" + user.getNom() + "','"
-                  + user.getCourriel() + "','"
-                  + mdp + "')");
+      PreparedStatement stat = conn.prepareStatement(
+              " INSERT INTO `User` (`user_name`, `user_adress`,`user_password`) "
+              + "VALUES ('" + user.getNom() + "','"
+              + user.getCourriel() + "','"
+              + mdp + "')");
 
-          stat.executeUpdate();
-      } finally {
-          conn.close();
-      }
+      stat.executeUpdate();
+    } finally {
+      conn.close();
+    }
   }
 
   /**
@@ -107,30 +107,30 @@ public class G_User {
   public int getUserId(User user)
           throws SQLException {
 
-      Connection conn = SimpleDataSource.getConnection();
-      try {
+    Connection conn = SimpleDataSource.getConnection();
+    try {
 
-          String query3 = "SELECT id "
-                  + "FROM user "
-                  + "WHERE user_name = ?";
-          PreparedStatement ps3 = conn.prepareStatement(query3);
-          ps3.setString(1, user.getNom());
+      String query3 = "SELECT id "
+              + "FROM user "
+              + "WHERE user_name = ?";
+      PreparedStatement ps3 = conn.prepareStatement(query3);
+      ps3.setString(1, user.getNom());
 
-          ResultSet rs = ps3.executeQuery();
+      ResultSet rs = ps3.executeQuery();
 
-          if (rs.next()) {
-              return rs.getInt(1);
-
-          }
-
-      } finally {
-          conn.close();
+      if (rs.next()) {
+        return rs.getInt(1);
 
       }
-      return 0;
+
+    } finally {
+      conn.close();
+
+    }
+    return 0;
 
   }
-    
+
   /**
    *
    * @param name
@@ -141,38 +141,36 @@ public class G_User {
   public static User getUserId(String name)
           throws SQLException, IOException {
 
-      Connection conn = SimpleDataSource.getConnection();
-      try {
-          String query3 = "SELECT id "
-                  + "FROM user "
-                  + "WHERE user_name = ?";
-          PreparedStatement ps3 = conn.prepareStatement(query3);
-          ps3.setString(1, name);
+    Connection conn = SimpleDataSource.getConnection();
+    try {
+      String query3 = "SELECT id "
+              + "FROM user "
+              + "WHERE user_name = ?";
+      PreparedStatement ps3 = conn.prepareStatement(query3);
+      ps3.setString(1, name);
 
-          ResultSet rs = ps3.executeQuery();
+      ResultSet rs = ps3.executeQuery();
 
-          if (rs.next()) {
-              int u_id = rs.getInt(1);
-              return new User(u_id);
-          }
-      } finally {
-          conn.close();
+      if (rs.next()) {
+        int u_id = rs.getInt(1);
+        return new User(u_id);
       }
-      return null;
+    } finally {
+      conn.close();
+    }
+    return null;
   }
 
   /*@old-node_conflict Cette méthode semble inexistante... perdu dans le merge?*/
-
   /**
    *
    * @param id
    * @return
    */
-
   public static String getUserName(int id) {
     return "";
   }
-    
+
   /**
    *
    * @param mdp
@@ -181,11 +179,11 @@ public class G_User {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public boolean validUser(String mdp) 
+  public boolean validUser(String mdp)
           throws IOException, SQLException, ClassNotFoundException {
     return validName() == true && validPassword(mdp) == true;
   }
-  
+
   /**
    *
    * @return
@@ -202,28 +200,28 @@ public class G_User {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public boolean validPassword(String mdp) 
+  public boolean validPassword(String mdp)
           throws IOException, SQLException, ClassNotFoundException {
-    
+
     Connection conn = SimpleDataSource.getConnection();
     try {
 
-        PreparedStatement stat = conn.prepareStatement(
-                "(SELECT user_password "
-                + "FROM user "
-                + "WHERE user.user_name = '" + user.getNom() + "')");
+      PreparedStatement stat = conn.prepareStatement(
+              "(SELECT user_password "
+              + "FROM user "
+              + "WHERE user.user_name = '" + user.getNom() + "')");
 
-        ResultSet rs = stat.executeQuery();
-        String pass = null;
+      ResultSet rs = stat.executeQuery();
+      String pass = null;
 
-        if (rs.next()) {
-            pass = rs.getString(1);
-            if (!pass.equals(mdp)) {
-                return false;
-            }
+      if (rs.next()) {
+        pass = rs.getString(1);
+        if (!pass.equals(mdp)) {
+          return false;
         }
+      }
     } finally {
-        conn.close();
+      conn.close();
     }
     return true;
   }

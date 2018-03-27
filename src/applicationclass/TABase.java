@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
 package applicationclass;
 
@@ -15,8 +16,8 @@ import java.util.ArrayList;
 import sqlclass.SimpleDataSource;
 
 /**
- * 
- * 
+ *
+ *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
@@ -230,9 +231,9 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
   }
 
   /**
-   * 
+   *
    * @param e
-   * @return 
+   * @return
    */
   /*@Override
   public boolean remove(A e) {
@@ -242,7 +243,6 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
     }
     return false;
   }*/
-  
   /**
    *
    * @param <L>
@@ -368,8 +368,7 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
 
   /**
    *
-   * @return
-   * @throws SQLException
+   * @return @throws SQLException
    */
   public boolean updateIdDB() throws SQLException {
     if (idModifications.isEmpty()) {
@@ -403,8 +402,7 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
 
   /**
    *
-   * @return
-   * @throws SQLException
+   * @return @throws SQLException
    */
   public boolean updateDB() throws SQLException {
     if (!idModifications.isEmpty()) {
@@ -443,8 +441,7 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
 
   /**
    *
-   * @return
-   * @throws SQLException
+   * @return @throws SQLException
    */
   public int loadFromDB() throws SQLException {
     if (!modifications.isEmpty()) {
@@ -462,7 +459,7 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
       ResultSet rs = stat.executeQuery("SELECT * FROM " + getNomTable());
       while (rs.next()) {
         ta = new DBA(rs.getInt(getColId()), rs.getInt(getColLeft()), rs.getInt(getColRight()));
-        this.add((A)ta);
+        this.add((A) ta);
       }
     } catch (SQLException e) {
       clear();

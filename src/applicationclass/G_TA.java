@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
 package applicationclass;
 
@@ -11,8 +12,8 @@ import java.sql.SQLException;
 import sqlclass.SimpleDataSource;
 
 /**
- * 
- * 
+ *
+ *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
@@ -65,7 +66,7 @@ public class G_TA {
     conn = SimpleDataSource.getConnection();
     boolean result = false;
     try {
-      result = ta.add((A)new DBA(id, left.getId(), right.getId()));
+      result = ta.add((A) new DBA(id, left.getId(), right.getId()));
     } finally {
       conn.close();
     }

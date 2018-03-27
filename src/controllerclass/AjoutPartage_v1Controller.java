@@ -62,24 +62,21 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
    * @param stage
    * @param id_bookMark
    */
-
   public void setPrevStage(Stage stage, int id_bookMark) {
     prevStage = stage;
     _id_bookMark = id_bookMark;
   }
-
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     // TODO
   }
 
-
   @FXML
   private void addUserGroup(MouseEvent event) throws IOException, SQLException, ClassNotFoundException, Exception {
-   
-     int userId =  User.getUserId(user_name.getText());
-      if (userId > 0 && userId != g.getUsagerActif().getId()) {
+
+    int userId = User.getUserId(user_name.getText());
+    if (userId > 0 && userId != g.getUsagerActif().getId()) {
 
       int type = 0;
       Connection conn = SimpleDataSource.getConnection();
@@ -99,19 +96,18 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
                 + G_GB.getGBDefaultFromUser(user.getNom()) + "')");
 
         stat.executeUpdate();
-      
 
       } finally {
         conn.close();
       }
     }
- Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
- stageTheLabelBelongs.hide();
+    Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
+    stageTheLabelBelongs.hide();
   }
 
-    @FXML
-    private void closeStage(MouseEvent event) {
-    }
+  @FXML
+  private void closeStage(MouseEvent event) {
+  }
 
   /**
    *

@@ -5,7 +5,6 @@
  */
 package applicationclass;
 
-
 import static applicationclass.Gestionnaire.*;
 import java.io.IOException;
 import java.sql.Connection;
@@ -84,8 +83,7 @@ public class G_GB {
 
   /**
    *
-   * @return
-   * @throws Exception
+   * @return @throws Exception
    */
   public static ArrayList<Integer>
           getAllGroupbooks() throws Exception {
@@ -127,7 +125,7 @@ public class G_GB {
     //... en construction
     return false;
   }
-  
+
   /**
    *
    * @param rs
@@ -135,15 +133,15 @@ public class G_GB {
    * @return
    * @throws SQLException
    */
-  public static Groupbook initGroupbook(ResultSet rs, int parent) 
+  public static Groupbook initGroupbook(ResultSet rs, int parent)
           throws SQLException {
     Groupbook gb = new Groupbook(
-            rs.getInt("id"), rs.getString("nom"), 
+            rs.getInt("id"), rs.getString("nom"),
             rs.getString("description"), parent);
-    
+
     return gb;
   }
-  
+
   /*
   
   public static Groupbook getRacine(User user) throws Exception {
@@ -154,7 +152,6 @@ public class G_GB {
     }
     return gb;
   }*/
-
   /**
    *
    * @param user
@@ -162,8 +159,6 @@ public class G_GB {
    * @throws SQLException
    * @throws IOException
    */
-
-
   public static boolean
           add(User user) throws SQLException, IOException {
     if (Recherche.containsLeft(G_TA.getAcces(), user)) {
@@ -212,9 +207,8 @@ public class G_GB {
 //        remove(Bookmark bookmark, Tag tag) throws SQLException {
 //    return G_TA.removeEtiquette(bookmark, tag);
 //  }
-    //public static boolean changerTypeAcces()
-    /* @J-A_edits djhfadkfhjladk */
-
+  //public static boolean changerTypeAcces()
+  /* @J-A_edits djhfadkfhjladk */
   /**
    *
    * @param user
@@ -222,23 +216,22 @@ public class G_GB {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
+  static public void createGb(User user)
+          throws IOException, SQLException, ClassNotFoundException {
 
-    static  public void createGb(User user)
-            throws IOException, SQLException, ClassNotFoundException {
+    Connection conn = SimpleDataSource.getConnection();
+    try {
 
-        Connection conn = SimpleDataSource.getConnection();
-        try {
+      PreparedStatement stat = conn.prepareStatement(
+              " INSERT INTO `group_book` (`nom`, `Description`) "
+              + "VALUES ('" + user.getNom() + "','"
+              + "Default Group" + "')");
 
-            PreparedStatement stat = conn.prepareStatement(
-                    " INSERT INTO `group_book` (`nom`, `Description`) "
-                    + "VALUES ('" + user.getNom() + "','"
-                    + "Default Group" + "')");
-
-            stat.executeUpdate();
-        } finally {
-            conn.close();
-        }
+      stat.executeUpdate();
+    } finally {
+      conn.close();
     }
+  }
 
   /**
    *
@@ -248,56 +241,57 @@ public class G_GB {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  static  public void createGb(String gb_name,String gb_description)
-            throws IOException, SQLException, ClassNotFoundException {
+  static public void createGb(String gb_name, String gb_description)
+          throws IOException, SQLException, ClassNotFoundException {
 
-        Connection conn = SimpleDataSource.getConnection();
-        try {
+    Connection conn = SimpleDataSource.getConnection();
+    try {
 
-            PreparedStatement stat = conn.prepareStatement(
-                    " INSERT INTO `group_book` (`nom`, `Description`) "
-                    + "VALUES ('" + gb_name + "','"
-                    + gb_description + "')");
+      PreparedStatement stat = conn.prepareStatement(
+              " INSERT INTO `group_book` (`nom`, `Description`) "
+              + "VALUES ('" + gb_name + "','"
+              + gb_description + "')");
 
-            stat.executeUpdate();
-        } finally {
-            conn.close();
-        }
+      stat.executeUpdate();
+    } finally {
+      conn.close();
     }
-    static void deleteGb(User user)
-            throws IOException, SQLException, ClassNotFoundException {
+  }
 
-        Connection conn = SimpleDataSource.getConnection();
-        try {
+  static void deleteGb(User user)
+          throws IOException, SQLException, ClassNotFoundException {
 
-            PreparedStatement stat = conn.prepareStatement(
-                    " DELETE FROM  `group_book` "
-                    + "WHERE `user`.`id` = " + user.getId());
+    Connection conn = SimpleDataSource.getConnection();
+    try {
 
-            stat.executeUpdate();
-        } finally {
-            conn.close();
-        }
+      PreparedStatement stat = conn.prepareStatement(
+              " DELETE FROM  `group_book` "
+              + "WHERE `user`.`id` = " + user.getId());
+
+      stat.executeUpdate();
+    } finally {
+      conn.close();
     }
+  }
 
-    void editGb(Groupbook bm) throws SQLException {
-        Connection conn = SimpleDataSource.getConnection();
+  void editGb(Groupbook bm) throws SQLException {
+    Connection conn = SimpleDataSource.getConnection();
 
-        try {
+    try {
 
-            PreparedStatement stat = conn.prepareStatement(
-                    " UPDATE `group_book` "
-                    + "SET 'Nom' = '" + bm.getNom() + "','"
-                    + " 'Description = '" + bm.getDescription()
-                    + "WHERE 'bookmark'.'id' = " + bm.getId());
+      PreparedStatement stat = conn.prepareStatement(
+              " UPDATE `group_book` "
+              + "SET 'Nom' = '" + bm.getNom() + "','"
+              + " 'Description = '" + bm.getDescription()
+              + "WHERE 'bookmark'.'id' = " + bm.getId());
 
-            stat.executeUpdate();
+      stat.executeUpdate();
 
-        } finally {
-            conn.close();
+    } finally {
+      conn.close();
 
-        }
     }
+  }
 
   /**
    *
@@ -306,52 +300,52 @@ public class G_GB {
    * @throws SQLException
    */
   static public ArrayList<User>
-            getUserFromGB(ArrayList<Groupbook> gb) throws SQLException {
-        Connection conn = SimpleDataSource.getConnection();
-        ArrayList<User> Ar_User = new ArrayList<User>();
-        try {
-            for (int i = 0; i < gb.size(); i++) {
+          getUserFromGB(ArrayList<Groupbook> gb) throws SQLException {
+    Connection conn = SimpleDataSource.getConnection();
+    ArrayList<User> Ar_User = new ArrayList<User>();
+    try {
+      for (int i = 0; i < gb.size(); i++) {
 
-                String query = "SELECT * "
-                        + "FROM bookmark_group "
-                        + "WHERE id_group = ?";
-                PreparedStatement ps = conn.prepareStatement(query);
-                ps.setInt(1, gb.get(i).getId());
+        String query = "SELECT * "
+                + "FROM bookmark_group "
+                + "WHERE id_group = ?";
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setInt(1, gb.get(i).getId());
 
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    String query2 = "SELECT * "
-                            + "FROM user_group "
-                            + "WHERE id_groupBook = ?";
-                    PreparedStatement ps2 = conn.prepareStatement(query2);
-                    ps2.setInt(1, rs.getInt(2));
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+          String query2 = "SELECT * "
+                  + "FROM user_group "
+                  + "WHERE id_groupBook = ?";
+          PreparedStatement ps2 = conn.prepareStatement(query2);
+          ps2.setInt(1, rs.getInt(2));
 
-                    ResultSet rs2 = ps2.executeQuery();
+          ResultSet rs2 = ps2.executeQuery();
 
-                    while (rs2.next()) {
+          while (rs2.next()) {
 
-                        String query3 = "SELECT * "
-                                + "FROM user "
-                                + "WHERE id = ?";
-                        PreparedStatement ps3 = conn.prepareStatement(query3);
-                        ps3.setInt(1, rs2.getInt(3));
+            String query3 = "SELECT * "
+                    + "FROM user "
+                    + "WHERE id = ?";
+            PreparedStatement ps3 = conn.prepareStatement(query3);
+            ps3.setInt(1, rs2.getInt(3));
 
-                        ResultSet rs3 = ps3.executeQuery();
+            ResultSet rs3 = ps3.executeQuery();
 
-                        if (rs3.next()) {
-                            User user = new User();
-                            user.setNom(rs3.getString(2));
-                            Ar_User.add(user);
-                        }
-                    }
-                }
+            if (rs3.next()) {
+              User user = new User();
+              user.setNom(rs3.getString(2));
+              Ar_User.add(user);
             }
-        } finally {
-            conn.close();
-
+          }
         }
-        return Ar_User;
+      }
+    } finally {
+      conn.close();
+
     }
+    return Ar_User;
+  }
 
   /**
    *
@@ -361,62 +355,62 @@ public class G_GB {
    * @throws IOException
    */
   static public ArrayList<User>
-            getUserFromGBRead(ArrayList<Groupbook> gb) throws SQLException, IOException {
-        Connection conn = SimpleDataSource.getConnection();
-        ArrayList<User> Ar_User = new ArrayList<User>();
-        try {
-            for (int i = 0; i < gb.size(); i++) {
+          getUserFromGBRead(ArrayList<Groupbook> gb) throws SQLException, IOException {
+    Connection conn = SimpleDataSource.getConnection();
+    ArrayList<User> Ar_User = new ArrayList<User>();
+    try {
+      for (int i = 0; i < gb.size(); i++) {
 
-                String query = "SELECT * "
-                        + "FROM bookmark_group "
-                        + "WHERE id_group = ?";
-                PreparedStatement ps = conn.prepareStatement(query);
-                ps.setInt(1, gb.get(i).getId());
+        String query = "SELECT * "
+                + "FROM bookmark_group "
+                + "WHERE id_group = ?";
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setInt(1, gb.get(i).getId());
 
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    int id_bm = rs.getInt(2);
-                    String query2 = "SELECT * "
-                            + "FROM user_group "
-                            + "WHERE id_groupBook = ?";
-                    PreparedStatement ps2 = conn.prepareStatement(query2);
-                    ps2.setInt(1, id_bm);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+          int id_bm = rs.getInt(2);
+          String query2 = "SELECT * "
+                  + "FROM user_group "
+                  + "WHERE id_groupBook = ?";
+          PreparedStatement ps2 = conn.prepareStatement(query2);
+          ps2.setInt(1, id_bm);
 
-                    ResultSet rs2 = ps2.executeQuery();
-                    int id_user = 0;
-                    while (rs2.next()) {
-                        int id_gb = rs2.getInt(4);
-                        id_user = rs2.getInt(3);
-                        int id_default_Gb;
-                        String name = G_User.getUserName(id_user);
-                        id_default_Gb = getGBDefaultFromUser(name);
-                        if (gb.get(i).getId() == id_default_Gb) {
-                            String query3 = "SELECT * "
-                                    + "FROM user "
-                                    + "WHERE id = ?";
-                            PreparedStatement ps3 = conn.prepareStatement(query3);
-                            ps3.setInt(1, rs2.getInt(3));
+          ResultSet rs2 = ps2.executeQuery();
+          int id_user = 0;
+          while (rs2.next()) {
+            int id_gb = rs2.getInt(4);
+            id_user = rs2.getInt(3);
+            int id_default_Gb;
+            String name = G_User.getUserName(id_user);
+            id_default_Gb = getGBDefaultFromUser(name);
+            if (gb.get(i).getId() == id_default_Gb) {
+              String query3 = "SELECT * "
+                      + "FROM user "
+                      + "WHERE id = ?";
+              PreparedStatement ps3 = conn.prepareStatement(query3);
+              ps3.setInt(1, rs2.getInt(3));
 
-                            ResultSet rs3 = ps3.executeQuery();
+              ResultSet rs3 = ps3.executeQuery();
 
-                            if (rs3.next()) {
-                                name = rs3.getString(2);
-                                User user = new User();
-                                user.setNom(name);
-                                Ar_User.add(user);
-                            }
-                        }
-
-                    }
-
-                }
+              if (rs3.next()) {
+                name = rs3.getString(2);
+                User user = new User();
+                user.setNom(name);
+                Ar_User.add(user);
+              }
             }
-        } finally {
-            conn.close();
+
+          }
 
         }
-        return Ar_User;
+      }
+    } finally {
+      conn.close();
+
     }
+    return Ar_User;
+  }
 
   /**
    *
@@ -425,48 +419,48 @@ public class G_GB {
    * @throws SQLException
    */
   static public ArrayList<Groupbook>
-            getGBFromUser(int userId) throws SQLException {
-        Connection conn = SimpleDataSource.getConnection();
-        ArrayList<Groupbook> list_gb = new ArrayList<Groupbook>();
-        Groupbook gb = new Groupbook();
-        try {
+          getGBFromUser(int userId) throws SQLException {
+    Connection conn = SimpleDataSource.getConnection();
+    ArrayList<Groupbook> list_gb = new ArrayList<Groupbook>();
+    Groupbook gb = new Groupbook();
+    try {
 
-            String query = "SELECT * "
-                    + "FROM user_group "
-                    + "WHERE id_user = ?";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, userId);
+      String query = "SELECT * "
+              + "FROM user_group "
+              + "WHERE id_user = ?";
+      PreparedStatement ps = conn.prepareStatement(query);
+      ps.setInt(1, userId);
 
-            ResultSet rs = ps.executeQuery();
-            int nb = 0;
-            while (rs.next()) {
-                gb = new Groupbook();
-                gb.setId(rs.getInt(4));
+      ResultSet rs = ps.executeQuery();
+      int nb = 0;
+      while (rs.next()) {
+        gb = new Groupbook();
+        gb.setId(rs.getInt(4));
 
-                String query2 = "SELECT * "
-                        + "FROM group_book "
-                        + "WHERE id = ?";
-                PreparedStatement ps2 = conn.prepareStatement(query2);
-                ps2.setInt(1, gb.getId());
+        String query2 = "SELECT * "
+                + "FROM group_book "
+                + "WHERE id = ?";
+        PreparedStatement ps2 = conn.prepareStatement(query2);
+        ps2.setInt(1, gb.getId());
 
-                ResultSet rs2 = ps2.executeQuery();
+        ResultSet rs2 = ps2.executeQuery();
 
-                while (rs2.next()) {
-                    gb.setId(rs2.getInt(1));
-                    gb.setNom(rs2.getString(2));
-                    gb.setDescription(rs2.getString(3));                       
-                    gb.setBookmarks( TA_GB_BM.getBmFromGb(gb.getId()));
-                    list_gb.add(gb);
-                }
-
-            }
-
-        } finally {
-            conn.close();
-
+        while (rs2.next()) {
+          gb.setId(rs2.getInt(1));
+          gb.setNom(rs2.getString(2));
+          gb.setDescription(rs2.getString(3));
+          gb.setBookmarks(TA_GB_BM.getBmFromGb(gb.getId()));
+          list_gb.add(gb);
         }
-        return list_gb;
+
+      }
+
+    } finally {
+      conn.close();
+
     }
+    return list_gb;
+  }
 
   /**
    *
@@ -475,29 +469,29 @@ public class G_GB {
    * @throws SQLException
    */
   static public int
-            getGBDefaultFromUser(String userName) throws SQLException {
-        Connection conn = SimpleDataSource.getConnection();
-        Groupbook gb = new Groupbook();
-        Bookmark bm;
-        try {
+          getGBDefaultFromUser(String userName) throws SQLException {
+    Connection conn = SimpleDataSource.getConnection();
+    Groupbook gb = new Groupbook();
+    Bookmark bm;
+    try {
 
-            String query = "SELECT * "
-                    + "FROM group_book "
-                    + "WHERE nom = ?";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, userName);
+      String query = "SELECT * "
+              + "FROM group_book "
+              + "WHERE nom = ?";
+      PreparedStatement ps = conn.prepareStatement(query);
+      ps.setString(1, userName);
 
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                gb.setId(rs.getInt(1));
-            }
-        } finally {
-            conn.close();
+      ResultSet rs = ps.executeQuery();
+      if (rs.next()) {
+        gb.setId(rs.getInt(1));
+      }
+    } finally {
+      conn.close();
 
-        }
-        return gb.getId();
     }
-            
+    return gb.getId();
+  }
+
   /**
    *
    * @param gb_name
@@ -505,26 +499,26 @@ public class G_GB {
    * @throws SQLException
    */
   static public int
-            getGBId(String gb_name) throws SQLException {
-        Connection conn = SimpleDataSource.getConnection();
-        Groupbook gb = new Groupbook();
-        Bookmark bm;
-        try {
+          getGBId(String gb_name) throws SQLException {
+    Connection conn = SimpleDataSource.getConnection();
+    Groupbook gb = new Groupbook();
+    Bookmark bm;
+    try {
 
-            String query = "SELECT * "
-                    + "FROM group_book "
-                    + "WHERE nom = ?";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, gb_name);
+      String query = "SELECT * "
+              + "FROM group_book "
+              + "WHERE nom = ?";
+      PreparedStatement ps = conn.prepareStatement(query);
+      ps.setString(1, gb_name);
 
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                gb.setId(rs.getInt(1));
-            }
-        } finally {
-            conn.close();
+      ResultSet rs = ps.executeQuery();
+      if (rs.next()) {
+        gb.setId(rs.getInt(1));
+      }
+    } finally {
+      conn.close();
 
-        }
-        return gb.getId();
     }
+    return gb.getId();
+  }
 }

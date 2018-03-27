@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
 package applicationclass;
 
@@ -44,20 +45,18 @@ public class TA_User_GB extends TABase<User, Groupbook, DBA<User, Groupbook>> {
    * @throws ClassNotFoundException
    */
   static public void deleteUserGroup(int id_user, int id_groupBook) throws IOException, SQLException, ClassNotFoundException {
-   
-    
-    
-     Connection conn = SimpleDataSource.getConnection();
-        try {
 
-            PreparedStatement stat = conn.prepareStatement(
-                    " DELETE FROM  `user_group` "
-                    + "WHERE `id_user` = " + id_user + " AND `id_groupBook` = "+id_groupBook);
+    Connection conn = SimpleDataSource.getConnection();
+    try {
 
-            stat.executeUpdate();
-        } finally {
-            conn.close();
-        }
+      PreparedStatement stat = conn.prepareStatement(
+              " DELETE FROM  `user_group` "
+              + "WHERE `id_user` = " + id_user + " AND `id_groupBook` = " + id_groupBook);
+
+      stat.executeUpdate();
+    } finally {
+      conn.close();
+    }
 
   }
 
@@ -70,25 +69,22 @@ public class TA_User_GB extends TABase<User, Groupbook, DBA<User, Groupbook>> {
    * @throws ClassNotFoundException
    */
   static public void addUserGroup(int id_user, int id_groupBook) throws IOException, SQLException, ClassNotFoundException {
-   
-    
+
     Connection conn = SimpleDataSource.getConnection();
 
-        try {
+    try {
 
-            PreparedStatement stat = conn.prepareStatement(
-                    " INSERT INTO `user_group` (`id_user`, `id_groupBook`) "
-                    + "VALUES ('" + id_user + "','"
-                    + id_groupBook + "')");
+      PreparedStatement stat = conn.prepareStatement(
+              " INSERT INTO `user_group` (`id_user`, `id_groupBook`) "
+              + "VALUES ('" + id_user + "','"
+              + id_groupBook + "')");
 
-            stat.executeUpdate();
+      stat.executeUpdate();
 
-        } finally {
-            conn.close();
+    } finally {
+      conn.close();
 
-        }
-      
-           
-       
+    }
+
   }
 }

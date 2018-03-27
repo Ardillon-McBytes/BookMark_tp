@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 
 /**
  * FXML Controller class
- * 
+ *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
@@ -106,9 +106,9 @@ public class NouveauCompte_v1Controller extends main_controller implements Initi
         super.showAlert();
       }
     }
-    
+
   }
-  
+
   private boolean addErreur(String message) {
     g.addMessageErreur(message);
     return false;
@@ -116,19 +116,19 @@ public class NouveauCompte_v1Controller extends main_controller implements Initi
 
   private boolean Valid() {
     boolean invalide = true;
-    
+
     if (userName.getText().isEmpty()) {
       invalide = addErreur("Le champ du nom du compte est vide.");
     } else if (!G_Validation.nom(userName.getText())) {
       invalide = addErreur("Le nom du compte saisie n'est pas valide.");
     }
-    
+
     if (userAdress.getText().isEmpty()) {
       invalide = addErreur("Le champ du mot de passe est vide.");
     } else if (!G_Validation.courriel(userAdress.getText())) {
       invalide = addErreur("L'adresse courriel saisie n'est pas valide.");
     }
-    
+
     if (userPassword.getText().isEmpty()) {
       invalide = addErreur("Le champ du mot de passe est vide.");
     } else if (!G_Validation.mdp(userPassword.getText())) {
@@ -136,7 +136,7 @@ public class NouveauCompte_v1Controller extends main_controller implements Initi
     } else if (!userConfirmPassword.getText().equals(userPassword.getText())) {
       invalide = addErreur("La resaisie du mot de passe n'est pas identique au premier.");
     }
-    
+
     return invalide;
   }
 
@@ -160,10 +160,9 @@ public class NouveauCompte_v1Controller extends main_controller implements Initi
 
     return true;
   }*/
-
   /**
-   * 
-   * @throws Exception 
+   *
+   * @throws Exception
    */
   public void startPage() throws Exception {
 
