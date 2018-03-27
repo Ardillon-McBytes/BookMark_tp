@@ -7,8 +7,11 @@
 package sqlclass;
 
 /**
- *
- * @author moi
+ * 
+ * 
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 import sqlclass.SimpleDataSource;
 import java.sql.Connection;

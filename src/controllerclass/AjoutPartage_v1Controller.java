@@ -79,7 +79,7 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
   private void addUserGroup(MouseEvent event) throws IOException, SQLException, ClassNotFoundException, Exception {
    
      int userId =  User.getUserId(user_name.getText());
-      if (userId > 0 && userId != gestionnaire.getUsagerActif().getId()) {
+      if (userId > 0 && userId != g.getUsagerActif().getId()) {
 
       int type = 0;
       Connection conn = SimpleDataSource.getConnection();

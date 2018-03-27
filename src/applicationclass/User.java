@@ -244,7 +244,7 @@ public class User implements DBField {
      * table d'association (TA)
      *
      * @return Liste des dossiers de l'utilisateur
-     */
+     *//*
     public ArrayList<Groupbook> getOwnedGroupbooks()
             throws IOException, SQLException, Exception {
         return Gestionnaire.getUserGroupbooks(this);
@@ -258,8 +258,9 @@ public class User implements DBField {
       });
     });
     gbs.addAll(childs);
-    return gbs;*/
-    }
+    return gbs;
+        
+    }*/
 
     public ArrayList<Groupbook> getTheirGroupbooks() {
         return null;

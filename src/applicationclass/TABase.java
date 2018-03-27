@@ -15,8 +15,11 @@ import java.util.ArrayList;
 import sqlclass.SimpleDataSource;
 
 /**
- *
- * @author olivi
+ * 
+ * 
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  * @param <L>
  * @param <R>
  */
