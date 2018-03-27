@@ -14,6 +14,8 @@ import java.util.ArrayList;
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
+ * @param <L>
+ * @param <R>
  */
 public class DBAS<L extends DBField, R extends DBField> extends DBA {
   
@@ -25,7 +27,6 @@ public class DBAS<L extends DBField, R extends DBField> extends DBA {
   /**
    * 
    * 
-   * @param valeur
    * @param info
    */
   protected final void constructor(String info) {
@@ -58,10 +59,18 @@ public class DBAS<L extends DBField, R extends DBField> extends DBA {
     constructor(info);
   }
   
+  /**
+   *
+   * @param info
+   */
   public void setInfo(String info) {
     this.info = info;
   }
   
+  /**
+   *
+   * @return
+   */
   public String getInfo() {
     return info;
   }

@@ -15,9 +15,21 @@ package applicationclass;
  */
 public class Pair<R> {
 
+  /**
+   *
+   */
   public int id;
+
+  /**
+   *
+   */
   public R value;
 
+  /**
+   *
+   * @param id
+   * @param nom
+   */
   public Pair(int id, R nom) {
     this.id = id;
     this.value = nom;

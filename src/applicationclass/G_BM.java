@@ -19,22 +19,41 @@ import sqlclass.SimpleDataSource;
  */
 public class G_BM {
 
-    static public Bookmark bm = new Bookmark();
+  /**
+   *
+   */
+  static public Bookmark bm = new Bookmark();
 
-    public G_BM() {
+  /**
+   *
+   */
+  public G_BM() {
     }
 
-    static public Bookmark getBookMark() {
+  /**
+   *
+   * @return
+   */
+  static public Bookmark getBookMark() {
 
         return bm;
     }
 
-    static public void setBookMark(Bookmark bm) {
+  /**
+   *
+   * @param bm
+   */
+  static public void setBookMark(Bookmark bm) {
 
         G_BM.bm = bm;
     }
 
-    public void getBm(int id) throws SQLException {
+  /**
+   *
+   * @param id
+   * @throws SQLException
+   */
+  public void getBm(int id) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         try {
 
@@ -60,7 +79,13 @@ public class G_BM {
         }
     }
 
-   static public Bookmark getBm(String name) throws SQLException {
+  /**
+   *
+   * @param name
+   * @return
+   * @throws SQLException
+   */
+  static public Bookmark getBm(String name) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         
         try {
@@ -88,7 +113,11 @@ public class G_BM {
         return bm;
     }
 
-    static public void addBm() throws SQLException {
+  /**
+   *
+   * @throws SQLException
+   */
+  static public void addBm() throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
 
         try {
@@ -107,7 +136,11 @@ public class G_BM {
         }
     }
 
-    public void editBm() throws SQLException {
+  /**
+   *
+   * @throws SQLException
+   */
+  public void editBm() throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
 
         try {
@@ -127,7 +160,13 @@ public class G_BM {
         }
     }
     
-    static public void deleteBm()
+  /**
+   *
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+  static public void deleteBm()
             throws IOException, SQLException, ClassNotFoundException {
 
         Connection conn = SimpleDataSource.getConnection();

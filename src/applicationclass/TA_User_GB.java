@@ -25,13 +25,25 @@ import sqlclass.SimpleDataSource;
  */
 public class TA_User_GB extends TABase<User, Groupbook, DBA<User, Groupbook>> {
 
+  /**
+   *
+   */
   public TA_User_GB() {
     TABase.constructor("user_group",
             1, "id",
             4, "id_user",
             2, "id_groupBook");
   }
-static public void deleteUserGroup(int id_user, int id_groupBook) throws IOException, SQLException, ClassNotFoundException {
+
+  /**
+   *
+   * @param id_user
+   * @param id_groupBook
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+  static public void deleteUserGroup(int id_user, int id_groupBook) throws IOException, SQLException, ClassNotFoundException {
    
     
     
@@ -49,9 +61,15 @@ static public void deleteUserGroup(int id_user, int id_groupBook) throws IOExcep
 
   }
 
-
-
-static public void addUserGroup(int id_user, int id_groupBook) throws IOException, SQLException, ClassNotFoundException {
+  /**
+   *
+   * @param id_user
+   * @param id_groupBook
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+  static public void addUserGroup(int id_user, int id_groupBook) throws IOException, SQLException, ClassNotFoundException {
    
     
     Connection conn = SimpleDataSource.getConnection();

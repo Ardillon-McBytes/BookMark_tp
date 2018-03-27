@@ -14,6 +14,8 @@ import java.util.ArrayList;
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
+ * @param <L>
+ * @param <R>
  */
 public class DBAF<L extends DBField, R extends DBField> extends DBA {
   
@@ -36,7 +38,7 @@ public class DBAF<L extends DBField, R extends DBField> extends DBA {
    * 
    * @param id
    * @param left
-   * @param right
+   * @param valeur
    * @param info
    */
   public DBAF(int id, int left, int right, float valeur) {
@@ -48,8 +50,8 @@ public class DBAF<L extends DBField, R extends DBField> extends DBA {
    * 
    * 
    * @param id
-   * @param left
    * @param right
+   * @param valeur
    * @param info
    */
   public DBAF(int id, L left, R right, float valeur) {
@@ -57,10 +59,18 @@ public class DBAF<L extends DBField, R extends DBField> extends DBA {
     constructor(valeur);
   }
   
+  /**
+   *
+   * @param valeur
+   */
   public void setValeur(float valeur) {
     this.valeur = valeur;
   }
   
+  /**
+   *
+   * @return
+   */
   public float getValeur() {
     return valeur;
   }

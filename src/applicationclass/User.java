@@ -34,16 +34,24 @@ public class User implements DBField {
 
     /**
      * Constructeur sans paramètres de la classe des utilisateurs
+   * @param name
      */
     public User(String name) {
         nom = name;
     }
 
-    public User(int id) {
+  /**
+   *
+   * @param id
+   */
+  public User(int id) {
         this.id = id;
     }
 
-    public User() {
+  /**
+   *
+   */
+  public User() {
         this.id = -1;
         this.nom = "";
         this.courriel = "";
@@ -51,7 +59,15 @@ public class User implements DBField {
         this.conn = null;
     }
 
-    public User(int id, String nom, String courriel, int groupbookRacine) throws IOException {
+  /**
+   *
+   * @param id
+   * @param nom
+   * @param courriel
+   * @param groupbookRacine
+   * @throws IOException
+   */
+  public User(int id, String nom, String courriel, int groupbookRacine) throws IOException {
         this.id = id;
         this.nom = nom;
         this.courriel = courriel;
@@ -78,14 +94,27 @@ public class User implements DBField {
         this.conn = null;
     }
 
-    public int getRacine() throws Exception {
+  /**
+   *
+   * @return
+   * @throws Exception
+   */
+  public int getRacine() throws Exception {
         if (this.groupbookRacine < 1) {
             throw new Exception("Utilisateur pas encore initialisé");
         }
         return this.groupbookRacine;
     }
 
-    public static User recherche(String nom, String courriel) throws SQLException, IOException {
+  /**
+   *
+   * @param nom
+   * @param courriel
+   * @return
+   * @throws SQLException
+   * @throws IOException
+   */
+  public static User recherche(String nom, String courriel) throws SQLException, IOException {
         // Utiliser cette méthode dans le gestionnaire des utilisateurs.
         User recherche = null;
         Connection conn = SimpleDataSource.getConnection();
@@ -167,7 +196,12 @@ public class User implements DBField {
         }
     }
 
-    public void setGroupbooks(int groupbookRacine) throws IOException {
+  /**
+   *
+   * @param groupbookRacine
+   * @throws IOException
+   */
+  public void setGroupbooks(int groupbookRacine) throws IOException {
         if (groupbookRacine < 1) {
             throw new IOException();
         }
@@ -281,7 +315,14 @@ public class User implements DBField {
 
     }
 
-    public static int getUserId(String nomUtilisateur)
+  /**
+   *
+   * @param nomUtilisateur
+   * @return
+   * @throws SQLException
+   * @throws IOException
+   */
+  public static int getUserId(String nomUtilisateur)
             throws SQLException, IOException {
         // Metre cette méthode dans le gestionnaire des utilisateurs
         if (!G_Validation.nom(nomUtilisateur)) {

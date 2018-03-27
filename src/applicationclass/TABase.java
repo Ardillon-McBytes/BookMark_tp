@@ -33,6 +33,12 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
   private static ArrayList<Pair<Integer>> effacements;
   private Connection conn;
 
+  /**
+   *
+   * @param nomTable
+   * @param elements
+   * @throws IOException
+   */
   protected static void constructor(String nomTable, Pair<String>[] elements) throws IOException {
     if (elements.length < 3) {
       throw new IOException();
@@ -43,6 +49,16 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
     TABase.modifications = new ArrayList<>();
   }
 
+  /**
+   *
+   * @param nomTable
+   * @param colId
+   * @param champId
+   * @param colLeft
+   * @param champLeft
+   * @param colRight
+   * @param champRight
+   */
   protected static void constructor(String nomTable,
           int colId, String champId,
           int colLeft, String champLeft,
@@ -56,11 +72,27 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
     TABase.modifications = new ArrayList<>();
   }
 
+  /**
+   *
+   * @param nomTable
+   * @param elements
+   * @throws IOException
+   */
   public TABase(String nomTable, Pair<String>[] elements) throws IOException {
     this.conn = null;
     TABase.constructor(nomTable, elements);
   }
 
+  /**
+   *
+   * @param nomTable
+   * @param colId
+   * @param champId
+   * @param colLeft
+   * @param champLeft
+   * @param colRight
+   * @param champRight
+   */
   public TABase(String nomTable,
           int colId, String champId,
           int colLeft, String champLeft,
@@ -72,6 +104,9 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
             colRight, champRight);
   }
 
+  /**
+   *
+   */
   public TABase() {
     this.conn = null;
     TABase.constructor("table",
@@ -80,38 +115,76 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
             3, "right");
   }
 
+  /**
+   *
+   * @return
+   */
   public String getNomTable() {
     return nomTable;
   }
 
+  /**
+   *
+   * @return
+   */
   public Pair<String>[] getElements() {
     return elements;
   }
 
+  /**
+   *
+   * @return
+   */
   public int getColId() {
     return elements[0].id;
   }
 
+  /**
+   *
+   * @return
+   */
   public String getChampId() {
     return (String) elements[0].value;
   }
 
+  /**
+   *
+   * @return
+   */
   public int getColLeft() {
     return elements[1].id;
   }
 
+  /**
+   *
+   * @return
+   */
   public String getChampLeft() {
     return elements[1].value;
   }
 
+  /**
+   *
+   * @return
+   */
   public int getColRight() {
     return elements[2].id;
   }
 
+  /**
+   *
+   * @return
+   */
   public String getChampRight() {
     return elements[2].value;
   }
 
+  /**
+   *
+   * @param n
+   * @return
+   * @throws IOException
+   */
   public int getColN(int n) throws IOException {
     if (n < 0 || n >= elements.length) {
       throw new IOException();
@@ -119,6 +192,12 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
     return elements[n].id;
   }
 
+  /**
+   *
+   * @param n
+   * @return
+   * @throws IOException
+   */
   public String getChampN(int n) throws IOException {
     if (n < 0 || n >= elements.length) {
       throw new IOException();
@@ -126,11 +205,19 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
     return elements[n].value;
   }
 
+  /**
+   *
+   * @return
+   */
   public ArrayList<Pair<Integer>> getModifications() {
     return idModifications;
   }
 
-  
+  /**
+   *
+   * @param e
+   * @return
+   */
   public boolean add(A e) {
     if (!contains(e)) {
       // Trouver une manière de vérifier dans a BD
@@ -166,6 +253,11 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
     return modificationsContainsLeft(left.getId());
   }
 
+  /**
+   *
+   * @param leftId
+   * @return
+   */
   public boolean modificationsContainsLeft(int leftId) {
     // Doit être réimplémentée avec l'objet Pair<Integer> ou DBA
     return idModifications.contains(leftId);
@@ -181,6 +273,11 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
     return modificationsContainsRight(right.getId());
   }
 
+  /**
+   *
+   * @param rightId
+   * @return
+   */
   public boolean modificationsContainsRight(int rightId) {
     return idModifications.contains(rightId);
   }
@@ -269,6 +366,11 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
     return Recherche.getRights(left, this, rights);
   }
 
+  /**
+   *
+   * @return
+   * @throws SQLException
+   */
   public boolean updateIdDB() throws SQLException {
     if (idModifications.isEmpty()) {
       return false;
@@ -299,6 +401,11 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
     return true;
   }
 
+  /**
+   *
+   * @return
+   * @throws SQLException
+   */
   public boolean updateDB() throws SQLException {
     if (!idModifications.isEmpty()) {
       updateIdDB();
@@ -334,6 +441,11 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
     return true;
   }
 
+  /**
+   *
+   * @return
+   * @throws SQLException
+   */
   public int loadFromDB() throws SQLException {
     if (!modifications.isEmpty()) {
       updateDB();

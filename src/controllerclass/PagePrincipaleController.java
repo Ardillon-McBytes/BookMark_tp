@@ -146,7 +146,10 @@ public class PagePrincipaleController extends main_controller implements Initial
         }
     }
 
-    public void initBm() {
+  /**
+   *
+   */
+  public void initBm() {
         try {
             getBookMark();
         } catch (SQLException ex) {
@@ -158,7 +161,10 @@ public class PagePrincipaleController extends main_controller implements Initial
         }
     }
 
-    public void initListeTag() {
+  /**
+   *
+   */
+  public void initListeTag() {
         list_tag.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -180,7 +186,12 @@ public class PagePrincipaleController extends main_controller implements Initial
 
     }
 
-    public void initListGb() throws SQLException, IOException {
+  /**
+   *
+   * @throws SQLException
+   * @throws IOException
+   */
+  public void initListGb() throws SQLException, IOException {
 
         list_Gb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -202,7 +213,10 @@ public class PagePrincipaleController extends main_controller implements Initial
         loadUserGroup();
     }
 
-    public void initListeBm() {
+  /**
+   *
+   */
+  public void initListeBm() {
         list_mp.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -233,7 +247,10 @@ public class PagePrincipaleController extends main_controller implements Initial
 
     }
 
-    public void initListePartage() {
+  /**
+   *
+   */
+  public void initListePartage() {
         list_user.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -275,7 +292,10 @@ public class PagePrincipaleController extends main_controller implements Initial
 
     }
 
-    public void showBmList() {
+  /**
+   *
+   */
+  public void showBmList() {
 
     }
 
@@ -541,6 +561,7 @@ list_mp.refresh();
 
     @FXML
     private void showBmGroup(MouseEvent event) {
+      
     }
 
     private void add_share(MouseEvent event) throws IOException {

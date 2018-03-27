@@ -59,10 +59,22 @@ public class G_GB {
     }
   }
 
+  /**
+   *
+   * @param user
+   * @throws SQLException
+   * @throws IOException
+   */
   public G_GB(User user) throws SQLException, IOException {
     constructor(user);
   }
 
+  /**
+   *
+   * @param racine
+   * @throws IOException
+   * @throws Exception
+   */
   public G_GB(Groupbook racine) throws IOException, Exception {
     if (!G_Validation.gbRacine(racine)) {
       throw new IOException("Dossier non conforme pour être une racine");
@@ -70,6 +82,11 @@ public class G_GB {
     G_GB.racine = racine;
   }
 
+  /**
+   *
+   * @return
+   * @throws Exception
+   */
   public static ArrayList<Integer>
           getAllGroupbooks() throws Exception {
     if (racine == null) {
@@ -78,6 +95,14 @@ public class G_GB {
     return racine.getGroupbooks();
   }
 
+  /**
+   *
+   * @param parent
+   * @param nouveau
+   * @return
+   * @throws SQLException
+   * @throws IOException
+   */
   public static boolean
           add(Groupbook parent, Groupbook nouveau)
           throws SQLException, IOException {
@@ -87,6 +112,14 @@ public class G_GB {
     return G_TA.addConteneur(parent, nouveau);
   }
 
+  /**
+   *
+   * @param acceseur
+   * @param nouveau
+   * @return
+   * @throws SQLException
+   * @throws IOException
+   */
   public static boolean
           add(User acceseur, Groupbook nouveau)
           throws SQLException, IOException {
@@ -95,6 +128,13 @@ public class G_GB {
     return false;
   }
   
+  /**
+   *
+   * @param rs
+   * @param parent
+   * @return
+   * @throws SQLException
+   */
   public static Groupbook initGroupbook(ResultSet rs, int parent) 
           throws SQLException {
     Groupbook gb = new Groupbook(
@@ -115,6 +155,15 @@ public class G_GB {
     return gb;
   }*/
 
+  /**
+   *
+   * @param user
+   * @return
+   * @throws SQLException
+   * @throws IOException
+   */
+
+
   public static boolean
           add(User user) throws SQLException, IOException {
     if (Recherche.containsLeft(G_TA.getAcces(), user)) {
@@ -123,16 +172,37 @@ public class G_GB {
     return false;//G_TA.addConteneur(parent, nouveau);
   }
 
+  /**
+   *
+   * @param accedeur
+   * @param cible
+   * @return
+   * @throws SQLException
+   */
   public static boolean
           remove(User accedeur, Groupbook cible) throws SQLException {
     return G_TA.addAccess(accedeur, cible);
   }
 
+  /**
+   *
+   * @param racine
+   * @param cible
+   * @return
+   * @throws SQLException
+   */
   public static DBA<Groupbook, Groupbook>
           remove(Groupbook racine, Groupbook cible) throws SQLException {
     return G_TA.removeConteneur(racine, cible);
   }
 
+  /**
+   *
+   * @param dossier
+   * @param bookmark
+   * @return
+   * @throws SQLException
+   */
   public static DBA<Groupbook, Bookmark>
           remove(Groupbook dossier, Bookmark bookmark) throws SQLException {
     return G_TA.removeContenu(dossier, bookmark);
@@ -144,6 +214,15 @@ public class G_GB {
 //  }
     //public static boolean changerTypeAcces()
     /* @J-A_edits djhfadkfhjladk */
+
+  /**
+   *
+   * @param user
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+
     static  public void createGb(User user)
             throws IOException, SQLException, ClassNotFoundException {
 
@@ -161,7 +240,15 @@ public class G_GB {
         }
     }
 
-     static  public void createGb(String gb_name,String gb_description)
+  /**
+   *
+   * @param gb_name
+   * @param gb_description
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+  static  public void createGb(String gb_name,String gb_description)
             throws IOException, SQLException, ClassNotFoundException {
 
         Connection conn = SimpleDataSource.getConnection();
@@ -212,7 +299,13 @@ public class G_GB {
         }
     }
 
-    static public ArrayList<User>
+  /**
+   *
+   * @param gb
+   * @return
+   * @throws SQLException
+   */
+  static public ArrayList<User>
             getUserFromGB(ArrayList<Groupbook> gb) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         ArrayList<User> Ar_User = new ArrayList<User>();
@@ -260,7 +353,14 @@ public class G_GB {
         return Ar_User;
     }
 
-    static public ArrayList<User>
+  /**
+   *
+   * @param gb
+   * @return
+   * @throws SQLException
+   * @throws IOException
+   */
+  static public ArrayList<User>
             getUserFromGBRead(ArrayList<Groupbook> gb) throws SQLException, IOException {
         Connection conn = SimpleDataSource.getConnection();
         ArrayList<User> Ar_User = new ArrayList<User>();
@@ -318,7 +418,13 @@ public class G_GB {
         return Ar_User;
     }
 
-    static public ArrayList<Groupbook>
+  /**
+   *
+   * @param userId
+   * @return
+   * @throws SQLException
+   */
+  static public ArrayList<Groupbook>
             getGBFromUser(int userId) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         ArrayList<Groupbook> list_gb = new ArrayList<Groupbook>();
@@ -362,7 +468,13 @@ public class G_GB {
         return list_gb;
     }
 
-    static public int
+  /**
+   *
+   * @param userName
+   * @return
+   * @throws SQLException
+   */
+  static public int
             getGBDefaultFromUser(String userName) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         Groupbook gb = new Groupbook();
@@ -386,7 +498,13 @@ public class G_GB {
         return gb.getId();
     }
             
-               static public int
+  /**
+   *
+   * @param gb_name
+   * @return
+   * @throws SQLException
+   */
+  static public int
             getGBId(String gb_name) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         Groupbook gb = new Groupbook();

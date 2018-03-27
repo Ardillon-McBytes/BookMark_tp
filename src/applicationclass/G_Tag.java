@@ -22,7 +22,11 @@ public class G_Tag {
 
     static Tag tag = new Tag();
 
-    static public Tag getTag() {
+  /**
+   *
+   * @return
+   */
+  static public Tag getTag() {
 
         return tag;
     }
@@ -32,13 +36,24 @@ public class G_Tag {
         this.tag = tag;
     }
 
-    static public void setTag(String name, String description) {
+  /**
+   *
+   * @param name
+   * @param description
+   */
+  static public void setTag(String name, String description) {
 
         tag.setNom(name);
         tag.setDescription(description);
     }
 
-    static public Tag getTagFromBm(int id) throws SQLException {
+  /**
+   *
+   * @param id
+   * @return
+   * @throws SQLException
+   */
+  static public Tag getTagFromBm(int id) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         try {
 
@@ -73,7 +88,13 @@ public class G_Tag {
         return tag;
     }
 
-    static public Tag getTagFromName(String name) throws SQLException {
+  /**
+   *
+   * @param name
+   * @return
+   * @throws SQLException
+   */
+  static public Tag getTagFromName(String name) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         try {
 
@@ -97,7 +118,11 @@ public class G_Tag {
         return tag;
     }
 
-    static public void addTag() throws SQLException {
+  /**
+   *
+   * @throws SQLException
+   */
+  static public void addTag() throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
 
         try {

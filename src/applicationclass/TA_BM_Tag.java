@@ -25,14 +25,23 @@ import sqlclass.SimpleDataSource;
  */
 public class TA_BM_Tag extends TABase<Bookmark, Tag, DBA<Bookmark, Tag>> {
 
-    public TA_BM_Tag() {
+  /**
+   *
+   */
+  public TA_BM_Tag() {
         TABase.constructor("bookmark_tag",
                 1, "id",
                 2, "id_bookmark",
                 3, "id_tag");
     }
 
-    static public ArrayList<Bookmark> getBmFromTag(int idTag) throws SQLException {
+  /**
+   *
+   * @param idTag
+   * @return
+   * @throws SQLException
+   */
+  static public ArrayList<Bookmark> getBmFromTag(int idTag) throws SQLException {
         ArrayList<Bookmark> list_bm = new ArrayList<Bookmark>();
 
         Connection conn = SimpleDataSource.getConnection();
@@ -61,7 +70,13 @@ public class TA_BM_Tag extends TABase<Bookmark, Tag, DBA<Bookmark, Tag>> {
 
     }
 
-    static public void addTagToBm(int tag, int bm) throws SQLException {
+  /**
+   *
+   * @param tag
+   * @param bm
+   * @throws SQLException
+   */
+  static public void addTagToBm(int tag, int bm) throws SQLException {
 
         Connection conn = SimpleDataSource.getConnection();
 

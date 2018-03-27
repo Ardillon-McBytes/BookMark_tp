@@ -35,13 +35,17 @@ public class Groupbook implements DBField {
    * 
    */
   public Groupbook() {
-    this.groupbookContenus = new ArrayList<Integer >();
-    this.bookmarks = new ArrayList<Bookmark>();
-    this.partages = new ArrayList<Integer>();
+    this.groupbookContenus = new ArrayList< >();
+    this.bookmarks = new ArrayList<>();
+    this.partages = new ArrayList<>();
   }
   
   /**
    * 
+   * @param id
+   * @param nom
+   * @param description
+   * @param groupbookParent
    */
   public Groupbook(int id, String nom, String description, int groupbookParent) {
     this.id = id;
@@ -217,6 +221,11 @@ public class Groupbook implements DBField {
   public ArrayList<Integer> getGroupbooks() {
     return groupbookContenus;
   }
+
+  /**
+   *
+   * @return
+   */
   public Groupbook getGroupbook() {
     return this;
   }
@@ -250,6 +259,7 @@ public class Groupbook implements DBField {
   /**
    *
    * @return
+   * @throws java.lang.Exception
    */
   public int getTypePartage() throws Exception {
     G_GB.getAllGroupbooks();
@@ -263,41 +273,13 @@ public class Groupbook implements DBField {
   public boolean isPartager() {
     return !partages.isEmpty();
   }
-
-  /**
-   *
-   * @param gb
-   * @return
-   */
-  /*public boolean addChild(Integer gb) throws IOException {
-    if (gb == null || gb < 1) {
-      throw new IOException("Vale");
-    }
-    for (Integer i : groupbookContenus) {
-      if (gb.equals(i)) {
-        
-      }
-    }
-    if (gb < 1 || true) { //G_GB.existe(gb)
-      return false;
-    }
-    
-    
-    
-    if (!groupbookContenus.stream().noneMatch((b) -> (b.getId() == gb.getId()))) {
-      return false;
-    }
-    groupbookContenus.add(gb);
-    return true;
-  }*/
+  
+  
   /**
    *
    * @param bm
-   * @return
    */
   public void addBookmark(Bookmark bm) {
-    
-    //G_BM.add(bm);
     bookmarks.add(bm);
 
   }

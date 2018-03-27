@@ -24,6 +24,14 @@ public class G_User {
 
   User user = new User();
 
+  /**
+   *
+   * @param event
+   * @param mdp
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   public void CreateAccount(MouseEvent event, String mdp)
           throws IOException, SQLException, ClassNotFoundException {
 
@@ -43,6 +51,12 @@ public class G_User {
     }
   }
     
+  /**
+   *
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   public void deleteUser()
    throws IOException, SQLException, ClassNotFoundException {
 
@@ -59,6 +73,13 @@ public class G_User {
       }
   }
 
+  /**
+   *
+   * @param mdp
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   public void createUser(String mdp)
           throws IOException, SQLException, ClassNotFoundException {
 
@@ -77,6 +98,12 @@ public class G_User {
       }
   }
 
+  /**
+   *
+   * @param user
+   * @return
+   * @throws SQLException
+   */
   public int getUserId(User user)
           throws SQLException {
 
@@ -104,6 +131,13 @@ public class G_User {
 
   }
     
+  /**
+   *
+   * @param name
+   * @return
+   * @throws SQLException
+   * @throws IOException
+   */
   public static User getUserId(String name)
           throws SQLException, IOException {
 
@@ -128,19 +162,46 @@ public class G_User {
   }
 
   /*@old-node_conflict Cette méthode semble inexistante... perdu dans le merge?*/
+
+  /**
+   *
+   * @param id
+   * @return
+   */
+
   public static String getUserName(int id) {
     return "";
   }
     
+  /**
+   *
+   * @param mdp
+   * @return
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   public boolean validUser(String mdp) 
           throws IOException, SQLException, ClassNotFoundException {
     return validName() == true && validPassword(mdp) == true;
   }
   
+  /**
+   *
+   * @return
+   */
   public boolean validName() {
     return user.getId() > 0;
   }
 
+  /**
+   *
+   * @param mdp
+   * @return
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   public boolean validPassword(String mdp) 
           throws IOException, SQLException, ClassNotFoundException {
     

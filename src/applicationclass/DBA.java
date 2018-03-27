@@ -36,6 +36,8 @@ public class DBA<L extends DBField, R extends DBField> {
   
   /**
    * 
+   * @param args
+   * @param args
    */
   public static void main(String[] args) {
     
@@ -65,6 +67,9 @@ public class DBA<L extends DBField, R extends DBField> {
     setRight(right);
   }
 
+  /**
+   *
+   */
   public DBA() {}
   
   /**
@@ -137,6 +142,14 @@ public class DBA<L extends DBField, R extends DBField> {
   }
 
   // Façon qui utilise une méthode générique, mais fonctionne-t-elle?
+
+  /**
+   *
+   * @param <FK>
+   * @param side
+   * @param list
+   * @return
+   */
   public <FK extends DBField> FK DBTA(int side, ArrayList<FK> list) {
     for (FK fk : list) {
       if (fk.getId() == side) {
@@ -196,6 +209,10 @@ public class DBA<L extends DBField, R extends DBField> {
     return this.right;
   }
 
+  /**
+   *
+   * @return
+   */
   public Pair<Integer> getPair() {
     return new Pair(left, right);
   }
@@ -217,6 +234,10 @@ public class DBA<L extends DBField, R extends DBField> {
     return !(left != other.left || right != other.right);
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public int hashCode() {
     int hash = 7;

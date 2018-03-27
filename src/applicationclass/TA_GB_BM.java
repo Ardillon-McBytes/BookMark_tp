@@ -29,42 +29,86 @@ import sqlclass.SimpleDataSource;
  */
 public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmark>> {
 
-    static public int id = 0;
-    static public int id_group;
-    static public int id_Bm;
+  /**
+   *
+   */
+  static public int id = 0;
 
-    static public int getId() {
+  /**
+   *
+   */
+  static public int id_group;
+
+  /**
+   *
+   */
+  static public int id_Bm;
+
+  /**
+   *
+   * @return
+   */
+  static public int getId() {
         return id;
     }
 
-    static public int getIdGb() {
+  /**
+   *
+   * @return
+   */
+  static public int getIdGb() {
         return id_group;
     }
 
-    static public int getIdBm() {
+  /**
+   *
+   * @return
+   */
+  static public int getIdBm() {
         return id_Bm;
     }
 
-    static public void setId(int id) {
+  /**
+   *
+   * @param id
+   */
+  static public void setId(int id) {
         TA_GB_BM.id = id;
     }
 
-    static public void setIdGb(int id) {
+  /**
+   *
+   * @param id
+   */
+  static public void setIdGb(int id) {
         TA_GB_BM.id_group = id;
     }
 
-    static public void setIdBm(int id) {
+  /**
+   *
+   * @param id
+   */
+  static public void setIdBm(int id) {
         TA_GB_BM.id_Bm = id;
     }
 
-    public TA_GB_BM() {
+  /**
+   *
+   */
+  public TA_GB_BM() {
         TABase.constructor("bookmark_group",
                 1, "id",
                 3, "id_bookmark",
                 2, "id_group");
     }
 
-    static public void add_GB_BM() throws IOException, SQLException, ClassNotFoundException {
+  /**
+   *
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+  static public void add_GB_BM() throws IOException, SQLException, ClassNotFoundException {
 
         Connection conn = SimpleDataSource.getConnection();
 
@@ -84,7 +128,13 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
 
     }
 
-    static public void delete_GB_BM() throws IOException, SQLException, ClassNotFoundException {
+  /**
+   *
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+  static public void delete_GB_BM() throws IOException, SQLException, ClassNotFoundException {
 
         Connection conn = SimpleDataSource.getConnection();
 
@@ -103,7 +153,13 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
 
     }
 
-    static public int getIdGb(int id_bm) throws SQLException {
+  /**
+   *
+   * @param id_bm
+   * @return
+   * @throws SQLException
+   */
+  static public int getIdGb(int id_bm) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         try {
 
@@ -126,7 +182,14 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
         return id_group;
     }
 
-    static public int getId(int id_group, int id_bm) throws SQLException {
+  /**
+   *
+   * @param id_group
+   * @param id_bm
+   * @return
+   * @throws SQLException
+   */
+  static public int getId(int id_group, int id_bm) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         try {
 
@@ -151,7 +214,13 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
         return id;
     }
 
-    static public ArrayList<Bookmark> getBmFromGb(int id_group) throws SQLException {
+  /**
+   *
+   * @param id_group
+   * @return
+   * @throws SQLException
+   */
+  static public ArrayList<Bookmark> getBmFromGb(int id_group) throws SQLException {
         ArrayList<Bookmark> list_bm = new ArrayList<Bookmark>();
         Connection conn = SimpleDataSource.getConnection();
         try {

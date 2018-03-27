@@ -50,7 +50,10 @@ public class AjoutBm_v1Controller extends main_controller implements Initializab
     static int _id_tag = 0;
     static int _id_bookmark;
 
-    public Tag tag;
+  /**
+   *
+   */
+  public Tag tag;
     int id_gb;
     @FXML
     private TextField txt_nom_bm;
@@ -63,6 +66,8 @@ public class AjoutBm_v1Controller extends main_controller implements Initializab
 
     /**
      * Initializes the controller class.
+   * @param url
+   * @param rb
      */
     @Override
 
@@ -70,7 +75,12 @@ public class AjoutBm_v1Controller extends main_controller implements Initializab
         // TODO
     }
 
-    public void setPrevStage(Stage stage, int id_gb) {
+  /**
+   *
+   * @param stage
+   * @param id_gb
+   */
+  public void setPrevStage(Stage stage, int id_gb) {
         prevStage = stage;
         this.id_gb = id_gb;
     }

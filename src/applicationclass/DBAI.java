@@ -14,6 +14,8 @@ import java.util.ArrayList;
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
+ * @param <L>
+ * @param <R>
  */
 public class DBAI<L extends DBField, R extends DBField> extends DBA {
   
@@ -37,7 +39,7 @@ public class DBAI<L extends DBField, R extends DBField> extends DBA {
    * @param id
    * @param left
    * @param right
-   * @param info
+   * @param valeur
    */
   public DBAI(int id, int left, int right, int valeur) {
     super.constructor(id, left, right);
@@ -50,17 +52,25 @@ public class DBAI<L extends DBField, R extends DBField> extends DBA {
    * @param id
    * @param left
    * @param right
-   * @param info
+   * @param valeur
    */
   public DBAI(int id, L left, R right, int valeur) {
     super.constructor(id, left, right);
     constructor(valeur);
   }
   
+  /**
+   *
+   * @param valeur
+   */
   public void setValeur(int valeur) {
     this.valeur = valeur;
   }
   
+  /**
+   *
+   * @return
+   */
   public int getValeur() {
     return valeur;
   }

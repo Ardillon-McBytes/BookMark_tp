@@ -27,12 +27,19 @@ public class Bookmark implements DBField {
    *
    * @param id
    * @param nom
-   * @param url
    * @param description
    */
   
   public Bookmark()
   {}
+
+  /**
+   *
+   * @param id
+   * @param nom
+   * @param url
+   * @param description
+   */
   public Bookmark(int id, String nom, String url, String description) {
     this.id = id;
     this.nom = nom;
@@ -40,6 +47,12 @@ public class Bookmark implements DBField {
     this.description = description;
   }
   
+  /**
+   *
+   * @param nom
+   * @param url
+   * @param description
+   */
   public Bookmark(String nom, String url, String description) {
     this.id = id;
     this.nom = nom;
@@ -47,6 +60,11 @@ public class Bookmark implements DBField {
     this.description = description;
   }
   
+  /**
+   *
+   * @param rs
+   * @throws SQLException
+   */
   public Bookmark(ResultSet rs) throws SQLException {
     this.id = rs.getInt("id");
     this.nom = rs.getString("nom");

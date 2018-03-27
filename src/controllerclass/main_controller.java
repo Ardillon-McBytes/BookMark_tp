@@ -27,8 +27,19 @@ import sqlclass.SimpleDataSource;
  */
 public class main_controller {
 
+  /**
+   * 
+   */
   protected static Stage previousStage; /*@old-node_suggestion*/
+
+  /**
+   * 
+   */
   protected static Gestionnaire g = new Gestionnaire();
+
+  /**
+   * 
+   */
   protected static User user = new User();
   
   boolean validUser() {

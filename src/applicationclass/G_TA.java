@@ -45,6 +45,9 @@ public class G_TA {
     G_TA.conn = null;
   }
 
+  /**
+   *
+   */
   public G_TA() {
     G_TA.acces = new TA_User_GB();
     G_TA.conteneurs = new TA_GB_GB();
@@ -69,21 +72,49 @@ public class G_TA {
     return result;
   }
 
+  /**
+   *
+   * @param accedeur
+   * @param groupbook
+   * @return
+   * @throws SQLException
+   */
   public static boolean addAccess(User accedeur, Groupbook groupbook)
           throws SQLException {
     return addElement(1, accedeur, groupbook, acces);
   }
 
+  /**
+   *
+   * @param parent
+   * @param enfant
+   * @return
+   * @throws SQLException
+   */
   public static boolean addConteneur(Groupbook parent, Groupbook enfant)
           throws SQLException {
     return addElement(1, parent, enfant, conteneurs);
   }
 
+  /**
+   *
+   * @param dossier
+   * @param bookmark
+   * @return
+   * @throws SQLException
+   */
   public static boolean addContenu(Groupbook dossier, Bookmark bookmark)
           throws SQLException {
     return addElement(1, dossier, bookmark, contenus);
   }
 
+  /**
+   *
+   * @param bookmark
+   * @param tag
+   * @return
+   * @throws SQLException
+   */
   public static boolean addEtiquette(Bookmark bookmark, Tag tag)
           throws SQLException {
     return addElement(1, bookmark, tag, etiquettes);
@@ -104,21 +135,49 @@ public class G_TA {
     return result;
   }
 
+  /**
+   *
+   * @param accedeur
+   * @param groupbook
+   * @return
+   * @throws SQLException
+   */
   public static DBA<User, Groupbook>
           removeAccess(User accedeur, Groupbook groupbook) throws SQLException {
     return removeElement(accedeur, groupbook, acces);
   }
 
+  /**
+   *
+   * @param parent
+   * @param enfant
+   * @return
+   * @throws SQLException
+   */
   public static DBA<Groupbook, Groupbook>
           removeConteneur(Groupbook parent, Groupbook enfant) throws SQLException {
     return removeElement(parent, enfant, conteneurs);
   }
 
+  /**
+   *
+   * @param dossier
+   * @param bookmark
+   * @return
+   * @throws SQLException
+   */
   public static DBA<Groupbook, Bookmark>
           removeContenu(Groupbook dossier, Bookmark bookmark) throws SQLException {
     return removeElement(dossier, bookmark, contenus);
   }
 
+  /**
+   *
+   * @param bookmark
+   * @param tag
+   * @return
+   * @throws SQLException
+   */
   public static DBA<Bookmark, Tag>
           removeEtiquette(Bookmark bookmark, Tag tag) throws SQLException {
     return removeElement(bookmark, tag, etiquettes);
@@ -139,6 +198,11 @@ public class G_TA {
     G_TA.acces = acces;
   }
 
+  /**
+   *
+   * @param conteneurs
+   * @throws IOException
+   */
   public void setConteneurs(TA_GB_GB conteneurs) throws IOException {
     if (conteneurs == null) {
       throw new IOException();
@@ -146,6 +210,11 @@ public class G_TA {
     G_TA.conteneurs = conteneurs;
   }
 
+  /**
+   *
+   * @param contenus
+   * @throws IOException
+   */
   public void setContenus(TA_GB_BM contenus) throws IOException {
     if (contenus == null) {
       throw new IOException();
@@ -153,6 +222,11 @@ public class G_TA {
     G_TA.contenus = contenus;
   }
 
+  /**
+   *
+   * @param etiquettes
+   * @throws IOException
+   */
   public void setEtiquettes(TA_BM_Tag etiquettes) throws IOException {
     if (etiquettes == null) {
       throw new IOException();
@@ -160,18 +234,34 @@ public class G_TA {
     G_TA.etiquettes = etiquettes;
   }
 
+  /**
+   *
+   * @return
+   */
   public static TA_User_GB getAcces() {
     return acces;
   }
 
+  /**
+   *
+   * @return
+   */
   public static TA_GB_GB getConteneurs() {
     return conteneurs;
   }
 
+  /**
+   *
+   * @return
+   */
   public static TA_GB_BM getContenus() {
     return contenus;
   }
 
+  /**
+   *
+   * @return
+   */
   public static TA_BM_Tag getEtiquettes() {
     return etiquettes;
   }

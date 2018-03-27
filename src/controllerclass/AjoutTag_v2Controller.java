@@ -47,10 +47,15 @@ public class AjoutTag_v2Controller extends main_controller  implements Initializ
     static int _id_tag = 0;
     static int _id_bookmark;
     
-    public Tag tag;
+  /**
+   *
+   */
+  public Tag tag;
 
     /**
      * Initializes the controller class.
+   * @param url
+   * @param rb
      */
     @Override
    
@@ -62,6 +67,9 @@ public class AjoutTag_v2Controller extends main_controller  implements Initializ
     
      /**
      * retourne l'id du tag selon son nom
+   * @param name
+   * @return 
+   * @throws java.sql.SQLException
      */
     public int getTagId(String name)
             throws SQLException {
