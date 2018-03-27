@@ -18,9 +18,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="247.0" minWidth="500.0" prefHeight="269.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerclass.AjoutBm_v1Controller">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="206.0" minWidth="500.0" prefHeight="206.0" prefWidth="586.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerclass.AjoutGb_v1Controller">
     <children>
-        <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="261.0" prefWidth="620.0">
+        <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="249.0" prefWidth="620.0">
             <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="5.0" />
                 <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="166.0" minWidth="-Infinity" prefWidth="146.0" />
@@ -32,15 +32,11 @@
                 <RowConstraints minHeight="25.0" valignment="BASELINE" />
                 <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="BASELINE" />
                 <RowConstraints minHeight="25.0" valignment="BASELINE" />
-                <RowConstraints maxHeight="39.0" minHeight="24.0" prefHeight="32.0" valignment="BOTTOM" />
-            <RowConstraints maxHeight="61.0" minHeight="18.0" prefHeight="18.0" valignment="BOTTOM" />
-            <RowConstraints maxHeight="67.0" minHeight="19.0" prefHeight="32.0" valignment="BOTTOM" />
-            <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="16.0" valignment="BOTTOM" />
             <RowConstraints maxHeight="50.0" minHeight="5.0" prefHeight="28.0" valignment="BOTTOM" />
             <RowConstraints maxHeight="50.0" minHeight="7.0" prefHeight="16.0" valignment="BOTTOM" />
             </rowConstraints>
             <children>
-                <Label alignment="CENTER_RIGHT" text="Nom du Bookmark" textAlignment="RIGHT" GridPane.columnIndex="1">
+                <Label alignment="CENTER_RIGHT" text="Nom du Groupe" textAlignment="RIGHT" GridPane.columnIndex="1">
                     <font>
                         <Font name="Arial" size="15.0" />
                     </font>
@@ -48,7 +44,7 @@
                         <Insets bottom="8.0" right="2.0" />
                     </GridPane.margin>
                 </Label>
-                <TextField fx:id="txt_nom_bm" minWidth="150.0" prefHeight="25.0" prefWidth="381.0" text="Nom du Bookmark" GridPane.columnIndex="2">
+                <TextField fx:id="txt_nom_gb" minWidth="150.0" prefHeight="25.0" prefWidth="381.0" promptText="Nom du Groupe" text="Nom du Groupe" GridPane.columnIndex="2">
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>
@@ -73,41 +69,21 @@
                         <Label text="Le mot de passe saisit n'est pas valide: " textFill="#993300" />
                     </graphic>
                 </Hyperlink>
-                <Button fx:id="btnAnnuler" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#exitPage" prefWidth="145.0" text="Annuler" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+                <Button fx:id="btnAnnuler" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#exitPage" prefWidth="145.0" text="Annuler" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                     <GridPane.margin>
                         <Insets right="150.0" />
                     </GridPane.margin>
                 </Button>
-                <Button fx:id="btnAjouter" alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#addTag" prefWidth="145.0" text="Ajouter" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+                <Button fx:id="btnAjouter" alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#addGb" prefWidth="145.0" text="Ajouter" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
                     <GridPane.margin>
                         <Insets left="150.0" />
                     </GridPane.margin>
                 </Button>
-                <TextField fx:id="txt_description" minWidth="150.0" text="Optionnel" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                <TextField fx:id="txt_description" minWidth="150.0" promptText="Nom de l'utilisateur" text="Optionnel" GridPane.columnIndex="2" GridPane.rowIndex="2">
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>
                 </TextField>
-            <Label alignment="CENTER_RIGHT" text="Url" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txt_url" minWidth="150.0" prefHeight="25.0" prefWidth="381.0" text="url" GridPane.columnIndex="2" GridPane.rowIndex="4">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </TextField>
-            <TextField fx:id="txt_tag" minWidth="150.0" prefHeight="16.0" prefWidth="394.0" text="tag" GridPane.columnIndex="2" GridPane.rowIndex="6">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </TextField>
-            <Label alignment="CENTER_RIGHT" text="Tag" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="6">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-            </Label>
             </children>
             <VBox.margin>
                 <Insets />

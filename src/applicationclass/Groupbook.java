@@ -205,6 +205,9 @@ public class Groupbook implements DBField {
   public ArrayList<Integer> getGroupbooks() {
     return groupbookContenus;
   }
+  public Groupbook getGroupbook() {
+    return this;
+  }
 
   /**
    *

@@ -6,6 +6,8 @@
 package applicationclass;
 
 import static applicationclass.G_BM.bm;
+import static applicationclass.TA_GB_BM.id_Bm;
+import static applicationclass.TA_GB_BM.id_group;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -45,5 +47,30 @@ static public void deleteUserGroup(int id_user, int id_groupBook) throws IOExcep
             conn.close();
         }
 
+  }
+
+
+
+static public void addUserGroup(int id_user, int id_groupBook) throws IOException, SQLException, ClassNotFoundException {
+   
+    
+    Connection conn = SimpleDataSource.getConnection();
+
+        try {
+
+            PreparedStatement stat = conn.prepareStatement(
+                    " INSERT INTO `user_group` (`id_user`, `id_groupBook`) "
+                    + "VALUES ('" + id_user + "','"
+                    + id_groupBook + "')");
+
+            stat.executeUpdate();
+
+        } finally {
+            conn.close();
+
+        }
+      
+           
+       
   }
 }

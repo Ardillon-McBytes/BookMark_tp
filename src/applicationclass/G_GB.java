@@ -129,7 +129,7 @@ public class G_GB {
 //  }
     //public static boolean changerTypeAcces()
     /* @J-A_edits djhfadkfhjladk */
-    static void createGb(User user)
+    static  public void createGb(User user)
             throws IOException, SQLException, ClassNotFoundException {
 
         Connection conn = SimpleDataSource.getConnection();
@@ -146,6 +146,22 @@ public class G_GB {
         }
     }
 
+     static  public void createGb(String gb_name,String gb_description)
+            throws IOException, SQLException, ClassNotFoundException {
+
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            PreparedStatement stat = conn.prepareStatement(
+                    " INSERT INTO `group_book` (`nom`, `Description`) "
+                    + "VALUES ('" + gb_name + "','"
+                    + gb_description + "')");
+
+            stat.executeUpdate();
+        } finally {
+            conn.close();
+        }
+    }
     static void deleteGb(User user)
             throws IOException, SQLException, ClassNotFoundException {
 
@@ -205,7 +221,7 @@ public class G_GB {
                     ResultSet rs2 = ps2.executeQuery();
 
                     while (rs2.next()) {
-                       
+
                         String query3 = "SELECT * "
                                 + "FROM user "
                                 + "WHERE id = ?";
@@ -228,7 +244,8 @@ public class G_GB {
         }
         return Ar_User;
     }
-      static public ArrayList<User>
+
+    static public ArrayList<User>
             getUserFromGBRead(ArrayList<Groupbook> gb) throws SQLException, IOException {
         Connection conn = SimpleDataSource.getConnection();
         ArrayList<User> Ar_User = new ArrayList<User>();
@@ -256,27 +273,25 @@ public class G_GB {
                         int id_gb = rs2.getInt(4);
                         id_user = rs2.getInt(3);
                         int id_default_Gb;
-                      String name =  G_User.getUserName(id_user);
+                        String name = G_User.getUserName(id_user);
                         id_default_Gb = getGBDefaultFromUser(name);
                         if (gb.get(i).getId() == id_default_Gb) {
-                             String query3 = "SELECT * "
-                                + "FROM user "
-                                + "WHERE id = ?";
-                        PreparedStatement ps3 = conn.prepareStatement(query3);
-                        ps3.setInt(1, rs2.getInt(3));
+                            String query3 = "SELECT * "
+                                    + "FROM user "
+                                    + "WHERE id = ?";
+                            PreparedStatement ps3 = conn.prepareStatement(query3);
+                            ps3.setInt(1, rs2.getInt(3));
 
-                        ResultSet rs3 = ps3.executeQuery();
+                            ResultSet rs3 = ps3.executeQuery();
 
-                        if (rs3.next()) {
-                            name = rs3.getString(2);
-                            User user = new User();
-                            user.setNom(name);
-                            Ar_User.add(user);
+                            if (rs3.next()) {
+                                name = rs3.getString(2);
+                                User user = new User();
+                                user.setNom(name);
+                                Ar_User.add(user);
+                            }
                         }
-                        }
- 
-                        
-                       
+
                     }
 
                 }
@@ -287,11 +302,12 @@ public class G_GB {
         }
         return Ar_User;
     }
-    static public Groupbook
+
+    static public ArrayList<Groupbook>
             getGBFromUser(int userId) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
+        ArrayList<Groupbook> list_gb = new ArrayList<Groupbook>();
         Groupbook gb = new Groupbook();
-        Bookmark bm;
         try {
 
             String query = "SELECT * "
@@ -301,44 +317,34 @@ public class G_GB {
             ps.setInt(1, userId);
 
             ResultSet rs = ps.executeQuery();
+            int nb = 0;
             while (rs.next()) {
+                gb = new Groupbook();
                 gb.setId(rs.getInt(4));
 
                 String query2 = "SELECT * "
-                        + "FROM bookmark_group "
-                        + "WHERE id_group = ?";
+                        + "FROM group_book "
+                        + "WHERE id = ?";
                 PreparedStatement ps2 = conn.prepareStatement(query2);
                 ps2.setInt(1, gb.getId());
 
                 ResultSet rs2 = ps2.executeQuery();
 
                 while (rs2.next()) {
-                    gb.setId(rs2.getInt(3));
-
-                    String query3 = "SELECT * "
-                            + "FROM bookmark "
-                            + "WHERE id = ?";
-                    PreparedStatement ps3 = conn.prepareStatement(query3);
-                    ps3.setInt(1, gb.getId());
-
-                    ResultSet rs3 = ps3.executeQuery();
-
-                    if (rs3.next()) {
-                        bm = new Bookmark();
-                        bm.setId(rs3.getInt(1));
-                        bm.setNom(rs3.getString(2));
-                        bm.setDescription(rs3.getString(3));
-                        bm.setUrl(rs3.getString(4));
-                        gb.addBookmark(bm);
-                    }
+                    gb.setId(rs2.getInt(1));
+                    gb.setNom(rs2.getString(2));
+                    gb.setDescription(rs2.getString(3));                       
+                    gb.setBookmarks( TA_GB_BM.getBmFromGb(gb.getId()));
+                    list_gb.add(gb);
                 }
+
             }
 
         } finally {
             conn.close();
 
         }
-        return gb;
+        return list_gb;
     }
 
     static public int
@@ -353,6 +359,30 @@ public class G_GB {
                     + "WHERE nom = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, userName);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                gb.setId(rs.getInt(1));
+            }
+        } finally {
+            conn.close();
+
+        }
+        return gb.getId();
+    }
+            
+               static public int
+            getGBId(String gb_name) throws SQLException {
+        Connection conn = SimpleDataSource.getConnection();
+        Groupbook gb = new Groupbook();
+        Bookmark bm;
+        try {
+
+            String query = "SELECT * "
+                    + "FROM group_book "
+                    + "WHERE nom = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, gb_name);
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {

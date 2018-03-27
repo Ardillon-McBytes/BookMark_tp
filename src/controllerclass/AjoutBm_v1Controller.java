@@ -11,6 +11,7 @@ import applicationclass.G_GB;
 import applicationclass.G_Tag;
 import applicationclass.Gestionnaire;
 import applicationclass.Groupbook;
+import applicationclass.TA_BM_Tag;
 import applicationclass.TA_GB_BM;
 import applicationclass.Tag;
 import static controllerclass.AjoutPartage_v1Controller.prevStage;
@@ -57,6 +58,8 @@ public class AjoutBm_v1Controller extends main_controller implements Initializab
     private TextField txt_description;
     @FXML
     private TextField txt_url;
+    @FXML
+    private TextField txt_tag;
 
     /**
      * Initializes the controller class.
@@ -85,32 +88,43 @@ public class AjoutBm_v1Controller extends main_controller implements Initializab
         bm.setNom(txt_nom_bm.getText());
         bm.setDescription(txt_description.getText());
         bm.setUrl(txt_url.getText());
-        
+
         G_BM.setBookMark(bm);
         G_BM.addBm();
         G_BM.getBm(txt_nom_bm.getText());
-             
-        
-        int id_Gb =G_GB.getGBDefaultFromUser(user.getNom());
-       
+
+        int id_Gb = G_GB.getGBDefaultFromUser(user.getNom());
+
         TA_GB_BM.setIdGb(id_Gb);
         TA_GB_BM.setIdBm(G_BM.getBookMark().getId());
-      
-        if (TA_GB_BM.getId(TA_GB_BM.getIdGb(), TA_GB_BM.getIdBm())<1) {
-               TA_GB_BM.add_GB_BM();
+
+        if (TA_GB_BM.getId(TA_GB_BM.getIdGb(), TA_GB_BM.getIdBm()) < 1) {
+            TA_GB_BM.add_GB_BM();
         }
+        int id_tag;
+       
+        Tag tag = G_Tag.getTagFromName(txt_tag.getText());
+        if (tag.getId() < 1) {
+             G_Tag.setTag(txt_tag.getText(), "");
+              G_Tag.addTag();
+              
+        }
+         tag = G_Tag.getTagFromName(txt_tag.getText());
+            TA_BM_Tag.addTagToBm(id_Gb,tag.getId());
+        
+
+        
+
         Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
- stageTheLabelBelongs.hide();
-     
+        stageTheLabelBelongs.hide();
+
     }
 
     /**
      * ajoute un tag a un bookmark
      */
-
     @FXML
     private void exitPage(MouseEvent event) {
     }
 
- 
 }

@@ -151,4 +151,43 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark> {
         return id;
     }
 
+    static public ArrayList<Bookmark> getBmFromGb(int id_group) throws SQLException {
+        ArrayList<Bookmark> list_bm = new ArrayList<Bookmark>();
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            String query = "SELECT * "
+                    + "FROM bookmark_group "
+                    + "WHERE id_group = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id_group);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id_bm = rs.getInt(3);
+
+                String query2 = "SELECT * "
+                        + "FROM bookmark "
+                        + "WHERE id = ?";
+                PreparedStatement ps2 = conn.prepareStatement(query2);
+                ps2.setInt(1, id_bm);
+
+                ResultSet rs2 = ps2.executeQuery();
+                if (rs2.next()) {
+                    int id = rs2.getInt(1);
+                    String nom = rs2.getString(2);
+                    String description = rs2.getString(3);
+                    String url = rs2.getString(4);
+                    Bookmark bm = new Bookmark(id, nom, description, url);
+
+                    list_bm.add(bm);
+                }
+            }
+
+        } finally {
+            conn.close();
+
+        }
+        return list_bm;
+    }
 }

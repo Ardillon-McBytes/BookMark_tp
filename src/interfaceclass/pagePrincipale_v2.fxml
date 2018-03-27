@@ -46,11 +46,11 @@
                                  <image>
                                     <Image url="@../../../image/remove-share.png" />
                                  </image></ImageView>
-                              <ImageView fx:id="btn_add_gb" disable="true" fitHeight="31.0" fitWidth="29.0" onDragExited="#btn_add_gb" onMouseClicked="#add_gb" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="btn_add_gb" fitHeight="31.0" fitWidth="29.0" onDragExited="#btn_add_gb" onMouseClicked="#add_gb" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../image/add-groupBook.png" />
                                  </image></ImageView>
-                              <ImageView fx:id="btn_remove_gb" disable="true" fitHeight="31.0" fitWidth="29.0" onMouseClicked="#remove_gb" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="btn_remove_gb" fitHeight="31.0" fitWidth="29.0" onMouseClicked="#remove_gb" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../image/remove-groupBook.png" />
                                  </image></ImageView>
@@ -90,24 +90,30 @@
                            <content>
                               <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0">
                                  <children>
-                                    <Hyperlink prefHeight="26.0" prefWidth="150.0" text="Tag" VBox.vgrow="NEVER">
-                                       <graphic>
-                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                                       </graphic>
-                                    </Hyperlink>
-                                    <ListView fx:id="list_tag" onMouseClicked="#showMpInfo" prefHeight="110.0" prefWidth="150.0" />
-                                    <Hyperlink prefHeight="26.0" prefWidth="150.0" text="Marque-pages">
-                                       <graphic>
-                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                                       </graphic>
-                                    </Hyperlink>
-                                    <ListView fx:id="list_mp" prefHeight="129.0" prefWidth="150.0" />
                                     <Hyperlink prefHeight="26.0" prefWidth="150.0" text="Partage">
                                        <graphic>
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                                        </graphic>
                                     </Hyperlink>
-                                    <ListView fx:id="list_user" onMouseClicked="#showBmGroup" prefHeight="127.0" prefWidth="150.0" />
+                                    <ListView fx:id="list_user" onMouseClicked="#showBmGroup" prefHeight="100.0" prefWidth="150.0" />
+                                    <Hyperlink prefHeight="26.0" prefWidth="150.0" text="Groupe">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                    </Hyperlink>
+                                    <ListView fx:id="list_Gb" onMouseClicked="#showGroupBm" prefHeight="93.0" prefWidth="150.0" />
+                                    <Hyperlink prefHeight="0.0" prefWidth="150.0" text="Marque-pages">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                    </Hyperlink>
+                                    <ListView fx:id="list_mp" prefHeight="102.0" prefWidth="150.0" />
+                                    <Hyperlink prefHeight="26.0" prefWidth="150.0" text="Tag" VBox.vgrow="NEVER">
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                    </Hyperlink>
+                                    <ListView fx:id="list_tag" onMouseClicked="#showMpInfo" prefHeight="102.0" prefWidth="150.0" />
                                  </children>
                               </VBox>
                            </content>
