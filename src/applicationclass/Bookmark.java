@@ -6,6 +6,8 @@
  */
 package applicationclass;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -43,6 +45,13 @@ public class Bookmark implements DBField {
     this.nom = nom;
     this.url = url;
     this.description = description;
+  }
+  
+  public Bookmark(ResultSet rs) throws SQLException {
+    this.id = rs.getInt("id");
+    this.nom = rs.getString("nom");
+    this.url = rs.getString("url");
+    this.description = rs.getString("description");
   }
   
   /**

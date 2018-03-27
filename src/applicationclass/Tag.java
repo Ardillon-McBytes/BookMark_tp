@@ -6,6 +6,8 @@
  */
 package applicationclass;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -43,6 +45,17 @@ public class Tag implements DBField {
     this.id = id;
     this.nom = nom;
     this.description = getCurrentTimeStamp();
+  }
+  
+  /**
+   * 
+   * @param rs
+   * @throws java.sql.SQLException
+   */
+  public Tag(ResultSet rs) throws SQLException {
+    this.id = rs.getInt("id");
+    this.nom = rs.getString("nom");
+    this.description = rs.getString("description");
   }
 
   /**

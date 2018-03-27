@@ -95,6 +95,15 @@ public class G_GB {
     return false;
   }
   
+  public static Groupbook initGroupbook(ResultSet rs, int parent) 
+          throws SQLException {
+    Groupbook gb = new Groupbook(
+            rs.getInt("id"), rs.getString("nom"), 
+            rs.getString("description"), parent);
+    
+    return gb;
+  }
+  
   /*
   
   public static Groupbook getRacine(User user) throws Exception {

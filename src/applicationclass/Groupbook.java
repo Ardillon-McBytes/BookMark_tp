@@ -31,6 +31,22 @@ public class Groupbook implements DBField {
   private ArrayList<Integer> groupbookContenus;
   private ArrayList<Integer> bookmarks;
 
+  
+  /**
+   * 
+   */
+  public Groupbook() {}
+  
+  /**
+   * 
+   */
+  public Groupbook(int id, String nom, String description, int groupbookParent) {
+    this.id = id;
+    this.nom = nom;
+    this.description = description;
+    this.groupbookParent = groupbookParent;
+  }
+  
   /**
    *
    * @param id
@@ -41,9 +57,6 @@ public class Groupbook implements DBField {
    * @param bookmarks
    * @param partages
    */
-  
-   public Groupbook()
-   {}
   public Groupbook(int id, String nom, String description, int groupbookParent,
           ArrayList<Integer> groupbookContenus, ArrayList<Integer> bookmarks,
           ArrayList<Integer> partages) {

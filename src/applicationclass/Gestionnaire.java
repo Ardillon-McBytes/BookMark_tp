@@ -20,6 +20,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -79,7 +80,7 @@ public class Gestionnaire {
     Gestionnaire.groupbooks = new ArrayList<>();
     Gestionnaire.bookmarks = new ArrayList<>();
     Gestionnaire.tags = new ArrayList<>();
-
+    
     Gestionnaire.identifiants = new ArrayList<>();
   }
 
@@ -156,54 +157,113 @@ public class Gestionnaire {
    * @return
    * @throws Exception 
    */
-  public static boolean chargerUserData() throws Exception {
+  public boolean chargerUserData() throws Exception {
     if (usagerActif == null || userValidation(usagerActif) == null) {
       G_Validation.addMessageErreur("L'utilisateur n'a pas encore été initialisé.");
       return false;
     }
     
     Connection conn = SimpleDataSource.getConnection();
-    ObservableList items = FXCollections.observableArrayList();
     try {
       
       int userId = usagerActif.getId();
+      int gbNb = 0;
       int gbId;
       int bmId;
-      /*
-      PreparedStatement stat = conn.prepareStatement(
-              "(SELECT id_groupBook FROM user_group WHERE id_user = '" + userId + "')");
-      ResultSet rs = stat.executeQuery();
+      int tagId;
       
-      while (rs.next()) {
-          gbId = rs.getInt(1);
-          PreparedStatement stat2 = conn.prepareStatement(
-                  "(SELECT id_bookmark FROM bookmark_group WHERE id_group = '" + gbId + "')");
+      Statement stat_user_gb = conn.createStatement();
+      ResultSet rs_user_gb = stat_user_gb.executeQuery(
+              "(SELECT id_groupBook FROM user_group WHERE id_user = '" + userId + "')");
+      
+      PreparedStatement stat_gb = conn.prepareStatement(
+              "(SELECT * FROM group WHERE id = ?)");
+      ResultSet rs_gb;
+      /*@old-node_suggestion ne prendre seullement les gb qui sont possédés par l'utilisateur*/
+      PreparedStatement stat_gb_bm = conn.prepareStatement(
+                "(SELECT id_bookmark FROM bookmark_group WHERE id_group = ?)");
+      ResultSet rs_gb_bm;
+      PreparedStatement stat_bm = conn.prepareStatement(
+              "(SELECT * FROM bookmark WHERE id = ?)");
+      ResultSet rs_bm;
+      PreparedStatement stat_bm_tag = conn.prepareStatement(
+              "(SELECT id_tag FROM bookmark_tag WHERE id_bookmark = ?)");
+      ResultSet rs_bm_tag;
+      PreparedStatement stat_tag = conn.prepareStatement(
+              "(SELECT * FROM tag WHERE id = ?)");
+      ResultSet rs_tag;
+      
+      acces.clear();
+      conteneurs.clear();
+      contenus.clear();
+      etiquettes.clear();
+      
+      users.clear();
+      groupbooks.clear();
+      bookmarks.clear();
+      tags.clear();
+      
+      /*@old-node_question Méthode pour marquer la racine. Valide? */
+      rs_user_gb.next();
+      conteneurs.add(new DBTA(rs_user_gb.getInt(1), rs_user_gb.getInt(1)));
+      rs_user_gb.previous();
+      
+      /*Pour tous les gb accessibles par l'utilisateur*/
+      while (rs_user_gb.next()) {
+        gbNb++;
+        gbId = rs_user_gb.getInt(1);
+        /*@old-node_question Ne pas inclure la racine dans acces pour prévenir les recherches en boucles? */
+        acces.add(new DBTA(userId, gbId));
+        
+        
+        stat_gb.setInt(1, gbId);
+        rs_gb = stat_gb.executeQuery();
+        rs_gb.next();
+        groupbooks.add(G_GB.initGroupbook(rs_gb, gbId));
+        
+        /*@old-node_debut_suggestion Pout tout les enfants du gb .... récursivement */
+        
+        stat_gb_bm.setInt(1, gbId);
+        rs_gb_bm = stat_gb_bm.executeQuery();
+        
+        /*Pour tout les bm contenus dans le gb*/
+        while (rs_gb_bm.next()) {
+          bmId = rs_gb_bm.getInt(1);
+          contenus.add(new DBTA(gbId, bmId));
           
-          ResultSet rs2 = stat2.executeQuery();
-          while (rs2.next()) {
-            bmId = rs2.getInt(1);
-            contenus
+          stat_bm.setInt(1, bmId);
+          rs_bm = stat_bm.executeQuery();
+          rs_bm.next();
+          bookmarks.add(new Bookmark(rs_bm));
+          
+          stat_bm_tag.setInt(1, bmId);
+          rs_bm_tag = stat_bm_tag.executeQuery();
+          
+          /*Pour tout les tags placés sur le bm*/
+          while (rs_bm_tag.next()) {
+            tagId = rs_bm_tag.getInt(1);
+            etiquettes.add(new DBTA(bmId, tagId));
+            
+            stat_tag.setInt(1, tagId);
+            rs_tag = stat_tag.executeQuery();
+            rs_tag.next();
+            tags.add(new Tag(rs_tag));
           }
-          String query3 = "SELECT nom_site, Description, Url "
-                  + "FROM bookmark "
-                  + "WHERE id = ? ";
-          
-          PreparedStatement ps3 = conn.prepareStatement(query3);
-          ps3.setInt(1, bmId);
-          
-          ResultSet rs3 = ps3.executeQuery();
-          String name = null;
-          if (rs3.next()) {
-              txt_file_name.setText(rs3.getString(1));
-              txt_adress.setText(rs3.getString(3));
-          }
-          
-          items.add(rs3.getString(1));
-          list_mp.setItems(items);
+        }
+        /*@old-node_fin_suggestion*/
       }
-      */
+      // Vérifier si les données sont justes...
+      if (gbNb != groupbooks.size()) {
+        System.out.println("Erreur : Le nombre de groupbook lues ne semble pas adéquat à ceux dans la BD.");
+      }
+      
+    } catch (SQLException e) {
+      addMessageErreur("Connexion avec la BD incomplête.");
+      return false; /* changer le return final au lieu */
+      
     } finally {
-        conn.close();
+      conn.close();
+      
     }
     
     return true;
