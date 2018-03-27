@@ -7,12 +7,6 @@
  * TP1 - Remise 2 - Gestionnaire de marquepage
 -->
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
@@ -30,7 +24,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="537.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerclass.PagePrincipaleController">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="537.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllerclass.PagePrincipaleController">
    <children>
       <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="500.0" prefWidth="700.0" VBox.vgrow="SOMETIMES">
          <content>
@@ -43,7 +37,7 @@
                               <Insets />
                            </BorderPane.margin>
                            <children>
-                              <ImageView fx:id="btn_disconnect" disable="true" fitHeight="31.0" fitWidth="29.0" onMouseClicked="#disconnect" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="btn_add_share" fitHeight="31.0" fitWidth="29.0" onMouseClicked="#addUserBm" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../image/add-share.png" />
                                  </image>
@@ -52,7 +46,7 @@
                                  <image>
                                     <Image url="@../../../image/remove-share.png" />
                                  </image></ImageView>
-                              <ImageView fx:id="btn_add_gb" fitHeight="31.0" fitWidth="29.0"  onMouseClicked="#add_gb" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="btn_add_gb" fitHeight="31.0" fitWidth="29.0" onMouseClicked="#add_gb" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../image/add-groupBook.png" />
                                  </image></ImageView>
@@ -60,11 +54,11 @@
                                  <image>
                                     <Image url="@../../../image/remove-groupBook.png" />
                                  </image></ImageView>
-                              <ImageView fx:id="btn_show_group" disable="true" fitHeight="31.0" fitWidth="29.0" onMouseClicked="#show_group" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="btn_show_group" fitHeight="31.0" fitWidth="29.0" onMouseClicked="#show_group" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../image/groupBook-shared.png" />
                                  </image></ImageView>
-                              <ImageView fx:id="btn_remove_bm" disable="true" fitHeight="31.0" fitWidth="29.0" onMouseClicked="#remove_bm" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="btn_remove_bm" fitHeight="31.0" fitWidth="29.0" onMouseClicked="#remove_bm" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../image/remove-bookmark.png" />
                                  </image></ImageView>
@@ -76,11 +70,11 @@
                                  <image>
                                     <Image url="@../../../image/tags.png" />
                                  </image></ImageView>
-                              <ImageView fx:id="btn_help" disable="true" fitHeight="31.0" fitWidth="29.0" onMouseClicked="#show_help" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="btn_help" fitHeight="31.0" fitWidth="29.0" onMouseClicked="#show_help" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../image/help.png" />
                                  </image></ImageView>
-                              <ImageView fx:id="btn_info" disable="true" fitHeight="31.0" fitWidth="29.0" onMouseClicked="#show_info" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="btn_info" fitHeight="31.0" fitWidth="29.0" onMouseClicked="#show_info" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../image/info.png" />
                                  </image></ImageView>

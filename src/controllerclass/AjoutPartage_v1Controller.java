@@ -91,12 +91,14 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
         if (chkCollaborateur.isSelected()) {
           type = 2;
         }
+        
+        int id_gb = G_GB.getGBDefaultFromUser(g.getUsagerActif().getNom());
 
         PreparedStatement stat = conn.prepareStatement(
                 " INSERT INTO `user_group` (`id_type`, `id_user`,`id_groupBook`) "
                 + "VALUES ('" + type + "','"
                 + userId + "','"
-                + G_GB.getGBDefaultFromUser(user.getNom()) + "')");
+                + id_gb + "')");
 
         stat.executeUpdate();
       

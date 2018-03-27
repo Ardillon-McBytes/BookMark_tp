@@ -180,9 +180,7 @@ public class Connexion_v1Controller extends main_controller implements Initializ
         stageTheLabelBelongs.hide();
         secondStage.show();
         
-        if (test) {
-          showAlert();
-        }
+     
       }
     }
     catch (SQLException e) {

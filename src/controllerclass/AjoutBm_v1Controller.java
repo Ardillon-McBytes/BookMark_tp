@@ -93,7 +93,7 @@ public class AjoutBm_v1Controller extends main_controller implements Initializab
         G_BM.addBm();
         G_BM.getBm(txt_nom_bm.getText());
 
-        int id_Gb = G_GB.getGBDefaultFromUser(user.getNom());
+        int id_Gb = G_GB.getGBDefaultFromUser(g.getUsagerActif().getNom());
 
         TA_GB_BM.setIdGb(id_Gb);
         TA_GB_BM.setIdBm(G_BM.getBookMark().getId());
@@ -110,7 +110,7 @@ public class AjoutBm_v1Controller extends main_controller implements Initializab
               
         }
          tag = G_Tag.getTagFromName(txt_tag.getText());
-            TA_BM_Tag.addTagToBm(id_Gb,tag.getId());
+            TA_BM_Tag.addTagToBm(G_BM.getBookMark().getId(),tag.getId());
         
 
         

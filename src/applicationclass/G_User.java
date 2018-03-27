@@ -128,9 +128,29 @@ public class G_User {
   }
 
   /*@old-node_conflict Cette méthode semble inexistante... perdu dans le merge?*/
-  public static String getUserName(int id) {
-    return "";
+   public static String getUserName(int id)
+          throws SQLException, IOException {
+
+      Connection conn = SimpleDataSource.getConnection();
+      try {
+          String query3 = "SELECT user_name "
+                  + "FROM user "
+                  + "WHERE id = ?";
+          PreparedStatement ps3 = conn.prepareStatement(query3);
+          ps3.setInt(1, id);
+
+          ResultSet rs = ps3.executeQuery();
+
+          if (rs.next()) {
+              
+              return rs.getString(1);
+          }
+      } finally {
+          conn.close();
+      }
+      return null;
   }
+
     
   public boolean validUser(String mdp) 
           throws IOException, SQLException, ClassNotFoundException {

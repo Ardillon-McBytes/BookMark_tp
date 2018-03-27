@@ -65,7 +65,7 @@ import javafx.scene.layout.Priority;
 public class PagePrincipaleController extends main_controller implements Initializable {
 
     Stage stageTheLabelBelongs;
-  
+
     @FXML
     private GridPane gp_principal;
     @FXML
@@ -113,16 +113,17 @@ public class PagePrincipaleController extends main_controller implements Initial
     int id_selection_gb = 0;
     @FXML
     private ImageView btn_remove_share;
-  @FXML
-  private ImageView btn_disconnect;
-  @FXML
-  private ImageView btn_info;
-  @FXML
-  private ImageView btnVerifier_url;
+    private ImageView btn_disconnect;
+    @FXML
+    private ImageView btn_info;
+    @FXML
+    private ImageView btnVerifier_url;
     @FXML
     private ListView<String> list_Gb = new ListView<String>();
     @FXML
     private ImageView btn_show_tag2;
+    @FXML
+    private ImageView btn_add_share;
 
     /**
      * Initializes the controller class.
@@ -136,7 +137,13 @@ public class PagePrincipaleController extends main_controller implements Initial
         initListeTag();
         initListeBm();
         initBm();
-        initListePartage();
+        try {
+            initListePartage();
+        } catch (SQLException ex) {
+            Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             initListGb();
         } catch (SQLException ex) {
@@ -233,12 +240,11 @@ public class PagePrincipaleController extends main_controller implements Initial
 
     }
 
-    public void initListePartage() {
+    public void initListePartage() throws SQLException, IOException {
         list_user.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
-           public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 
-              
                 try {
                     G_User.getUserId(newValue).getId();
                 } catch (SQLException ex) {
@@ -249,14 +255,13 @@ public class PagePrincipaleController extends main_controller implements Initial
 
                 ArrayList<Groupbook> gb = new ArrayList<Groupbook>();
                 try {
-                    gb = G_GB.getGBFromUser(G_User.getUserId(newValue).getId());                   
-                    
+                    gb = G_GB.getGBFromUser(G_User.getUserId(newValue).getId());
+
                 } catch (SQLException ex) {
                     Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
                     Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-             
 
                 try {
                     loadPartage(gb);
@@ -272,6 +277,7 @@ public class PagePrincipaleController extends main_controller implements Initial
                 }
             }
         });
+        loadUserShare();
 
     }
 
@@ -301,7 +307,10 @@ public class PagePrincipaleController extends main_controller implements Initial
         list_gb = G_GB.getGBFromUser(g.getUsagerActif().getId());
         ObservableList items = list_Gb.getItems();
         for (int i = 0; i < list_gb.size(); i++) {
-            items.add(list_gb.get(i).getNom());
+            if (!items.contains(list_gb.get(i).getNom())) {
+                items.add(list_gb.get(i).getNom());
+            }
+
         }
         list_Gb.setItems(items);
         list_Gb.refresh();
@@ -309,8 +318,7 @@ public class PagePrincipaleController extends main_controller implements Initial
 
     void loadUserGroup(ArrayList<Bookmark> bm) throws SQLException, IOException {
 
-        
-         gp_principal.getChildren().clear();
+        gp_principal.getChildren().clear();
         ObservableList items = FXCollections.observableArrayList();
         Label txtnom = new Label();;
         Label txtTag = new Label();;
@@ -318,20 +326,19 @@ public class PagePrincipaleController extends main_controller implements Initial
         for (int i = 0; i < bm.size(); i++) {
 
             {
-                
+
                 txtnom = new Label();
                 txtUrl = new Label();
                 Tag tag = new Tag();
-               
-                tag =  G_Tag.getTagFromBm(bm.get(i).getId());
+
+                tag = G_Tag.getTagFromBm(bm.get(i).getId());
                 String testTag = tag.getNom();
                 if (!items.contains(G_Tag.getTag().getNom())) {
                     items.add(bm.get(i).getNom());
                     txtnom.setText(bm.get(i).getNom());
                     txtnom.setPrefWidth(800);
                     txtUrl.setText(bm.get(i).getUrl());
-                   
-                
+
                     gp_principal.add(txtnom, 0, i);
                     gp_principal.add(txtTag, 1, i);
                     gp_principal.add(txtUrl, 2, i);
@@ -410,18 +417,15 @@ public class PagePrincipaleController extends main_controller implements Initial
     void loadTag(ArrayList<Bookmark> bookmarks) throws SQLException {
         ObservableList items = list_tag.getItems();
 
-        for (int j = 0; j < g.getGroupbooks().size(); j++) {
-            for (int i = 0; i < g.getGroupbooks().get(j).getBookmarks().size(); i++) {
-                G_Tag.getTagFromBm(g.getGroupbooks().get(j).getBookmarks().get(i).getId());
+        for (int i = 0; i < g.getBookmarks().size(); i++) {
+            G_Tag.getTagFromBm(g.getBookmarks().get(i).getId());
 
-                if (!items.contains(G_Tag.getTag().getNom())) {
-                    items.add(G_Tag.getTag().getNom());
-                }
+            if (!items.contains(G_Tag.getTag().getNom())) {
+                items.add(G_Tag.getTag().getNom());
             }
-            list_tag.setItems(items);
-           list_tag.refresh();
         }
-
+        list_tag.setItems(items);
+        list_tag.refresh();
     }
 
     void getBookMark() throws IOException, SQLException, ClassNotFoundException, Exception {
@@ -438,28 +442,27 @@ public class PagePrincipaleController extends main_controller implements Initial
             Label txtTag;
             Label txtUrl;
             int nb = 0;
-            for (int j = 0; j < g.getGroupbooks().size(); j++) {
 
-                for (int i = 0; i < g.getGroupbooks().get(j).getBookmarks().size(); i++) {
+            for (int i = 0; i < g.getBookmarks().size(); i++) {
 
-                    txtnom = new Label();
+                txtnom = new Label();
 
-                    txtUrl = new Label();
-                    if (!items.contains(g.getGroupbooks().get(j).getBookmarks().get(i).getNom())) {
-                        items.add(g.getGroupbooks().get(j).getBookmarks().get(i).getNom());
-                        txtnom.setText(g.getGroupbooks().get(j).getBookmarks().get(i).getNom());
-                        txtnom.setPrefWidth(800);
-                        txtUrl.setText(g.getGroupbooks().get(j).getBookmarks().get(i).getUrl());
-                        txtTag = new Label(G_Tag.getTagFromBm(g.getGroupbooks().get(j).getBookmarks().get(i).getId()).getNom());
-                        gp_principal.add(txtnom, 0, nb);
-                        gp_principal.add(txtTag, 1, nb);
-                        gp_principal.add(txtUrl, 2, nb);
-                        nb++;
-                    }
+                txtUrl = new Label();
+                if (!items.contains(g.getBookmarks().get(i).getNom())) {
+                    items.add(g.getBookmarks().get(i).getNom());
+                    txtnom.setText(g.getBookmarks().get(i).getNom());
+                    txtnom.setPrefWidth(800);
+                    txtUrl.setText(g.getBookmarks().get(i).getUrl());
+                    txtTag = new Label(G_Tag.getTagFromBm(g.getBookmarks().get(i).getId()).getNom());
+                    gp_principal.add(txtnom, 0, nb);
+                    gp_principal.add(txtTag, 1, nb);
+                    gp_principal.add(txtUrl, 2, nb);
+                    nb++;
                 }
+
             }
             list_mp.setItems(items);
-list_mp.refresh();
+            list_mp.refresh();
         } finally {
             conn.close();
 
@@ -468,19 +471,13 @@ list_mp.refresh();
     }
 
     private void refreshPage(MouseEvent event) throws IOException, SQLException, ClassNotFoundException, Exception {
-        initListeTag();
-        initListeBm();
-        initBm();
-        initListePartage();
-        try {
-            initListGb();
-        } catch (SQLException ex) {
-            Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        loadTag(g.getBookmarks());
+        loadPartage(g.getGroupbooks());
+        loadUserGroup();
+        loadUserShare();
     }
 
+    @FXML
     private void addUserBm(MouseEvent event) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/ajoutPartage_v1.fxml"));
@@ -543,7 +540,7 @@ list_mp.refresh();
     private void showBmGroup(MouseEvent event) {
     }
 
-    private void add_share(MouseEvent event) throws IOException {
+    private void add_share(MouseEvent event) throws IOException, SQLException {
 
         if (currentBm_id > 0) {
 
@@ -567,29 +564,27 @@ list_mp.refresh();
 
     @FXML
     private void add_gb(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
-        
-      
-         Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/ajout_gb_v1.fxml"));
 
-            AjoutPartage_v1Controller controll = new AjoutPartage_v1Controller();
-            Stage stageTheLabelBelongs = (Stage) btnAdd_txt_tag.getScene().getWindow();
-            controll.setPrevStage(stageTheLabelBelongs, 1);
+        Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/ajout_gb_v1.fxml"));
 
-            Scene scene = new Scene(root);
-            Stage secondStage = new Stage();
+        AjoutPartage_v1Controller controll = new AjoutPartage_v1Controller();
+        Stage stageTheLabelBelongs = (Stage) btnAdd_txt_tag.getScene().getWindow();
+        controll.setPrevStage(stageTheLabelBelongs, 1);
 
-            secondStage.setScene(scene);
-            secondStage.showAndWait();
+        Scene scene = new Scene(root);
+        Stage secondStage = new Stage();
+
+        secondStage.setScene(scene);
+        secondStage.showAndWait();
     }
-
 
     @FXML
     private void remove_gb(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
-        
+
         TA_User_GB.deleteUserGroup(id_selected_user, id_selection_gb);
-       list_user.getItems().remove(G_User.getUserName(id_selected_user));
-      list_user.refresh();
-                
+        list_user.getItems().remove(G_User.getUserName(id_selected_user));
+        list_user.refresh();
+
     }
 
     @FXML
@@ -644,8 +639,8 @@ list_mp.refresh();
 
         TA_GB_BM.getIdGb(currentBm_id);
         TA_User_GB.deleteUserGroup(id_selected_user, TA_GB_BM.getIdGb());
-
-        list_user.getItems().remove(G_User.getUserName(id_selected_user));
+        String userNAme = G_User.getUserName(id_selected_user);
+        list_user.getItems().remove(userNAme);
         list_user.refresh();
     }
 
@@ -666,39 +661,42 @@ list_mp.refresh();
         secondStage.show();
     }
 
-  @FXML
-  private void disconnect(MouseEvent event) {
-    try {
-      g.setUsagerActif(new User("déconnecté"));
-      
-      Connexion_v1Controller controller = new Connexion_v1Controller();
-      stageTheLabelBelongs = (Stage) btn_disconnect.getScene().getWindow();
-      controller.setPrevStage(stageTheLabelBelongs);
+    private void disconnect(MouseEvent event) {
+        try {
+            g.setUsagerActif(new User("déconnecté"));
 
-      Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/connexion_v1.fxml"));
+            Connexion_v1Controller controller = new Connexion_v1Controller();
+            stageTheLabelBelongs = (Stage) btn_disconnect.getScene().getWindow();
+            controller.setPrevStage(stageTheLabelBelongs);
 
-      Scene scene = new Scene(root);
-      Stage secondStage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/connexion_v1.fxml"));
 
-      secondStage.setScene(scene);
+            Scene scene = new Scene(root);
+            Stage secondStage = new Stage();
 
-      stageTheLabelBelongs.hide();
-      secondStage.show();
+            secondStage.setScene(scene);
 
-    } catch (IOException e) {
-      g.addMessageErreur("Mauvais format pour le nom de l'utilisateur");
-    } catch (SQLException ex) {
-      g.addMessageErreur("Erreur avec la BD");
+            stageTheLabelBelongs.hide();
+            secondStage.show();
+
+        } catch (IOException e) {
+            g.addMessageErreur("Mauvais format pour le nom de l'utilisateur");
+        } catch (SQLException ex) {
+            g.addMessageErreur("Erreur avec la BD");
+        }
     }
-  }
 
-  @FXML
-  private void refresh(MouseEvent event) {
-  }
+    @FXML
+    private void refresh(MouseEvent event) throws SQLException, IOException {
+        loadTag(g.getBookmarks());
+        loadPartage(g.getGroupbooks());
+        loadUserGroup();
+        loadUserShare();
+    }
 
-  @FXML
-  private void verifier_url(MouseEvent event) {
-  }
+    @FXML
+    private void verifier_url(MouseEvent event) {
+    }
 
     @FXML
     private void showGroupBm(MouseEvent event) {

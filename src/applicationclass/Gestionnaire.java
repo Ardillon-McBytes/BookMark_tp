@@ -318,12 +318,12 @@ public class Gestionnaire {
           groupbooks.get(groupbooks.size()-1).setId(id_gp);
 
           PreparedStatement stat2 = conn.prepareStatement(
-                  "(SELECT id_bookmark FROM bookmark_group WHERE id_group = '" + id_gp + "')");
+                  "(SELECT * FROM bookmark_group WHERE id_group = '" + id_gp + "')");
 
           ResultSet rs2 = stat2.executeQuery();
 
           while (rs2.next()) {
-              int id_bm = rs.getInt(1);
+              int id_bm = rs2.getInt(3);
               bm.setId(id_bm);
               contenus.add(new DBA<Groupbook, Bookmark>(id_gp, groupbooks.get(groupbooks.size()-1), bm));
 
