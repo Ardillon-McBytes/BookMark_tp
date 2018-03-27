@@ -6,14 +6,10 @@
  */
 package applicationclass;
 
-import static applicationclass.G_BM.bm;
-import static applicationclass.TA_GB_BM.id_Bm;
-import static applicationclass.TA_GB_BM.id_group;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import javafx.scene.input.MouseEvent;
 import sqlclass.SimpleDataSource;
 
 /**

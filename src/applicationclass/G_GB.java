@@ -5,7 +5,6 @@
  */
 package applicationclass;
 
-import static applicationclass.Gestionnaire.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -219,7 +218,7 @@ public class G_GB {
   static public void createGb(User user)
           throws IOException, SQLException, ClassNotFoundException {
 
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
     try {
 
       PreparedStatement stat = conn.prepareStatement(
@@ -244,7 +243,7 @@ public class G_GB {
   static public void createGb(String gb_name, String gb_description)
           throws IOException, SQLException, ClassNotFoundException {
 
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
     try {
 
       PreparedStatement stat = conn.prepareStatement(
@@ -261,7 +260,7 @@ public class G_GB {
   static void deleteGb(User user)
           throws IOException, SQLException, ClassNotFoundException {
 
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
     try {
 
       PreparedStatement stat = conn.prepareStatement(
@@ -275,7 +274,7 @@ public class G_GB {
   }
 
   void editGb(Groupbook bm) throws SQLException {
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
 
     try {
 
@@ -301,8 +300,8 @@ public class G_GB {
    */
   static public ArrayList<User>
           getUserFromGB(ArrayList<Groupbook> gb) throws SQLException {
-    Connection conn = SimpleDataSource.getConnection();
-    ArrayList<User> Ar_User = new ArrayList<User>();
+    conn = SimpleDataSource.getConnection();
+    ArrayList<User> Ar_User = new ArrayList<>();
     try {
       for (int i = 0; i < gb.size(); i++) {
 
@@ -356,8 +355,8 @@ public class G_GB {
    */
   static public ArrayList<User>
           getUserFromGBRead(ArrayList<Groupbook> gb) throws SQLException, IOException {
-    Connection conn = SimpleDataSource.getConnection();
-    ArrayList<User> Ar_User = new ArrayList<User>();
+    conn = SimpleDataSource.getConnection();
+    ArrayList<User> Ar_User = new ArrayList<>();
     try {
       for (int i = 0; i < gb.size(); i++) {
 
@@ -377,12 +376,13 @@ public class G_GB {
           ps2.setInt(1, id_bm);
 
           ResultSet rs2 = ps2.executeQuery();
-          int id_user = 0;
+          int id_user;
           while (rs2.next()) {
             int id_gb = rs2.getInt(4);
             id_user = rs2.getInt(3);
             int id_default_Gb;
-            String name = G_User.getUserName(id_user);
+            String name = "";
+            //= G_User.getUserId(); // À réimplémenter
             id_default_Gb = getGBDefaultFromUser(name);
             if (gb.get(i).getId() == id_default_Gb) {
               String query3 = "SELECT * "
@@ -420,9 +420,9 @@ public class G_GB {
    */
   static public ArrayList<Groupbook>
           getGBFromUser(int userId) throws SQLException {
-    Connection conn = SimpleDataSource.getConnection();
-    ArrayList<Groupbook> list_gb = new ArrayList<Groupbook>();
-    Groupbook gb = new Groupbook();
+    conn = SimpleDataSource.getConnection();
+    ArrayList<Groupbook> list_gb = new ArrayList<>();
+    Groupbook gb;
     try {
 
       String query = "SELECT * "
@@ -470,7 +470,7 @@ public class G_GB {
    */
   static public int
           getGBDefaultFromUser(String userName) throws SQLException {
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
     Groupbook gb = new Groupbook();
     Bookmark bm;
     try {
@@ -493,14 +493,14 @@ public class G_GB {
   }
 
   /**
-   *
+   * 
    * @param gb_name
    * @return
    * @throws SQLException
    */
   static public int
           getGBId(String gb_name) throws SQLException {
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
     Groupbook gb = new Groupbook();
     Bookmark bm;
     try {

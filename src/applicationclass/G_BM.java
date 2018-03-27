@@ -26,7 +26,8 @@ public class G_BM {
    * Bookmark utilisé pour la gestion
    */
   static public Bookmark bm = new Bookmark();
-
+  private static Connection conn;
+  
   /**
    * Constructeur
    */
@@ -60,7 +61,7 @@ public class G_BM {
    * @throws SQLException Erreur causé par la BD
    */
   public void getBm(int id) throws SQLException {
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
     try {
 
       String query3 = "SELECT * "
@@ -92,7 +93,7 @@ public class G_BM {
    * @throws SQLException Erreur causé par la BD
    */
   static public Bookmark getBm(String name) throws SQLException {
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
 
     try {
 
@@ -124,7 +125,7 @@ public class G_BM {
    * @throws SQLException Erreur causé par la BD
    */
   static public void addBm() throws SQLException {
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
 
     try {
 
@@ -148,7 +149,7 @@ public class G_BM {
    * @throws SQLException Erreur causé par la BD
    */
   public void editBm() throws SQLException {
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
 
     try {
 
@@ -177,7 +178,7 @@ public class G_BM {
   static public void deleteBm()
           throws IOException, SQLException, ClassNotFoundException {
 
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
     try {
 
       PreparedStatement stat = conn.prepareStatement(

@@ -219,6 +219,7 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
    * @param e
    * @return
    */
+  @Override
   public boolean add(A e) {
     if (!contains(e)) {
       // Trouver une manière de vérifier dans a BD

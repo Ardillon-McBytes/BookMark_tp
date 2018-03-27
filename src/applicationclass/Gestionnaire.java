@@ -30,7 +30,8 @@ public class Gestionnaire {
    * ATTRIBUTS DE LA CLASSE *********************
    */
   private static boolean initialise;
-
+  private static Connection conn;
+  
   private static User usagerActif;   // Compte actif?
 
   private static TA_User_GB acces;
@@ -50,6 +51,7 @@ public class Gestionnaire {
    */
   public Gestionnaire() {
     Gestionnaire.initialise = false;
+    Gestionnaire.conn = null;
 
     //Gestionnaire.gValid = new G_Validation();
     //Gestionnaire.gUser = new G_User();
@@ -147,7 +149,7 @@ public class Gestionnaire {
       return false;
     }
 
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
     try {
 
       int userId = usagerActif.getId();
@@ -309,7 +311,7 @@ public class Gestionnaire {
    * @throws SQLException
    */
   public void loadUserGb() throws SQLException {
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
     groupbooks.clear();
     groupbooks.add(new Groupbook());
 

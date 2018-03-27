@@ -69,7 +69,7 @@ public class DBAS<L extends DBField, R extends DBField> extends DBA {
   /**
    * Obtient la chaine de caractère assignée à la paire
    * 
-   * @param info Chaine de caractère assignée à la paire
+   * @return La chaine de caractère
    */
   public String getInfo() {
     return info;

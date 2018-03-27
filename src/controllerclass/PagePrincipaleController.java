@@ -619,7 +619,7 @@ public class PagePrincipaleController extends main_controller implements Initial
   private void remove_gb(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
 
     TA_User_GB.deleteUserGroup(id_selected_user, id_selection_gb);
-    list_user.getItems().remove(G_User.getUserName(id_selected_user));
+    //list_user.getItems().remove(G_User.getUserName(id_selected_user));
     list_user.refresh();
 
   }
@@ -677,7 +677,7 @@ public class PagePrincipaleController extends main_controller implements Initial
     TA_GB_BM.getIdGb(currentBm_id);
     TA_User_GB.deleteUserGroup(id_selected_user, TA_GB_BM.getIdGb());
 
-    list_user.getItems().remove(G_User.getUserName(id_selected_user));
+    //list_user.getItems().remove(G_User.getUserName(id_selected_user));
     list_user.refresh();
   }
 

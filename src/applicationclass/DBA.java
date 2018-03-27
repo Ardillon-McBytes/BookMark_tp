@@ -11,7 +11,6 @@ import java.util.ArrayList;
 /**
  * Classe parente à toutes les associations utilisés dans les tables d'associations (TAs)
  * 
- *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0

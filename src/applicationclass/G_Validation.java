@@ -6,7 +6,6 @@
  */
 package applicationclass;
 
-import static applicationclass.G_Validation.nom;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,11 +29,9 @@ public class G_Validation {
 
   private static final int MAX_VAL_TYPE_PARTAGE = 2;
   private static boolean erreur = false;
-  private static ArrayList<String> messagesErreur = new ArrayList<String>();
-  private static ArrayList<String> messagesConfirmation = new ArrayList<String>();
-  ;
-  private static ArrayList<String> nomColsConnexionTemp = new ArrayList<String>();
-  ;
+  private static ArrayList<String> messagesErreur = new ArrayList<>();
+  private static ArrayList<String> messagesConfirmation = new ArrayList<>();
+  private static ArrayList<String> nomColsConnexionTemp = new ArrayList<>();
   private static Connection conn = null;
 
   /**
@@ -460,7 +457,7 @@ public class G_Validation {
   public static boolean validPassword(String name, String mdp)
           throws IOException, SQLException, ClassNotFoundException {
 
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
     try {
 
       PreparedStatement stat = conn.prepareStatement(

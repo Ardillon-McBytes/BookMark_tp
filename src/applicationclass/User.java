@@ -30,7 +30,7 @@ public class User implements DBField {
   private String nom;
   private String courriel;
   private int groupbookRacine;
-  private Connection conn;  // metre toujours en static?
+  private static Connection conn;  // metre toujours en static?
 
   /**
    * Constructeur sans paramètres de la classe des utilisateurs
@@ -57,7 +57,7 @@ public class User implements DBField {
     this.nom = "";
     this.courriel = "";
     this.groupbookRacine = -1;
-    this.conn = null;
+    User.conn = null;
   }
 
   /**
@@ -73,7 +73,7 @@ public class User implements DBField {
     this.nom = nom;
     this.courriel = courriel;
     User.this.setGroupbooks(groupbookRacine);
-    this.conn = null;
+    User.conn = null;
   }
 
   /**
@@ -92,7 +92,7 @@ public class User implements DBField {
     this.nom = nom;
     this.courriel = courriel;
     User.this.setGroupbooks(ta, groupBooks);
-    this.conn = null;
+    User.conn = null;
   }
 
   /**
@@ -117,7 +117,7 @@ public class User implements DBField {
   public static User recherche(String nom, String courriel) throws SQLException, IOException {
     // Utiliser cette méthode dans le gestionnaire des utilisateurs.
     User recherche = null;
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
     try {
       if (!G_Validation.nom(nom) || !G_Validation.courriel(courriel)) {
         return recherche;
@@ -329,7 +329,7 @@ public class User implements DBField {
       throw new IOException("Le nom de l'utilisateur n'est pas valide pour l'application");
     }
     int val = -1;
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
     try {
       PreparedStatement stat = conn.prepareStatement(
               "SELECT id FROM user WHERE user_name = ?");

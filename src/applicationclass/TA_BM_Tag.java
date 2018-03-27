@@ -6,9 +6,6 @@
  */
 package applicationclass;
 
-import static applicationclass.G_Tag.tag;
-import static applicationclass.TA_GB_BM.id_Bm;
-import static applicationclass.TA_GB_BM.id_group;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
