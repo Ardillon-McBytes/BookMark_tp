@@ -111,33 +111,42 @@ public class NouveauCompte_v1Controller extends main_controller implements Initi
 
   private boolean addErreur(String message) {
     g.addMessageErreur(message);
-    return false;
+    return true;
+  }
+  
+  private boolean addConfirmation(String message) {
+    g.addMessageConfirmation(message);
+    return true;
   }
 
   private boolean Valid() {
-    boolean invalide = true;
+    boolean invalide = false;
 
     if (userName.getText().isEmpty()) {
-      invalide = addErreur("Le champ du nom du compte est vide.");
+      invalide = addConfirmation("Le champ du nom du compte est vide.");
     } else if (!G_Validation.nom(userName.getText())) {
-      invalide = addErreur("Le nom du compte saisie n'est pas valide.");
+      invalide = addConfirmation("Le nom du compte saisie n'est pas valide.");
     }
-
+    
     if (userAdress.getText().isEmpty()) {
-      invalide = addErreur("Le champ du mot de passe est vide.");
+      invalide = addConfirmation("Le champ du mot de passe est vide.");
     } else if (!G_Validation.courriel(userAdress.getText())) {
-      invalide = addErreur("L'adresse courriel saisie n'est pas valide.");
+      invalide = addConfirmation("L'adresse courriel saisie n'est pas valide.");
     }
-
+    
     if (userPassword.getText().isEmpty()) {
-      invalide = addErreur("Le champ du mot de passe est vide.");
+      invalide = addConfirmation("Le champ du mot de passe est vide.");
     } else if (!G_Validation.mdp(userPassword.getText())) {
-      invalide = addErreur("Le mot de passe saisie n'est pas valide.");
+      invalide = addConfirmation("Le mot de passe saisie n'est pas valide.");
     } else if (!userConfirmPassword.getText().equals(userPassword.getText())) {
-      invalide = addErreur("La resaisie du mot de passe n'est pas identique au premier.");
+      invalide = addConfirmation("La resaisie du mot de passe n'est pas identique au premier.");
     }
-
-    return invalide;
+    
+    if (invalide) {
+      showConfirmation();
+    }
+    
+    return !invalide;
   }
 
   /*boolean validUser() throws IOException, SQLException, ClassNotFoundException {

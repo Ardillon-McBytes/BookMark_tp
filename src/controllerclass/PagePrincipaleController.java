@@ -50,16 +50,18 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.Priority;
 
 /**
- * FXML Controller class
+ * FXML Classe controlleur de la page principale
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
  */
 public class PagePrincipaleController extends main_controller implements Initializable {
-
-  Stage stageTheLabelBelongs;
-
+  
+  /**
+   * Éléments de l'interface
+   */
+  
   @FXML
   private GridPane gp_principal;
   @FXML
@@ -70,13 +72,8 @@ public class PagePrincipaleController extends main_controller implements Initial
   private ImageView btnInfo_tag;
   @FXML
   private ImageView btnAdd_txt_tag;
-
   @FXML
   private ListView<String> list_mp;
-
-  static Stage prevStage;
-  static String _userName;
-  static int _user_id;
   @FXML
   private TextField txt_tag_name;
   @FXML
@@ -100,7 +97,6 @@ public class PagePrincipaleController extends main_controller implements Initial
   private ImageView btn_show_tag;
   @FXML
   private ImageView btn_help;
-
   @FXML
   private ImageView btn_remove_share;
   @FXML
@@ -113,13 +109,23 @@ public class PagePrincipaleController extends main_controller implements Initial
   private ListView<String> list_Gb;
   @FXML
   private ImageView btn_show_tag2;
-
-  int currentBm_id = 0;
-  int id_selected_user = 0;
-  int id_selection_gb = 0;
   @FXML
   private ImageView btn_disconect;
 
+  
+  /**
+   * Attributs du controlleur
+   */
+  
+  static Stage stageTheLabelBelongs;
+  static Stage prevStage;
+  static String _userName;
+  static int _user_id;
+  int currentBm_id = 0;
+  int id_selected_user = 0;
+  int id_selection_gb = 0;
+
+  
   /**
    * Constructeur
    */
@@ -131,7 +137,7 @@ public class PagePrincipaleController extends main_controller implements Initial
   }
 
   /**
-   * Initializes la classe controleur
+   * Initialise la classe controleur
    *
    * @param url Url du constroleur
    * @param rb Ressource du controleur
@@ -174,7 +180,7 @@ public class PagePrincipaleController extends main_controller implements Initial
   }
 
   /**
-   *
+   * Initialise la liste des tags utilisée par l'utilisateur
    */
   public void initListeTag() {
     list_tag.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -201,9 +207,9 @@ public class PagePrincipaleController extends main_controller implements Initial
   }
 
   /**
-   *
-   *
-   * @throws SQLException
+   * Initialise la liste des groupbooks
+   * 
+   * @throws SQLException La connexion avec la BD ne s'est pas effectué compètement
    */
   public void initListGb() throws SQLException {
 
@@ -245,7 +251,9 @@ public class PagePrincipaleController extends main_controller implements Initial
   }
 
   /**
-   *
+   * 
+   * 
+   * @throws java.sql.SQLException La connexion avec la BD ne s'est pas effectué compètement
    */
   public void initListePartage() throws SQLException {
     list_user.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -290,12 +298,16 @@ public class PagePrincipaleController extends main_controller implements Initial
   }
 
   /**
-   *
+   * 
    */
   public void showBmList() {
 
   }
 
+  /**
+   * 
+   * @throws SQLException 
+   */
   void loadUserShare() throws SQLException {
     ArrayList<User> users = G_GB.getUserFromGB(g.getGroupbooks());
 
@@ -311,6 +323,10 @@ public class PagePrincipaleController extends main_controller implements Initial
 
   }
 
+  /**
+   * 
+   * @throws SQLException 
+   */
   void loadUserGroup() throws SQLException {
     ArrayList<Groupbook> list_gb = G_GB.getGBFromUser(g.getUsagerActif().getId());
     ObservableList items = list_Gb.getItems();
@@ -321,6 +337,11 @@ public class PagePrincipaleController extends main_controller implements Initial
     list_Gb.refresh();
   }
 
+  /**
+   * 
+   * @param bm
+   * @throws SQLException 
+   */
   void loadUserGroup(ArrayList<Bookmark> bm) throws SQLException {
 
     gp_principal.getChildren().clear();
@@ -350,6 +371,11 @@ public class PagePrincipaleController extends main_controller implements Initial
     }
   }
 
+  /**
+   * 
+   * @param idTag
+   * @throws SQLException 
+   */
   void getTA_BM(int idTag) throws SQLException {
 
     for (int i = 0; i < g.getBookmarks().size(); i++) {
@@ -359,6 +385,11 @@ public class PagePrincipaleController extends main_controller implements Initial
 
   }
 
+  /**
+   * 
+   * @param gb
+   * @throws SQLException 
+   */
   void loadPartage(ArrayList<Groupbook> gb) throws SQLException {
     gp_principal.getChildren().clear();
     ObservableList items = FXCollections.observableArrayList();
@@ -390,6 +421,11 @@ public class PagePrincipaleController extends main_controller implements Initial
     }
   }
 
+  /**
+   * 
+   * @param gb
+   * @throws SQLException 
+   */
   void loadSharePartage(Groupbook gb) throws SQLException {
     gp_principal.getChildren().clear();
     ObservableList items = FXCollections.observableArrayList();
@@ -419,6 +455,12 @@ public class PagePrincipaleController extends main_controller implements Initial
 
   }
 
+  /**
+   * 
+   * @param bookmarks
+   * @param tagName
+   * @throws SQLException 
+   */
   void loadOneTag(ArrayList<Bookmark> bookmarks, String tagName) throws SQLException {
     gp_principal.getChildren().clear();
     ObservableList items = FXCollections.observableArrayList();
@@ -447,6 +489,11 @@ public class PagePrincipaleController extends main_controller implements Initial
 
   }
 
+  /**
+   * 
+   * @param bookmarks
+   * @throws SQLException 
+   */
   void loadTag(ArrayList<Bookmark> bookmarks) throws SQLException {
     ObservableList items = list_tag.getItems();
 
@@ -461,8 +508,13 @@ public class PagePrincipaleController extends main_controller implements Initial
     list_tag.refresh();
   }
 
-  /* @old-node_conflict Il faut déterminer quelle version est la bonne*/
+  /**
+   * 
+   * @throws SQLException 
+   */
   void getBookMark() throws SQLException {
+    /* @old-node_conflict Il faut déterminer quelle version est la bonne*/
+    
     /*Connection conn = SimpleDataSource.getConnection();
     ObservableList items = list_mp.getItems();
     try {
@@ -544,6 +596,14 @@ public class PagePrincipaleController extends main_controller implements Initial
     }
   }
 
+  /**
+   * 
+   * @param event
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   * @throws Exception 
+   */
   private void refreshPage(MouseEvent event) throws IOException, SQLException, ClassNotFoundException, Exception {
     loadTag(g.getBookmarks());
     loadPartage(g.getGroupbooks());
@@ -551,6 +611,11 @@ public class PagePrincipaleController extends main_controller implements Initial
     loadUserShare();
   }
 
+  /**
+   * 
+   * @param event
+   * @throws IOException 
+   */
   @FXML
   private void addUserBm(MouseEvent event) throws IOException {
 
@@ -565,6 +630,11 @@ public class PagePrincipaleController extends main_controller implements Initial
     secondStage.show();
   }
 
+  /**
+   * 
+   * @param event
+   * @throws IOException 
+   */
   @FXML
   private void show_group(MouseEvent event) throws IOException {
 
@@ -581,6 +651,11 @@ public class PagePrincipaleController extends main_controller implements Initial
     secondStage.show();
   }
 
+  /**
+   * 
+   * @param event
+   * @throws Exception 
+   */
   @FXML
   private void addTag(MouseEvent event)
           throws Exception {
@@ -598,21 +673,39 @@ public class PagePrincipaleController extends main_controller implements Initial
     secondStage.show();
   }
 
+  /**
+   * 
+   * @param event 
+   */
   @FXML
   private void showTag(MouseEvent event) {
 
   }
 
+  /**
+   * 
+   * @param event 
+   */
   @FXML
   private void showMpInfo(MouseEvent event) {
 
   }
 
+  /**
+   * 
+   * @param event 
+   */
   @FXML
   private void showBmGroup(MouseEvent event) {
 
   }
 
+  /**
+   * 
+   * @param event
+   * @throws IOException
+   * @throws SQLException 
+   */
   private void add_share(MouseEvent event) throws IOException, SQLException {
 
     if (currentBm_id > 0) {
@@ -634,6 +727,11 @@ public class PagePrincipaleController extends main_controller implements Initial
     }
   }
 
+  /**
+   * 
+   * @param event
+   * @throws IOException 
+   */
   @FXML
   private void add_gb(MouseEvent event) throws IOException {
 
@@ -650,6 +748,13 @@ public class PagePrincipaleController extends main_controller implements Initial
     secondStage.showAndWait();
   }
 
+  /**
+   * 
+   * @param event
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException 
+   */
   @FXML
   private void remove_gb(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
 
@@ -659,6 +764,11 @@ public class PagePrincipaleController extends main_controller implements Initial
 
   }
 
+  /**
+   * 
+   * @param event
+   * @throws IOException 
+   */
   @FXML
   private void add_bm(MouseEvent event) throws IOException {
 
@@ -675,14 +785,29 @@ public class PagePrincipaleController extends main_controller implements Initial
     secondStage.show();
   }
 
+  /**
+   * 
+   * @param event 
+   */
   @FXML
   private void show_help(MouseEvent event) {
   }
 
+  /**
+   * 
+   * @param event 
+   */
   @FXML
   private void show_info(MouseEvent event) {
   }
 
+  /**
+   * 
+   * @param event
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException 
+   */
   @FXML
   private void remove_bm(MouseEvent event)
           throws IOException, SQLException, ClassNotFoundException {
@@ -706,6 +831,13 @@ public class PagePrincipaleController extends main_controller implements Initial
     }
   }
 
+  /**
+   * 
+   * @param event
+   * @throws SQLException
+   * @throws IOException
+   * @throws ClassNotFoundException 
+   */
   @FXML
   private void remove_share_user(MouseEvent event) throws SQLException, IOException, ClassNotFoundException {
 
@@ -716,6 +848,11 @@ public class PagePrincipaleController extends main_controller implements Initial
     list_user.refresh();
   }
 
+  /**
+   * 
+   * @param event
+   * @throws Exception 
+   */
   @FXML
   private void add_tag(MouseEvent event)
           throws Exception {
@@ -733,14 +870,26 @@ public class PagePrincipaleController extends main_controller implements Initial
     secondStage.show();
   }
 
+  /**
+   * 
+   * @param event 
+   */
   @FXML
   private void verifier_url(MouseEvent event) {
   }
 
+  /**
+   * 
+   * @param event 
+   */
   @FXML
   private void showGroupBm(MouseEvent event) {
   }
 
+  /**
+   * 
+   * @param event 
+   */
   @FXML
   private void disconect(MouseEvent event) {
     try {
@@ -766,6 +915,12 @@ public class PagePrincipaleController extends main_controller implements Initial
     }
   }
 
+  /**
+   * 
+   * @param event
+   * @throws SQLException
+   * @throws IOException 
+   */
   @FXML
   private void refresh(MouseEvent event) throws SQLException, IOException {
     loadTag(g.getBookmarks());
@@ -774,6 +929,11 @@ public class PagePrincipaleController extends main_controller implements Initial
     loadUserShare();
   }
 
+  /**
+   * 
+   * @param event
+   * @throws IOException 
+   */
   private void editBm(KeyEvent event) throws IOException {
 
     Edit_BM_v1Controller controll = new Edit_BM_v1Controller();
@@ -787,6 +947,11 @@ public class PagePrincipaleController extends main_controller implements Initial
     secondStage.show();
   }
 
+  /**
+   * 
+   * @param event
+   * @throws IOException 
+   */
   @FXML
   private void edit_BM(MouseEvent event) throws IOException {
 
@@ -801,6 +966,9 @@ public class PagePrincipaleController extends main_controller implements Initial
     secondStage.show();
   }
 
+  /**
+   * 
+   */
   /*//@Override
   public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
