@@ -7,7 +7,6 @@
 package applicationclass;
 
 import static applicationclass.G_BM.bm;
-import static applicationclass.G_Tag.tag;
 import static applicationclass.TA_GB_BM.id;
 import static applicationclass.TA_GB_BM.id_Bm;
 import static applicationclass.TA_GB_BM.id_group;

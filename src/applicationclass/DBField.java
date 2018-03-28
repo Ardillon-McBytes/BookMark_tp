@@ -16,38 +16,44 @@ package applicationclass;
 public interface DBField {
 
   /**
+   * Modifie l'identifiant de l'élément
    *
-   * @param id
+   * @param id Nouvel identifiant de l'élément
    */
   public void setId(int id);
 
   /**
+   * Modifie le nom de l'élément
    *
-   * @param nom
+   * @param nom Nouveau nom de l'élément
    */
   public void setNom(String nom);
 
   /**
+   * Modifie la valeur de l'élément
    *
-   * @param value
+   * @param value Nouvelle valeur de l'élément
    */
   public void setValue(String value);
 
   /**
+   * Obtient l'identifiant de l'élément
    *
-   * @return
+   * @return L'identifiant
    */
   public int getId();
 
   /**
+   * Obtient le nom de l'élément
    *
-   * @return
+   * @return Le nom
    */
   public String getNom();
 
   /**
+   * Obtient la valeur de l'élément
    *
-   * @return
+   * @return La valeur
    */
   public String getValue();
 }

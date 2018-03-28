@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
 package applicationclass;
 
@@ -15,9 +16,21 @@ package applicationclass;
  */
 public class Pair<R> {
 
+  /**
+   *
+   */
   public int id;
+
+  /**
+   *
+   */
   public R value;
 
+  /**
+   *
+   * @param id
+   * @param nom
+   */
   public Pair(int id, R nom) {
     this.id = id;
     this.value = nom;

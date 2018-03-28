@@ -7,7 +7,9 @@
 package controllerclass;
 
 import applicationclass.G_User;
+import applicationclass.G_Validation;
 import applicationclass.User;
+import sqlclass.SimpleDataSource;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,7 +25,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * FXML Controller classe pour l'interface de connexion
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
@@ -52,6 +54,10 @@ public class Connexion_v1Controller extends main_controller implements Initializ
         this.primaryStage = stage;
     }
 
+    /**
+     *
+     * @param primaryStage
+     */
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("AddressApp");
@@ -89,35 +95,16 @@ public class Connexion_v1Controller extends main_controller implements Initializ
 
     }
 
-    /**
-     *
-     * @param name
-     * @return
-     * @throws SQLException
-     */
-    boolean validContent() {
-        boolean etat = true;
-        if (user_name.getText().isEmpty()) {
-            g.addMessageErreur("Le champ du nom est vide");
-            etat = false;
-        }
-        if (user_password.getText().isEmpty()) {
-            g.addMessageErreur("Le champ du mot de passe est vide");
-            etat = false;
-        }
-        return etat;
-    }
-
     @FXML
     private void connectUser(MouseEvent event) throws SQLException, IOException {
 
         g.getUsagerActif().setNom(user_name.getText());
         G_User.setUser(new User(user_name.getText()));
-        
+
         try {
             if (validContent() && G_User.validUser(user_password.getText())) {
                 g.getUsagerActif().setId(G_User.getUserId(user_name.getText()).getId());
-               
+
                 PagePrincipaleController controller = new PagePrincipaleController();
                 stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
                 controller.setPrevStage(stageTheLabelBelongs);
@@ -152,4 +139,24 @@ public class Connexion_v1Controller extends main_controller implements Initializ
         }
     }
 
+    /**
+     * Valide si les champs de l'interface est conforme pour la création des
+     *
+     * @param name
+     * @return
+     * @throws SQLException Connexion à la base de donnée incomplète
+     */
+    boolean validContent() {
+        boolean etat = true;
+        if (user_name.getText().isEmpty()) {
+            g.addMessageErreur("Le champ du nom est vide");
+            etat = false;
+        }
+        if (user_password.getText().isEmpty()) {
+            g.addMessageErreur("Le champ du mot de passe est vide");
+            etat = false;
+        }
+        return etat;
+
+    }
 }

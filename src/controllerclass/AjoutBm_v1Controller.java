@@ -123,9 +123,7 @@ public class AjoutBm_v1Controller extends main_controller implements Initializab
 
             Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
             stageTheLabelBelongs.hide();
-        } else {
-            showAlert();
-        }
+        } 
 
     }
 

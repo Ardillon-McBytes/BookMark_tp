@@ -1,11 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
 package applicationclass;
 
-import static applicationclass.G_Validation.nom;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +18,8 @@ import org.apache.commons.validator.UrlValidator;
 import sqlclass.SimpleDataSource;
 
 /**
+ * Classe qui s'occupe de la gestion des validations de saisies et de
+ * correspondance avec la BD
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
@@ -27,13 +29,14 @@ public class G_Validation {
 
   private static final int MAX_VAL_TYPE_PARTAGE = 2;
   private static boolean erreur = false;
-  private static ArrayList<String> messagesErreur = new ArrayList<String>();
-  private static ArrayList<String> messagesConfirmation = new ArrayList<String>();
-  ;
-  private static ArrayList<String> nomColsConnexionTemp = new ArrayList<String>();
-  ;
+  private static ArrayList<String> messagesErreur = new ArrayList<>();
+  private static ArrayList<String> messagesConfirmation = new ArrayList<>();
+  private static ArrayList<String> nomColsConnexionTemp = new ArrayList<>();
   private static Connection conn = null;
 
+  /**
+   * Constructeur de la classe
+   */
   public G_Validation() {
     nomColsConnexionTemp = new ArrayList<>();
     nomColsConnexionTemp.add("user_name");
@@ -51,18 +54,43 @@ public class G_Validation {
     return text.length() - text.replace(element, "").length();
   }
 
+  /**
+   * Valide que la chaine ne soit pas nulle ou vide
+   *
+   * @param text Chaine de caractère
+   * @return Vrai si la chaine de caractère n'est pas vide.
+   */
   private static boolean nn(String text) {
-    return text != null;
+    return text != null && !text.isEmpty();
   }
 
+  /**
+   * Obtient le premier caractère de la chaine
+   *
+   * @param text Chaine de caractère
+   * @return Premier caractère de la chaine
+   */
   private static char premierChar(String text) {
     return text.charAt(0);
   }
 
+  /**
+   * Obtient le dernier caractère de la chaine
+   *
+   * @param text Chaine de caractère
+   * @return Dernier caractère de la chaine
+   */
   private static char dernierChar(String text) {
     return text.charAt(text.length() - 1);
   }
 
+  /**
+   * Valide que la chaine de caractère contient des caractères alphabétique
+   *
+   * @param text Chaine de caractère
+   * @return Vrai si la chaine de caractère contiens assez de caractère
+   * alphabétique
+   */
   private static boolean chaineMinime(String text) {
     if (nn(text)) {
       return false;
@@ -72,38 +100,85 @@ public class G_Validation {
     return !(min.isEmpty() || "".equals(min));
   }
 
+  /**
+   * Valide qu'une chaine de caractère contient assez de caractères alphabétique
+   *
+   * @param text Chaine de caractère à valider
+   * @param maximum Nombre maximal de caractère que la chaine de caractère peut
+   * contenir
+   * @return Vrai si la chaine contient assez de caractères alphabétique
+   */
   private static boolean chaineValide(String text, int maximum) {
     return chaineMinime(text) && text.length() > 5 && text.length() <= maximum;
   }
 
+  /**
+   * Enlève toutes les caractères non alphabétique d'une chaine
+   *
+   * @param text Chaine de caractère à modifier
+   * @return La chaine modifiée
+   */
   private static String alphaSeulement(String text) {
     return text.replaceAll("[^A-Za-z]", "");
   }
 
+  /**
+   *
+   *
+   * @param adresse
+   * @return
+   */
   public static boolean courriel(String adresse) {
     return EmailValidator.getInstance().isValid(adresse);
   }
 
+  /**
+   *
+   * @param nom
+   * @return
+   */
   public static boolean nom(String nom) {
     return !chaineValide(nom, 20);
   }
 
+  /**
+   *
+   * @param mdp
+   * @return
+   */
   public static boolean mdp(String mdp) {
     return !chaineValide(mdp, 20);
   }
 
+  /**
+   *
+   * @param url
+   * @return
+   */
   public static boolean url(String url) {
     String[] schemes = {"http", "https"};
     UrlValidator urlValidator = new UrlValidator(schemes);
     return urlValidator.isValid(url);
   }
 
+  /**
+   *
+   * @param racine
+   * @return
+   * @throws Exception
+   */
   public static boolean gbRacine(Groupbook racine) throws Exception {
     return !(!gb(racine) || racine.getTypePartage() != 0
             || racine.getParent() != racine.getId()
             || !"racine".equals(racine.getNom()));
   }
 
+  /**
+   *
+   * @param gb
+   * @return
+   * @throws Exception
+   */
   public static boolean gbPartage(Groupbook gb) throws Exception {
     return !(!gb(gb) || gb.getTypePartage() == 0
             || gb.getParent() == gb.getId());
@@ -117,6 +192,16 @@ public class G_Validation {
     return !(type < 0 || type > MAX_VAL_TYPE_PARTAGE);
   }
 
+  /**
+   *
+   * @param nomUtilisateur
+   * @param courriel
+   * @param mdp
+   * @return
+   * @throws IOException Les champs saisies ne correspond pas au format requis
+   * pour la validation
+   * @throws SQLException Connexion à la base de donnée incomplète
+   */
   public static User userValidation(String nomUtilisateur, String courriel, String mdp)
           throws IOException, SQLException {
     if (!G_Validation.nom(nomUtilisateur)) {
@@ -131,6 +216,15 @@ public class G_Validation {
     return User.recherche(nomUtilisateur, courriel);
   }
 
+  /**
+   *
+   * @param nomUtilisateur
+   * @param mdp
+   * @return
+   * @throws IOException Les champs saisies ne correspond pas au format requis
+   * pour la validation
+   * @throws SQLException Connexion à la base de donnée incomplète
+   */
   public static User userValidation(String nomUtilisateur, String mdp)
           throws IOException, SQLException {
     // Faire ces validations dans le gestionnaire des utilisateurs 
@@ -144,11 +238,29 @@ public class G_Validation {
     return User.recherche(nomUtilisateur, mdp);
   }
 
+  /**
+   * Valide les informations
+   *
+   * @param user Utilisateur à valider
+   * @return Vrai si l'instance de l'utilisateur correspond à un des
+   * enregistrements de la DB
+   * @throws IOException Les champs saisies ne correspond pas au format requis
+   * pour la validation
+   * @throws SQLException Connexion à la base de donnée incomplète
+   */
   public static User userValidation(User user)
           throws IOException, SQLException {
     return userValidation(user.getNom(), user.getCourriel(), "mot de passe");
   }
 
+  /**
+   * Valide la connexion d'un utilisateur à l'aide de la BD
+   *
+   * @param nom Nom de l'utilisateur
+   * @param mdp Mot de passe
+   * @return Vrai si les iformation de l'utilisateur saisie correspond à un des
+   * enregistrements de la DB
+   */
   public static boolean validUserConnexion(String nom, String mdp) {
     ArrayList<Object> valRechCols = new ArrayList<>();
     valRechCols.add(nom);
@@ -173,9 +285,11 @@ public class G_Validation {
    * @param nomCol
    * @param valCol
    * @param text
-   * @return
-   * @throws SQLException
-   * @throws IOException
+   * @return Vrai si le contenu de la colone dans la BD est égale à la valeur
+   * saisie
+   * @throws SQLException Connexion à la base de donnée incomplète
+   * @throws IOException Les champs saisies ne correspond pas au format requis
+   * pour la validation
    */
   public static boolean compareColString(String nomTable, String nomCol, int valCol, String text)
           throws SQLException, IOException {
@@ -216,6 +330,16 @@ public class G_Validation {
     return condition.toString();
   }
 
+  /**
+   *
+   * @param nomTable
+   * @param nomCols
+   * @param valRechCols
+   * @return
+   * @throws SQLException Connexion à la base de donnée incomplète
+   * @throws IOException Les champs saisies ne correspond pas au format requis
+   * pour la validation
+   */
   private static boolean compareBD(String nomTable,
           ArrayList<String> nomCols, ArrayList<Object> valRechCols)
           throws SQLException, IOException {
@@ -245,6 +369,14 @@ public class G_Validation {
     return true;
   }
 
+  /**
+   *
+   * @param rs
+   * @param val
+   * @param nomCol
+   * @return
+   * @throws SQLException Connexion à la base de donnée incomplète
+   */
   private static boolean compareRS(ResultSet rs, Object val, String nomCol) throws SQLException {
     if (val instanceof String) {
       if (val.equals(rs.getString(nomCol))) {
@@ -262,36 +394,70 @@ public class G_Validation {
     return false;
   }
 
+  /**
+   *
+   * @param message
+   */
   public static void addMessageErreur(String message) {
     G_Validation.erreur = true;
     G_Validation.messagesErreur.add(message);
   }
 
+  /**
+   *
+   * @param message
+   */
   public static void addMessageConfirmation(String message) {
     G_Validation.messagesConfirmation.add(message);
   }
 
-  public static boolean validUser(String name, String mdp) throws IOException, SQLException, ClassNotFoundException {
-    if (validName(name) == true
-            && validPassword(name, mdp) == true) {
+  /**
+   *
+   *
+   * @param name
+   * @param mdp
+   * @return
+   * @throws IOException Les champs saisies ne correspond pas au format requis
+   * pour la validation
+   * @throws SQLException Connexion à la base de donnée incomplète
+   * @throws ClassNotFoundException
+   */
+  public static boolean validUser(String name, String mdp)
+          throws IOException, SQLException, ClassNotFoundException {
 
-      return true;
-
-    }
-    return false;
+    return validName(name) == true && validPassword(name, mdp) == true;
   }
 
-  public static boolean validName(String name) throws SQLException, IOException {
+  /**
+   *
+   *
+   * @param name
+   * @return
+   * @throws SQLException Connexion à la base de donnée incomplète
+   * @throws IOException Les champs saisies ne correspond pas au format requis
+   * pour la validation
+   */
+  public static boolean validName(String name)
+          throws SQLException, IOException {
 
-    if (G_User.getUserId(name).getId() > 0) {
-      return true;
-    }
-    return false;
-
+    return G_User.getUserId(name).getId() > 0;
   }
 
-  public static boolean validPassword(String name, String mdp) throws IOException, SQLException, ClassNotFoundException {
-    Connection conn = SimpleDataSource.getConnection();
+  /**
+   *
+   *
+   * @param name
+   * @param mdp
+   * @return
+   * @throws IOException Les champs saisies ne correspond pas au format requis
+   * pour la validation
+   * @throws SQLException Connexion à la base de donnée incomplète
+   * @throws ClassNotFoundException
+   */
+  public static boolean validPassword(String name, String mdp)
+          throws IOException, SQLException, ClassNotFoundException {
+
+    conn = SimpleDataSource.getConnection();
     try {
 
       PreparedStatement stat = conn.prepareStatement(
@@ -300,7 +466,7 @@ public class G_Validation {
               + "WHERE user.user_name = '" + name + "')");
 
       ResultSet rs = stat.executeQuery();
-      String pass = null;
+      String pass;
 
       if (rs.next()) {
         pass = rs.getString(1);
@@ -318,15 +484,30 @@ public class G_Validation {
     return true;
   }
 
+  /**
+   *
+   * @return
+   */
   public static String getMessageErreur() {
-    if (!estEnErreur()) {
-      return "";
+    String message = "";
+    if (estEnErreur()) {
+      message = getMessage(G_Validation.messagesErreur);
+      G_Validation.messagesErreur.clear();
     }
-    return getMessage(G_Validation.messagesErreur);
+    return message;
   }
 
+  /**
+   *
+   * @return
+   */
   public static String getMessageConfirmation() {
-    return getMessage(G_Validation.messagesConfirmation);
+    String message = "";
+    if (estEnErreur()) {
+      message = getMessage(G_Validation.messagesConfirmation);
+      G_Validation.messagesConfirmation.clear();
+    }
+    return message;
   }
 
   private static String getMessage(ArrayList<String> messages) {
@@ -343,10 +524,18 @@ public class G_Validation {
     return message.toString();
   }
 
+  /**
+   *
+   * @return
+   */
   public static boolean estEnErreur() {
     return G_Validation.erreur;
   }
 
+  /**
+   *
+   * @param etat
+   */
   public static void estEnErreur(boolean etat) {
     G_Validation.erreur = etat;
   }

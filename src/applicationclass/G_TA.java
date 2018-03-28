@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
 package applicationclass;
 
@@ -11,7 +12,7 @@ import java.sql.SQLException;
 import sqlclass.SimpleDataSource;
 
 /**
- *
+ * Classe dédié à la gestion des tables d'associations
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
@@ -45,6 +46,9 @@ public class G_TA {
     G_TA.conn = null;
   }
 
+  /**
+   * Constructeur
+   */
   public G_TA() {
     G_TA.acces = new TA_User_GB();
     G_TA.conteneurs = new TA_GB_GB();
@@ -55,6 +59,21 @@ public class G_TA {
 
   /**
    * MÉTHODES DE LA CLASSE ********************
+   */
+  /**
+   * Méthode générique qui permet l'ajout d'une association dans la table
+   * correspondante aux éléments
+   *
+   * @param <L> Type de l'élément de gauche
+   * @param <R> Type de l'élément de droite
+   * @param <A> Type de l'association des éléments
+   * @param <TA> Type du tableau d'association correspondant
+   * @param id Identifiant de l'association
+   * @param left Objet associé de la gauche
+   * @param right Objet associé de la droite
+   * @param ta Tableau d'association correspondant
+   * @return Vrai si l'ajout a pu être effectué
+   * @throws SQLException Une erreur s'est produite avec la BD
    */
   private static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
           boolean addElement(int id, L left, R right, TA ta)
@@ -69,26 +88,65 @@ public class G_TA {
     return result;
   }
 
+  /**
+   * Effectur l'ajout d'une association entre un utilisateur et un groupbook
+   *
+   * @param accedeur L'utilisateur ayant accès au groupbook
+   * @param groupbook Groupbook corespondant
+   * @return Vrai si l'ajout a pu être effectué
+   * @throws SQLException Une erreur s'est produite avec la BD
+   */
   public static boolean addAccess(User accedeur, Groupbook groupbook)
           throws SQLException {
     return addElement(1, accedeur, groupbook, acces);
   }
 
+  /**
+   *
+   * @param parent
+   * @param enfant
+   * @return Vrai si l'ajout a pu être effectué
+   * @throws SQLException Une erreur s'est produite avec la BD
+   */
   public static boolean addConteneur(Groupbook parent, Groupbook enfant)
           throws SQLException {
     return addElement(1, parent, enfant, conteneurs);
   }
 
+  /**
+   *
+   * @param dossier
+   * @param bookmark
+   * @return Vrai si l'ajout a pu être effectué
+   * @throws SQLException Une erreur s'est produite avec la BD
+   */
   public static boolean addContenu(Groupbook dossier, Bookmark bookmark)
           throws SQLException {
     return addElement(1, dossier, bookmark, contenus);
   }
 
+  /**
+   *
+   * @param bookmark
+   * @param tag
+   * @return Vrai si l'ajout a pu être effectué
+   * @throws SQLException Une erreur s'est produite avec la BD
+   */
   public static boolean addEtiquette(Bookmark bookmark, Tag tag)
           throws SQLException {
     return addElement(1, bookmark, tag, etiquettes);
   }
 
+  /**
+   *
+   * @param <L>
+   * @param <R>
+   * @param left
+   * @param right
+   * @param ta
+   * @return Vrai si la suppression a pu être effectuée
+   * @throws SQLException Une erreur s'est produite avec la BD
+   */
   private static <L extends DBField, R extends DBField>
           DBA<L, R> removeElement(L left, R right, TABase<L, R, ?> ta)
           throws SQLException {
@@ -104,21 +162,49 @@ public class G_TA {
     return result;
   }
 
+  /**
+   *
+   * @param accedeur
+   * @param groupbook
+   * @return Vrai si la suppression a pu être effectuée
+   * @throws SQLException Une erreur s'est produite avec la BD
+   */
   public static DBA<User, Groupbook>
           removeAccess(User accedeur, Groupbook groupbook) throws SQLException {
     return removeElement(accedeur, groupbook, acces);
   }
 
+  /**
+   *
+   * @param parent
+   * @param enfant
+   * @return Vrai si la suppression a pu être effectuée
+   * @throws SQLException Une erreur s'est produite avec la BD
+   */
   public static DBA<Groupbook, Groupbook>
           removeConteneur(Groupbook parent, Groupbook enfant) throws SQLException {
     return removeElement(parent, enfant, conteneurs);
   }
 
+  /**
+   *
+   * @param dossier
+   * @param bookmark
+   * @return Vrai si la suppression a pu être effectuée
+   * @throws SQLException Une erreur s'est produite avec la BD
+   */
   public static DBA<Groupbook, Bookmark>
           removeContenu(Groupbook dossier, Bookmark bookmark) throws SQLException {
     return removeElement(dossier, bookmark, contenus);
   }
 
+  /**
+   *
+   * @param bookmark
+   * @param tag
+   * @return Vrai si la suppression a pu être effectuée
+   * @throws SQLException Une erreur s'est produite avec la BD
+   */
   public static DBA<Bookmark, Tag>
           removeEtiquette(Bookmark bookmark, Tag tag) throws SQLException {
     return removeElement(bookmark, tag, etiquettes);
@@ -130,7 +216,7 @@ public class G_TA {
   /**
    *
    * @param acces
-   * @throws IOException
+   * @throws java.io.IOException La table d'association n'a pas été instanciée
    */
   public void setAcces(TA_User_GB acces) throws IOException {
     if (acces == null) {
@@ -139,6 +225,11 @@ public class G_TA {
     G_TA.acces = acces;
   }
 
+  /**
+   *
+   * @param conteneurs
+   * @throws java.io.IOException La table d'association n'a pas été instanciée
+   */
   public void setConteneurs(TA_GB_GB conteneurs) throws IOException {
     if (conteneurs == null) {
       throw new IOException();
@@ -146,6 +237,11 @@ public class G_TA {
     G_TA.conteneurs = conteneurs;
   }
 
+  /**
+   *
+   * @param contenus
+   * @throws java.io.IOException La table d'association n'a pas été instanciée
+   */
   public void setContenus(TA_GB_BM contenus) throws IOException {
     if (contenus == null) {
       throw new IOException();
@@ -153,6 +249,11 @@ public class G_TA {
     G_TA.contenus = contenus;
   }
 
+  /**
+   *
+   * @param etiquettes
+   * @throws java.io.IOException La table d'association n'a pas été instanciée
+   */
   public void setEtiquettes(TA_BM_Tag etiquettes) throws IOException {
     if (etiquettes == null) {
       throw new IOException();
@@ -160,18 +261,36 @@ public class G_TA {
     G_TA.etiquettes = etiquettes;
   }
 
+  /**
+   *
+   *
+   * @return
+   */
   public static TA_User_GB getAcces() {
     return acces;
   }
 
+  /**
+   *
+   *
+   * @return
+   */
   public static TA_GB_GB getConteneurs() {
     return conteneurs;
   }
 
+  /**
+   *
+   * @return
+   */
   public static TA_GB_BM getContenus() {
     return contenus;
   }
 
+  /**
+   *
+   * @return
+   */
   public static TA_BM_Tag getEtiquettes() {
     return etiquettes;
   }

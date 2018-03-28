@@ -23,7 +23,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * FXML Controller classe pour l'interface d'ajout d'un nouveau compte
+ * d'utilisateur
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
@@ -72,7 +73,7 @@ public class NouveauCompte_v1Controller extends main_controller implements Initi
                 G_User.setUser(new User(userName.getText(), userAdress.getText()));
                 G_User.createUser(userPassword.getText());
                 G_GB.createGb(user);
-                
+
                 super.exitPage(btnAnnuler);
             }
         } catch (SQLException e) {
@@ -84,8 +85,59 @@ public class NouveauCompte_v1Controller extends main_controller implements Initi
         }
     }
 
-    private boolean addErreur(String message) {
-        g.addMessageErreur(message);
+
+
+private boolean addErreur(String message) {
+    g.addMessageErreur(message);
+    return true;
+  }
+
+  private boolean addConfirmation(String message) {
+    g.addMessageConfirmation(message);
+    return true;
+  }
+
+  private boolean Valid() {
+    boolean invalide = false;
+
+    if (userName.getText().isEmpty()) {
+      invalide = addConfirmation("Le champ du nom du compte est vide.");
+    } else if (!G_Validation.nom(userName.getText())) {
+      invalide = addConfirmation("Le nom du compte saisie n'est pas valide.");
+    }
+
+    if (userAdress.getText().isEmpty()) {
+      invalide = addConfirmation("Le champ du mot de passe est vide.");
+    } else if (!G_Validation.courriel(userAdress.getText())) {
+      invalide = addConfirmation("L'adresse courriel saisie n'est pas valide.");
+    }
+
+    if (userPassword.getText().isEmpty()) {
+      invalide = addConfirmation("Le champ du mot de passe est vide.");
+    } else if (!G_Validation.mdp(userPassword.getText())) {
+      invalide = addConfirmation("Le mot de passe saisie n'est pas valide.");
+    } else if (!userConfirmPassword.getText().equals(userPassword.getText())) {
+      invalide = addConfirmation("La resaisie du mot de passe n'est pas identique au premier.");
+    }
+
+    if (invalide) {
+      showConfirmation();
+    }
+
+    return !invalide;
+  }
+
+  /*boolean validUser() throws IOException, SQLException, ClassNotFoundException {
+    Connection conn = SimpleDataSource.getConnection();
+    try {
+
+      PreparedStatement stat = conn.prepareStatement(
+              "(SELECT Id FROM user WHERE user_name = '" + userName.getText() + "')");
+
+      int valid = stat.executeUpdate();
+
+      if (valid != 0) {
+        showAlert("nom de user déja pris, user ");
         return false;
     }
 
@@ -119,7 +171,7 @@ public class NouveauCompte_v1Controller extends main_controller implements Initi
      * @throws Exception
      */
     @FXML
-    private void exitPage(MouseEvent event) throws Exception {
+        private void exitPage(MouseEvent event) throws Exception {
         super.exitPage(btnAnnuler);
     }
 

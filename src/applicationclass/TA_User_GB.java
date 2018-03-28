@@ -1,13 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
 package applicationclass;
 
-import static applicationclass.G_BM.bm;
-import static applicationclass.TA_GB_BM.id_Bm;
-import static applicationclass.TA_GB_BM.id_group;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,6 +25,9 @@ import sqlclass.SimpleDataSource;
  */
 public class TA_User_GB extends TABase<User, Groupbook, DBA<User, Groupbook>> {
 
+  /**
+   *
+   */
   public TA_User_GB() {
     TABase.constructor("user_group",
             1, "id",
@@ -34,6 +35,14 @@ public class TA_User_GB extends TABase<User, Groupbook, DBA<User, Groupbook>> {
             2, "id_groupBook");
   }
 
+  /**
+   *
+   * @param id_user
+   * @param id_groupBook
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   static public void deleteUserGroup(int id_user, int id_groupBook) throws IOException, SQLException, ClassNotFoundException {
 
     Connection conn = SimpleDataSource.getConnection();
@@ -50,6 +59,14 @@ public class TA_User_GB extends TABase<User, Groupbook, DBA<User, Groupbook>> {
 
   }
 
+  /**
+   *
+   * @param id_user
+   * @param id_groupBook
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   static public void addUserGroup(int id_user, int id_groupBook) throws IOException, SQLException, ClassNotFoundException {
 
     Connection conn = SimpleDataSource.getConnection();
@@ -70,9 +87,17 @@ public class TA_User_GB extends TABase<User, Groupbook, DBA<User, Groupbook>> {
 
   }
 
+  /**
+   *
+   * @param id_user
+   * @return
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   static public ArrayList<Groupbook> getUserGroups(int id_user) throws IOException, SQLException, ClassNotFoundException {
 
-    ArrayList<Groupbook> gb = new ArrayList<Groupbook>();
+    ArrayList<Groupbook> gb = new ArrayList<>();
     Connection conn = SimpleDataSource.getConnection();
     try {
 
@@ -90,8 +115,8 @@ public class TA_User_GB extends TABase<User, Groupbook, DBA<User, Groupbook>> {
         G_BM = new G_BM();
         Groupbook gb2 = new Groupbook();
 
-        gb2 = TA_GB_BM.getBmFromGb(rs.getInt(4));
-
+        // La méthode devrait retourner un ou plusieurs bookmarks selon son nom, mais elle est construite différament?
+        //gb2 = TA_GB_BM.getBmFromGb(rs.getInt(4));
         gb.add(gb2);
 
         n++;

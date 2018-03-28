@@ -15,8 +15,7 @@ import javafx.stage.Stage;
 import sqlclass.SimpleDataSource;
 
 /**
- * Classe du programme principal? (Il faudrait qu'on développe un gestionnaire
- * qui facilite les modifications via les TAs)
+ * Classe du programme principal
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
@@ -27,8 +26,10 @@ public class ApplicationMain extends Application {
   private Stage primaryStage;
 
   /**
-   * @param args the command line arguments
-   * @throws java.lang.Exception
+   * Méthode de démarage de l'application
+   *
+   * @param args Le fichier de configuration utilisé pour la connexion à la BD
+   * @throws java.lang.Exception Erreur du programme à son départ
    */
   public static void main(String[] args) throws Exception {
 
@@ -37,21 +38,29 @@ public class ApplicationMain extends Application {
   }
 
   /**
+   * Change le Stage principal
    *
-   * @param primaryStage
+   * @param primaryStage Le nouveau Stage
    */
   public void setPrimaryStage(Stage primaryStage) {
     this.primaryStage = primaryStage;
   }
 
   /**
+   * Obtient le Stage principal
    *
-   * @return
+   * @return Le Stage principal
    */
   public Stage getPrimaryStage() {
     return this.primaryStage;
   }
 
+  /**
+   * Méthode contrale de l'application
+   *
+   * @param stage Stage utilisé
+   * @throws Exception Erreur de l'application lors de son exécution
+   */
   @Override
   public void start(Stage stage) throws Exception {
 

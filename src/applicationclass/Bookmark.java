@@ -25,15 +25,22 @@ public class Bookmark implements DBField {
   private String description;
 
   /**
+   * Constructeur
+   *
+   * @param id
+   * @param description
+   */
+  public Bookmark() {
+  }
+
+  /**
+   * Constructeur
    *
    * @param id
    * @param nom
    * @param url
    * @param description
    */
-  public Bookmark() {
-  }
-
   public Bookmark(int id, String nom, String url, String description) {
     this.id = id;
     this.nom = nom;
@@ -41,6 +48,13 @@ public class Bookmark implements DBField {
     this.description = description;
   }
 
+  /**
+   * Constructeur
+   *
+   * @param nom
+   * @param url
+   * @param description
+   */
   public Bookmark(String nom, String url, String description) {
     this.id = id;
     this.nom = nom;
@@ -48,6 +62,12 @@ public class Bookmark implements DBField {
     this.description = description;
   }
 
+  /**
+   * Constructeur
+   *
+   * @param rs
+   * @throws SQLException
+   */
   public Bookmark(ResultSet rs) throws SQLException {
     this.id = rs.getInt("id");
     this.nom = rs.getString("nom");
@@ -56,8 +76,9 @@ public class Bookmark implements DBField {
   }
 
   /**
+   * Change l'identifiant du bookmark
    *
-   * @param id
+   * @param id Nouveau identifiant
    */
   @Override
   public void setId(int id) {
@@ -65,8 +86,9 @@ public class Bookmark implements DBField {
   }
 
   /**
+   * Change le nom du bookmark
    *
-   * @param nom
+   * @param nom Nouveau nom
    */
   @Override
   public void setNom(String nom) {
@@ -74,8 +96,9 @@ public class Bookmark implements DBField {
   }
 
   /**
+   * Change l'url du bookmark
    *
-   * @param value
+   * @param value Nouveau url
    */
   @Override
   public void setValue(String value) {
@@ -83,24 +106,27 @@ public class Bookmark implements DBField {
   }
 
   /**
+   * Change l'url du bookmark
    *
-   * @param url
+   * @param url Nouveau url
    */
   public void setUrl(String url) {
     this.url = url;
   }
 
   /**
+   * Change la description du bookmark
    *
-   * @param description
+   * @param description Nouvelle description
    */
   public void setDescription(String description) {
     this.description = description;
   }
 
   /**
+   * Obtient l'identifiant du bookmark
    *
-   * @return
+   * @return L'identifiant
    */
   @Override
   public int getId() {
@@ -108,8 +134,9 @@ public class Bookmark implements DBField {
   }
 
   /**
+   * Obtient le nom du bookmark
    *
-   * @return
+   * @return Le nom
    */
   @Override
   public String getNom() {
@@ -117,8 +144,9 @@ public class Bookmark implements DBField {
   }
 
   /**
+   * Obtient l'url du bookmark
    *
-   * @return
+   * @return L'url
    */
   @Override
   public String getValue() {
@@ -126,26 +154,29 @@ public class Bookmark implements DBField {
   }
 
   /**
+   * Obtient l'url du bookmark
    *
-   * @return
+   * @return L'url
    */
   public String getUrl() {
     return url;
   }
 
   /**
+   * Obtient la description du bookmark
    *
-   * @return
+   * @return La description
    */
   public String getDescription() {
     return description;
   }
 
   /**
+   * Obtient la liste des tags associée au bookmark
    *
-   * @param tagged
-   * @param tags
-   * @return
+   * @param tagged TA des étiquetages
+   * @param tags Liste des tags
+   * @return Liste des tags associée
    */
   public ArrayList<Tag> getTags(TA_BM_Tag tagged, ArrayList<Tag> tags) {
     return Recherche.getTags(this, tagged, tags);
@@ -167,10 +198,11 @@ public class Bookmark implements DBField {
   }
 
   /**
+   * Obtient la liste des groupbooks associée u bookmark
    *
-   * @param folders
-   * @param groupbooks
-   * @return
+   * @param folders TA des contenues
+   * @param groupbooks Liste des groupbooks
+   * @return Liste des groupbooks associée
    */
   public ArrayList<Groupbook> getGroupbooks(TA_GB_BM folders, ArrayList<Groupbook> groupbooks) {
     return Recherche.getGroupbooks(this, folders, groupbooks);

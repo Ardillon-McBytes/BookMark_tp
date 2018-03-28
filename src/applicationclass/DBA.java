@@ -9,7 +9,8 @@ package applicationclass;
 import java.util.ArrayList;
 
 /**
- * Classe parente à toutes les tables d'associations (TAs)
+ * Classe parente à toutes les associations utilisés dans les tables
+ * d'associations (TAs)
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
@@ -20,32 +21,26 @@ import java.util.ArrayList;
 public class DBA<L extends DBField, R extends DBField> {
 
   /**
-   *
+   * Identifiant de l'association
    */
   protected int id;
 
   /**
-   *
+   * Identifiant de l'élément du premier champ de la TA de la BD
    */
   protected int left;
 
   /**
-   *
+   * Identifiant de l'élément du deuxième champ de la TA de la BD
    */
   protected int right;
 
   /**
+   * Constructeur
    *
-   */
-  public static void main(String[] args) {
-
-  }
-
-  /**
-   *
-   * @param id
-   * @param left
-   * @param right
+   * @param id Identifiant de l'association
+   * @param left Identifiant du premier élément
+   * @param right Identifiant du deuxième élément
    */
   protected final void constructor(int id, int left, int right) {
     this.id = id;
@@ -54,10 +49,11 @@ public class DBA<L extends DBField, R extends DBField> {
   }
 
   /**
+   * Constructeur
    *
-   * @param id
-   * @param left
-   * @param right
+   * @param id Identifiant de l'association
+   * @param left Objet du premier élément
+   * @param right Objet du deuxième élément
    */
   protected final void constructor(int id, L left, R right) {
     this.id = id;
@@ -65,79 +61,98 @@ public class DBA<L extends DBField, R extends DBField> {
     setRight(right);
   }
 
+  /**
+   * Constructeur
+   */
   public DBA() {
   }
 
   /**
+   * Constructeur
    *
-   * @param id
-   * @param left
-   * @param right
+   * @param id Identifiant de l'association
+   * @param left Identifiant du premier élément
+   * @param right Identifiant du deuxième élément
    */
   public DBA(int id, int left, int right) {
     constructor(id, left, right);
   }
 
   /**
+   * Constructeur
    *
-   * @param id
-   * @param left
-   * @param right
+   * @param id Identifiant de l'association
+   * @param left Objet du premier élément
+   * @param right Objet du deuxième élément
    */
   public DBA(int id, L left, R right) {
     constructor(id, left, right);
   }
 
   /**
+   * Modifie l'identifiant de l'association
    *
-   * @param id
+   * @param id Nouvel identifiant
    */
   public void setId(int id) {
     this.id = id;
   }
 
   /**
+   * Modifie l'identifiant du premier élément dans la BD
    *
-   * @param left
+   * @param left Identifiant du premier élément
    */
   public void setLeft(int left) {
     this.left = left;
   }
 
   /**
+   * Modifie l'identifiant du premier élément dans la BD avec l'objet
    *
-   * @param left
+   * @param left Objet du premier élément
    */
   public void setLeft(L left) {
     this.left = left.getId();
   }
 
   /**
+   * Modifie l'identifiant du deuxième élément dans la BD
    *
-   * @param right
+   * @param right Identifiant du deuxième élément
    */
   public void setRight(int right) {
     this.right = right;
   }
 
   /**
+   * Modifie l'identifiant du deuxième élément dans la BD
    *
-   * @param right
+   * @param right Identifiant du deuxième élément
    */
   public void setRight(R right) {
     this.right = right.getId();
   }
 
   /**
+   * Modifie les identifiants à l'aide d'un couple (ne change pas l'identifiant
+   * de l'association)
    *
-   * @param pair
+   * @param pair Couple d'entier identifiant les objets associés
    */
   public void setPair(Pair<Integer> pair) {
     setLeft(pair.id);
     setRight(pair.value);
   }
 
-  // Façon qui utilise une méthode générique, mais fonctionne-t-elle?
+  /**
+   * Obtient l'élément qui possède l'identifiant dans une liste
+   *
+   * @param <FK> Type de l'élément recherché
+   * @param side Identifiant de l'élément recherché
+   * @param list Liste des éléments
+   * @return L'élément trouvé sinon la valeur null
+   */
   public <FK extends DBField> FK DBTA(int side, ArrayList<FK> list) {
     for (FK fk : list) {
       if (fk.getId() == side) {
@@ -148,40 +163,34 @@ public class DBA<L extends DBField, R extends DBField> {
   }
 
   /**
+   * Obtient le premier élément (coté gauche) présent dans une liste
    *
-   * @param llist
-   * @return
+   * @param list Liste des éléments de la première colonne dans la BD
+   * @return L'élément trouvé ou la valeur null
    */
-  public L getLeft(ArrayList<L> llist) {
+  public L getLeft(ArrayList<L> list) {
     // Essai de la méthode générique
-    return DBTA(this.left, llist);
-    /*
-    // Autre manière de faire la méthode
-    for (L l : llist) {
-      if (l.getId() == this.left) {
-        return l;
-      }
-    }
-    return null;
-     */
+    return DBTA(this.left, list);
   }
 
   /**
+   * Obtient l'identifiant du premier élément associé
    *
-   * @return
+   * @return L'identifiant de l'élément
    */
   public int getLeft() {
     return this.left;
   }
 
   /**
+   * Obtient le deuxième élément associé (coté droit) présent dans une liste
    *
-   * @param rlist
-   * @return
+   * @param list Liste des éléments de la deuxième colonne dans la BD
+   * @return L'élément trouvé ou la valeur null
    */
-  public R getRight(ArrayList<R> rlist) {
+  public R getRight(ArrayList<R> list) {
     // Utilise la méthode générique ici au lieu si elle fonctionne
-    for (R r : rlist) {
+    for (R r : list) {
       if (r.getId() == this.right) {
         return r;
       }
@@ -190,21 +199,28 @@ public class DBA<L extends DBField, R extends DBField> {
   }
 
   /**
+   * Obtient l'identifiant de l'élément de droite
    *
-   * @return
+   * @return L'identifiant
    */
   public int getRight() {
     return this.right;
   }
 
+  /**
+   * Obtient la pair d'association
+   *
+   * @return La pair associée
+   */
   public Pair<Integer> getPair() {
     return new Pair(left, right);
   }
 
   /**
+   * Méthode utilisé lors de la comparaison entre chaque DBA
    *
-   * @param obj
-   * @return
+   * @param obj DBA à comparer
+   * @return Vrai si les valeurs des deux DBA sont identiques
    */
   @Override
   public boolean equals(Object obj) {
@@ -215,9 +231,15 @@ public class DBA<L extends DBField, R extends DBField> {
       return false;
     }
     DBA other = (DBA) obj;
-    return !(left != other.left || right != other.right);
+    return !(id != other.id || left != other.left || right != other.right);
   }
 
+  /**
+   * Méthode utilisé dans les fonctions de recherches en générant une valeur
+   * hash
+   *
+   * @return Valeur hash
+   */
   @Override
   public int hashCode() {
     int hash = 7;

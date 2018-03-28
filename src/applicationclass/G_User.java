@@ -22,21 +22,46 @@ import sqlclass.SimpleDataSource;
  */
 public class G_User {
 
-    static User user = new User();
+    private static User user = new User();
+    private static Connection conn;
 
-    static public User getUser() {
-        return user;
+    /**
+     *
+     * @param event
+     * @param mdp
+     * @throws IOException
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public void CreateAccount(MouseEvent event, String mdp)
+            throws IOException, SQLException, ClassNotFoundException {
+
+        conn = SimpleDataSource.getConnection();
+        conn.setAutoCommit(false);
+        try {
+
+            createUser(mdp);
+            G_GB.createGb(user);
+            conn.commit();
+        } finally {
+            conn.close();
+        }
     }
 
     static public void setUser(User user) {
         G_User.user = user;
     }
 
-    public void CreateAccount(MouseEvent event, String mdp)
+    /**
+     *
+     * @throws IOException
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    static public void createUser(String mdp)
             throws IOException, SQLException, ClassNotFoundException {
 
-        Connection conn = SimpleDataSource.getConnection();
-        conn.setAutoCommit(false);
+        conn = SimpleDataSource.getConnection();
         try {
 
             createUser(mdp);
@@ -51,10 +76,17 @@ public class G_User {
         }
     }
 
+    /**
+     *
+     * @param mdp
+     * @throws IOException
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public void deleteUser()
             throws IOException, SQLException, ClassNotFoundException {
 
-        Connection conn = SimpleDataSource.getConnection();
+        conn = SimpleDataSource.getConnection();
         try {
 
             PreparedStatement stat = conn.prepareStatement(
@@ -67,24 +99,12 @@ public class G_User {
         }
     }
 
-    static public void createUser(String mdp)
-            throws IOException, SQLException, ClassNotFoundException {
-
-        Connection conn = SimpleDataSource.getConnection();
-        try {
- 
-            PreparedStatement stat = conn.prepareStatement(
-                    " INSERT INTO `User` (`user_name`, `user_adress`,`user_password`) "
-                    + "VALUES ('" + user.getNom() + "','"
-                    + user.getCourriel() + "','"
-                    + mdp + "')");
-
-            stat.executeUpdate();
-        } finally {
-            conn.close();
-        }
-    }
-
+    /**
+     *
+     * @param user
+     * @return
+     * @throws SQLException
+     */
     public int getUserId(User user)
             throws SQLException {
 
@@ -103,15 +123,18 @@ public class G_User {
                 return rs.getInt(1);
 
             }
-
         } finally {
             conn.close();
-
         }
+        /**
+         *
+         * @param name
+         * @return
+         * @throws SQLException
+         * @throws IOException
+         */
         return 0;
-
     }
-
     public static User getUserId(String name)
             throws SQLException, IOException {
 
@@ -135,7 +158,6 @@ public class G_User {
         return null;
     }
 
-    /*@old-node_conflict Cette méthode semble inexistante... perdu dans le merge?*/
     public static String getUserName(int id)
             throws SQLException, IOException {
 
@@ -159,19 +181,43 @@ public class G_User {
         return null;
     }
 
+    /**
+     * Valide la connexion de l'utilisateur par son nom et son mot de passe
+     *
+     * @param mdp
+     * @return Vrai si le mot de passe est le même que dans la BD et que son nom
+     * est valide
+     * @throws IOException
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     static public boolean validUser(String mdp)
             throws IOException, SQLException, ClassNotFoundException {
         return validName() == true && validPassword(mdp) == true;
     }
 
-    static public boolean validName() throws SQLException, IOException {
-        return (G_User.getUserId(user.getNom()).getId() > 0);
+    /**
+     * Valide que l'identifiant est valide (après avoir recherché par son nom)
+     *
+     * @return Vrai si l'identifiant est valide
+     */
+   static  public boolean validName() {
+        return user.getId() > 0;
     }
 
-    static public boolean validPassword(String mdp)
+    /**
+     * Valide le mot de passe de l'utilisateur
+     *
+     * @param mdp
+     * @return
+     * @throws IOException
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+   static public boolean validPassword(String mdp)
             throws IOException, SQLException, ClassNotFoundException {
 
-        Connection conn = SimpleDataSource.getConnection();
+        conn = SimpleDataSource.getConnection();
         try {
 
             PreparedStatement stat = conn.prepareStatement(

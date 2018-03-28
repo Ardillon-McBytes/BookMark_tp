@@ -9,6 +9,8 @@ package applicationclass;
 import java.util.ArrayList;
 
 /**
+ * Classe qui fait la gestion des recherches è partir de tables d'associations
+ * (TAs) et du contenu de l BD.
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
@@ -17,13 +19,27 @@ import java.util.ArrayList;
 public class Recherche {
 
   /**
+   * Méthode de tests
    *
+   * @param args
    */
   public static void main(String[] args) {
 
   }
 
-  // Façons qui utilisent une méthode générique, mais fonctionne-t-elles?
+  /**
+   * Obtien une liste de tout les éléments de droite comprit dans la TA qui ont
+   * comme pair l'objet de gauche
+   *
+   * @param <FK1> Type des éléments de gauche comprit dans la TA
+   * @param <FK2> Type des éléments de droite comprit dans la TA
+   * @param <A> Le type d'assossiation
+   * @param <TA> La TA correspondant aux éléments
+   * @param fk1 Élément de gauche où l'on recherche tout ses paires dans la TA
+   * @param dbta TA qui lie les éléments de gauche à tout les éléments de droite
+   * @param list Liste des objets instanciés qui représente la liste de
+   * @return Liste des objets à la droite des paires
+   */
   private static <FK2 extends DBField, FK1 extends DBField, A extends DBA<FK1, FK2>, TA extends ArrayList<A>>
           ArrayList<FK2> matchingLeft(FK1 fk1, TA dbta, ArrayList<FK2> list) {
 
@@ -143,6 +159,7 @@ public class Recherche {
    *
    * @param <L>
    * @param <R>
+   * @param <A>
    * @param <TA>
    * @param left
    * @param ta
@@ -158,6 +175,7 @@ public class Recherche {
    *
    * @param <L>
    * @param <R>
+   * @param <A>
    * @param <TA>
    * @param right
    * @param ta
@@ -178,21 +196,24 @@ public class Recherche {
    *
    * @param <L>
    * @param <R>
+   * @param <A>
    * @param <TA>
    * @param ta
+   * @param id
    * @param left
    * @param right
    * @return
    */
   public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
           boolean contains(TA ta, int id, L left, R right) {
-    return ta.contains(new DBA(id, left, right));
+    return ta.contains((A) new DBA(id, left, right));
   }
 
   /**
    *
    * @param <L>
    * @param <R>
+   * @param <A>
    * @param <TA>
    * @param ta
    * @param left
@@ -204,10 +225,11 @@ public class Recherche {
   }
 
   /**
-   * Pas utile ?
+   *
    *
    * @param <L>
    * @param <R>
+   * @param <A>
    * @param <TA>
    * @param ta
    * @param left
@@ -215,29 +237,64 @@ public class Recherche {
    * @return
    */
   public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
-          R getMatchingLeft(TA ta, L left, ArrayList<R> rights) {
+          ArrayList<R> getMatchingLeft(TA ta, L left, ArrayList<R> rights) {
     ArrayList<Integer> pos = getLeftPositions(ta, left);
-    for (Integer p : pos) {
-      for (R right : rights) {
-
-      }
-    }
-
-    //R right = 
-    return null;
+    ArrayList<R> result = new ArrayList<>();
+    pos.forEach((p) -> {
+      result.add(rights.get(p));
+    });
+    return result;
   }
 
-  /*for (DBA<L, R> d : ta) {
-      if (d.left == left.getId()) {
-        return true;
-      }
-    }
-    return false;*/
+  /**
+   *
+   *
+   * @param <L>
+   * @param <R>
+   * @param <A>
+   * @param <TA>
+   * @param ta
+   * @param right
+   * @param lefts
+   * @return
+   */
+  public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
+          ArrayList<L> getMatchingRight(TA ta, R right, ArrayList<L> lefts) {
+    ArrayList<Integer> pos = getRightPositions(ta, right);
+    ArrayList<L> result = new ArrayList<>();
+    pos.forEach((p) -> {
+      result.add(lefts.get(p));
+    });
+    return result;
+  }
+
+  /**
+   *
+   * @param <L>
+   * @param <R>
+   * @param <A>
+   * @param <TA>
+   * @param ta
+   * @param right
+   * @return
+   */
   public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
           boolean containsRight(TA ta, R right) {
     return ta.stream().anyMatch((d) -> (d.right == right.getId()));
   }
 
+  /**
+   *
+   * @param <L>
+   * @param <R>
+   * @param <A>
+   * @param <TA>
+   * @param ta
+   * @param id
+   * @param left
+   * @param right
+   * @return
+   */
   public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
           int getPosition(TA ta, int id, L left, R right) {
     int pos = 0;
@@ -250,6 +307,16 @@ public class Recherche {
     return pos; // ou -1
   }
 
+  /**
+   *
+   * @param <L>
+   * @param <R>
+   * @param <A>
+   * @param <TA>
+   * @param ta
+   * @param left
+   * @return
+   */
   public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
           ArrayList<Integer> getLeftPositions(TA ta, L left) {
     ArrayList<Integer> places = new ArrayList<>();
@@ -263,6 +330,16 @@ public class Recherche {
     return places;
   }
 
+  /**
+   *
+   * @param <L>
+   * @param <R>
+   * @param <A>
+   * @param <TA>
+   * @param ta
+   * @param right
+   * @return
+   */
   public static <L extends DBField, R extends DBField, A extends DBA<L, R>, TA extends TABase<L, R, A>>
           ArrayList<Integer> getRightPositions(TA ta, R right) {
     ArrayList<Integer> places = new ArrayList<>();

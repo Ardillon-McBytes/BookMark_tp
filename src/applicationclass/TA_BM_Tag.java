@@ -6,9 +6,6 @@
  */
 package applicationclass;
 
-import static applicationclass.G_Tag.tag;
-import static applicationclass.TA_GB_BM.id_Bm;
-import static applicationclass.TA_GB_BM.id_group;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,6 +22,9 @@ import sqlclass.SimpleDataSource;
  */
 public class TA_BM_Tag extends TABase<Bookmark, Tag, DBA<Bookmark, Tag>> {
 
+  /**
+   *
+   */
   public TA_BM_Tag() {
     TABase.constructor("bookmark_tag",
             1, "id",
@@ -32,6 +32,13 @@ public class TA_BM_Tag extends TABase<Bookmark, Tag, DBA<Bookmark, Tag>> {
             3, "id_tag");
   }
 
+  /**
+   *
+   *
+   * @param idTag
+   * @return
+   * @throws SQLException
+   */
   static public ArrayList<Bookmark> getBmFromTag(int idTag) throws SQLException {
     ArrayList<Bookmark> list_bm = new ArrayList<Bookmark>();
 
@@ -61,6 +68,12 @@ public class TA_BM_Tag extends TABase<Bookmark, Tag, DBA<Bookmark, Tag>> {
 
   }
 
+  /**
+   *
+   * @param tag
+   * @param bm
+   * @throws SQLException
+   */
   static public void addTagToBm(int tag, int bm) throws SQLException {
 
     Connection conn = SimpleDataSource.getConnection();

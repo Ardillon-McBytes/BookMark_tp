@@ -58,6 +58,9 @@ public class Tag implements DBField {
     this.description = rs.getString("description");
   }
 
+  /**
+   *
+   */
   public Tag() {
   }
 

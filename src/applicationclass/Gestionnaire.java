@@ -7,12 +7,6 @@
 package applicationclass;
 
 import static applicationclass.G_Validation.*;
-import static applicationclass.G_User.*;
-import static applicationclass.G_TA.*;
-import static applicationclass.G_Partage.*;
-import static applicationclass.G_GB.*;
-import static applicationclass.G_BM.*;
-import static applicationclass.G_Tag.*;
 import static applicationclass.Recherche.*;
 import static applicationclass.G_Requete.*;
 import controllerclass.main_controller;
@@ -23,10 +17,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import java.util.HashSet;
-import java.util.Set;
 import sqlclass.SimpleDataSource;
 
 /**
@@ -42,6 +32,7 @@ public class Gestionnaire extends main_controller {
    * ATTRIBUTS DE LA CLASSE *********************
    */
   private static boolean initialise;
+  private static Connection conn;
 
   private static User usagerActif;   // Compte actif?
 
@@ -62,6 +53,7 @@ public class Gestionnaire extends main_controller {
    */
   public Gestionnaire() {
     Gestionnaire.initialise = false;
+    Gestionnaire.conn = null;
 
     //Gestionnaire.gValid = new G_Validation();
     //Gestionnaire.gUser = new G_User();
@@ -154,12 +146,8 @@ public class Gestionnaire extends main_controller {
    * @throws Exception
    */
   public boolean chargerUserData() throws Exception {
-    if (usagerActif == null || userValidation(usagerActif) == null) {
-      G_Validation.addMessageErreur("L'utilisateur n'a pas encore été initialisé.");
-      return false;
-    }
 
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
     try {
 
       int userId = usagerActif.getId();
@@ -269,6 +257,8 @@ public class Gestionnaire extends main_controller {
    *
    * @param user
    * @return
+   * @throws java.sql.SQLException
+   * @throws java.io.IOException
    */
   public static boolean addUser(User user) throws SQLException, IOException {
     int id = 1;
@@ -285,22 +275,43 @@ public class Gestionnaire extends main_controller {
     return true;
   }
 
+  /**
+   *
+   * @param nom
+   * @param mdp
+   * @return
+   */
   public static boolean validUserConnexion(String nom, String mdp) {
     return G_Validation.validUserConnexion(nom, mdp);
   }
 
+  /**
+   *
+   * @param u
+   * @throws IOException
+   * @throws SQLException
+   */
   public void setUsagerActif(User u)
           throws IOException, SQLException {
     usagerActif = u;
   }
 
+  /**
+   *
+   * @return
+   */
   public User getUsagerActif() {
     return usagerActif;
   }
 
+  /**
+   *
+   * @throws SQLException
+   */
   public void loadUserGb() throws SQLException {
-    Connection conn = SimpleDataSource.getConnection();
+    conn = SimpleDataSource.getConnection();
     groupbooks.clear();
+    groupbooks.add(new Groupbook());
 
     PreparedStatement stat = conn.prepareStatement(
             "(SELECT id_groupBook FROM user_group WHERE id_user = '" + getUsagerActif().getId() + "')");
@@ -374,6 +385,8 @@ public class Gestionnaire extends main_controller {
 
   /**
    *
+   * @param i
+   * @throws java.io.IOException
    */
   public void addId(int i) throws IOException {
     if (i < 1) {
@@ -382,6 +395,12 @@ public class Gestionnaire extends main_controller {
     identifiants.add(i);
   }
 
+  /**
+   *
+   * @param user
+   * @return
+   * @throws Exception
+   */
   public Groupbook getUserRacineGroupbook(User user)
           throws Exception {
     int id = user.getRacine();
@@ -393,11 +412,24 @@ public class Gestionnaire extends main_controller {
     return null;
   }
 
+  /**
+   *
+   * @param user
+   * @return
+   * @throws Exception
+   */
   public ArrayList<Groupbook> getUserGroupbooks(User user)
           throws Exception {
     return getChildGroupbooks(getUserRacineGroupbook(user));
   }
 
+  /**
+   *
+   * @param parent
+   * @return
+   * @throws IOException
+   * @throws SQLException
+   */
   public ArrayList<Groupbook> getChildGroupbooks(Groupbook parent)
           throws IOException, SQLException {
     /*if (null == G_Validation.userValidation(user)) {
@@ -406,30 +438,76 @@ public class Gestionnaire extends main_controller {
     return Recherche.getRights(parent, conteneurs, groupbooks);
   }
 
+  /**
+   *
+   * @param message
+   */
   public void addMessageErreur(String message) {
     G_Validation.addMessageErreur(message);
   }
 
+  /**
+   *
+   * @return
+   */
   public String getMessageErreur() {
     return G_Validation.getMessageErreur();
   }
 
+  /**
+   *
+   * @param message
+   */
   public void addMessageConfirmation(String message) {
     G_Validation.addMessageConfirmation(message);
   }
 
+  /**
+   *
+   * @return
+   */
   public String getMessageConfirmation() {
     return G_Validation.getMessageConfirmation();
   }
 
+  /**
+   *
+   * @return
+   */
+  public boolean aUneConfirmation() {
+    String resultat = getMessageConfirmation();
+    return !("".equals(resultat) || resultat.isEmpty());
+  }
+
+  /**
+   *
+   * @return
+   */
   public boolean estEnErreur() {
+    String resultat = getMessageErreur();
+    if ("".equals(resultat) || resultat.isEmpty()) {
+      return false;
+    }
     return G_Validation.estEnErreur();
   }
 
+  /**
+   *
+   * @param etat
+   */
   public void estEnErreur(boolean etat) {
     G_Validation.estEnErreur(etat);
   }
 
+  /**
+   *
+   * @param nomUtilisateur
+   * @param courriel
+   * @param mdp
+   * @return
+   * @throws IOException
+   * @throws SQLException
+   */
   public boolean valideUtilisateur(String nomUtilisateur, String courriel, String mdp) throws IOException, SQLException {
     return null != G_Validation.userValidation(nomUtilisateur, courriel, mdp);
   }
@@ -446,74 +524,146 @@ public class Gestionnaire extends main_controller {
     return acces;
   }
 
+  /**
+   *
+   * @return
+   */
   public TA_GB_GB getConteneurs() {
     return conteneurs;
   }
 
+  /**
+   *
+   * @return
+   */
   public TA_GB_BM getContenus() {
     return contenus;
   }
 
+  /**
+   *
+   * @return
+   */
   public TA_BM_Tag getEtiquettes() {
     return etiquettes;
   }
 
+  /**
+   *
+   * @return
+   */
   public ArrayList<User> getUsers() {
     return users;
   }
 
+  /**
+   *
+   * @return
+   */
   public ArrayList<Groupbook> getGroupbooks() {
     return groupbooks;
   }
 
+  /**
+   *
+   * @return
+   */
   public ArrayList<Bookmark> getBookmarks() {
     return bookmarks;
   }
 
+  /**
+   *
+   * @return
+   */
   public ArrayList<Groupbook> getCurrentGroupbooks() { // throws SQLException, Exception
     return groupbooks; //usagerActif.getOwnedGroupbooks()
   }
 
+  /**
+   *
+   * @return
+   */
   public ArrayList<Tag> getTags() {
     return tags;
   }
 
+  /**
+   *
+   * @return
+   */
   public ArrayList<Integer> getIdentifiants() {
     return identifiants;
   }
 
+  /**
+   *
+   * @param acces
+   */
   public void setAcces(TA_User_GB acces) {
     Gestionnaire.acces = acces;
   }
 
+  /**
+   *
+   * @param conteneurs
+   */
   public void setConteneurs(TA_GB_GB conteneurs) {
     Gestionnaire.conteneurs = conteneurs;
   }
 
+  /**
+   *
+   * @param contenus
+   */
   public void setContenus(TA_GB_BM contenus) {
     Gestionnaire.contenus = contenus;
   }
 
+  /**
+   *
+   * @param etiquettes
+   */
   public void setEtiquettes(TA_BM_Tag etiquettes) {
     Gestionnaire.etiquettes = etiquettes;
   }
 
+  /**
+   *
+   * @param users
+   */
   public void setUsers(ArrayList<User> users) {
     Gestionnaire.users = users;
   }
 
+  /**
+   *
+   * @param groupbooks
+   */
   public void setGroupbooks(ArrayList<Groupbook> groupbooks) {
     Gestionnaire.groupbooks = groupbooks;
   }
 
+  /**
+   *
+   * @param bookmarks
+   */
   public void setBookmarks(ArrayList<Bookmark> bookmarks) {
     Gestionnaire.bookmarks = bookmarks;
   }
 
+  /**
+   *
+   * @param tags
+   */
   public void setTags(ArrayList<Tag> tags) {
     Gestionnaire.tags = tags;
   }
 
+  /**
+   *
+   * @param identifiants
+   */
   public void setIdentifiants(ArrayList<Integer> identifiants) {
     Gestionnaire.identifiants = identifiants;
   }
