@@ -9,19 +9,14 @@ import applicationclass.G_Tag;
 import applicationclass.Tag;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import sqlclass.SimpleDataSource;
 
 /**
  * FXML Controller class
@@ -57,35 +52,7 @@ public class AjoutTag_v2Controller extends main_controller implements Initializa
     // TODO
   }
 
-  /**
-   * retourne l'id du tag selon son nom
-   */
-  public int getTagId(String name)
-          throws SQLException {
-
-    Connection conn = SimpleDataSource.getConnection();
-    try {
-
-      String query3 = "SELECT id "
-              + "FROM tag "
-              + "WHERE nom = ?";
-      PreparedStatement ps3 = conn.prepareStatement(query3);
-      ps3.setString(1, name);
-
-      ResultSet rs = ps3.executeQuery();
-
-      if (rs.next()) {
-        _id_user = rs.getInt(1);
-      }
-
-    } finally {
-      conn.close();
-
-    }
-    return _id_user;
-
-  }
-
+  
   @FXML
   /**
    * ajoute un tag a la liste
@@ -93,7 +60,10 @@ public class AjoutTag_v2Controller extends main_controller implements Initializa
   private void addTag(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
 
     G_Tag.setTag(tag_name.getText(), tag_description.getText());
-    G_Tag.addTag();
+      if (G_Tag.getTagFromName(tag_name.getText()).getId() < 1) {
+          G_Tag.addTag();
+      }
+  
     Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
     stageTheLabelBelongs.hide();
   }
@@ -101,26 +71,11 @@ public class AjoutTag_v2Controller extends main_controller implements Initializa
   /**
    * ajoute un tag a un bookmark
    */
-  private void addBookTag() throws IOException, SQLException, ClassNotFoundException {
-
-    Connection conn = SimpleDataSource.getConnection();
-    int type = 0;
-    try {
-
-      PreparedStatement stat = conn.prepareStatement(
-              " INSERT INTO `bookmark_tag` ( `id_bookmark`,`id_tag`) "
-              + "VALUES ('" + _id_bookmark + "','"
-              + getTagId(tag_name.getText()) + "')");
-
-      stat.executeUpdate();
-
-    } finally {
-      conn.close();
-    }
-  }
 
   @FXML
   private void exitPage(MouseEvent event) {
+     Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
+    stageTheLabelBelongs.hide();
   }
 
 }

@@ -130,26 +130,17 @@ public class PagePrincipaleController extends main_controller implements Initial
         initBm();
         try {
             initListePartage();
-        } catch (SQLException ex) {
-            Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
             initListGb();
-        } catch (SQLException ex) {
-            Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (SQLException | IOException ex) {
             Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     public void initBm() {
         try {
             loadBookmark();
-        } catch (SQLException ex) {
-            Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
@@ -184,9 +175,7 @@ public class PagePrincipaleController extends main_controller implements Initial
                     list_bm = TA_GB_BM.getBmFromGb(G_GB.getGBId(newValue));
                     loadUserGroup(list_bm);
                     id_selection_gb = G_GB.getGBId(newValue);
-                } catch (SQLException ex) {
-                    Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
+                } catch (SQLException | IOException ex) {
                     Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -233,11 +222,7 @@ public class PagePrincipaleController extends main_controller implements Initial
                     ArrayList<Groupbook> gp = TA_User_GB.getUserGroups(id_selected_user);
                     loadSharePartage(gp.get(0));
                     id_selected_user = G_User.getUserId(newValue).getId();
-                } catch (SQLException ex) {
-                    Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
+                } catch (SQLException | IOException | ClassNotFoundException ex) {
                     Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
@@ -286,16 +271,15 @@ public class PagePrincipaleController extends main_controller implements Initial
 
         gp_principal.getChildren().clear();
         ObservableList items = FXCollections.observableArrayList();
-        Label txtnom = new Label();
-        Label txtTag = new Label();
-        Label txtUrl = new Label();
+        Label txtnom;
+        Label txtTag;
+        Label txtUrl;
         int n = 0;
         for (int i = 0; i < gb.getBookmarks().size(); i++) {
-
             {
-
                 txtnom = new Label();
                 txtUrl = new Label();
+                txtTag = new Label();
                 Tag tag = new Tag();
 
                 tag = G_Tag.getTagFromBm(gb.getBookmarks().get(i).getId());
@@ -305,7 +289,7 @@ public class PagePrincipaleController extends main_controller implements Initial
                     txtnom.setText(gb.getBookmarks().get(i).getNom());
                     txtnom.setPrefWidth(800);
                     txtUrl.setText(gb.getBookmarks().get(i).getUrl());
-                    txtTag = new Label(G_Tag.getTagFromBm(gb.getBookmarks().get(i).getId()).getNom());
+                    txtTag.setText(G_Tag.getTagFromBm(gb.getBookmarks().get(i).getId()).getNom());
                     gp_principal.add(txtnom, 0, n);
                     gp_principal.add(txtTag, 1, n);
                     gp_principal.add(txtUrl, 2, n);
@@ -317,35 +301,36 @@ public class PagePrincipaleController extends main_controller implements Initial
     }
 
     void getTA_BM(int idTag) throws SQLException {
-
         for (int i = 0; i < g.getBookmarks().size(); i++) {
-
             ObservableList items = FXCollections.observableArrayList(TA_BM_Tag.getBmFromTag(g.getBookmarks().get(i).getId()));
         }
-
     }
 
     void loadPartage(ArrayList<Groupbook> gb) throws SQLException {
         gp_principal.getChildren().clear();
         ObservableList items = FXCollections.observableArrayList();
 
-        Label txtnom = new Label();
-        Label txtTag = new Label();
-        Label txtUrl = new Label();
+        Label txtnom;
+        Label txtTag;
+        Label txtUrl;
         int n = 0;
         for (int j = 0; j < gb.size(); j++) {
 
             for (int i = 0; i < gb.get(j).getBookmarks().size(); i++) {
                 G_Tag.getTagFromBm(gb.get(j).getBookmarks().get(i).getId());
-                txtnom = new Label();
-                txtUrl = new Label();
+
                 String testTag = G_Tag.getTagFromBm(gb.get(j).getBookmarks().get(i).getId()).getNom();
                 if (!items.contains(G_Tag.getTag().getNom())) {
+                    txtnom = new Label();
+                    txtUrl = new Label();
+                    txtTag = new Label();
                     items.add(gb.get(j).getBookmarks().get(i).getNom());
+
                     txtnom.setText(gb.get(j).getBookmarks().get(i).getNom());
                     txtnom.setPrefWidth(800);
                     txtUrl.setText(gb.get(j).getBookmarks().get(i).getUrl());
-                    txtTag = new Label(G_Tag.getTagFromBm(gb.get(j).getBookmarks().get(i).getId()).getNom());
+                    txtTag.setText(G_Tag.getTagFromBm(gb.get(j).getBookmarks().get(i).getId()).getNom());
+
                     gp_principal.add(txtnom, 0, n);
                     gp_principal.add(txtTag, 1, n);
                     gp_principal.add(txtUrl, 2, n);
@@ -359,22 +344,28 @@ public class PagePrincipaleController extends main_controller implements Initial
         gp_principal.getChildren().clear();
         ObservableList items = FXCollections.observableArrayList();
 
-        Label txtnom = new Label();
-        Label txtTag = new Label();
-        Label txtUrl = new Label();
+        Label txtnom;
+        Label txtTag;
+        Label txtUrl;
         int n = 0;
 
         for (int i = 0; i < gb.getBookmarks().size(); i++) {
             G_Tag.getTagFromBm(gb.getBookmarks().get(i).getId());
-            txtnom = new Label();
-            txtUrl = new Label();
+
             String testTag = G_Tag.getTagFromBm(gb.getBookmarks().get(i).getId()).getNom();
+
             if (!items.contains(G_Tag.getTag().getNom())) {
                 items.add(gb.getBookmarks().get(i).getNom());
+
+                txtnom = new Label();
+                txtUrl = new Label();
+                txtTag = new Label();
+
                 txtnom.setText(gb.getBookmarks().get(i).getNom());
                 txtnom.setPrefWidth(800);
                 txtUrl.setText(gb.getBookmarks().get(i).getUrl());
-                txtTag = new Label(G_Tag.getTagFromBm(gb.getBookmarks().get(i).getId()).getNom());
+                txtTag.setText(G_Tag.getTagFromBm(gb.getBookmarks().get(i).getId()).getNom());
+
                 gp_principal.add(txtnom, 0, n);
                 gp_principal.add(txtTag, 1, n);
                 gp_principal.add(txtUrl, 2, n);
@@ -391,18 +382,24 @@ public class PagePrincipaleController extends main_controller implements Initial
         Label txtnom;
         Label txtTag;
         Label txtUrl;
+
         int n = 0;
         for (int i = 0; i < g.getBookmarks().size(); i++) {
             G_Tag.getTagFromBm(g.getBookmarks().get(i).getId());
-            txtnom = new Label();
-            txtUrl = new Label();
             String testTag = G_Tag.getTagFromBm(g.getBookmarks().get(i).getId()).getNom();
+
             if (!items.contains(G_Tag.getTag().getNom()) && testTag.equals(tagName)) {
+                txtnom = new Label();
+                txtUrl = new Label();
+                txtTag = new Label();
+
                 items.add(g.getBookmarks().get(i).getNom());
+
                 txtnom.setText(g.getBookmarks().get(i).getNom());
                 txtnom.setPrefWidth(800);
                 txtUrl.setText(g.getBookmarks().get(i).getUrl());
-                txtTag = new Label(G_Tag.getTagFromBm(g.getBookmarks().get(i).getId()).getNom());
+
+                txtTag.setText(G_Tag.getTagFromBm(g.getBookmarks().get(i).getId()).getNom());
                 gp_principal.add(txtnom, 0, n);
                 gp_principal.add(txtTag, 1, n);
                 gp_principal.add(txtUrl, 2, n);
@@ -434,25 +431,26 @@ public class PagePrincipaleController extends main_controller implements Initial
         try {
             User user = new User();
             user = g.getUsagerActif();
+
             g.loadUserGb();
             loadTag(g.getBookmarks());
             loadUserGroup();
+
             Label txtnom;
             Label txtTag;
             Label txtUrl;
             int nb = 0;
-
             for (int i = 0; i < g.getBookmarks().size(); i++) {
-
-                txtnom = new Label();
-
-                txtUrl = new Label();
                 if (!items.contains(g.getBookmarks().get(i).getNom())) {
+                    txtnom = new Label();
+                    txtUrl = new Label();
+                    txtTag = new Label();
+
                     items.add(g.getBookmarks().get(i).getNom());
                     txtnom.setText(g.getBookmarks().get(i).getNom());
                     txtnom.setPrefWidth(800);
                     txtUrl.setText(g.getBookmarks().get(i).getUrl());
-                    txtTag = new Label(G_Tag.getTagFromBm(g.getBookmarks().get(i).getId()).getNom());
+                    txtTag.setText(G_Tag.getTagFromBm(g.getBookmarks().get(i).getId()).getNom());
                     gp_principal.add(txtnom, 0, nb);
                     gp_principal.add(txtTag, 1, nb);
                     gp_principal.add(txtUrl, 2, nb);
@@ -606,11 +604,12 @@ public class PagePrincipaleController extends main_controller implements Initial
         TA_GB_BM.delete_GB_BM();
         G_BM.getBookMark().setId(currentBm_id);
         G_BM.deleteBm();
-        Bookmark bm = new Bookmark();
+         Bookmark bm;
         for (int j = 0; j < g.getGroupbooks().size(); j++) {
 
             for (int i = 0; i < g.getGroupbooks().get(j).getBookmarks().size(); i++) {
                 if (g.getGroupbooks().get(j).getBookmarks().get(i).getId() == currentBm_id) {
+                     bm = new Bookmark();
                     bm = g.getGroupbooks().get(j).getBookmarks().get(i);
                     g.getGroupbooks().get(j).getBookmarks().remove(bm);
                     list_mp.getItems().remove(bm.getNom());

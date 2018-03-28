@@ -38,7 +38,10 @@ public class User implements DBField {
   public User(String name) {
     nom = name;
   }
-
+public User(String name, String courriel) {
+    nom = name;
+    courriel = courriel;
+  }
   public User(int id) {
     this.id = id;
   }

@@ -8,6 +8,7 @@ package controllerclass;
 
 import applicationclass.G_GB;
 import applicationclass.G_Validation;
+import applicationclass.TA_User_GB;
 import applicationclass.User;
 import static controllerclass.main_controller.user;
 import sqlclass.SimpleDataSource;
@@ -36,94 +37,64 @@ import javafx.stage.Stage;
  */
 public class AjoutPartage_v1Controller extends main_controller implements Initializable {
 
-  /**
-   * Composantes de l'interface
-   */
-  String groupBook;
-  @FXML
-  private TextField user_name;
-  @FXML
-  private Button btnAnnuler;
-  @FXML
-  private Button btnAjouter;
-  @FXML
-  private RadioButton chkConsult;
-  @FXML
-  private RadioButton chkCollaborateur;
+    /**
+     * Composantes de l'interface
+     */
+    String groupBook;
+    @FXML
+    private TextField user_name;
+    @FXML
+    private Button btnAnnuler;
+    @FXML
+    private Button btnAjouter;
+    @FXML
+    private RadioButton chkConsult;
+    @FXML
+    private RadioButton chkCollaborateur;
 
-  /**
-   * Attributs de l'interfaces
-   */
-  static Stage prevStage;
-  static int _id_user = 0;
-  static int _id_GB;
-  @FXML
-  private TextField txt_groupe;
+    /**
+     * Attributs de l'interfaces
+     */
+    static Stage prevStage;
+    static int _id_user = 0;
+    static int _id_GB;
+    @FXML
+    private TextField txt_groupe;
 
-  /**
-   * Initializes the controller class.
-   *
-   * @param stage
-   * @param id_bookMark
-   */
-  public void setPrevStage(Stage stage, int _id_GB) {
-    prevStage = stage;
-    this._id_GB = _id_GB;
-  }
-
-  @Override
-  public void initialize(URL url, ResourceBundle rb) {
-    try {
-      String name = G_GB.getGBName(_id_GB);
-      txt_groupe.setText(name);
-    } catch (SQLException ex) {
-      Logger.getLogger(AjoutPartage_v1Controller.class.getName()).log(Level.SEVERE, null, ex);
+    /**
+     * Initializes the controller class.
+     *
+     * @param stage
+     * @param id_bookMark
+     */
+    public void setPrevStage(Stage stage, int _id_GB) {
+        prevStage = stage;
+        this._id_GB = _id_GB;
     }
-  }
 
-  @FXML
-  private void addUserGroup(MouseEvent event) throws IOException, SQLException, ClassNotFoundException, Exception {
-
-    int userId = User.getUserId(user_name.getText());
-    if (userId > 0 && userId != g.getUsagerActif().getId()) {
-
-      int type = 0;
-      Connection conn = SimpleDataSource.getConnection();
-
-      try {
-        if (chkConsult.isSelected()) {
-          type = 1;
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        try {
+            String name = G_GB.getGBName(_id_GB);
+            txt_groupe.setText(name);
+        } catch (SQLException ex) {
+            Logger.getLogger(AjoutPartage_v1Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (chkCollaborateur.isSelected()) {
-          type = 2;
+    }
+
+    @FXML
+    private void addUserGroup(MouseEvent event) throws IOException, SQLException, ClassNotFoundException, Exception {
+
+        int userId = User.getUserId(user_name.getText());
+        if (userId > 0 && userId != g.getUsagerActif().getId()) {
+
+            int id_gb = G_GB.getGBDefaultFromUser(g.getUsagerActif().getNom());
+
+            TA_User_GB.addUserGroup(userId, id_gb);
+
+            Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
+            stageTheLabelBelongs.hide();
         }
 
-        int id_gb = G_GB.getGBDefaultFromUser(g.getUsagerActif().getNom());
-
-        PreparedStatement stat = conn.prepareStatement(
-                " INSERT INTO `user_group` (`id_type`, `id_user`,`id_groupBook`) "
-                + "VALUES ('" + type + "','"
-                + userId + "','"
-                + id_gb + "')");
-
-        stat.executeUpdate();
-
-      } finally {
-        conn.close();
-      }
     }
-    Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
-    stageTheLabelBelongs.hide();
-  }
-
-  @FXML
-  private void closeStage(MouseEvent event) {
-  }
-
-  /**
-   *
-   * @param name
-   * @return
-   * @throws SQLException
-   */
 }

@@ -37,6 +37,8 @@ public class AjoutGb_v1Controller implements Initializable {
 
   /**
    * Initializes the controller class.
+     * @param url
+     * @param rb
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {

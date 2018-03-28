@@ -34,7 +34,7 @@ public class G_BM {
         G_BM.bm = bm;
     }
 
-    static public void getBm(int id) throws SQLException {
+    static public Bookmark getBm(int id) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         try {
 
@@ -58,6 +58,7 @@ public class G_BM {
             conn.close();
 
         }
+         return bm;
     }
 
     static public Bookmark getBm(String name) throws SQLException {
