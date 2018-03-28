@@ -29,7 +29,7 @@ public class main_controller {
     protected static Gestionnaire g = new Gestionnaire();
     protected static User user = new User();
 
-    void setPrevStage(Stage stage) {
+void setPrevStage(Stage stage) {
         prevStage = stage;
     }
 

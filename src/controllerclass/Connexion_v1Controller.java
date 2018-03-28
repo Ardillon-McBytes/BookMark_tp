@@ -8,12 +8,8 @@ package controllerclass;
 
 import applicationclass.G_User;
 import applicationclass.User;
-import sqlclass.SimpleDataSource;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

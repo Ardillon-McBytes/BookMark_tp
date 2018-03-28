@@ -20,6 +20,8 @@ public class InfoPartage_v1Controller extends main_controller implements Initial
 
   /**
    * Initializes the controller class.
+     * @param url
+     * @param rb
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {

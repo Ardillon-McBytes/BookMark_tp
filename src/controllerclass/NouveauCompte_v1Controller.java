@@ -73,7 +73,8 @@ public class NouveauCompte_v1Controller extends main_controller implements Initi
                 G_User.createUser(userPassword.getText());
                 G_GB.createGb(user);
                 
-                super.exitPage(btnAnnuler); }
+                super.exitPage(btnAnnuler);
+            }
         } catch (SQLException e) {
             g.addMessageErreur("La connexion dans la BD ne s'est pas produite complètement.");
         } finally {

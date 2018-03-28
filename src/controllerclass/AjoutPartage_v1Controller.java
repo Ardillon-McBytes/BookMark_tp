@@ -7,15 +7,10 @@
 package controllerclass;
 
 import applicationclass.G_GB;
-import applicationclass.G_Validation;
 import applicationclass.TA_User_GB;
 import applicationclass.User;
-import static controllerclass.main_controller.user;
-import sqlclass.SimpleDataSource;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -65,11 +60,11 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
      * Initializes the controller class.
      *
      * @param stage
-     * @param id_bookMark
+     * @param _id_GB
      */
     public void setPrevStage(Stage stage, int _id_GB) {
         prevStage = stage;
-        this._id_GB = _id_GB;
+        AjoutPartage_v1Controller._id_GB = _id_GB;
     }
 
     @Override

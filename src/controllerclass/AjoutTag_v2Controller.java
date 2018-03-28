@@ -45,6 +45,8 @@ public class AjoutTag_v2Controller extends main_controller implements Initializa
 
   /**
    * Initializes the controller class.
+     * @param url
+     * @param rb
    */
   @Override
 
