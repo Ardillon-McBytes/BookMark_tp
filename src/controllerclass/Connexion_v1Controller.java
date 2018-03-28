@@ -154,10 +154,10 @@ public class Connexion_v1Controller extends main_controller implements Initializ
   private void connectUser(MouseEvent event) throws SQLException, IOException {
 
     g.getUsagerActif().setNom(user_name.getText());
-    g.getUsagerActif().setId(G_User.getUserId(user_name.getText()).getId());
+  
     try {
       if (validContent() && super.validUser() && validPassword()) {
-
+  g.getUsagerActif().setId(G_User.getUserId(user_name.getText()).getId());
         boolean test = false;
 
         if (!g.chargerUserData()) {
