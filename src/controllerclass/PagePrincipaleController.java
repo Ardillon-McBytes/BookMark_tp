@@ -158,7 +158,7 @@ public class PagePrincipaleController extends main_controller implements Initial
 
   public void initBm() {
     try {
-      getBookMark();
+      loadBookmark();
     } catch (SQLException ex) {
       Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
     } catch (ClassNotFoundException ex) {
@@ -472,10 +472,11 @@ public class PagePrincipaleController extends main_controller implements Initial
     list_tag.refresh();
   }
 
-  void getBookMark() throws IOException, SQLException, ClassNotFoundException, Exception {
+  void loadBookmark() throws IOException, SQLException, ClassNotFoundException, Exception {
 
     Connection conn = SimpleDataSource.getConnection();
-    ObservableList items = list_mp.getItems();
+    ObservableList items = FXCollections.observableArrayList();
+    list_mp.getItems().clear();
     try {
       User user = new User();
       user = g.getUsagerActif();
@@ -729,11 +730,12 @@ public class PagePrincipaleController extends main_controller implements Initial
   }
 
   @FXML
-  private void refresh(MouseEvent event) throws SQLException, IOException {
+  private void refresh(MouseEvent event) throws SQLException, IOException, Exception {
     loadTag(g.getBookmarks());
     loadPartage(g.getGroupbooks());
     loadUserGroup();
     loadUserShare();
+    loadBookmark();
   }
 
   @FXML
@@ -742,19 +744,6 @@ public class PagePrincipaleController extends main_controller implements Initial
 
   @FXML
   private void showGroupBm(MouseEvent event) {
-  }
-
-  private void editBm(KeyEvent event) throws IOException {
-
-    Edit_BM_v1Controller controll = new Edit_BM_v1Controller();
-    Stage stageTheLabelBelongs = (Stage) btnAdd_txt_tag.getScene().getWindow();
-    controll.setPrevStage(stageTheLabelBelongs, currentBm_id);
-    Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/edit_bm_v1.fxml"));
-    Scene scene = new Scene(root);
-    Stage secondStage = new Stage();
-
-    secondStage.setScene(scene);
-    secondStage.show();
   }
 
   @FXML
