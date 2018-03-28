@@ -162,16 +162,38 @@ public class G_User {
     return null;
   }
 
-  
+  public static String getUserName(int id)
+          throws SQLException, IOException {
+
+    Connection conn = SimpleDataSource.getConnection();
+    try {
+      String query3 = "SELECT user_name "
+              + "FROM user "
+              + "WHERE id = ?";
+      PreparedStatement ps3 = conn.prepareStatement(query3);
+      ps3.setInt(1, id);
+
+      ResultSet rs = ps3.executeQuery();
+
+      if (rs.next()) {
+
+        return rs.getString(1);
+      }
+    } finally {
+      conn.close();
+    }
+    return null;
+  }
 
   /**
    * Valide la connexion de l'utilisateur par son nom et son mot de passe
-   * 
-   * @param mdp 
-   * @return Vrai si le mot de passe est le même que dans la BD et que son nom est valide
-   * @throws IOException 
-   * @throws SQLException 
-   * @throws ClassNotFoundException 
+   *
+   * @param mdp
+   * @return Vrai si le mot de passe est le même que dans la BD et que son nom
+   * est valide
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
    */
   public boolean validUser(String mdp)
           throws IOException, SQLException, ClassNotFoundException {
@@ -180,7 +202,7 @@ public class G_User {
 
   /**
    * Valide que l'identifiant est valide (après avoir recherché par son nom)
-   * 
+   *
    * @return Vrai si l'identifiant est valide
    */
   public boolean validName() {
@@ -189,7 +211,7 @@ public class G_User {
 
   /**
    * Valide le mot de passe de l'utilisateur
-   * 
+   *
    * @param mdp
    * @return
    * @throws IOException

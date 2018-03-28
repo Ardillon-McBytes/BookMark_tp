@@ -8,6 +8,7 @@ package controllerclass;
 
 import applicationclass.G_User;
 import applicationclass.G_Validation;
+import applicationclass.User;
 import sqlclass.SimpleDataSource;
 import java.io.IOException;
 
@@ -159,53 +160,46 @@ public class Connexion_v1Controller extends main_controller implements Initializ
   private void connectUser(MouseEvent event) {
 
     try {
-      g.getUsagerActif().setNom(user_name.getText());
-      g.getUsagerActif().setId(G_User.getUserId(user_name.getText()).getId());
-      try {
-        if (validContent() && super.validUser() && validPassword()) {
-          g.estEnErreur(false);
+      g.setUsagerActif(new User(user_name.getText()));
+      if (validContent() && super.validUser() && validPassword()) {
 
-          boolean test = false;
+        boolean test = false;
 
-          g.chargerUserData();
-
-          PagePrincipaleController controller = new PagePrincipaleController();
-          stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
-          controller.setPrevStage(stageTheLabelBelongs);
-
-          Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/pagePrincipale_v2.fxml"));
-
-          Scene scene = new Scene(root);
-          Stage secondStage = new Stage();
-
-          secondStage.setScene(scene);
-
-          stageTheLabelBelongs.hide();
-          secondStage.show();
+        if (!g.chargerUserData()) {
+          test = true;
         }
-      } catch (SQLException e) {
-        g.addMessageErreur("La connexion dans la BD ne s'est pas produite complètement.");
-      } catch (IOException e) {
-        /**
-         * @old-node_question Est-ce qu'on devrait plutôt ajouter le message
-         * suivant dans avec la méthode addMessageConfirmation ?
-         */
 
-        g.addMessageErreur("Un ou plusieurs champs reçues ne sont pas valide pour le fonctionnement du programme.");
-      } catch (ClassNotFoundException e) {
-        g.addMessageErreur("Des dépendances du programme n'ont pas été correctement inclues.");
-      } catch (Exception e) {
-        g.addMessageErreur("Une erreur non répertoriée s'est produite.");
+        PagePrincipaleController controller = new PagePrincipaleController();
+        stageTheLabelBelongs = (Stage) btnConnect.getScene().getWindow();
+        controller.setPrevStage(stageTheLabelBelongs);
+
+        Parent root = FXMLLoader.load(getClass().getResource("../interfaceclass/pagePrincipale_v2.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage secondStage = new Stage();
+
+        secondStage.setScene(scene);
+
+        stageTheLabelBelongs.hide();
+        secondStage.show();
+
       }
     } catch (SQLException e) {
       g.addMessageErreur("La connexion dans la BD ne s'est pas produite complètement.");
+
     } catch (IOException e) {
       g.addMessageConfirmation("L'utilisateur semble mal initialisé.");
+
+    } catch (ClassNotFoundException e) {
+      g.addMessageErreur("Une classe de l'application s'est mal chargée.");
+
+    } catch (Exception e) {
+      g.addMessageErreur("Une erreur venant du chargement de la BD s'est produite.");
+
     } finally {
       if (g.estEnErreur()) {
         super.showAlert();
-      }
-      else if (g.aUneConfirmation()) {
+      } else if (g.aUneConfirmation()) {
         showConfirmation();
       }
     }

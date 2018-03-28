@@ -23,7 +23,7 @@ import sqlclass.SimpleDataSource;
 public class TA_BM_Tag extends TABase<Bookmark, Tag, DBA<Bookmark, Tag>> {
 
   /**
-   * 
+   *
    */
   public TA_BM_Tag() {
     TABase.constructor("bookmark_tag",
@@ -33,11 +33,11 @@ public class TA_BM_Tag extends TABase<Bookmark, Tag, DBA<Bookmark, Tag>> {
   }
 
   /**
-   * 
-   * 
-   * @param idTag 
-   * @return 
-   * @throws SQLException 
+   *
+   *
+   * @param idTag
+   * @return
+   * @throws SQLException
    */
   static public ArrayList<Bookmark> getBmFromTag(int idTag) throws SQLException {
     ArrayList<Bookmark> list_bm = new ArrayList<Bookmark>();

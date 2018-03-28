@@ -9,7 +9,10 @@ package applicationclass;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import javafx.scene.input.MouseEvent;
 import sqlclass.SimpleDataSource;
 
 /**
@@ -81,6 +84,42 @@ public class TA_User_GB extends TABase<User, Groupbook, DBA<User, Groupbook>> {
       conn.close();
 
     }
+
+  }
+
+  static public ArrayList<Groupbook> getUserGroups(int id_user) throws IOException, SQLException, ClassNotFoundException {
+
+    ArrayList<Groupbook> gb = new ArrayList<>();
+    Connection conn = SimpleDataSource.getConnection();
+    try {
+
+      String query = "SELECT * "
+              + "FROM user_group "
+              + "WHERE id_user = ?";
+      PreparedStatement ps = conn.prepareStatement(query);
+      ps.setInt(1, id_user);
+
+      ResultSet rs = ps.executeQuery();
+
+      G_BM G_BM = new G_BM();
+      int n = 0;
+      while (rs.next()) {
+        G_BM = new G_BM();
+        Groupbook gb2 = new Groupbook();
+
+        //@old-node_conflict Il semblerait que la méthode retourne un bookmark, mais on veut un groupbook
+        //gb2 = TA_GB_BM.getBmFromGb(rs.getInt(4));
+        gb.add(gb2);
+
+        n++;
+      }
+
+    } finally {
+      conn.close();
+
+    }
+
+    return gb;
 
   }
 }

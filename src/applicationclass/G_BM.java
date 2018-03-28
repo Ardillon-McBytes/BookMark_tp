@@ -15,7 +15,7 @@ import sqlclass.SimpleDataSource;
 
 /**
  * Classe en charge de la gestion des bookmarks (BM, marquepages)
- * 
+ *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
@@ -27,7 +27,7 @@ public class G_BM {
    */
   static public Bookmark bm = new Bookmark();
   private static Connection conn;
-  
+
   /**
    * Constructeur
    */
@@ -36,7 +36,7 @@ public class G_BM {
 
   /**
    * Obtient le bookmark du gestionnaire
-   * 
+   *
    * @return Le bookmark
    */
   static public Bookmark getBookMark() {
@@ -46,7 +46,7 @@ public class G_BM {
 
   /**
    * Modifie le bookmark du gestionnaire
-   * 
+   *
    * @param bm Nouveau bookmark du gestionnaire
    */
   static public void setBookMark(Bookmark bm) {
@@ -56,7 +56,7 @@ public class G_BM {
 
   /**
    * Obtient le bookmark associé à l'identifiant
-   * 
+   *
    * @param id Identifiant du bookmark recherché
    * @throws SQLException Erreur causé par la BD
    */
@@ -87,7 +87,7 @@ public class G_BM {
 
   /**
    * Obtient le bookmark ayant le nom sélectionné
-   * 
+   *
    * @param name Nom du bookmark
    * @return Bookmark recherché
    * @throws SQLException Erreur causé par la BD
@@ -121,7 +121,7 @@ public class G_BM {
 
   /**
    * Ajoute un bookmark à la BD
-   * 
+   *
    * @throws SQLException Erreur causé par la BD
    */
   static public void addBm() throws SQLException {
@@ -145,20 +145,22 @@ public class G_BM {
 
   /**
    * Modifie les données du bookmark du gestionnaire
-   * 
+   *
+   * @param id_old
+   * @param newBm
    * @throws SQLException Erreur causé par la BD
    */
-  public void editBm() throws SQLException {
+  static public void editBm(int id_old, Bookmark newBm) throws SQLException {
     conn = SimpleDataSource.getConnection();
 
     try {
 
       PreparedStatement stat = conn.prepareStatement(
               " UPDATE `bookmark` "
-              + "SET 'nom_site' = '" + bm.getNom() + "','"
-              + " 'Description = '" + bm.getDescription() + "','"
-              + " 'Url = '" + bm.getUrl() + "'"
-              + "WHERE 'bookmark'.'id' = " + bm.getId());
+              + "SET `nom_site` = " + newBm.getNom() + "','"
+              + " `Description = " + newBm.getDescription() + "','"
+              + " `Url = `" + newBm.getUrl() + "'"
+              + "WHERE 'id' = " + id_old);
 
       stat.executeUpdate();
 
@@ -170,7 +172,7 @@ public class G_BM {
 
   /**
    * Supprime le bookmark du gestionnaire de la BD
-   * 
+   *
    * @throws IOException Mauvaise saisie pour être conforme à la reqête
    * @throws SQLException Erreur causé par la BD
    * @throws ClassNotFoundException La classe de l'objet n'est pas trouvé
@@ -186,7 +188,7 @@ public class G_BM {
               + "WHERE `id` = " + bm.getId());
 
       stat.executeUpdate();
-      
+
       bm.setNom("");
       bm.setDescription("");
       bm.setUrl("");

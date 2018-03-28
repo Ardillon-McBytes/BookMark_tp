@@ -424,7 +424,6 @@ public class G_GB {
     ArrayList<Groupbook> list_gb = new ArrayList<>();
     Groupbook gb;
     try {
-
       String query = "SELECT * "
               + "FROM user_group "
               + "WHERE id_user = ?";
@@ -452,7 +451,6 @@ public class G_GB {
           gb.setBookmarks(TA_GB_BM.getBmFromGb(gb.getId()));
           list_gb.add(gb);
         }
-
       }
 
     } finally {
@@ -493,7 +491,7 @@ public class G_GB {
   }
 
   /**
-   * 
+   *
    * @param gb_name
    * @return
    * @throws SQLException
@@ -520,5 +518,29 @@ public class G_GB {
 
     }
     return gb.getId();
+  }
+
+  static public String
+          getGBName(int id) throws SQLException {
+    conn = SimpleDataSource.getConnection();
+    Groupbook gb = new Groupbook();
+    Bookmark bm;
+    try {
+
+      String query = "SELECT nom "
+              + "FROM group_book "
+              + "WHERE id = ?";
+      PreparedStatement ps = conn.prepareStatement(query);
+      ps.setInt(1, id);
+
+      ResultSet rs = ps.executeQuery();
+      if (rs.next()) {
+        gb.setNom(rs.getString(1));
+      }
+    } finally {
+      conn.close();
+
+    }
+    return gb.getNom();
   }
 }

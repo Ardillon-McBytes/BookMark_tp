@@ -17,6 +17,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -54,7 +56,9 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
    */
   static Stage prevStage;
   static int _id_user = 0;
-  static int _id_bookMark;
+  static int _id_GB;
+  @FXML
+  private TextField txt_groupe;
 
   /**
    * Initializes the controller class.
@@ -62,14 +66,19 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
    * @param stage
    * @param id_bookMark
    */
-  public void setPrevStage(Stage stage, int id_bookMark) {
+  public void setPrevStage(Stage stage, int _id_GB) {
     prevStage = stage;
-    _id_bookMark = id_bookMark;
+    this._id_GB = _id_GB;
   }
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    // TODO
+    try {
+      String name = G_GB.getGBName(_id_GB);
+      txt_groupe.setText(name);
+    } catch (SQLException ex) {
+      Logger.getLogger(AjoutPartage_v1Controller.class.getName()).log(Level.SEVERE, null, ex);
+    }
   }
 
   @FXML
@@ -89,11 +98,13 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
           type = 2;
         }
 
+        int id_gb = G_GB.getGBDefaultFromUser(g.getUsagerActif().getNom());
+
         PreparedStatement stat = conn.prepareStatement(
                 " INSERT INTO `user_group` (`id_type`, `id_user`,`id_groupBook`) "
                 + "VALUES ('" + type + "','"
                 + userId + "','"
-                + G_GB.getGBDefaultFromUser(user.getNom()) + "')");
+                + id_gb + "')");
 
         stat.executeUpdate();
 

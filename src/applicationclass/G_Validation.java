@@ -489,10 +489,12 @@ public class G_Validation {
    * @return
    */
   public static String getMessageErreur() {
-    if (!estEnErreur()) {
-      return "";
+    String message = "";
+    if (estEnErreur()) {
+      message = getMessage(G_Validation.messagesErreur);
+      G_Validation.messagesErreur.clear();
     }
-    return getMessage(G_Validation.messagesErreur);
+    return message;
   }
 
   /**
@@ -500,7 +502,12 @@ public class G_Validation {
    * @return
    */
   public static String getMessageConfirmation() {
-    return getMessage(G_Validation.messagesConfirmation);
+    String message = "";
+    if (estEnErreur()) {
+      message = getMessage(G_Validation.messagesConfirmation);
+      G_Validation.messagesConfirmation.clear();
+    }
+    return message;
   }
 
   private static String getMessage(ArrayList<String> messages) {

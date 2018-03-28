@@ -1,8 +1,7 @@
 /*
- * Cour de la 4e session en Informatique de gestion  (420.AA)
- * Programmation d'environnement graphique           (420-255-SH)
- * Programmation d'environement de base de données   (420-276-SH)
- * TP1 - Remise 2 - Gestionnaire de marquepage
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package controllerclass;
 
@@ -51,9 +50,6 @@ public class AjoutBm_v1Controller extends main_controller implements Initializab
   static int _id_tag = 0;
   static int _id_bookmark;
 
-  /**
-   *
-   */
   public Tag tag;
   int id_gb;
   @FXML
@@ -67,9 +63,6 @@ public class AjoutBm_v1Controller extends main_controller implements Initializab
 
   /**
    * Initializes the controller class.
-   *
-   * @param url
-   * @param rb
    */
   @Override
 
@@ -77,11 +70,6 @@ public class AjoutBm_v1Controller extends main_controller implements Initializab
     // TODO
   }
 
-  /**
-   *
-   * @param stage
-   * @param id_gb
-   */
   public void setPrevStage(Stage stage, int id_gb) {
     prevStage = stage;
     this.id_gb = id_gb;
@@ -105,7 +93,7 @@ public class AjoutBm_v1Controller extends main_controller implements Initializab
     G_BM.addBm();
     G_BM.getBm(txt_nom_bm.getText());
 
-    int id_Gb = G_GB.getGBDefaultFromUser(user.getNom());
+    int id_Gb = G_GB.getGBDefaultFromUser(g.getUsagerActif().getNom());
 
     TA_GB_BM.setIdGb(id_Gb);
     TA_GB_BM.setIdBm(G_BM.getBookMark().getId());
@@ -122,7 +110,7 @@ public class AjoutBm_v1Controller extends main_controller implements Initializab
 
     }
     tag = G_Tag.getTagFromName(txt_tag.getText());
-    TA_BM_Tag.addTagToBm(id_Gb, tag.getId());
+    TA_BM_Tag.addTagToBm(G_BM.getBookMark().getId(), tag.getId());
 
     Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
     stageTheLabelBelongs.hide();

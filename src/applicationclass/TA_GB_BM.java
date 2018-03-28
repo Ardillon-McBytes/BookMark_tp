@@ -7,7 +7,6 @@
 package applicationclass;
 
 import static applicationclass.G_BM.bm;
-import static applicationclass.G_Tag.tag;
 import static applicationclass.TA_GB_BM.id;
 import static applicationclass.TA_GB_BM.id_Bm;
 import static applicationclass.TA_GB_BM.id_group;
@@ -221,7 +220,7 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
    * @throws SQLException
    */
   static public ArrayList<Bookmark> getBmFromGb(int id_group) throws SQLException {
-    ArrayList<Bookmark> list_bm = new ArrayList<Bookmark>();
+    ArrayList<Bookmark> list_bm = new ArrayList<>();
     Connection conn = SimpleDataSource.getConnection();
     try {
 
@@ -252,11 +251,13 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
           list_bm.add(bm);
         }
       }
+    } catch (SQLException e) {
+      G_Validation.addMessageErreur("Erreur avec la BD");
 
     } finally {
       conn.close();
-
     }
     return list_bm;
   }
+
 }

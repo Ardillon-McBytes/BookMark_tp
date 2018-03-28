@@ -8,6 +8,8 @@ package applicationclass;
 
 import static applicationclass.G_Validation.*;
 import static applicationclass.Recherche.*;
+import static applicationclass.G_Requete.*;
+import controllerclass.main_controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,14 +26,14 @@ import sqlclass.SimpleDataSource;
  * @author Jean-Alain Sainton
  * @version 1.0
  */
-public class Gestionnaire {
+public class Gestionnaire extends main_controller {
 
   /**
    * ATTRIBUTS DE LA CLASSE *********************
    */
   private static boolean initialise;
   private static Connection conn;
-  
+
   private static User usagerActif;   // Compte actif?
 
   private static TA_User_GB acces;
@@ -144,10 +146,6 @@ public class Gestionnaire {
    * @throws Exception
    */
   public boolean chargerUserData() throws Exception {
-    if (usagerActif == null || userValidation(usagerActif) == null) {
-      G_Validation.addMessageErreur("L'utilisateur n'a pas encore été initialisé.");
-      return false;
-    }
 
     conn = SimpleDataSource.getConnection();
     try {
@@ -325,17 +323,19 @@ public class Gestionnaire {
 
     while (rs.next()) {
       id_gp = rs.getInt(1);
+      groupbooks.add(new Groupbook());
       groupbooks.get(groupbooks.size() - 1).setId(id_gp);
 
       PreparedStatement stat2 = conn.prepareStatement(
-              "(SELECT id_bookmark FROM bookmark_group WHERE id_group = '" + id_gp + "')");
+              "(SELECT * FROM bookmark_group WHERE id_group = '" + id_gp + "')");
 
       ResultSet rs2 = stat2.executeQuery();
 
       while (rs2.next()) {
-        int id_bm = rs.getInt(1);
+        bm = new Bookmark();
+        int id_bm = rs2.getInt(3);
         bm.setId(id_bm);
-        contenus.add(new DBA<>(id_gp, groupbooks.get(groupbooks.size() - 1), bm));
+        contenus.add(new DBA<Groupbook, Bookmark>(id_gp, groupbooks.get(groupbooks.size() - 1), bm));
 
         String query3 = "SELECT nom_site, Description, Url "
                 + "FROM bookmark "
@@ -350,7 +350,7 @@ public class Gestionnaire {
         if (rs3.next()) {
           bm.setNom(rs3.getString(1));
           bm.setDescription(rs3.getString(3));
-          bookmarks.add(bm);
+          g.bookmarks.add(bm);
 //                    groupbooks.get(groupbooks.size()-1).addBookmark(bm.getId());
         }
       }
