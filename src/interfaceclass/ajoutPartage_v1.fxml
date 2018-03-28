@@ -33,9 +33,9 @@
             <rowConstraints>
                 <RowConstraints fillHeight="false" maxHeight="46.0" minHeight="35.0" prefHeight="40.0" valignment="CENTER" vgrow="NEVER" />
                 <RowConstraints fillHeight="false" maxHeight="27.0" minHeight="21.0" prefHeight="27.0" valignment="BASELINE" />
-            <RowConstraints fillHeight="false" maxHeight="27.0" minHeight="21.0" prefHeight="30.0" valignment="BASELINE" />
+                <RowConstraints fillHeight="false" maxHeight="27.0" minHeight="21.0" prefHeight="30.0" valignment="BASELINE" />
                 <RowConstraints minHeight="25.0" valignment="BASELINE" />
-            <RowConstraints minHeight="25.0" prefHeight="30.0" valignment="BASELINE" />
+                <RowConstraints minHeight="25.0" prefHeight="30.0" valignment="BASELINE" />
                 <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="BASELINE" />
                 <RowConstraints minHeight="50.0" prefHeight="50.0" valignment="BOTTOM" />
             </rowConstraints>
@@ -104,16 +104,16 @@
                         <Insets left="115.0" />
                     </GridPane.margin>
                 </RadioButton>
-            <TextField fx:id="txt_groupe" minWidth="150.0" promptText="Nom du groupe" GridPane.columnIndex="2" GridPane.rowIndex="3">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </TextField>
-            <Label alignment="CENTER_RIGHT" minWidth="120.0" text="Groupe" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-            </Label>
+                <TextField fx:id="txt_groupe" minWidth="150.0" promptText="Nom du groupe" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </TextField>
+                <Label alignment="CENTER_RIGHT" minWidth="120.0" text="Groupe" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <font>
+                        <Font name="Arial" size="15.0" />
+                    </font>
+                </Label>
             </children>
             <VBox.margin>
                 <Insets />

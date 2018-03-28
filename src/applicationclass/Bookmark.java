@@ -12,12 +12,13 @@ import java.util.ArrayList;
 
 /**
  * Classe pour les marquepages
- * 
+ *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
  */
 public class Bookmark implements DBField {
+
   private int id;
   private String nom;
   private String url;
@@ -30,30 +31,30 @@ public class Bookmark implements DBField {
    * @param url
    * @param description
    */
-  
-  public Bookmark()
-  {}
+  public Bookmark() {
+  }
+
   public Bookmark(int id, String nom, String url, String description) {
     this.id = id;
     this.nom = nom;
     this.url = url;
     this.description = description;
   }
-  
+
   public Bookmark(String nom, String url, String description) {
     this.id = id;
     this.nom = nom;
     this.url = url;
     this.description = description;
   }
-  
+
   public Bookmark(ResultSet rs) throws SQLException {
     this.id = rs.getInt("id");
     this.nom = rs.getString("nom");
     this.url = rs.getString("url");
     this.description = rs.getString("description");
   }
-  
+
   /**
    *
    * @param id
@@ -62,7 +63,7 @@ public class Bookmark implements DBField {
   public void setId(int id) {
     this.id = id;
   }
-  
+
   /**
    *
    * @param nom
@@ -71,7 +72,7 @@ public class Bookmark implements DBField {
   public void setNom(String nom) {
     this.nom = nom;
   }
-  
+
   /**
    *
    * @param value
@@ -88,7 +89,7 @@ public class Bookmark implements DBField {
   public void setUrl(String url) {
     this.url = url;
   }
-  
+
   /**
    *
    * @param description
@@ -96,7 +97,7 @@ public class Bookmark implements DBField {
   public void setDescription(String description) {
     this.description = description;
   }
-  
+
   /**
    *
    * @return
@@ -105,7 +106,7 @@ public class Bookmark implements DBField {
   public int getId() {
     return id;
   }
-  
+
   /**
    *
    * @return
@@ -114,7 +115,7 @@ public class Bookmark implements DBField {
   public String getNom() {
     return nom;
   }
-  
+
   /**
    *
    * @return
@@ -131,7 +132,7 @@ public class Bookmark implements DBField {
   public String getUrl() {
     return url;
   }
-  
+
   /**
    *
    * @return
@@ -139,7 +140,7 @@ public class Bookmark implements DBField {
   public String getDescription() {
     return description;
   }
-  
+
   /**
    *
    * @param tagged
@@ -148,7 +149,7 @@ public class Bookmark implements DBField {
    */
   public ArrayList<Tag> getTags(TA_BM_Tag tagged, ArrayList<Tag> tags) {
     return Recherche.getTags(this, tagged, tags);
-    
+
     /*
     ArrayList<Tag> result = new ArrayList<>();
     for (TA_BM_Tag ta: tagged) {
@@ -162,9 +163,9 @@ public class Bookmark implements DBField {
       }
     }
     return result;
-    */
+     */
   }
-  
+
   /**
    *
    * @param folders
@@ -174,5 +175,5 @@ public class Bookmark implements DBField {
   public ArrayList<Groupbook> getGroupbooks(TA_GB_BM folders, ArrayList<Groupbook> groupbooks) {
     return Recherche.getGroupbooks(this, folders, groupbooks);
   }
-  
+
 }

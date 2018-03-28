@@ -33,11 +33,11 @@
                 <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="BASELINE" />
                 <RowConstraints minHeight="25.0" valignment="BASELINE" />
                 <RowConstraints maxHeight="39.0" minHeight="24.0" prefHeight="32.0" valignment="BOTTOM" />
-            <RowConstraints maxHeight="61.0" minHeight="18.0" prefHeight="18.0" valignment="BOTTOM" />
-            <RowConstraints maxHeight="67.0" minHeight="19.0" prefHeight="32.0" valignment="BOTTOM" />
-            <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="16.0" valignment="BOTTOM" />
-            <RowConstraints maxHeight="50.0" minHeight="5.0" prefHeight="28.0" valignment="BOTTOM" />
-            <RowConstraints maxHeight="50.0" minHeight="7.0" prefHeight="16.0" valignment="BOTTOM" />
+                <RowConstraints maxHeight="61.0" minHeight="18.0" prefHeight="18.0" valignment="BOTTOM" />
+                <RowConstraints maxHeight="67.0" minHeight="19.0" prefHeight="32.0" valignment="BOTTOM" />
+                <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="16.0" valignment="BOTTOM" />
+                <RowConstraints maxHeight="50.0" minHeight="5.0" prefHeight="28.0" valignment="BOTTOM" />
+                <RowConstraints maxHeight="50.0" minHeight="7.0" prefHeight="16.0" valignment="BOTTOM" />
             </rowConstraints>
             <children>
                 <Label alignment="CENTER_RIGHT" text="Nom du Bookmark" textAlignment="RIGHT" GridPane.columnIndex="1">
@@ -88,26 +88,26 @@
                         <Insets />
                     </opaqueInsets>
                 </TextField>
-            <Label alignment="CENTER_RIGHT" text="Url" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txt_url" minWidth="150.0" prefHeight="25.0" prefWidth="381.0" text="url" GridPane.columnIndex="2" GridPane.rowIndex="4">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </TextField>
-            <TextField fx:id="txt_tag" minWidth="150.0" prefHeight="16.0" prefWidth="394.0" text="tag" GridPane.columnIndex="2" GridPane.rowIndex="6">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </TextField>
-            <Label alignment="CENTER_RIGHT" text="Tag" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="6">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-            </Label>
+                <Label alignment="CENTER_RIGHT" text="Url" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <font>
+                        <Font name="Arial" size="15.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txt_url" minWidth="150.0" prefHeight="25.0" prefWidth="381.0" text="url" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </TextField>
+                <TextField fx:id="txt_tag" minWidth="150.0" prefHeight="16.0" prefWidth="394.0" text="tag" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </TextField>
+                <Label alignment="CENTER_RIGHT" text="Tag" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                    <font>
+                        <Font name="Arial" size="15.0" />
+                    </font>
+                </Label>
             </children>
             <VBox.margin>
                 <Insets />

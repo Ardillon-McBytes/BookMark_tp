@@ -32,16 +32,16 @@ public class Groupbook implements DBField {
   private ArrayList<Bookmark> bookmarks;
 
   /**
-   * 
+   *
    */
   public Groupbook() {
-    this.groupbookContenus = new ArrayList<Integer >();
+    this.groupbookContenus = new ArrayList<Integer>();
     this.bookmarks = new ArrayList<Bookmark>();
     this.partages = new ArrayList<Integer>();
   }
-  
+
   /**
-   * 
+   *
    */
   public Groupbook(int id, String nom, String description, int groupbookParent) {
     this.id = id;
@@ -49,7 +49,7 @@ public class Groupbook implements DBField {
     this.description = description;
     this.groupbookParent = groupbookParent;
   }
-  
+
   /**
    *
    * @param id
@@ -118,7 +118,7 @@ public class Groupbook implements DBField {
     }
     this.groupbookParent = groupbookParent.getId();
   }
-  
+
   /**
    *
    * @param groupbookParent
@@ -126,7 +126,7 @@ public class Groupbook implements DBField {
   public void setParent(int groupbookParent) {
     this.groupbookParent = groupbookParent;
   }
-  
+
   /**
    *
    * @param groupBooks
@@ -134,7 +134,7 @@ public class Groupbook implements DBField {
   public void setGroupBooks(ArrayList<Integer> groupBooks) {
     this.groupbookContenus = groupBooks;
   }
-  
+
   /**
    *
    * @param bookmark
@@ -142,7 +142,7 @@ public class Groupbook implements DBField {
   public void setBookmarks(ArrayList<Bookmark> bookmark) {
     this.bookmarks = bookmark;
   }
-  
+
   /**
    *
    * @param partages
@@ -150,7 +150,7 @@ public class Groupbook implements DBField {
   public void setPartages(ArrayList<Integer> partages) {
     this.partages = partages;
   }
-  
+
   /**
    *
    * @return
@@ -159,7 +159,7 @@ public class Groupbook implements DBField {
   public int getId() {
     return id;
   }
-  
+
   /**
    *
    * @return
@@ -168,7 +168,7 @@ public class Groupbook implements DBField {
   public String getNom() {
     return nom;
   }
-  
+
   /**
    *
    * @return
@@ -177,7 +177,7 @@ public class Groupbook implements DBField {
   public String getValue() {
     return getDescription();
   }
-  
+
   /**
    *
    * @return
@@ -185,7 +185,7 @@ public class Groupbook implements DBField {
   public String getDescription() {
     return description;
   }
-  
+
   /**
    *
    * @return
@@ -193,7 +193,7 @@ public class Groupbook implements DBField {
   public int getParent() {
     return groupbookParent;
   }
-  
+
   /**
    *
    * @param folderList
@@ -209,7 +209,7 @@ public class Groupbook implements DBField {
     }
     return null;
   }
-  
+
   /**
    *
    * @return
@@ -217,6 +217,7 @@ public class Groupbook implements DBField {
   public ArrayList<Integer> getGroupbooks() {
     return groupbookContenus;
   }
+
   public Groupbook getGroupbook() {
     return this;
   }
@@ -296,7 +297,7 @@ public class Groupbook implements DBField {
    * @return
    */
   public void addBookmark(Bookmark bm) {
-    
+
     //G_BM.add(bm);
     bookmarks.add(bm);
 

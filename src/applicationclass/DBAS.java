@@ -9,32 +9,33 @@ package applicationclass;
 import java.util.ArrayList;
 
 /**
- * Classe parente aux tables d'associations (TAs) qui possèdent un atribut en chaine de caractère
+ * Classe parente aux tables d'associations (TAs) qui possèdent un atribut en
+ * chaine de caractère
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
  */
 public class DBAS<L extends DBField, R extends DBField> extends DBA {
-  
+
   /**
-   * 
+   *
    */
   protected String info;
-  
+
   /**
-   * 
-   * 
+   *
+   *
    * @param valeur
    * @param info
    */
   protected final void constructor(String info) {
     this.info = info;
   }
-  
+
   /**
-   * 
-   * 
+   *
+   *
    * @param id
    * @param left
    * @param right
@@ -44,10 +45,10 @@ public class DBAS<L extends DBField, R extends DBField> extends DBA {
     super.constructor(id, left, right);
     constructor(info);
   }
-  
+
   /**
-   * 
-   * 
+   *
+   *
    * @param id
    * @param left
    * @param right
@@ -57,11 +58,11 @@ public class DBAS<L extends DBField, R extends DBField> extends DBA {
     super.constructor(id, left, right);
     constructor(info);
   }
-  
+
   public void setInfo(String info) {
     this.info = info;
   }
-  
+
   public String getInfo() {
     return info;
   }

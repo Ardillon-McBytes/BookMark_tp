@@ -28,8 +28,10 @@ public class G_Validation {
   private static final int MAX_VAL_TYPE_PARTAGE = 2;
   private static boolean erreur = false;
   private static ArrayList<String> messagesErreur = new ArrayList<String>();
-  private static ArrayList<String> messagesConfirmation = new ArrayList<String>();;
-  private static ArrayList<String> nomColsConnexionTemp =new ArrayList<String>();;
+  private static ArrayList<String> messagesConfirmation = new ArrayList<String>();
+  ;
+  private static ArrayList<String> nomColsConnexionTemp = new ArrayList<String>();
+  ;
   private static Connection conn = null;
 
   public G_Validation() {
@@ -37,7 +39,7 @@ public class G_Validation {
     nomColsConnexionTemp.add("user_name");
     nomColsConnexionTemp.add("user_password");
   }
-  
+
   /**
    * Compte le nombre d'occurence d'une chaine de caractère dans une autre
    *
@@ -128,8 +130,8 @@ public class G_Validation {
     }
     return User.recherche(nomUtilisateur, courriel);
   }
-  
- public static User userValidation(String nomUtilisateur, String mdp)
+
+  public static User userValidation(String nomUtilisateur, String mdp)
           throws IOException, SQLException {
     // Faire ces validations dans le gestionnaire des utilisateurs 
     // lors de l'initialisation des nouveaux (G_User) ?
@@ -146,7 +148,7 @@ public class G_Validation {
           throws IOException, SQLException {
     return userValidation(user.getNom(), user.getCourriel(), "mot de passe");
   }
-  
+
   public static boolean validUserConnexion(String nom, String mdp) {
     ArrayList<Object> valRechCols = new ArrayList<>();
     valRechCols.add(nom);
@@ -156,23 +158,22 @@ public class G_Validation {
     nomColsConnexion.add("user_password");
     try {
       return compareBD("user", nomColsConnexion, valRechCols);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       G_Validation.addMessageErreur("Les données saisies ne sont pas dans un bon format.");
-    }
-    catch (SQLException e) {
+    } catch (SQLException e) {
       G_Validation.addMessageErreur("Une erreur s'est produite qui empêche de lire dans la BD.");
     }
     return false;
-    
+
   }
+
   /**
-   * 
+   *
    * @param nomTable
    * @param nomCol
    * @param valCol
    * @param text
-   * @return 
+   * @return
    * @throws SQLException
    * @throws IOException
    */
@@ -189,15 +190,14 @@ public class G_Validation {
       if (text.equals(rs.getString(1))) {
         return true;
       }
-    } 
-    catch (IOException | SQLException e) {
+    } catch (IOException | SQLException e) {
       return false;
-    } 
-    finally {
+    } finally {
       conn.close();
     }
     return false;
   }
+
   private static String makeFetch(ArrayList<String> nomCols) {
     StringBuilder fetch = new StringBuilder();
     fetch.append(nomCols.get(0));
@@ -206,6 +206,7 @@ public class G_Validation {
     }
     return fetch.toString();
   }
+
   private static String makeConditions(ArrayList<String> valCols, ArrayList<Object> valRechCols) {
     StringBuilder condition = new StringBuilder();
     condition.append(valCols.get(0)).append(" = ").append(valRechCols.get(0));
@@ -214,141 +215,138 @@ public class G_Validation {
     }
     return condition.toString();
   }
-  
-  private static boolean compareBD(String nomTable, 
+
+  private static boolean compareBD(String nomTable,
           ArrayList<String> nomCols, ArrayList<Object> valRechCols)
           throws SQLException, IOException {
     conn = SimpleDataSource.getConnection();
     try {
-      if (nomTable == null || nomCols == null || valRechCols == null || 
-              nomCols.size() != valRechCols.size()) {
+      if (nomTable == null || nomCols == null || valRechCols == null
+              || nomCols.size() != valRechCols.size()) {
         throw new IOException();
       }
       Statement stat = conn.createStatement();
-      ResultSet rs = stat.executeQuery("SELECT " + 
-              makeFetch(nomCols) + " FROM " + nomTable + 
-              " WHERE " + makeConditions(nomCols, valRechCols));
-      
+      ResultSet rs = stat.executeQuery("SELECT "
+              + makeFetch(nomCols) + " FROM " + nomTable
+              + " WHERE " + makeConditions(nomCols, valRechCols));
+
       rs.next();
       for (int i = 0; i < valRechCols.size(); i++) {
         if (!compareRS(rs, valRechCols.get(i), nomCols.get(i))) {
           return false;
         }
       }
-      
-    } 
-    catch (IOException | SQLException e) {
+
+    } catch (IOException | SQLException e) {
       return false;
-    } 
-    finally {
+    } finally {
       conn.close();
     }
     return true;
   }
-  
+
   private static boolean compareRS(ResultSet rs, Object val, String nomCol) throws SQLException {
     if (val instanceof String) {
       if (val.equals(rs.getString(nomCol))) {
         return true;
       }
-    }
-    else if (val instanceof Integer) {
+    } else if (val instanceof Integer) {
       if (val.equals(rs.getInt(nomCol))) {
         return true;
       }
-    }
-    else if (val instanceof Float) {
+    } else if (val instanceof Float) {
       if (val.equals(rs.getFloat(nomCol))) {
         return true;
       }
     }
     return false;
-  } 
-  
+  }
+
   public static void addMessageErreur(String message) {
     G_Validation.erreur = true;
     G_Validation.messagesErreur.add(message);
   }
-  
+
   public static void addMessageConfirmation(String message) {
     G_Validation.messagesConfirmation.add(message);
   }
-  
-   public static boolean validUser(String name,String mdp) throws IOException, SQLException, ClassNotFoundException
-    {
-        if (validName(name) == true &&
-                validPassword(name,mdp) == true) {
-      
-            return true;
-            
-        }
-        return false;
-    }
-  public static boolean validName(String name) throws SQLException, IOException {
-     
-        if ( G_User.getUserId(name).getId() > 0) {
-            return true;
-        }
-        return false;
+
+  public static boolean validUser(String name, String mdp) throws IOException, SQLException, ClassNotFoundException {
+    if (validName(name) == true
+            && validPassword(name, mdp) == true) {
+
+      return true;
 
     }
+    return false;
+  }
+
+  public static boolean validName(String name) throws SQLException, IOException {
+
+    if (G_User.getUserId(name).getId() > 0) {
+      return true;
+    }
+    return false;
+
+  }
 
   public static boolean validPassword(String name, String mdp) throws IOException, SQLException, ClassNotFoundException {
-        Connection conn = SimpleDataSource.getConnection();
-        try {
+    Connection conn = SimpleDataSource.getConnection();
+    try {
 
-            PreparedStatement stat = conn.prepareStatement(
-                    "(SELECT user_password "
-                    + "FROM user "
-                    + "WHERE user.user_name = '" + name + "')");
+      PreparedStatement stat = conn.prepareStatement(
+              "(SELECT user_password "
+              + "FROM user "
+              + "WHERE user.user_name = '" + name + "')");
 
-            ResultSet rs = stat.executeQuery();
-            String pass = null;
+      ResultSet rs = stat.executeQuery();
+      String pass = null;
 
-            if (rs.next()) {
-                pass = rs.getString(1);
-                if (!pass.equals(mdp)) {
-                    return false;
-               
-                }
-            }
-
-        } finally {
-            conn.close();
+      if (rs.next()) {
+        pass = rs.getString(1);
+        if (!pass.equals(mdp)) {
+          return false;
 
         }
+      }
 
-        return true;
+    } finally {
+      conn.close();
+
     }
-  
+
+    return true;
+  }
+
   public static String getMessageErreur() {
-    if (!estEnErreur()) return "";
+    if (!estEnErreur()) {
+      return "";
+    }
     return getMessage(G_Validation.messagesErreur);
   }
-  
+
   public static String getMessageConfirmation() {
     return getMessage(G_Validation.messagesConfirmation);
   }
-  
+
   private static String getMessage(ArrayList<String> messages) {
     final String br = System.getProperty("line.separator");
     StringBuilder message = new StringBuilder();
     if (messages.size() == 1) {
       message.append(messages.get(0));
-    }
-    else {
+    } else {
       for (int i = 0; i < messages.size(); i++) {
         message.append("No ").append(i + 1).append(" : ").append(messages.get(i)).append(br);
       }
     }
     G_Validation.erreur = false;
     return message.toString();
-  } 
-  
+  }
+
   public static boolean estEnErreur() {
     return G_Validation.erreur;
   }
-  
+
   public static void estEnErreur(boolean etat) {
     G_Validation.erreur = etat;
   }

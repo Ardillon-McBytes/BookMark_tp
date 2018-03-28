@@ -11,8 +11,8 @@ import java.sql.SQLException;
 import sqlclass.SimpleDataSource;
 
 /**
- * 
- * 
+ *
+ *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
@@ -62,7 +62,7 @@ public class G_TA {
     conn = SimpleDataSource.getConnection();
     boolean result = false;
     try {
-      result = ta.add((A)new DBA(id, left.getId(), right.getId()));
+      result = ta.add((A) new DBA(id, left.getId(), right.getId()));
     } finally {
       conn.close();
     }

@@ -20,10 +20,10 @@ import java.util.ArrayList;
 public class DBA<L extends DBField, R extends DBField> {
 
   /**
-   * 
+   *
    */
   protected int id;
-  
+
   /**
    *
    */
@@ -33,16 +33,16 @@ public class DBA<L extends DBField, R extends DBField> {
    *
    */
   protected int right;
-  
+
   /**
-   * 
+   *
    */
   public static void main(String[] args) {
-    
+
   }
-  
+
   /**
-   * 
+   *
    * @param id
    * @param left
    * @param right
@@ -52,9 +52,9 @@ public class DBA<L extends DBField, R extends DBField> {
     this.left = left;
     this.right = right;
   }
-  
+
   /**
-   * 
+   *
    * @param id
    * @param left
    * @param right
@@ -65,8 +65,9 @@ public class DBA<L extends DBField, R extends DBField> {
     setRight(right);
   }
 
-  public DBA() {}
-  
+  public DBA() {
+  }
+
   /**
    *
    * @param id
@@ -86,9 +87,9 @@ public class DBA<L extends DBField, R extends DBField> {
   public DBA(int id, L left, R right) {
     constructor(id, left, right);
   }
-  
+
   /**
-   * 
+   *
    * @param id
    */
   public void setId(int id) {

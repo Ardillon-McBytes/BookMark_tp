@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import sqlclass.SimpleDataSource;
 
 /**
- * 
- * 
+ *
+ *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
@@ -130,7 +130,6 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
     return idModifications;
   }
 
-  
   public boolean add(A e) {
     if (!contains(e)) {
       // Trouver une manière de vérifier dans a BD
@@ -143,9 +142,9 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
   }
 
   /**
-   * 
+   *
    * @param e
-   * @return 
+   * @return
    */
   /*@Override
   public boolean remove(A e) {
@@ -155,7 +154,6 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
     }
     return false;
   }*/
-  
   /**
    *
    * @param <L>
@@ -350,7 +348,7 @@ public class TABase<L extends DBField, R extends DBField, A extends DBA<L, R>> e
       ResultSet rs = stat.executeQuery("SELECT * FROM " + getNomTable());
       while (rs.next()) {
         ta = new DBA(rs.getInt(getColId()), rs.getInt(getColLeft()), rs.getInt(getColRight()));
-        this.add((A)ta);
+        this.add((A) ta);
       }
     } catch (SQLException e) {
       clear();

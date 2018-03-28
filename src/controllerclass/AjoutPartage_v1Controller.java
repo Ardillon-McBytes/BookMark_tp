@@ -57,8 +57,8 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
   static Stage prevStage;
   static int _id_user = 0;
   static int _id_GB;
-    @FXML
-    private TextField txt_groupe;
+  @FXML
+  private TextField txt_groupe;
 
   /**
    * Initializes the controller class.
@@ -66,29 +66,26 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
    * @param stage
    * @param id_bookMark
    */
-
   public void setPrevStage(Stage stage, int _id_GB) {
     prevStage = stage;
     this._id_GB = _id_GB;
   }
 
-
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-      try {
-          String name = G_GB.getGBName(_id_GB);
-          txt_groupe.setText(name);
-      } catch (SQLException ex) {
-          Logger.getLogger(AjoutPartage_v1Controller.class.getName()).log(Level.SEVERE, null, ex);
-      }
+    try {
+      String name = G_GB.getGBName(_id_GB);
+      txt_groupe.setText(name);
+    } catch (SQLException ex) {
+      Logger.getLogger(AjoutPartage_v1Controller.class.getName()).log(Level.SEVERE, null, ex);
+    }
   }
-
 
   @FXML
   private void addUserGroup(MouseEvent event) throws IOException, SQLException, ClassNotFoundException, Exception {
-   
-     int userId =  User.getUserId(user_name.getText());
-      if (userId > 0 && userId != g.getUsagerActif().getId()) {
+
+    int userId = User.getUserId(user_name.getText());
+    if (userId > 0 && userId != g.getUsagerActif().getId()) {
 
       int type = 0;
       Connection conn = SimpleDataSource.getConnection();
@@ -100,7 +97,7 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
         if (chkCollaborateur.isSelected()) {
           type = 2;
         }
-        
+
         int id_gb = G_GB.getGBDefaultFromUser(g.getUsagerActif().getNom());
 
         PreparedStatement stat = conn.prepareStatement(
@@ -110,19 +107,18 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
                 + id_gb + "')");
 
         stat.executeUpdate();
-      
 
       } finally {
         conn.close();
       }
     }
- Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
- stageTheLabelBelongs.hide();
+    Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
+    stageTheLabelBelongs.hide();
   }
 
-    @FXML
-    private void closeStage(MouseEvent event) {
-    }
+  @FXML
+  private void closeStage(MouseEvent event) {
+  }
 
   /**
    *

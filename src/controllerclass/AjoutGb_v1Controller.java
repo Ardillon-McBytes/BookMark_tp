@@ -26,43 +26,42 @@ import javafx.stage.Stage;
  */
 public class AjoutGb_v1Controller implements Initializable {
 
-    @FXML
-    private TextField txt_nom_gb;
-    @FXML
-    private Button btnAnnuler;
-    @FXML
-    private Button btnAjouter;
-    @FXML
-    private TextField txt_description;
+  @FXML
+  private TextField txt_nom_gb;
+  @FXML
+  private Button btnAnnuler;
+  @FXML
+  private Button btnAjouter;
+  @FXML
+  private TextField txt_description;
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+  /**
+   * Initializes the controller class.
+   */
+  @Override
+  public void initialize(URL url, ResourceBundle rb) {
+    // TODO
+  }
+
+  @FXML
+  private void exitPage(MouseEvent event) {
+
+    Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
+    stageTheLabelBelongs.hide();
+  }
+
+  @FXML
+  private void addGb(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
+
+    int gb_id = G_GB.getGBId(txt_nom_gb.getText());
+    if (gb_id < 1) {
+      G_GB.createGb(txt_nom_gb.getText(), txt_description.getText());
+      gb_id = G_GB.getGBId(txt_nom_gb.getText());
+      TA_User_GB.addUserGroup(g.getUsagerActif().getId(), gb_id);
+      Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
+      stageTheLabelBelongs.hide();
     }
 
-    @FXML
-    private void exitPage(MouseEvent event) {
-
-         Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
- stageTheLabelBelongs.hide();
-    }
-
-    @FXML
-    private void addGb(MouseEvent event) throws IOException, SQLException, ClassNotFoundException {
-
-        
-        int gb_id = G_GB.getGBId(txt_nom_gb.getText());
-        if (gb_id < 1) {
-            G_GB.createGb( txt_nom_gb.getText(), txt_description.getText());
-            gb_id = G_GB.getGBId(txt_nom_gb.getText());
-            TA_User_GB.addUserGroup(g.getUsagerActif().getId(), gb_id);
-            Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
-            stageTheLabelBelongs.hide();
-        }
-
-    }
+  }
 
 }
