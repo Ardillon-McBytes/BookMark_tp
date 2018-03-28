@@ -7,7 +7,8 @@
 package applicationclass;
 
 /**
- * Classe des associations utilisés dans les TAs qui possèdent un atribut en chaine de caractère
+ * Classe des associations utilisés dans les TAs qui possèdent un atribut en
+ * chaine de caractère
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
@@ -24,7 +25,7 @@ public class DBAS<L extends DBField, R extends DBField> extends DBA {
 
   /**
    * Constructeur
-   * 
+   *
    * @param info Chaine de caractère assignée à la paire
    */
   protected final void constructor(String info) {
@@ -33,7 +34,7 @@ public class DBAS<L extends DBField, R extends DBField> extends DBA {
 
   /**
    * Constructeur
-   * 
+   *
    * @param id Identifiant de l'association
    * @param left Identifiant du premier élément
    * @param right Identifiant du deuxième élément
@@ -46,7 +47,7 @@ public class DBAS<L extends DBField, R extends DBField> extends DBA {
 
   /**
    * Constructeur
-   * 
+   *
    * @param id Identifiant de l'association
    * @param left Identifiant du premier élément
    * @param right Identifiant du deuxième élément
@@ -59,7 +60,7 @@ public class DBAS<L extends DBField, R extends DBField> extends DBA {
 
   /**
    * Modifie la chaine de caractère assignée à la paire
-   * 
+   *
    * @param info Nouvelle chaine de caractère assignée à la paire
    */
   public void setInfo(String info) {
@@ -68,7 +69,7 @@ public class DBAS<L extends DBField, R extends DBField> extends DBA {
 
   /**
    * Obtient la chaine de caractère assignée à la paire
-   * 
+   *
    * @return La chaine de caractère
    */
   public String getInfo() {

@@ -26,7 +26,7 @@ public class Bookmark implements DBField {
 
   /**
    * Constructeur
-   * 
+   *
    * @param id
    * @param nom
    * @param description
@@ -36,7 +36,7 @@ public class Bookmark implements DBField {
 
   /**
    * Constructeur
-   * 
+   *
    * @param id
    * @param nom
    * @param url
@@ -51,7 +51,7 @@ public class Bookmark implements DBField {
 
   /**
    * Constructeur
-   * 
+   *
    * @param nom
    * @param url
    * @param description
@@ -65,7 +65,7 @@ public class Bookmark implements DBField {
 
   /**
    * Constructeur
-   * 
+   *
    * @param rs
    * @throws SQLException
    */

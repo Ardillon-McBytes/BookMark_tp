@@ -9,8 +9,9 @@ package applicationclass;
 import java.util.ArrayList;
 
 /**
- * Classe parente à toutes les associations utilisés dans les tables d'associations (TAs)
- * 
+ * Classe parente à toutes les associations utilisés dans les tables
+ * d'associations (TAs)
+ *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
@@ -34,10 +35,9 @@ public class DBA<L extends DBField, R extends DBField> {
    */
   protected int right;
 
-
   /**
    * Constructeur
-   * 
+   *
    * @param id Identifiant de l'association
    * @param left Identifiant du premier élément
    * @param right Identifiant du deuxième élément
@@ -50,7 +50,7 @@ public class DBA<L extends DBField, R extends DBField> {
 
   /**
    * Constructeur
-   * 
+   *
    * @param id Identifiant de l'association
    * @param left Objet du premier élément
    * @param right Objet du deuxième élément
@@ -69,7 +69,7 @@ public class DBA<L extends DBField, R extends DBField> {
 
   /**
    * Constructeur
-   * 
+   *
    * @param id Identifiant de l'association
    * @param left Identifiant du premier élément
    * @param right Identifiant du deuxième élément
@@ -135,7 +135,8 @@ public class DBA<L extends DBField, R extends DBField> {
   }
 
   /**
-   * Modifie les identifiants à l'aide d'un couple (ne change pas l'identifiant de l'association)
+   * Modifie les identifiants à l'aide d'un couple (ne change pas l'identifiant
+   * de l'association)
    *
    * @param pair Couple d'entier identifiant les objets associés
    */
@@ -145,8 +146,8 @@ public class DBA<L extends DBField, R extends DBField> {
   }
 
   /**
-   * Obtient l'élément qui possède l'identifiant dans une liste 
-   * 
+   * Obtient l'élément qui possède l'identifiant dans une liste
+   *
    * @param <FK> Type de l'élément recherché
    * @param side Identifiant de l'élément recherché
    * @param list Liste des éléments
@@ -163,7 +164,7 @@ public class DBA<L extends DBField, R extends DBField> {
 
   /**
    * Obtient le premier élément (coté gauche) présent dans une liste
-   * 
+   *
    * @param list Liste des éléments de la première colonne dans la BD
    * @return L'élément trouvé ou la valeur null
    */
@@ -187,9 +188,9 @@ public class DBA<L extends DBField, R extends DBField> {
    * @param list Liste des éléments de la deuxième colonne dans la BD
    * @return L'élément trouvé ou la valeur null
    */
-  public R getRight(ArrayList<R> list ) {
+  public R getRight(ArrayList<R> list) {
     // Utilise la méthode générique ici au lieu si elle fonctionne
-    for (R r : list ) {
+    for (R r : list) {
       if (r.getId() == this.right) {
         return r;
       }
@@ -208,7 +209,7 @@ public class DBA<L extends DBField, R extends DBField> {
 
   /**
    * Obtient la pair d'association
-   * 
+   *
    * @return La pair associée
    */
   public Pair<Integer> getPair() {
@@ -217,8 +218,8 @@ public class DBA<L extends DBField, R extends DBField> {
 
   /**
    * Méthode utilisé lors de la comparaison entre chaque DBA
-   * 
-   * @param obj DBA à comparer 
+   *
+   * @param obj DBA à comparer
    * @return Vrai si les valeurs des deux DBA sont identiques
    */
   @Override
@@ -230,12 +231,13 @@ public class DBA<L extends DBField, R extends DBField> {
       return false;
     }
     DBA other = (DBA) obj;
-    return !(id != other.id ||left != other.left || right != other.right);
+    return !(id != other.id || left != other.left || right != other.right);
   }
 
   /**
-   * Méthode utilisé dans les fonctions de recherches en générant une valeur hash
-   * 
+   * Méthode utilisé dans les fonctions de recherches en générant une valeur
+   * hash
+   *
    * @return Valeur hash
    */
   @Override

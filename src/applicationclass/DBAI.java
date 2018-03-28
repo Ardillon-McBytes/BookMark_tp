@@ -7,7 +7,8 @@
 package applicationclass;
 
 /**
- * Classe des associations utilisés dans les TAs qui possèdent un atribut en entier
+ * Classe des associations utilisés dans les TAs qui possèdent un atribut en
+ * entier
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
@@ -24,7 +25,7 @@ public class DBAI<L extends DBField, R extends DBField> extends DBA {
 
   /**
    * Modifie la valeur assignée à la paire
-   * 
+   *
    * @param valeur Nouvelle valeur de la paire
    */
   protected final void constructor(int valeur) {
@@ -33,7 +34,7 @@ public class DBAI<L extends DBField, R extends DBField> extends DBA {
 
   /**
    * Constructeur
-   * 
+   *
    * @param id Identifiant de l'association
    * @param left Identifiant du premier élément
    * @param right Identifiant du deuxième élément
@@ -46,7 +47,7 @@ public class DBAI<L extends DBField, R extends DBField> extends DBA {
 
   /**
    * Constructeur
-   * 
+   *
    * @param id Identifiant de l'association
    * @param left Identifiant du premier élément
    * @param right Identifiant du deuxième élément
@@ -59,7 +60,7 @@ public class DBAI<L extends DBField, R extends DBField> extends DBA {
 
   /**
    * Modifie la valeur assignée à la paire
-   * 
+   *
    * @param valeur Nouvelle valeur assignée à la paire
    */
   public void setValeur(int valeur) {
@@ -68,7 +69,7 @@ public class DBAI<L extends DBField, R extends DBField> extends DBA {
 
   /**
    * Obtient la valeur assignée à la paire
-   * 
+   *
    * @return Valeur assignée à la paire
    */
   public int getValeur() {

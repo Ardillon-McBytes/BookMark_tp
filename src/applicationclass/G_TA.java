@@ -13,13 +13,13 @@ import sqlclass.SimpleDataSource;
 
 /**
  * Classe dédié à la gestion des tables d'associations
- * 
+ *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
  */
 public class G_TA {
-  
+
   private static TA_User_GB acces;
   private static TA_GB_GB conteneurs;
   private static TA_GB_BM contenus;
@@ -61,8 +61,9 @@ public class G_TA {
    * MÉTHODES DE LA CLASSE ********************
    */
   /**
-   * Méthode générique qui permet l'ajout d'une association dans la table correspondante aux éléments
-   * 
+   * Méthode générique qui permet l'ajout d'une association dans la table
+   * correspondante aux éléments
+   *
    * @param <L> Type de l'élément de gauche
    * @param <R> Type de l'élément de droite
    * @param <A> Type de l'association des éléments
@@ -137,7 +138,7 @@ public class G_TA {
   }
 
   /**
-   * 
+   *
    * @param <L>
    * @param <R>
    * @param left
@@ -261,8 +262,8 @@ public class G_TA {
   }
 
   /**
-   * 
-   * 
+   *
+   *
    * @return
    */
   public static TA_User_GB getAcces() {
@@ -270,8 +271,8 @@ public class G_TA {
   }
 
   /**
-   * 
-   * 
+   *
+   *
    * @return
    */
   public static TA_GB_GB getConteneurs() {
