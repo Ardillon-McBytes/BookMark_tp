@@ -87,6 +87,14 @@ public class TA_User_GB extends TABase<User, Groupbook, DBA<User, Groupbook>> {
 
   }
 
+  /**
+   *
+   * @param id_user
+   * @return
+   * @throws IOException
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   static public ArrayList<Groupbook> getUserGroups(int id_user) throws IOException, SQLException, ClassNotFoundException {
 
     ArrayList<Groupbook> gb = new ArrayList<>();
@@ -107,7 +115,7 @@ public class TA_User_GB extends TABase<User, Groupbook, DBA<User, Groupbook>> {
         G_BM = new G_BM();
         Groupbook gb2 = new Groupbook();
 
-        //@old-node_conflict Il semblerait que la méthode retourne un bookmark, mais on veut un groupbook
+        // La méthode devrait retourner un ou plusieurs bookmarks selon son nom, mais elle est construite différament?
         //gb2 = TA_GB_BM.getBmFromGb(rs.getInt(4));
         gb.add(gb2);
 

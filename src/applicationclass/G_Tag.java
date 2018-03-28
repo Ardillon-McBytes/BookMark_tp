@@ -96,6 +96,7 @@ public class G_Tag {
    */
   static public Tag getTagFromName(String name) throws SQLException {
     Connection conn = SimpleDataSource.getConnection();
+    Tag tag = new Tag();
     try {
 
       String query = "SELECT * "

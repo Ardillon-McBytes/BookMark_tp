@@ -60,7 +60,7 @@ public class G_BM {
    * @param id Identifiant du bookmark recherché
    * @throws SQLException Erreur causé par la BD
    */
-  public void getBm(int id) throws SQLException {
+  public static void getBm(int id) throws SQLException {
     conn = SimpleDataSource.getConnection();
     try {
 

@@ -30,7 +30,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller classe pour l'interface d'ajout d'un nouveau compte d'utilisateur
+ * FXML Controller classe pour l'interface d'ajout d'un nouveau compte
+ * d'utilisateur
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
@@ -113,7 +114,7 @@ public class NouveauCompte_v1Controller extends main_controller implements Initi
     g.addMessageErreur(message);
     return true;
   }
-  
+
   private boolean addConfirmation(String message) {
     g.addMessageConfirmation(message);
     return true;
@@ -127,13 +128,13 @@ public class NouveauCompte_v1Controller extends main_controller implements Initi
     } else if (!G_Validation.nom(userName.getText())) {
       invalide = addConfirmation("Le nom du compte saisie n'est pas valide.");
     }
-    
+
     if (userAdress.getText().isEmpty()) {
       invalide = addConfirmation("Le champ du mot de passe est vide.");
     } else if (!G_Validation.courriel(userAdress.getText())) {
       invalide = addConfirmation("L'adresse courriel saisie n'est pas valide.");
     }
-    
+
     if (userPassword.getText().isEmpty()) {
       invalide = addConfirmation("Le champ du mot de passe est vide.");
     } else if (!G_Validation.mdp(userPassword.getText())) {
@@ -141,11 +142,11 @@ public class NouveauCompte_v1Controller extends main_controller implements Initi
     } else if (!userConfirmPassword.getText().equals(userPassword.getText())) {
       invalide = addConfirmation("La resaisie du mot de passe n'est pas identique au premier.");
     }
-    
+
     if (invalide) {
       showConfirmation();
     }
-    
+
     return !invalide;
   }
 

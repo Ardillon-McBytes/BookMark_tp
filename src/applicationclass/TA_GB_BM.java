@@ -182,11 +182,12 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
   }
 
   /**
+   * Obtient l'identifiant de l'association
    *
-   * @param id_group
-   * @param id_bm
-   * @return
-   * @throws SQLException
+   * @param id_group Identifiant du groupbook
+   * @param id_bm Identifiant du bookmark
+   * @return Identifiant de l'association
+   * @throws SQLException La BD n'est pas rejoignable
    */
   static public int getId(int id_group, int id_bm) throws SQLException {
     Connection conn = SimpleDataSource.getConnection();
@@ -214,6 +215,7 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
   }
 
   /**
+   *
    *
    * @param id_group
    * @return

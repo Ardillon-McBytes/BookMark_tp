@@ -28,7 +28,6 @@ public class Bookmark implements DBField {
    * Constructeur
    *
    * @param id
-   * @param nom
    * @param description
    */
   public Bookmark() {

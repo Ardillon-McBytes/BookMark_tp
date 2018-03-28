@@ -5,6 +5,7 @@
  */
 package applicationclass;
 
+import static applicationclass.Gestionnaire.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -355,8 +356,8 @@ public class G_GB {
    */
   static public ArrayList<User>
           getUserFromGBRead(ArrayList<Groupbook> gb) throws SQLException, IOException {
-    conn = SimpleDataSource.getConnection();
-    ArrayList<User> Ar_User = new ArrayList<>();
+    Connection conn = SimpleDataSource.getConnection();
+    ArrayList<User> Ar_User = new ArrayList<User>();
     try {
       for (int i = 0; i < gb.size(); i++) {
 
@@ -376,13 +377,12 @@ public class G_GB {
           ps2.setInt(1, id_bm);
 
           ResultSet rs2 = ps2.executeQuery();
-          int id_user;
+          int id_user = 0;
           while (rs2.next()) {
             int id_gb = rs2.getInt(4);
             id_user = rs2.getInt(3);
             int id_default_Gb;
-            String name = "";
-            //= G_User.getUserId(); // À réimplémenter
+            String name = G_User.getUserName(id_user);
             id_default_Gb = getGBDefaultFromUser(name);
             if (gb.get(i).getId() == id_default_Gb) {
               String query3 = "SELECT * "
@@ -420,10 +420,11 @@ public class G_GB {
    */
   static public ArrayList<Groupbook>
           getGBFromUser(int userId) throws SQLException {
-    conn = SimpleDataSource.getConnection();
-    ArrayList<Groupbook> list_gb = new ArrayList<>();
-    Groupbook gb;
+    Connection conn = SimpleDataSource.getConnection();
+    ArrayList<Groupbook> list_gb = new ArrayList<Groupbook>();
+    Groupbook gb = new Groupbook();
     try {
+
       String query = "SELECT * "
               + "FROM user_group "
               + "WHERE id_user = ?";
@@ -451,6 +452,7 @@ public class G_GB {
           gb.setBookmarks(TA_GB_BM.getBmFromGb(gb.getId()));
           list_gb.add(gb);
         }
+
       }
 
     } finally {
@@ -468,7 +470,7 @@ public class G_GB {
    */
   static public int
           getGBDefaultFromUser(String userName) throws SQLException {
-    conn = SimpleDataSource.getConnection();
+    Connection conn = SimpleDataSource.getConnection();
     Groupbook gb = new Groupbook();
     Bookmark bm;
     try {
@@ -498,7 +500,7 @@ public class G_GB {
    */
   static public int
           getGBId(String gb_name) throws SQLException {
-    conn = SimpleDataSource.getConnection();
+    Connection conn = SimpleDataSource.getConnection();
     Groupbook gb = new Groupbook();
     Bookmark bm;
     try {
@@ -520,9 +522,15 @@ public class G_GB {
     return gb.getId();
   }
 
+  /**
+   *
+   * @param id
+   * @return
+   * @throws SQLException
+   */
   static public String
           getGBName(int id) throws SQLException {
-    conn = SimpleDataSource.getConnection();
+    Connection conn = SimpleDataSource.getConnection();
     Groupbook gb = new Groupbook();
     Bookmark bm;
     try {

@@ -157,10 +157,11 @@ public class Connexion_v1Controller extends main_controller implements Initializ
   }
 
   @FXML
-  private void connectUser(MouseEvent event) {
+  private void connectUser(MouseEvent event) throws SQLException, IOException {
 
+    g.getUsagerActif().setNom(user_name.getText());
+    g.getUsagerActif().setId(G_User.getUserId(user_name.getText()).getId());
     try {
-      g.setUsagerActif(new User(user_name.getText()));
       if (validContent() && super.validUser() && validPassword()) {
 
         boolean test = false;
@@ -186,16 +187,17 @@ public class Connexion_v1Controller extends main_controller implements Initializ
       }
     } catch (SQLException e) {
       g.addMessageErreur("La connexion dans la BD ne s'est pas produite complètement.");
-
     } catch (IOException e) {
-      g.addMessageConfirmation("L'utilisateur semble mal initialisé.");
+      /**
+       * @old-node_question Est-ce qu'on devrait plutôt ajouter le message
+       * suivant dans avec la méthode addMessageConfirmation ?
+       */
 
+      g.addMessageErreur("Un ou plusieurs champs reçues ne sont pas valide pour le fonctionnement du programme.");
     } catch (ClassNotFoundException e) {
-      g.addMessageErreur("Une classe de l'application s'est mal chargée.");
-
+      g.addMessageErreur("Des dépendances du programme n'ont pas été correctement inclues.");
     } catch (Exception e) {
-      g.addMessageErreur("Une erreur venant du chargement de la BD s'est produite.");
-
+      g.addMessageErreur("Une erreur non répertoriée s'est produite.");
     } finally {
       if (g.estEnErreur()) {
         super.showAlert();

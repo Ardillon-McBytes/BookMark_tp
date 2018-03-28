@@ -39,7 +39,7 @@
                                     <children>
                                         <ImageView fx:id="btn_add_share" fitHeight="31.0" fitWidth="29.0" onMouseClicked="#addUserBm" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../../../image/connexion.png" />
+                                                <Image url="@../../../image/add-share.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fx:id="btn_remove_share" fitHeight="31.0" fitWidth="29.0" onMouseClicked="#remove_share_user" pickOnBounds="true" preserveRatio="true">
@@ -192,8 +192,131 @@
                                                                 </GridPane>
                                                             </children>
                                                         </AnchorPane>
+                                                    </content>
+                                                </ScrollPane>
                                             </children>
                                         </VBox>
+                                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity">
+                                            <children>
+                                                <GridPane alignment="CENTER_LEFT" hgap="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" vgap="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <children>
+                                                        <Label alignment="CENTER_RIGHT" text="Nom:" textAlignment="RIGHT">
+                                                            <font>
+                                                                <Font name="Arial" size="15.0" />
+                                                            </font>
+                                                            <GridPane.margin>
+                                                                <Insets />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <TextField fx:id="txt_file_name" minWidth="150.0" promptText="Nom" GridPane.columnIndex="1" GridPane.valignment="BASELINE">
+                                                            <opaqueInsets>
+                                                                <Insets />
+                                                            </opaqueInsets>
+                                                            <padding>
+                                                                <Insets bottom="4.0" top="4.0" />
+                                                            </padding>
+                                                            <GridPane.margin>
+                                                                <Insets />
+                                                            </GridPane.margin>
+                                                        </TextField>
+                                                        <Label alignment="CENTER_RIGHT" text="Tag:" textAlignment="RIGHT" GridPane.rowIndex="2">
+                                                            <font>
+                                                                <Font name="Arial" size="15.0" />
+                                                            </font>
+                                                            <GridPane.margin>
+                                                                <Insets />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Hyperlink GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                                                            <padding>
+                                                                <Insets left="-2.0" right="-2.0" top="-2.0" />
+                                                            </padding>
+                                                            <GridPane.margin>
+                                                                <Insets right="2.0" top="1.0" />
+                                                            </GridPane.margin>
+                                                        </Hyperlink>
+                                                        <Label alignment="CENTER_RIGHT" text="Adresse:" textAlignment="RIGHT" GridPane.rowIndex="1">
+                                                            <font>
+                                                                <Font name="Arial" size="15.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <TextField fx:id="txt_adress" minWidth="150.0" promptText="Adresse" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                            <opaqueInsets>
+                                                                <Insets />
+                                                            </opaqueInsets>
+                                                            <padding>
+                                                                <Insets bottom="4.0" top="4.0" />
+                                                            </padding>
+                                                        </TextField>
+                                                        <Hyperlink GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                            <graphic>
+                                                                <ImageView fx:id="btnVerifier_url" fitHeight="25.0" onMouseClicked="#verifier_url" pickOnBounds="true" preserveRatio="true">
+                                                                    <image>
+                                                                        <Image url="@../../../image/info.png" />
+                                                                    </image>
+                                                                </ImageView>
+                                                            </graphic>
+                                                            <padding>
+                                                                <Insets left="-2.0" right="-2.0" top="-2.0" />
+                                                            </padding>
+                                                            <GridPane.margin>
+                                                                <Insets right="2.0" top="1.0" />
+                                                            </GridPane.margin>
+                                                        </Hyperlink>
+                                                        <TextField fx:id="txt_tag_name" minWidth="150.0" promptText="Tag" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                            <opaqueInsets>
+                                                                <Insets />
+                                                            </opaqueInsets>
+                                                            <padding>
+                                                                <Insets bottom="4.0" top="4.0" />
+                                                            </padding>
+                                                        </TextField>
+                                                        <Hyperlink GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                                            <graphic>
+                                                                <ImageView fx:id="btnInfo_tag" fitHeight="25.0" pickOnBounds="true" preserveRatio="true">
+                                                                    <image>
+                                                                        <Image url="@../../../image/validate.png" />
+                                                                    </image>
+                                                                </ImageView>
+                                                            </graphic>
+                                                            <padding>
+                                                                <Insets left="-2.0" right="-2.0" top="-2.0" />
+                                                            </padding>
+                                                            <GridPane.margin>
+                                                                <Insets right="2.0" top="1.0" />
+                                                            </GridPane.margin>
+                                                        </Hyperlink>
+                                                        <ImageView fx:id="btn_show_tag2" fitHeight="29.0" fitWidth="31.0" onMouseClicked="#showTag" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                                                            <image>
+                                                                <Image url="@../../../image/validate.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                        <ImageView fx:id="btnAdd_txt_tag" fitHeight="25.0" onMouseClicked="#addTag" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                                            <GridPane.margin>
+                                                                <Insets right="30.0" />
+                                                            </GridPane.margin>
+                                                            <image>
+                                                                <Image url="@../../../image/info.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </children>
+                                                    <columnConstraints>
+                                                        <ColumnConstraints halignment="LEFT" hgrow="NEVER" />
+                                                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" valignment="CENTER" />
+                                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" valignment="CENTER" />
+                                                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" valignment="CENTER" />
+                                                    </rowConstraints>
+                                                    <padding>
+                                                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                                    </padding>
+                                                </GridPane>
+                                            </children>
+                                        </AnchorPane>
+                                    </children>
+                                </VBox>
                             </center>
                         </BorderPane>
                     </children>

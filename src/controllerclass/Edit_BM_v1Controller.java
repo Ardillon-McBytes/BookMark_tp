@@ -1,8 +1,7 @@
 /*
- * Cour de la 4e session en Informatique de gestion  (420.AA)
- * Programmation d'environnement graphique           (420-255-SH)
- * Programmation d'environement de base de données   (420-276-SH)
- * TP1 - Remise 2 - Gestionnaire de marquepage
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package controllerclass;
 
@@ -28,11 +27,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
- * FXML Classe du Controlleur pour l'édition des bookmarks
+ * FXML Controller class
  *
- * @author Olivier Lemay Dostie
- * @author Jean-Alain Sainton
- * @version 1.0
+ * @author moi
  */
 public class Edit_BM_v1Controller implements Initializable {
 
@@ -48,8 +45,11 @@ public class Edit_BM_v1Controller implements Initializable {
   static int _id_tag = 0;
   static int _id_bookmark;
 
+  /**
+   *
+   */
   public Tag tag;
-  int id_bm;
+  static int id_bm;
   @FXML
   private TextField txt_nom_bm;
   @FXML
@@ -68,16 +68,17 @@ public class Edit_BM_v1Controller implements Initializable {
    * @param rb
    */
   @Override
+
   public void initialize(URL url, ResourceBundle rb) {
     try {
       // TODO
-      //g.getBm(id_bm);
+      G_BM.getBm(id_bm);
       old_bm = G_BM.getBookMark();
       txt_nom_bm.setText(G_BM.getBookMark().getNom());
       txt_description.setText(G_BM.getBookMark().getDescription());
       txt_url.setText(G_BM.getBookMark().getUrl());
-      Tag tag1 = G_Tag.getTagFromBm(id_bm);
-      txt_tag.setText(tag1.getNom());
+      Tag tag = G_Tag.getTagFromBm(id_bm);
+      txt_tag.setText(tag.getNom());
 
     } catch (SQLException ex) {
       Logger.getLogger(Edit_BM_v1Controller.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,6 +86,11 @@ public class Edit_BM_v1Controller implements Initializable {
 
   }
 
+  /**
+   *
+   * @param stage
+   * @param id_bm
+   */
   public void setPrevStage(Stage stage, int id_bm) {
     prevStage = stage;
     this.id_bm = id_bm;
@@ -117,15 +123,22 @@ public class Edit_BM_v1Controller implements Initializable {
 
     G_BM.setBookMark(bm);
     G_BM.editBm(old_bm.getId(), bm);
+    for (int i = 0; i < g.getBookmarks().size(); i++) {
+      if (g.getBookmarks().get(i).getId() == old_bm.getId()) {
+        g.getBookmarks().remove(i);
+        g.addBookmark(bm);
+        break;
+      }
+    }
 
-    Tag tag1 = G_Tag.getTagFromName(txt_tag.getText());
-    if (tag1.getId() < 1) {
+    Tag tag = G_Tag.getTagFromName(txt_tag.getText());
+    if (tag.getId() < 1) {
       G_Tag.setTag(txt_tag.getText(), "");
       G_Tag.addTag();
 
     }
-    tag1 = G_Tag.getTagFromName(txt_tag.getText());
-    TA_BM_Tag.addTagToBm(G_BM.getBookMark().getId(), tag1.getId());
+    tag = G_Tag.getTagFromName(txt_tag.getText());
+    TA_BM_Tag.addTagToBm(G_BM.getBookMark().getId(), tag.getId());
 
     Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
     stageTheLabelBelongs.hide();

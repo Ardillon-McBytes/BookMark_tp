@@ -64,7 +64,7 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
    * Initializes the controller class.
    *
    * @param stage
-   * @param id_bookMark
+   * @param _id_GB
    */
   public void setPrevStage(Stage stage, int _id_GB) {
     prevStage = stage;
