@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
 /**
- * FXML Controller class
+ * FXML Controller classe pour l'interface de gestion des partages
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton

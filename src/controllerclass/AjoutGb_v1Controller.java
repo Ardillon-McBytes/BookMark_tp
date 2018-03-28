@@ -21,9 +21,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * FXML Classe du Controlleur pour l'ajout d'un groupbook
  *
- * @author moi
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class AjoutGb_v1Controller implements Initializable {
 

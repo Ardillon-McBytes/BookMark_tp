@@ -29,7 +29,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * FXML Controller classe pour l'interface de connexion
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton

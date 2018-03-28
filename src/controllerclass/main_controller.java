@@ -21,7 +21,8 @@ import javax.swing.JOptionPane;
 import sqlclass.SimpleDataSource;
 
 /**
- *
+ * FXML Classe du Controlleur parente à tous les autres controlleurs
+ * 
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
@@ -29,21 +30,26 @@ import sqlclass.SimpleDataSource;
 public class main_controller {
 
   /**
-   *
+   * Stage précédent pour la navigation entre elles
    */
   protected static Stage previousStage;
   /*@old-node_suggestion*/
 
   /**
-   *
+   * Gestionnaire statique principale accessible par tout les autres controleurs
    */
   protected static Gestionnaire g = new Gestionnaire();
 
   /**
-   *
+   * Attribut utilisateur pour faire certaines gestions
    */
   protected static User user = new User();
 
+  /**
+   * Valide si les informations de l'utilisateurs enregistré dans le gestionnaire sont valides
+   * 
+   * @return Vrai si le nom de l'utilisateur est présent dans la BD
+   */
   boolean validUser() {
     {
       try {
@@ -63,10 +69,21 @@ public class main_controller {
     return true;
   }
 
+  /**
+   * Change de stage par celui précédent
+   * 
+   * @param stage 
+   */
   void setPrevStage(Stage stage) {
     prevStage = stage;
   }
 
+  /**
+   * Procède à la fermeture de la page active
+   * 
+   * @param object 
+   * @throws Exception 
+   */
   void exitPage(Object object) throws Exception {
 
     Stage stageTheLabelBelongs = (Stage) ((Node) object).getScene().getWindow();
@@ -75,14 +92,22 @@ public class main_controller {
 
   }
 
+  /**
+   * Affiche les messages du gestionnaire
+   */
   void showMessages() {
     if (g.estEnErreur()) {
       showAlert();
-    } else {
+    } else if (g.aUneConfirmation()) {
       showConfirmation();
     }
   }
 
+  /**
+   * Affiche des messages 
+   * 
+   * @param var Message à afficher
+   */
   void showMessages(String var) {
     if (g.estEnErreur()) {
       showAlert(var);
@@ -91,24 +116,48 @@ public class main_controller {
     }
   }
 
+  /**
+   * Affiche les messages de confirmation du gestionnaire
+   */
   void showConfirmation() {
     showConfirmation(g.getMessageConfirmation());
   }
 
+  /**
+   * Affiche un message de confirmation
+   * 
+   * @param var Message de confirmation
+   */
   void showConfirmation(String var) {
     showMessage(Alert.AlertType.CONFIRMATION, "Confirmation", null, var);
   }
 
+  /**
+   * Affiche les messages d'erreurs du gestionnaire
+   */
   void showAlert() {
     showAlert(g.getMessageErreur());
-  }
-
-  void showAlert(String var) {
-    showMessage(Alert.AlertType.ERROR, "Error", null,
-            "Une ou plusieurs erreurs se sont produites. Les messages retenus sont : \n\n" + var);
     g.estEnErreur(false);
   }
 
+  /**
+   * Affiche des messages d'erreurs
+   * 
+   * @param var Message d'erreur
+   */
+  void showAlert(String var) {
+    showMessage(Alert.AlertType.ERROR, "Error", null,
+            "Une ou plusieurs erreurs se sont produites. Les messages retenus sont : \n\n" + var);
+  }
+
+  /**
+   * Procède à la création de la fenêtre d'affichage qui affiche les messages voulues
+   * 
+   * @param type Type de l'alerte de la fenêtre
+   * @param titre Titre de la fenêtre
+   * @param header Message suppérieur de la fenêtre
+   * @param content Message à afficher
+   */
   private void showMessage(Alert.AlertType type, String titre, String header, String content) {
     Alert alert = new Alert(type);
     alert.setTitle(titre);
@@ -118,22 +167,22 @@ public class main_controller {
     alert.showAndWait();
   }
 
-  /*boolean showConfirmation() {
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        int dialogResult = JOptionPane.showConfirmDialog(null, "Your Message", "Title on Box", dialogButton);
-        
-        if (dialogResult == 0) {
-          return true;
-        } else {
-            return false;
-        }
-    }*/
- /*@old-node_suggestion_start en construction*/
+  /*@old-node_suggestion_start en construction*/
+  /**
+   * Obtient le stage précédent
+   * 
+   * @return Le stage précédent
+   */
   Stage getPreviousStage() {
     return previousStage;
   }
 
   /*@old-node_suggestion Inverser la méthode pour qu'elle recherche le contrôleur correspondant à l'interface choisie*/
+  /**
+   * Méthode qui permet d'alterner la fenêtre vers une autre à l'aide du nom du controlleur
+   * 
+   * @param controllerFileName Nom du fichier du contrôleur ciblé
+   */
   void goToInteface(String controllerFileName/*, ElementInterface elem*/) {
     try {
       main_controller objectif;
@@ -198,7 +247,7 @@ public class main_controller {
       secondStage.show();
 
     } catch (IOException e) {
-      g.addMessageErreur("Mauvais format pour le nom de l'utilisateur");
+      g.addMessageErreur("Le format du nom des fichiers n'est pas suffisant.");
     }
   }
   /*@old-node_suggestion_end*/

@@ -28,7 +28,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * FXML Classe du Controlleur pour l'édition des bookmarks
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton

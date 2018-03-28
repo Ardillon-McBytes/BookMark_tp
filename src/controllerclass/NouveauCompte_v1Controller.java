@@ -30,7 +30,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * FXML Controller classe pour l'interface d'ajout d'un nouveau compte d'utilisateur
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton

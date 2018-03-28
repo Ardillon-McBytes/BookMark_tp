@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cour de la 4e session en Informatique de gestion  (420.AA)
+ * Programmation d'environnement graphique           (420-255-SH)
+ * Programmation d'environement de base de données   (420-276-SH)
+ * TP1 - Remise 2 - Gestionnaire de marquepage
  */
 package controllerclass;
 
@@ -32,9 +33,11 @@ import javafx.stage.Stage;
 import sqlclass.SimpleDataSource;
 
 /**
- * FXML Controller class
+ * FXML Classe du Controlleur pour l'ajout d'un bookmark
  *
- * @author moi
+ * @author Olivier Lemay Dostie
+ * @author Jean-Alain Sainton
+ * @version 1.0
  */
 public class AjoutBm_v1Controller extends main_controller implements Initializable {
 

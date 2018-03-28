@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 import sqlclass.SimpleDataSource;
 
 /**
- * FXML Controller class
+ * FXML Classe du Controlleur pour l'ajout d'un tag
  *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
