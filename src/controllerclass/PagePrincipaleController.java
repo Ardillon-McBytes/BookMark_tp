@@ -180,7 +180,7 @@ public class PagePrincipaleController extends main_controller implements Initial
           Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-          loadOneTag(TA_BM_Tag.getBmFromTag(G_Tag.getTag().getId()), G_Tag.getTag().getNom());
+          loadOneTag(TA_BM_Tag.getBmFromTag(G_Tag.getTag().getId()), newValue);
         } catch (SQLException ex) {
           Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -515,12 +515,7 @@ public class PagePrincipaleController extends main_controller implements Initial
 
   }
 
-  private void refreshPage(MouseEvent event) throws IOException, SQLException, ClassNotFoundException, Exception {
-    loadTag(g.getBookmarks());
-    loadPartage(g.getGroupbooks());
-    loadUserGroup();
-    loadUserShare();
-  }
+ 
 
   @FXML
   private void addUserBm(MouseEvent event) throws IOException {
@@ -583,7 +578,7 @@ public class PagePrincipaleController extends main_controller implements Initial
   private void showBmGroup(MouseEvent event) {
   }
 
-  private void add_share(MouseEvent event) throws IOException, SQLException {
+  private void add_share(MouseEvent event) throws IOException, SQLException, Exception {
 
     if (currentBm_id > 0) {
 
@@ -598,10 +593,7 @@ public class PagePrincipaleController extends main_controller implements Initial
 
       secondStage.setScene(scene);
       secondStage.showAndWait();
-      initListeTag();
-      initListeBm();
-      initBm();
-      initListePartage();
+     refresh();
     }
   }
 
@@ -731,13 +723,16 @@ public class PagePrincipaleController extends main_controller implements Initial
 
   @FXML
   private void refresh(MouseEvent event) throws SQLException, IOException, Exception {
+   refresh();
+  }
+
+    private void refresh() throws SQLException, IOException, Exception {
     loadTag(g.getBookmarks());
     loadPartage(g.getGroupbooks());
     loadUserGroup();
     loadUserShare();
     loadBookmark();
   }
-
   @FXML
   private void verifier_url(MouseEvent event) {
   }

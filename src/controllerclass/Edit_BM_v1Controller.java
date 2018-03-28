@@ -9,6 +9,7 @@ import applicationclass.Bookmark;
 import applicationclass.G_BM;
 import applicationclass.G_GB;
 import applicationclass.G_Tag;
+import applicationclass.Groupbook;
 import applicationclass.TA_BM_Tag;
 import applicationclass.TA_GB_BM;
 import applicationclass.Tag;
@@ -22,6 +23,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -57,6 +59,8 @@ public class Edit_BM_v1Controller implements Initializable {
     private TextField txt_tag;
     
     Bookmark old_bm = new Bookmark();
+    @FXML
+    private ComboBox<String> cb_group;
 
     /**
      * Initializes the controller class.
@@ -73,6 +77,15 @@ public class Edit_BM_v1Controller implements Initializable {
             txt_url.setText(G_BM.getBookMark().getUrl());
             Tag tag = G_Tag.getTagFromBm(id_bm);
             txt_tag.setText(tag.getNom());
+            
+            
+            for (int i = 0; i < g.getGroupbooks().size(); i++) {
+                String gb_name = G_GB.getGBName(g.getGroupbooks().get(i).getId());
+                cb_group.getItems().add(gb_name);
+                
+            }
+            
+            cb_group.setValue(TA_GB_BM.getNameGb(id_bm));
             
         } catch (SQLException ex) {
             Logger.getLogger(Edit_BM_v1Controller.class.getName()).log(Level.SEVERE, null, ex);
@@ -103,7 +116,7 @@ public class Edit_BM_v1Controller implements Initializable {
     }
     
     @FXML
-    private void editBookmark(MouseEvent event) throws SQLException {
+    private void editBookmark(MouseEvent event) throws SQLException, IOException, ClassNotFoundException {
         Bookmark bm = new Bookmark();
         bm.setNom(txt_nom_bm.getText());
         bm.setDescription(txt_description.getText());
@@ -130,6 +143,17 @@ public class Edit_BM_v1Controller implements Initializable {
         tag = G_Tag.getTagFromName(txt_tag.getText());
         TA_BM_Tag.addTagToBm(G_BM.getBookMark().getId(), tag.getId());
         
+        
+        
+        Groupbook gb = new Groupbook();
+        if (cb_group.getValue() != TA_GB_BM.getNameGb(old_bm.getId())) {
+           TA_GB_BM.editBmGroup(
+                   G_GB.getGBId(cb_group.getValue()),
+                   G_GB.getGBId(TA_GB_BM.getNameGb(old_bm.getId())),
+                  G_BM.getBookMark().getId());
+        }
+        gb.setId(G_GB.getGBId(cb_group.getValue()));
+       
         Stage stageTheLabelBelongs = (Stage) btnAnnuler.getScene().getWindow();
         stageTheLabelBelongs.hide();
     }
