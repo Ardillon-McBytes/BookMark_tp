@@ -62,6 +62,7 @@ public class G_BM {
    */
   public static Bookmark getBm(int id) throws SQLException {
     conn = SimpleDataSource.getConnection();
+    bm = new Bookmark();
     try {
 
       String query3 = "SELECT * "

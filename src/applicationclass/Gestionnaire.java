@@ -309,7 +309,9 @@ public class Gestionnaire extends main_controller {
    * @throws SQLException
    */
   public void loadUserGb() throws SQLException {
-    conn = SimpleDataSource.getConnection();
+  
+      g.getBookmarks().clear();
+      conn = SimpleDataSource.getConnection();
     groupbooks.clear();
     groupbooks.add(new Groupbook());
 

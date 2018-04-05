@@ -77,7 +77,7 @@ public class Edit_BM_v1Controller implements Initializable {
             txt_description.setText(G_BM.getBookMark().getDescription());
             txt_url.setText(G_BM.getBookMark().getUrl());
 
-            Tag tag = G_Tag.getTagFromBm(id_bm);
+            Tag tag = TA_BM_Tag.getTagFromBm(id_bm);
             txt_tag.setText(tag.getNom());
 
             for (int i = 0; i < g.getGroupbooks().size(); i++) {

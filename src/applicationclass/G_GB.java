@@ -306,9 +306,6 @@ public class G_GB {
     try {
       for (int i = 0; i < gb.size(); i++) {
 
-     
-       
-        
         ArrayList<Integer> users_id = TA_User_GB.getUserId(gb.get(i).getId());
         
         
@@ -365,7 +362,7 @@ public class G_GB {
             id_user = rs2.getInt(3);
             int id_default_Gb;
             String name = G_User.getUserName(id_user);
-            id_default_Gb = getGBDefaultFromUser(name);
+            id_default_Gb = getDefaultGbId(name);
             if (gb.get(i).getId() == id_default_Gb) {
               String query3 = "SELECT * "
                       + "FROM user "
@@ -401,28 +398,26 @@ public class G_GB {
    * @throws SQLException
    */
   static public ArrayList<Groupbook>
-          getGBFromUser(int userId) throws SQLException {
+          getGBFromUser(int userId) throws SQLException, IOException, ClassNotFoundException {
     Connection conn = SimpleDataSource.getConnection();
     ArrayList<Groupbook> list_gb = new ArrayList<Groupbook>();
+     ArrayList<Groupbook> list_gb2 = new ArrayList<Groupbook>();
     Groupbook gb = new Groupbook();
     try {
 
-      String query = "SELECT * "
-              + "FROM user_group "
-              + "WHERE id_user = ?";
-      PreparedStatement ps = conn.prepareStatement(query);
-      ps.setInt(1, userId);
-
-      ResultSet rs = ps.executeQuery();
+        list_gb2= TA_User_GB.getUserGroups(userId);
+     
       int nb = 0;
-      
-      while (rs.next()) {
+        for (int i = 0; i < list_gb2.size(); i++) {
+            
+       
         gb = new Groupbook();
-        gb.setId(rs.getInt(4));
+        gb.setId( list_gb2.get(i).getId());
 
         String query2 = "SELECT * "
                 + "FROM group_book "
                 + "WHERE id = ?";
+        
         PreparedStatement ps2 = conn.prepareStatement(query2);
         ps2.setInt(1, gb.getId());
 
@@ -451,13 +446,13 @@ public class G_GB {
    * @throws SQLException
    */
   static public int
-          getGBDefaultFromUser(String userName) throws SQLException {
+          getDefaultGbId(String userName) throws SQLException {
     Connection conn = SimpleDataSource.getConnection();
     Groupbook gb = new Groupbook();
     Bookmark bm;
     try {
 
-      String query = "SELECT * "
+      String query = "SELECT id "
               + "FROM group_book "
               + "WHERE nom = ?";
       PreparedStatement ps = conn.prepareStatement(query);
@@ -487,7 +482,7 @@ public class G_GB {
     Bookmark bm;
     try {
 
-      String query = "SELECT * "
+      String query = "SELECT id "
               + "FROM group_book "
               + "WHERE nom = ?";
       PreparedStatement ps = conn.prepareStatement(query);

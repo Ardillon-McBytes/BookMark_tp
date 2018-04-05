@@ -106,7 +106,7 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
         Connection conn = SimpleDataSource.getConnection();
         try {
 
-            String query = "SELECT * "
+            String query = "SELECT id_group "
                     + "FROM bookmark_group "
                     + "WHERE id_bookmark = ?";
             PreparedStatement ps = conn.prepareStatement(query);
@@ -114,7 +114,7 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                id_group = rs.getInt(2);
+                id_group = rs.getInt(1);
 
             }
 
@@ -124,11 +124,12 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
         }
         return id_group;
     }
-      static public int getIdGb(int id) throws SQLException {
+
+    static public int getIdGb(int id) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         try {
 
-            String query = "SELECT * "
+            String query = "SELECT id_group "
                     + "FROM bookmark_group "
                     + "WHERE id = ?";
             PreparedStatement ps = conn.prepareStatement(query);
@@ -136,7 +137,7 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                id_group = rs.getInt(2);
+                id_group = rs.getInt(1);
 
             }
 
@@ -146,7 +147,7 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
         }
         return id_group;
     }
-    
+
     static public int getIdBmFromGb(int id_gb) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         try {
@@ -170,9 +171,7 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
         return id_Bm;
     }
 
-    
-    
-     static public int getIdBm(int id) throws SQLException {
+    static public int getIdBm(int id) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         try {
 
@@ -194,6 +193,7 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
         }
         return id_Bm;
     }
+
     static public String getNameGb(int id_bm) throws SQLException {
 
         String name = "";
@@ -202,7 +202,7 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
         return name;
     }
 
-    static public int getId(int id_group, int id_bm) throws SQLException {
+    static public int getId(int id_gp, int id_bm) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         try {
 
@@ -211,7 +211,7 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
                     + "WHERE id_bookmark = ? AND id_group = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, id_bm);
-            ps.setInt(2, id_group);
+            ps.setInt(2, id_gp);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 id = rs.getInt(1);
@@ -227,7 +227,7 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
         return id;
     }
 
-    static public void editBmGroup(int id_newGroup , int id_oldGroup, int id_bm) throws SQLException {
+    static public void editBmGroup(int id_newGroup, int id_oldGroup, int id_bm) throws SQLException {
 
         Connection conn = SimpleDataSource.getConnection();
 
@@ -252,7 +252,7 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
         Connection conn = SimpleDataSource.getConnection();
         try {
 
-            String query = "SELECT * "
+            String query = "SELECT id_bookmark "
                     + "FROM bookmark_group "
                     + "WHERE id_group = ?";
             PreparedStatement ps = conn.prepareStatement(query);
@@ -260,24 +260,10 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int id_bm = rs.getInt(3);
+                int id_bm = rs.getInt(1);
 
-                String query2 = "SELECT * "
-                        + "FROM bookmark "
-                        + "WHERE id = ?";
-                PreparedStatement ps2 = conn.prepareStatement(query2);
-                ps2.setInt(1, id_bm);
-
-                ResultSet rs2 = ps2.executeQuery();
-                if (rs2.next()) {
-                    int id = rs2.getInt(1);
-                    String nom = rs2.getString(2);
-                    String description = rs2.getString(3);
-                    String url = rs2.getString(4);
-                    Bookmark bm = new Bookmark(id, nom, description, url);
-
-                    list_bm.addBookmark(bm);
-                }
+                bm = G_BM.getBm(id_bm);
+                list_bm.addBookmark(bm);
             }
 
         } finally {

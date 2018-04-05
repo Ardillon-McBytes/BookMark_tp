@@ -80,7 +80,7 @@ public class AjoutBm_v1Controller extends main_controller implements Initializab
         /* 
       Add Bm
          */
-        int id_Gb = G_GB.getGBDefaultFromUser(g.getUsagerActif().getNom());
+        int id_Gb = G_GB.getDefaultGbId(g.getUsagerActif().getNom());
         Bookmark bm = new Bookmark();
 
         if (TA_GB_BM.getId(G_BM.getBm(txt_nom_bm.getText()).getId(), id_Gb) < 1) {

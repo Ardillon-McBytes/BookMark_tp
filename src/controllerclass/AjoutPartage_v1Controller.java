@@ -83,7 +83,7 @@ public class AjoutPartage_v1Controller extends main_controller implements Initia
         int userId = User.getUserId(user_name.getText());
         if (userId > 0 && userId != g.getUsagerActif().getId()) {
 
-            int id_gb = G_GB.getGBDefaultFromUser(g.getUsagerActif().getNom());
+            int id_gb = G_GB.getDefaultGbId(g.getUsagerActif().getNom());
 
             TA_User_GB.addUserGroup(userId, id_gb);
 
