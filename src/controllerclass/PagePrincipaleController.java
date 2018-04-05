@@ -131,7 +131,7 @@ public class PagePrincipaleController extends main_controller implements Initial
         try {
             initListePartage();
             initListGb();
-        } catch (SQLException | IOException ex) {
+        } catch (SQLException | IOException | ClassNotFoundException ex) {
             Logger.getLogger(PagePrincipaleController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -164,7 +164,7 @@ public class PagePrincipaleController extends main_controller implements Initial
         });
     }
 
-    public void initListGb() throws SQLException, IOException {
+    public void initListGb() throws SQLException, IOException, ClassNotFoundException {
 
         list_Gb.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -203,7 +203,7 @@ public class PagePrincipaleController extends main_controller implements Initial
 
     }
 
-    public void initListePartage() throws SQLException, IOException {
+    public void initListePartage() throws SQLException, IOException, ClassNotFoundException {
         list_user.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -236,7 +236,7 @@ public class PagePrincipaleController extends main_controller implements Initial
 
     }
 
-    void loadUserShare() throws SQLException, IOException {
+    void loadUserShare() throws SQLException, IOException, ClassNotFoundException {
         ArrayList<User> users = new ArrayList<User>();
 
         users = G_GB.getUserFromGB(g.getGroupbooks());
@@ -253,7 +253,7 @@ public class PagePrincipaleController extends main_controller implements Initial
 
     }
 
-    void loadUserGroup() throws SQLException, IOException {
+    void loadUserGroup() throws SQLException, IOException, ClassNotFoundException {
         ArrayList<Groupbook> list_gb = new ArrayList<Groupbook>();
         list_gb = G_GB.getGBFromUser(g.getUsagerActif().getId());
         ObservableList items = list_Gb.getItems();

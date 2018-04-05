@@ -102,7 +102,7 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
 
     }
 
-    static public int getIdGb(int id_bm) throws SQLException {
+    static public int getIdGbFromBm(int id_bm) throws SQLException {
         Connection conn = SimpleDataSource.getConnection();
         try {
 
@@ -124,7 +124,76 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
         }
         return id_group;
     }
+      static public int getIdGb(int id) throws SQLException {
+        Connection conn = SimpleDataSource.getConnection();
+        try {
 
+            String query = "SELECT * "
+                    + "FROM bookmark_group "
+                    + "WHERE id = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                id_group = rs.getInt(2);
+
+            }
+
+        } finally {
+            conn.close();
+
+        }
+        return id_group;
+    }
+    
+    static public int getIdBmFromGb(int id_gb) throws SQLException {
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            String query = "SELECT id_bookmark "
+                    + "FROM bookmark_group "
+                    + "WHERE id_group = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id_gb);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                id_Bm = rs.getInt(1);
+
+            }
+
+        } finally {
+            conn.close();
+
+        }
+        return id_Bm;
+    }
+
+    
+    
+     static public int getIdBm(int id) throws SQLException {
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            String query = "SELECT id_bookmark "
+                    + "FROM bookmark_group "
+                    + "WHERE id = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                id_Bm = rs.getInt(1);
+
+            }
+
+        } finally {
+            conn.close();
+
+        }
+        return id_Bm;
+    }
     static public String getNameGb(int id_bm) throws SQLException {
 
         String name = "";
@@ -179,6 +248,7 @@ public class TA_GB_BM extends TABase<Groupbook, Bookmark, DBA<Groupbook, Bookmar
 
     static public Groupbook getBmFromGb(int id_group) throws SQLException {
         Groupbook list_bm = new Groupbook();
+        list_bm.setId(id_group);
         Connection conn = SimpleDataSource.getConnection();
         try {
 

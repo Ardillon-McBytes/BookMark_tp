@@ -300,45 +300,27 @@ public class G_GB {
    * @throws SQLException
    */
   static public ArrayList<User>
-          getUserFromGB(ArrayList<Groupbook> gb) throws SQLException {
+          getUserFromGB(ArrayList<Groupbook> gb) throws SQLException, IOException, ClassNotFoundException {
     conn = SimpleDataSource.getConnection();
     ArrayList<User> Ar_User = new ArrayList<>();
     try {
       for (int i = 0; i < gb.size(); i++) {
 
-        String query = "SELECT * "
-                + "FROM bookmark_group "
-                + "WHERE id_group = ?";
-        PreparedStatement ps = conn.prepareStatement(query);
-        ps.setInt(1, gb.get(i).getId());
-
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-          String query2 = "SELECT * "
-                  + "FROM user_group "
-                  + "WHERE id_groupBook = ?";
-          PreparedStatement ps2 = conn.prepareStatement(query2);
-          ps2.setInt(1, rs.getInt(2));
-
-          ResultSet rs2 = ps2.executeQuery();
-
-          while (rs2.next()) {
-
-            String query3 = "SELECT * "
-                    + "FROM user "
-                    + "WHERE id = ?";
-            PreparedStatement ps3 = conn.prepareStatement(query3);
-            ps3.setInt(1, rs2.getInt(3));
-
-            ResultSet rs3 = ps3.executeQuery();
-
-            if (rs3.next()) {
-              User user = new User();
-              user.setNom(rs3.getString(2));
-              Ar_User.add(user);
-            }
-          }
-        }
+     
+       
+        
+        ArrayList<Integer> users_id = TA_User_GB.getUserId(gb.get(i).getId());
+        
+        
+           for (int j = 0; j < users_id.size(); j++) {
+              
+               User user = new User();
+               user.setId(users_id.get(j));
+               user.setNom(G_User.getUserName(users_id.get(j)));
+               Ar_User.add(user);
+           }
+          
+        
       }
     } finally {
       conn.close();
@@ -433,6 +415,7 @@ public class G_GB {
 
       ResultSet rs = ps.executeQuery();
       int nb = 0;
+      
       while (rs.next()) {
         gb = new Groupbook();
         gb.setId(rs.getInt(4));
@@ -448,6 +431,7 @@ public class G_GB {
         while (rs2.next()) {
           gb.setId(rs2.getInt(1));
           gb = TA_GB_BM.getBmFromGb(gb.getId());
+          gb.setNom(rs2.getString(2));
           list_gb.add(gb);
         }
 

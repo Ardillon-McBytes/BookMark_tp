@@ -25,109 +25,151 @@ import sqlclass.SimpleDataSource;
  */
 public class TA_User_GB extends TABase<User, Groupbook, DBA<User, Groupbook>> {
 
-  /**
-   *
-   */
-  public TA_User_GB() {
-    TABase.constructor("user_group",
-            1, "id",
-            4, "id_user",
-            2, "id_groupBook");
-  }
-
-  /**
-   *
-   * @param id_user
-   * @param id_groupBook
-   * @throws IOException
-   * @throws SQLException
-   * @throws ClassNotFoundException
-   */
-  static public void deleteUserGroup(int id_user, int id_groupBook) throws IOException, SQLException, ClassNotFoundException {
-
-    Connection conn = SimpleDataSource.getConnection();
-    try {
-
-      PreparedStatement stat = conn.prepareStatement(
-              " DELETE FROM  `user_group` "
-              + "WHERE `id_user` = " + id_user + " AND `id_groupBook` = " + id_groupBook);
-
-      stat.executeUpdate();
-    } finally {
-      conn.close();
+    /**
+     *
+     */
+    public TA_User_GB() {
+        TABase.constructor("user_group",
+                1, "id",
+                4, "id_user",
+                2, "id_groupBook");
     }
 
-  }
+    /**
+     *
+     * @param id_user
+     * @param id_groupBook
+     * @throws IOException
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    static public void deleteUserGroup(int id_user, int id_groupBook) throws IOException, SQLException, ClassNotFoundException {
 
-  /**
-   *
-   * @param id_user
-   * @param id_groupBook
-   * @throws IOException
-   * @throws SQLException
-   * @throws ClassNotFoundException
-   */
-  static public void addUserGroup(int id_user, int id_groupBook) throws IOException, SQLException, ClassNotFoundException {
+        Connection conn = SimpleDataSource.getConnection();
+        try {
 
-    Connection conn = SimpleDataSource.getConnection();
+            PreparedStatement stat = conn.prepareStatement(
+                    " DELETE FROM  `user_group` "
+                    + "WHERE `id_user` = " + id_user + " AND `id_groupBook` = " + id_groupBook);
 
-    try {
-
-      PreparedStatement stat = conn.prepareStatement(
-              " INSERT INTO `user_group` (`id_user`, `id_groupBook`) "
-              + "VALUES ('" + id_user + "','"
-              + id_groupBook + "')");
-
-      stat.executeUpdate();
-
-    } finally {
-      conn.close();
+            stat.executeUpdate();
+        } finally {
+            conn.close();
+        }
 
     }
 
-  }
+    /**
+     *
+     * @param id_user
+     * @param id_groupBook
+     * @throws IOException
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    static public void addUserGroup(int id_user, int id_groupBook) throws IOException, SQLException, ClassNotFoundException {
 
-  /**
-   *
-   * @param id_user
-   * @return
-   * @throws IOException
-   * @throws SQLException
-   * @throws ClassNotFoundException
-   */
-  static public ArrayList<Groupbook> getUserGroups(int id_user) throws IOException, SQLException, ClassNotFoundException {
+        Connection conn = SimpleDataSource.getConnection();
 
-    ArrayList<Groupbook> gb = new ArrayList<>();
-    Connection conn = SimpleDataSource.getConnection();
-    try {
+        try {
 
-      String query = "SELECT * "
-              + "FROM user_group "
-              + "WHERE id_user = ?";
-      PreparedStatement ps = conn.prepareStatement(query);
-      ps.setInt(1, id_user);
+            PreparedStatement stat = conn.prepareStatement(
+                    " INSERT INTO `user_group` (`id_user`, `id_groupBook`) "
+                    + "VALUES ('" + id_user + "','"
+                    + id_groupBook + "')");
 
-      ResultSet rs = ps.executeQuery();
+            stat.executeUpdate();
 
-      G_BM G_BM = new G_BM();
-      int n = 0;
-      while (rs.next()) {
-        G_BM = new G_BM();
-        Groupbook gb2 = new Groupbook();
+        } finally {
+            conn.close();
 
-        // La méthode devrait retourner un ou plusieurs bookmarks selon son nom, mais elle est construite différament?
-        //gb2 = TA_GB_BM.getBmFromGb(rs.getInt(4));
-        gb.add(gb2);
-
-        n++;
-      }
-
-    } finally {
-      conn.close();
+        }
 
     }
 
-    return gb;
+    /**
+     *
+     * @param id_user
+     * @return
+     * @throws IOException
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    static public ArrayList<Groupbook> getUserGroups(int id_user) throws IOException, SQLException, ClassNotFoundException {
 
-  }
+        ArrayList<Groupbook> gb = new ArrayList<>();
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            String query = "SELECT * "
+                    + "FROM user_group "
+                    + "WHERE id_user = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id_user);
+
+            ResultSet rs = ps.executeQuery();
+
+            G_BM G_BM = new G_BM();
+            int n = 0;
+            while (rs.next()) {
+                G_BM = new G_BM();
+                Groupbook gb2 = new Groupbook();
+
+                // La méthode devrait retourner un ou plusieurs bookmarks selon son nom, mais elle est construite différament?
+                gb2 = TA_GB_BM.getBmFromGb(rs.getInt(4));
+                gb.add(gb2);
+
+                n++;
+            }
+
+        } finally {
+            conn.close();
+
+        }
+
+        return gb;
+
+    }
+
+    /**
+     *
+     * @param id_Gb
+     * @return
+     * @throws IOException
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    static public ArrayList<Integer> getUserId(int id_Gb) throws IOException, SQLException, ClassNotFoundException {
+
+        
+        
+        ArrayList<Integer> gb = new ArrayList<>();
+        Connection conn = SimpleDataSource.getConnection();
+        try {
+
+            String query = "SELECT id_user "
+                    + "FROM user_group "
+                    + "WHERE id_groupBook = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id_Gb);
+
+            ResultSet rs = ps.executeQuery();
+
+            
+            int n = 0;
+            while (rs.next()) {
+                  n++;
+                gb.add(rs.getInt(1));
+
+             
+            }
+
+        } finally {
+            conn.close();
+
+        }
+
+        return gb;
+
+    }
 }

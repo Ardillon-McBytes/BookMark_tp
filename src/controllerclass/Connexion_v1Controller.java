@@ -7,9 +7,7 @@
 package controllerclass;
 
 import applicationclass.G_User;
-import applicationclass.G_Validation;
 import applicationclass.User;
-import sqlclass.SimpleDataSource;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

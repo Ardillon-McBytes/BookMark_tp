@@ -201,8 +201,8 @@ public class G_User {
      *
      * @return Vrai si l'identifiant est valide
      */
-   static  public boolean validName() {
-        return user.getId() > 0;
+   static  public boolean validName() throws SQLException, IOException {
+        return (G_User.getUserId(user.getNom()).getId() > 0);
     }
 
     /**
