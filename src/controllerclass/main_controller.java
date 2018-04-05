@@ -22,7 +22,7 @@ import sqlclass.SimpleDataSource;
 
 /**
  * FXML Classe du Controlleur parente à tous les autres controlleurs
- * 
+ *
  * @author Olivier Lemay Dostie
  * @author Jean-Alain Sainton
  * @version 1.0
@@ -46,8 +46,9 @@ public class main_controller {
   protected static User user = new User();
 
   /**
-   * Valide si les informations de l'utilisateurs enregistré dans le gestionnaire sont valides
-   * 
+   * Valide si les informations de l'utilisateurs enregistré dans le
+   * gestionnaire sont valides
+   *
    * @return Vrai si le nom de l'utilisateur est présent dans la BD
    */
   boolean validUser() {
@@ -71,8 +72,8 @@ public class main_controller {
 
   /**
    * Change de stage par celui précédent
-   * 
-   * @param stage 
+   *
+   * @param stage
    */
   void setPrevStage(Stage stage) {
     prevStage = stage;
@@ -80,9 +81,9 @@ public class main_controller {
 
   /**
    * Procède à la fermeture de la page active
-   * 
-   * @param object 
-   * @throws Exception 
+   *
+   * @param object
+   * @throws Exception
    */
   void exitPage(Object object) throws Exception {
 
@@ -104,8 +105,8 @@ public class main_controller {
   }
 
   /**
-   * Affiche des messages 
-   * 
+   * Affiche des messages
+   *
    * @param var Message à afficher
    */
   void showMessages(String var) {
@@ -125,7 +126,7 @@ public class main_controller {
 
   /**
    * Affiche un message de confirmation
-   * 
+   *
    * @param var Message de confirmation
    */
   void showConfirmation(String var) {
@@ -142,7 +143,7 @@ public class main_controller {
 
   /**
    * Affiche des messages d'erreurs
-   * 
+   *
    * @param var Message d'erreur
    */
   void showAlert(String var) {
@@ -151,8 +152,9 @@ public class main_controller {
   }
 
   /**
-   * Procède à la création de la fenêtre d'affichage qui affiche les messages voulues
-   * 
+   * Procède à la création de la fenêtre d'affichage qui affiche les messages
+   * voulues
+   *
    * @param type Type de l'alerte de la fenêtre
    * @param titre Titre de la fenêtre
    * @param header Message suppérieur de la fenêtre
@@ -170,7 +172,7 @@ public class main_controller {
   /*@old-node_suggestion_start en construction*/
   /**
    * Obtient le stage précédent
-   * 
+   *
    * @return Le stage précédent
    */
   Stage getPreviousStage() {
@@ -179,8 +181,9 @@ public class main_controller {
 
   /*@old-node_suggestion Inverser la méthode pour qu'elle recherche le contrôleur correspondant à l'interface choisie*/
   /**
-   * Méthode qui permet d'alterner la fenêtre vers une autre à l'aide du nom du controlleur
-   * 
+   * Méthode qui permet d'alterner la fenêtre vers une autre à l'aide du nom du
+   * controlleur
+   *
    * @param controllerFileName Nom du fichier du contrôleur ciblé
    */
   void goToInteface(String controllerFileName/*, ElementInterface elem*/) {

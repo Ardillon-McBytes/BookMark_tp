@@ -162,6 +162,13 @@ public class G_User {
     return null;
   }
 
+  /**
+   *
+   * @param id
+   * @return
+   * @throws SQLException
+   * @throws IOException
+   */
   public static String getUserName(int id)
           throws SQLException, IOException {
 
